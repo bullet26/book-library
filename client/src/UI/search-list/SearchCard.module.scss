@@ -1,0 +1,26 @@
+@import '../../theme/variables.scss';
+
+.wrapper {
+  background-color: $bgc;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border-radius: 6px;
+  z-index: 3;
+  max-height: 90vh;
+  overflow: hidden;
+  @media (max-width: 568px) {
+    margin-right: 5px;
+    width: 85%;
+  }
+}
+
+.card {
+  cursor: pointer;
+  font-size: 14px;
+  padding: 15px;
+  color: $white;
+  &:hover {
+    background-color: $additional-light;
+  }
+}

@@ -1,0 +1,28 @@
+.wrapper {
+  cursor: pointer;
+  z-index: 5;
+  position: fixed;
+  opacity: 0;
+  top: 60px;
+  left: 20px;
+  @media (max-width: 568px) {
+    top: 60px;
+    right: 15px;
+    left: auto;
+  }
+}
+
+.show {
+  rotate: 180deg;
+  opacity: 1;
+  visibility: visible;
+  @media (max-width: 568px) {
+    display: none;
+  }
+}
+
+.return {
+  opacity: 1;
+  visibility: visible;
+  rotate: 90deg;
+}

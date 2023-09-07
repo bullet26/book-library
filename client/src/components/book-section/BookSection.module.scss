@@ -1,0 +1,49 @@
+@import '../../theme/variables.scss';
+
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  column-gap: 55px;
+}
+
+.imgWrapper {
+  max-width: 300px;
+}
+
+.titleWrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  &:before {
+    content: '';
+    position: absolute;
+    top: 9px;
+    display: block;
+    height: 1px;
+    width: 100%;
+    background-color: $bgc;
+    z-index: -1;
+  }
+}
+
+.title {
+  color: $lightgray;
+  font-size: 15px;
+  background-color: $dark;
+}
+
+.gridWrapper {
+  margin: 43px 0;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
+  row-gap: 40px;
+  @media (max-width: 568px) {
+    margin: 25px 0;
+    grid-template-columns: repeat(auto-fit, minmax(84px, 1fr));
+  }
+}
+
+.bookWrapper {
+  flex: 1;
+}

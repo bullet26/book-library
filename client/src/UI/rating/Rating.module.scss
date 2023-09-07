@@ -1,0 +1,22 @@
+@import '../../theme/variables.scss';
+
+.ratingCircle {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 30px;
+  color: $white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.ratingStar {
+  display: flex;
+  flex-direction: row;
+  column-gap: 5px;
+}
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}

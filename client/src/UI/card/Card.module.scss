@@ -1,0 +1,33 @@
+.wrapper {
+  width: 145px;
+  height: 340px;
+  img {
+    object-fit: cover;
+    height: 215px;
+  }
+
+  @media (max-width: 568px) {
+    width: 130px;
+    height: 305px;
+    img {
+      height: 193px;
+    }
+  }
+}
+
+.smallWrpper {
+  width: 104px;
+  height: 155px;
+  img {
+    object-fit: cover;
+    height: 155px;
+
+    @media (max-width: 568px) {
+      width: 84px;
+    }
+  }
+  @media (max-width: 568px) {
+    width: 84px;
+    height: 135px;
+  }
+}

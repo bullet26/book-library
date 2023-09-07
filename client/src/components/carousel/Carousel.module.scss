@@ -1,0 +1,39 @@
+@import '../../theme/variables.scss';
+
+.wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+  margin-bottom: 25px;
+}
+
+.title {
+  font-size: 18px;
+  color: $white;
+}
+.carouselContainer {
+  user-select: none;
+  max-width: 60vw;
+  @media (max-width: 568px) {
+    max-width: 77vw;
+  }
+}
+
+.dotListClass {
+  opacity: 0.2;
+  bottom: -25px;
+
+  &:hover {
+    animation-name: fadeIn;
+    animation-fill-mode: forwards;
+    animation-duration: 0.7s;
+  }
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    zoom: 1.2;
+  }
+}

@@ -1,0 +1,15 @@
+@import '../../theme/variables.scss';
+
+.wrapper {
+  position: absolute;
+  right: 20px;
+  row-gap: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 304px;
+  @media (max-width: 568px) {
+    width: 88vw;
+  }
+}

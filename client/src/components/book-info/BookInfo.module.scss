@@ -1,0 +1,21 @@
+@import '../../theme/variables.scss';
+
+.bookInfo {
+  padding: 26px 30px;
+  background-color: $bgc;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  row-gap: 12px;
+}
+
+.key {
+  color: $table-key;
+}
+
+.value {
+  color: $table-value;
+}
+
+.link {
+  cursor: pointer;
+}

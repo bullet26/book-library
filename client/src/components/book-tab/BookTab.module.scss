@@ -1,0 +1,13 @@
+@import '../../theme/variables.scss';
+
+.contentWrapper {
+  display: flex;
+  flex-direction: column;
+  row-gap: 25px;
+}
+
+.text {
+  color: $white;
+  opacity: 0.8;
+  font-size: 17px;
+}

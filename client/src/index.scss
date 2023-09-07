@@ -1,0 +1,38 @@
+@import './theme/variables.scss';
+
+body {
+  padding: 15px 45px;
+  margin: 0;
+  background-color: $dark;
+  /* width */
+  &::-webkit-scrollbar {
+    width: 15px;
+  }
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+    background-color: $dark-grey;
+  }
+
+  /* button */
+  &::-webkit-scrollbar-thumb {
+    background-color: $black;
+    outline: 1px solid $light;
+    border-radius: 10px;
+    &:hover {
+      background: $additional;
+      outline: 1px solid $black;
+    }
+  }
+}
+
+* {
+  user-select: text;
+
+  &::selection {
+    color: $additional-light;
+    background-color: $black;
+  }
+}
+
+// Note: The -webkit-scrollbar is not supported in Firefox or in Edge, prior version 79.
