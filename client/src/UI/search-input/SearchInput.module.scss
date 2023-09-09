@@ -1,7 +1,7 @@
 @import '../../theme/variables.scss';
 
 .inputWrapper {
-  z-index: 3;
+  z-index: 15;
   width: 100%;
   @media (max-width: 568px) {
     background-color: $dark;
@@ -12,7 +12,7 @@
 
 .input {
   width: 100%;
-  z-index: 3;
+  z-index: 15;
   @media (max-width: 568px) {
     width: 85%;
     input,

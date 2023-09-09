@@ -1,29 +1,27 @@
-import { FC, useState, useEffect } from 'react'
+import { useEffect, FC } from 'react'
 import { SearchOutlined, ArrowLeftOutlined } from '@ant-design/icons'
 import { Input } from 'antd'
 import s from './SearchInput.module.scss'
 
 interface SearchInputProps {
   onSearch: (searchString: string) => void
+  inputValue: string
+  showInputStatus: boolean
+  onIconClick: () => void
+  onChange: (value: string) => void
 }
 
+// eslint-disable-next-line react/display-name
 const SearchInput: FC<SearchInputProps> = (props) => {
-  const { onSearch } = props
+  const { onSearch, inputValue, onIconClick, onChange, showInputStatus } = props
 
   const { Search: AntSearch } = Input
+
   const windowWidth = window.innerWidth
-
-  const [showInputStatus, setShowInputStatus] = useState(windowWidth > 650)
-  const [inputValue, setInputValue] = useState('')
-
-  const handleIconClick = () => {
-    setShowInputStatus((prevState) => !prevState)
-  }
 
   useEffect(() => {
     const debounce = setTimeout(() => {
       if (inputValue) {
-        console.log(inputValue)
         onSearch(inputValue)
       }
     }, 500)
@@ -31,19 +29,15 @@ const SearchInput: FC<SearchInputProps> = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inputValue])
 
-  const onChange = (value: string) => {
-    setInputValue(value)
-  }
-
   return (
     <>
       {!showInputStatus && (
-        <SearchOutlined className={`${s.icon} ${s.searchIcon}`} onClick={handleIconClick} />
+        <SearchOutlined className={`${s.icon} ${s.searchIcon}`} onClick={onIconClick} />
       )}
 
       {showInputStatus && (
         <div className={s.inputWrapper}>
-          {windowWidth <= 550 && <ArrowLeftOutlined className={s.icon} onClick={handleIconClick} />}
+          {windowWidth <= 550 && <ArrowLeftOutlined className={s.icon} onClick={onIconClick} />}
           <AntSearch
             placeholder="input search text"
             value={inputValue}
