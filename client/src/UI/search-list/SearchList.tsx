@@ -16,12 +16,13 @@ const SearchList: FC<SearchListProps> = (props) => {
   const listRef = useRef(null)
 
   useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (e.target === listRef?.current) {
+    const handleClickOutside = (e: MouseEvent | Event) => {
+      if (e.target === listRef?.current || window.scrollY > 20) {
         handleWrapperClick()
       }
     }
     window.addEventListener('click', handleClickOutside)
+    window.addEventListener('scroll', handleClickOutside)
     return () => window.removeEventListener('click', handleClickOutside)
   }, [handleWrapperClick])
 

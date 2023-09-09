@@ -5,7 +5,6 @@ import { useLazyQuery } from '@apollo/client'
 import { SEARCH_IN_BOOKS_AND_AUTHORS } from 'apollo/search'
 import { Search as ISearch } from 'types'
 import { SearchInput, SearchList } from 'UI'
-import s from './Search.module.scss'
 
 interface ISearchSuccess {
   search: ISearch[]
@@ -49,7 +48,7 @@ const Search: FC = () => {
   }
 
   return (
-    <div className={s.wrapper}>
+    <>
       <SearchInput
         onSearch={handleSearch}
         inputValue={inputValue}
@@ -64,7 +63,7 @@ const Search: FC = () => {
           handleWrapperClick={hideSearchResultList}
         />
       )}
-    </div>
+    </>
   )
 }
 
