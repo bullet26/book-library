@@ -2,7 +2,7 @@ import { FC } from 'react'
 import { useQuery } from '@apollo/client'
 import { useSearchParams } from 'react-router-dom'
 import { CardListBooksByDate } from 'components'
-import { Loader, Pagination } from 'UI'
+import { Loader, Pagination, Error } from 'UI'
 import { ReadDateBook } from 'types'
 import { ALL_BOOKS_BY_DATE } from 'apollo'
 import s from './BooksByDate.module.scss'
@@ -28,26 +28,30 @@ const BooksByDate: FC = () => {
     setSearchParams({ page: String(current), perpage: String(pageSize) })
   }
 
-  return !loading ? (
-    <div className={s.wrapper}>
-      <Pagination
-        current={Number(searchParams.get('page'))}
-        pageSize={Number(searchParams.get('perpage'))}
-        total={totalCount || 0}
-        perPageRange={[20, 50, 100, 200]}
-        handleSubmit={handleSubmit}
-      />
-      <CardListBooksByDate data={books || []} />
-      <Pagination
-        current={Number(searchParams.get('page'))}
-        pageSize={Number(searchParams.get('perpage'))}
-        total={totalCount || 0}
-        perPageRange={[20, 50, 100, 200]}
-        handleSubmit={handleSubmit}
-      />
-    </div>
-  ) : (
-    <Loader />
+  return (
+    <>
+      {!!loading && <Loader />}
+      {!!error && <Error message={error?.message} />}
+      {!!data && (
+        <div className={s.wrapper}>
+          <Pagination
+            current={Number(searchParams.get('page'))}
+            pageSize={Number(searchParams.get('perpage'))}
+            total={totalCount || 0}
+            perPageRange={[20, 50, 100, 200]}
+            handleSubmit={handleSubmit}
+          />
+          <CardListBooksByDate data={books || []} />
+          <Pagination
+            current={Number(searchParams.get('page'))}
+            pageSize={Number(searchParams.get('perpage'))}
+            total={totalCount || 0}
+            perPageRange={[20, 50, 100, 200]}
+            handleSubmit={handleSubmit}
+          />
+        </div>
+      )}
+    </>
   )
 }
 

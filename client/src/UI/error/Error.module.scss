@@ -1,0 +1,30 @@
+@import '../../theme/variables.scss';
+
+.wrapper {
+  height: 80vh;
+  width: 90vw;
+  display: flex;
+  flex-direction: column;
+  row-gap: 25px;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+  }
+
+  @media (max-width: 568px) {
+    height: 70vh;
+    width: 80vw;
+  }
+}
+
+.text {
+  color: $error;
+  font-size: 52px;
+  @media (max-width: 568px) {
+    font-size: 37px;
+  }
+}

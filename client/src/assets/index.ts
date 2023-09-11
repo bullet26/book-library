@@ -1,6 +1,7 @@
 import mainImage from './bg_noir.jpg'
+import errorImg from './reaper-reading-book.jpg'
 
-export { mainImage }
+export { mainImage, errorImg }
 
 export { ReactComponent as Book } from './book-cover.svg'
 export { ReactComponent as Tick } from './tick-icon.svg'

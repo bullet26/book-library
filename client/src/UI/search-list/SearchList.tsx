@@ -14,6 +14,7 @@ interface SearchListProps {
 const SearchList: FC<SearchListProps> = (props) => {
   const { data = [], onClick, handleWrapperClick } = props
   const listRef = useRef(null)
+  const hasScrollbar = document.body.offsetHeight > window.innerHeight
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent | Event) => {
@@ -28,7 +29,7 @@ const SearchList: FC<SearchListProps> = (props) => {
 
   return (
     <div className={s.wrapper} ref={listRef}>
-      <div className={s.cardList}>
+      <div className={`${s.cardList} ${hasScrollbar && s.withScrollbar}`}>
         {data.map((item) => (
           <SearchCard
             key={item.id}

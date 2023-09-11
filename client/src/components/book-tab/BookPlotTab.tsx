@@ -18,15 +18,16 @@ const BookPlotTab: FC = () => {
 
   const plot = data?.book?.plot
 
-  return !loading ? (
-    plot ? (
-      // eslint-disable-next-line react/no-danger
-      <div className={s.text} dangerouslySetInnerHTML={{ __html: plot as TrustedHTML }} />
-    ) : (
-      <span>add plot someday</span>
-    )
-  ) : (
-    <div>Loading..</div>
+  return (
+    <>
+      {!!loading && <div>Loading..</div>}
+      {!!error && <div>{error?.message}</div>}
+      {plot ? ( // eslint-disable-next-line react/no-danger
+        <div className={s.text} dangerouslySetInnerHTML={{ __html: plot as TrustedHTML }} />
+      ) : (
+        <span>add plot someday</span>
+      )}
+    </>
   )
 }
 
