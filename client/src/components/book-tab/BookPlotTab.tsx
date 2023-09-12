@@ -22,11 +22,10 @@ const BookPlotTab: FC = () => {
     <>
       {!!loading && <div>Loading..</div>}
       {!!error && <div>{error?.message}</div>}
-      {plot ? ( // eslint-disable-next-line react/no-danger
+      {plot && ( // eslint-disable-next-line react/no-danger
         <div className={s.text} dangerouslySetInnerHTML={{ __html: plot as TrustedHTML }} />
-      ) : (
-        <span>add plot someday</span>
       )}
+      {!loading && !plot && <span>add plot someday</span>}
     </>
   )
 }

@@ -1,13 +1,19 @@
 @import '../../theme/variables.scss';
 
 .wrapper {
-  height: 80vh;
-  width: 90vw;
+  height: 100vh;
+  width: 100vw;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  position: fixed;
   display: flex;
   flex-direction: column;
   row-gap: 25px;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
+  background-color: $bgc;
 
   img {
     width: 250px;

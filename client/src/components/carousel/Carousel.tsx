@@ -1,11 +1,13 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import { FC, useRef } from 'react'
+import { FC, useState, useRef, RefObject } from 'react'
 import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
+import { Slider as InputRange } from 'antd'
 import { useNavigate } from 'react-router-dom'
 import { Card } from 'UI'
 import { Book } from 'types'
+import { settings, GetSlidesToShow } from './utils'
 import s from './Carousel.module.scss'
 
 interface CarouselProps {
@@ -15,52 +17,26 @@ interface CarouselProps {
 
 const Carousel: FC<CarouselProps> = (props) => {
   const { data, title } = props
+  const [slideIndex, setSlideIndex] = useState(0)
+  const slidesToShow = GetSlidesToShow()
 
   const navigte = useNavigate()
+  const sliderRef: RefObject<Slider> = useRef(null)
 
   const handleClick = (id?: string) => {
     const path = window.location.pathname.split('/').at(1)
     navigte(`/${path}/${id}`)
   }
 
-  const settings = {
-    arrows: false,
-    infinite: false,
-    speed: 500,
-    slidesToShow: 6,
-    slidesToScroll: 6,
-    initialSlide: 0,
-    className: s.carouselContainer,
-    responsive: [
-      {
-        breakpoint: 920,
-        settings: {
-          slidesToShow: 4,
-          slidesToScroll: 4,
-        },
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
-          initialSlide: 3,
-        },
-      },
-      {
-        breakpoint: 379,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-        },
-      },
-    ],
-  }
-
   return (
     <div className={s.wrapper}>
       <div className={s.title}>{title}</div>
-      <Slider {...settings}>
+
+      <Slider
+        {...settings}
+        beforeChange={(current, next) => setSlideIndex(next)}
+        className={s.carouselContainer}
+        ref={sliderRef}>
         {data.map((item) => {
           return (
             <Card
@@ -74,6 +50,16 @@ const Carousel: FC<CarouselProps> = (props) => {
           )
         })}
       </Slider>
+      {data.length > slidesToShow && (
+        <InputRange
+          defaultValue={0}
+          value={slideIndex}
+          min={0}
+          max={data.length - slidesToShow}
+          tooltip={{ formatter: null }}
+          onChange={(value) => sliderRef?.current?.slickGoTo(value)}
+        />
+      )}
     </div>
   )
 }

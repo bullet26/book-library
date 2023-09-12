@@ -1,7 +1,7 @@
 const SearchResult = {
     __resolveType(obj, contextValue, info) {
         // Only Author has a name field
-        if (obj.name) {
+        if (obj.surname || obj.name) {
             return 'Author';
         }
         // Only Book has a title field

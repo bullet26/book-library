@@ -7,7 +7,6 @@ const search = async (_, args) => {
     try {
         const books = await BooksModel.find({ title: regexp }).limit(15);
         const authors = await AuthorModel.find({ $or: [{ surname: regexp }, { name: regexp }, { transcriptionName: regexp }] }).limit(15);
-
         return [...books, ...authors];
     } catch (error) {
         throw new Error('Couldn`t find author or book');
