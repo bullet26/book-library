@@ -1,0 +1,19 @@
+.wrapper {
+  img {
+    object-fit: cover;
+    width: 85vw;
+    height: 550px;
+  }
+}
+
+.pieWrapper {
+  margin-top: 35px;
+  display: grid;
+  grid-template-columns: repeat(2, 0.5fr);
+  grid-template-rows: 250px;
+  column-gap: 30px;
+  @media (max-width: 400px) {
+    grid-template-columns: 1fr;
+    grid-template-rows: 370px 420px;
+  }
+}

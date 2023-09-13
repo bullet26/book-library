@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import { useQuery } from '@apollo/client'
 import { Plot } from 'types'
 import { ONE_BOOK_PLOT } from 'apollo'
+import { Error } from 'UI'
 import s from './BookTab.module.scss'
 
 interface PlotQuery {
@@ -21,7 +22,7 @@ const BookPlotTab: FC = () => {
   return (
     <>
       {!!loading && <div>Loading..</div>}
-      {!!error && <div>{error?.message}</div>}
+      {!!error && <Error message={error?.message} />}
       {plot && ( // eslint-disable-next-line react/no-danger
         <div className={s.text} dangerouslySetInnerHTML={{ __html: plot as TrustedHTML }} />
       )}

@@ -1,5 +1,5 @@
 import { Route, Routes } from 'react-router-dom'
-import { MainPage, BooksByDate, Authors, Book, Home, Author } from 'pages'
+import { MainPage, BooksByDate, Authors, Book, Home, Author, Page404 } from 'pages'
 
 const AppRoutes = () => {
   return (
@@ -11,6 +11,7 @@ const AppRoutes = () => {
         <Route path="authors" element={<Authors />} />
         <Route path="authors/:id" element={<Author />} />
       </Route>
+      <Route path="*" element={<Page404 />} />
     </Routes>
   )
 }

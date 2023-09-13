@@ -1,0 +1,35 @@
+@import '../../theme/variables.scss';
+
+.wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+  background-color: $black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  img {
+    object-fit: cover;
+    width: 50vw;
+  }
+}
+
+.link {
+  color: #700b0f;
+  font-size: 50px;
+  text-transform: uppercase;
+  text-decoration: none;
+  position: absolute;
+  bottom: 18vh;
+  right: 19vw;
+  @media (max-width: 568px) {
+    position: relative;
+    bottom: auto;
+    right: auto;
+    font-size: 25px;
+  }
+}

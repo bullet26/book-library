@@ -1,0 +1,12 @@
+@import '../../theme/variables.scss';
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
+}
+
+.title {
+  font-size: 30px;
+  color: $table-value;
+}
