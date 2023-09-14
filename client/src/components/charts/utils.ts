@@ -5,7 +5,7 @@ export const COLORS = [
   '#9EDAE5',
   '#63707D',
   '#BDBDBD',
-  '#393939',
+  '#F9F9F9',
   '#7B7B7B',
   '#3182BD',
   '#6BAED6',
@@ -21,4 +21,13 @@ export const handleResponsive = () => {
     return { inner: 65, outer: 80 }
   }
   return { inner: 40, outer: 65 }
+}
+
+export const checkEmptyPeriod = (data: { period: string; count: number }[]) => {
+  new Array(12).fill(1).map((_, i) => {
+    if (data[i].period !== String(i + 1)) {
+      return { period: i + 1, count: 0 }
+    }
+    return data[i]
+  })
 }

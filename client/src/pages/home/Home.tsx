@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import { mainImage } from 'assets'
-import { ChartAuthor, ChartBook } from 'components'
+import { ChartAuthor, ChartBook, ChartYears } from 'components'
 import s from './Home.module.scss'
 
 const Home: FC = () => {
@@ -11,6 +11,7 @@ const Home: FC = () => {
         <ChartBook />
         <ChartAuthor />
       </div>
+      <ChartYears />
     </div>
   )
 }

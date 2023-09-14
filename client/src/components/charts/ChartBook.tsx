@@ -31,7 +31,7 @@ const ChartBook: FC = () => {
   return (
     <div className={s.wrapper}>
       <div className={s.title}>MOST READED BOOKS</div>
-      {!!loading && <div>Loading..</div>}
+      {!!loading && <div className={s.loading}>Loading..</div>}
       {!!error && <Error message={error?.message} />}
       {!!chartData.length && <DiagramPie chartData={chartData} />}
     </div>

@@ -6,7 +6,22 @@
   row-gap: 15px;
 }
 
+.barwrapper {
+  width: 90%;
+  height: 500px;
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 25px;
+}
+
 .title {
   font-size: 30px;
   color: $table-value;
+  text-transform: uppercase;
+}
+
+.loading {
+  font-size: 20px;
+  color: $white;
 }

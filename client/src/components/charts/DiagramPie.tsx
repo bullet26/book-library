@@ -1,7 +1,6 @@
 import { FC, useEffect, useState } from 'react'
 import { PieChart, ResponsiveContainer, Pie, Cell, Tooltip, Legend } from 'recharts'
 import { COLORS, handleResponsive } from './utils'
-import s from './Chart.module.scss'
 
 interface DiagrmPieProps {
   chartData: { name: string; count: number }[]
@@ -15,8 +14,6 @@ const DiagramPie: FC<DiagrmPieProps> = (props) => {
   useEffect(() => {
     setRadius(handleResponsive())
   }, [])
-
-  console.log(chartData)
 
   return (
     <ResponsiveContainer height="100%" width="100%">
