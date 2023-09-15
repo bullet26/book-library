@@ -1,14 +1,5 @@
-import { FC, useEffect, useState } from 'react'
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from 'recharts'
+import { FC } from 'react'
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
 
 interface DiagramBarProps {
   chartData: { period: string; count: number }[]
@@ -16,11 +7,11 @@ interface DiagramBarProps {
 
 const DiagramBar: FC<DiagramBarProps> = (props) => {
   const { chartData } = props
-  console.log(chartData)
 
   return (
-    <ResponsiveContainer width="100%" height="100%">
-      <BarChart width={500} height={300} data={chartData}>
+    <ResponsiveContainer width="95%" height="100%">
+      <BarChart data={chartData}>
+        <CartesianGrid stroke="#414951" strokeDasharray="25 25" />
         <XAxis dataKey="period" />
         <YAxis />
         <Tooltip />

@@ -23,11 +23,16 @@ export const handleResponsive = () => {
   return { inner: 40, outer: 65 }
 }
 
-export const checkEmptyPeriod = (data: { period: string; count: number }[]) => {
-  new Array(12).fill(1).map((_, i) => {
-    if (data[i].period !== String(i + 1)) {
-      return { period: i + 1, count: 0 }
+type ArrD = { period: string; count: number }[]
+export const checkEmptyPeriod = (data: ArrD) => {
+  const consistArr = data.map(({ period }) => period)
+  const additionalArrr: ArrD = []
+
+  new Array(12).fill(1).forEach((_, i) => {
+    if (!consistArr.includes(String(i + 1))) {
+      additionalArrr.push({ count: 0, period: String(i + 1) })
     }
-    return data[i]
   })
+
+  return [...data, ...additionalArrr].sort((a, b) => Number(a.period) - Number(b.period))
 }
