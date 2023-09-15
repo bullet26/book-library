@@ -4,17 +4,17 @@ import { Card } from 'UI'
 import { ReadDateBook } from 'types'
 import s from './CardList.module.scss'
 
-interface CardListBooksByDateProps {
+interface CardListBooksProps {
   data: ReadDateBook[]
 }
 
-const CardListBooksByDate: FC<CardListBooksByDateProps> = (props) => {
+const CardListBooks: FC<CardListBooksProps> = (props) => {
   const { data } = props
   const navigate = useNavigate()
 
   const handleClick = (id?: string) => {
     if (id) {
-      navigate(`${id}`)
+      navigate(`/books/${id}`)
     }
   }
 
@@ -22,7 +22,7 @@ const CardListBooksByDate: FC<CardListBooksByDateProps> = (props) => {
     <div className={s.wrpper}>
       {data?.map(({ id, books }, i) => (
         <Card
-          key={books.id}
+          key={id}
           id={books.id}
           img={books.bookCover}
           title={books.title}
@@ -34,4 +34,4 @@ const CardListBooksByDate: FC<CardListBooksByDateProps> = (props) => {
   )
 }
 
-export default CardListBooksByDate
+export default CardListBooks

@@ -52,3 +52,20 @@ export const ONE_BOOK_PLOT = gql`
     }
   }
 `
+export const ALL_BOOKS_BY_SPECIFIC_DATE = gql`
+  query GetAllBooksBySpecificDate($year: Int) {
+    bookInYear: getAllBooksBySpecificDate(year: $year) {
+      books {
+        id: _id
+        title
+        bookCover
+        author {
+          surname
+          name
+        }
+      }
+      readEnd
+      id: _id
+    }
+  }
+`

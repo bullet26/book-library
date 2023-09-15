@@ -14,7 +14,7 @@ const CardListAuthors: FC<CardListAuthorsProps> = (props) => {
 
   const handleClick = (id?: string) => {
     if (id) {
-      navigate(`${id}`)
+      navigate(`/authors/${id}`)
     }
   }
 

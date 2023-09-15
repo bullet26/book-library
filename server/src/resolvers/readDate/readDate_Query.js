@@ -16,4 +16,20 @@ const getAllBooksByDate = async (_, args) => {
     }
 };
 
-export const ReadDateQuery = { getAllBooksByDate };
+const getAllBooksBySpecificDate = async (_, args) => {
+    try {
+        const { year } = args;
+
+        const books = await ReadDateModel.find({
+            readEnd: {
+                $gte: new Date(`${year}-01-01`),
+                $lt: new Date(`${year + 1}-01-01`),
+            },
+        }).sort({ readEnd: 1 });
+        return books;
+    } catch (error) {
+        throw new Error('Couldn`t get books');
+    }
+};
+
+export const ReadDateQuery = { getAllBooksByDate, getAllBooksBySpecificDate };

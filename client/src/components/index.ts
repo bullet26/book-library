@@ -1,4 +1,4 @@
-export { CardListBooksByDate, CardListAuthors } from './card-list'
+export { CardListBooks, CardListAuthors } from './card-list'
 export { NavigationHeader } from './navigation-heder'
 export { BookInfo } from './book-info'
 export { Carousel } from './carousel'

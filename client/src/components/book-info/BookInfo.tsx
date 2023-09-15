@@ -11,8 +11,12 @@ const BookInfo: FC<BookInfoProps> = (props) => {
   const { data } = props
   const navigate = useNavigate()
 
-  const handleClick = (id?: string) => {
+  const handleClickAuthor = (id?: string) => {
     !!id && navigate(`/authors/${id}`)
+  }
+
+  const handleClickDate = (year?: string) => {
+    !!year && navigate(`/date/${year}`)
   }
 
   return (
@@ -21,15 +25,19 @@ const BookInfo: FC<BookInfoProps> = (props) => {
       <div
         className={`${s.value} ${s.link}`}
         onClick={() => {
-          handleClick(data?.book.author.id)
+          handleClickAuthor(data?.book.author.id)
         }}>
         {data?.book.author.name} {data?.book.author.surname}
       </div>
       <div className={s.key}>read date</div>
-      <div className={s.value}>
+      <div className={`${s.value} ${s.link}`}>
         {data?.book.readDate?.map(({ readEnd }, i) => {
           return (
-            <div key={i}>
+            <div
+              key={i}
+              onClick={() => {
+                handleClickDate(readEnd.year)
+              }}>
               {readEnd.day} {readEnd.month}, {readEnd.year}
             </div>
           )

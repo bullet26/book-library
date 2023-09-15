@@ -1,0 +1,13 @@
+@import '../../theme/variables.scss';
+
+.wrapper {
+  height: 32px;
+  padding: 0 10px;
+  width: 100%;
+  background-color: $bgc;
+  font-size: 16px;
+  text-align: start;
+  color: $table-value;
+  display: flex;
+  align-items: center;
+}

@@ -1,20 +1,20 @@
 import { FC } from 'react'
 import { useQuery } from '@apollo/client'
 import { useSearchParams } from 'react-router-dom'
-import { CardListBooksByDate } from 'components'
+import { CardListBooks } from 'components'
 import { Loader, Pagination, Error } from 'UI'
 import { ReadDateBook } from 'types'
 import { ALL_BOOKS_BY_DATE } from 'apollo'
-import s from './BooksByDate.module.scss'
+import s from './Books.module.scss'
 
-interface BooksByDateQuery {
+interface BooksQuery {
   getAllBooksByDate: { readDate: ReadDateBook[]; totalCount: number }
 }
 
 const BooksByDate: FC = () => {
   const [searchParams, setSearchParams] = useSearchParams()
 
-  const { loading, error, data } = useQuery<BooksByDateQuery>(ALL_BOOKS_BY_DATE, {
+  const { loading, error, data } = useQuery<BooksQuery>(ALL_BOOKS_BY_DATE, {
     variables: {
       page: Number(searchParams.get('page')) || 1,
       limit: Number(searchParams.get('perpage')) || 50,
@@ -41,7 +41,7 @@ const BooksByDate: FC = () => {
             perPageRange={[20, 50, 100, 200]}
             handleSubmit={handleSubmit}
           />
-          <CardListBooksByDate data={books || []} />
+          <CardListBooks data={books || []} />
           <Pagination
             current={Number(searchParams.get('page'))}
             pageSize={Number(searchParams.get('perpage'))}
