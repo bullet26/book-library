@@ -6,8 +6,15 @@
   width: 100%;
   background-color: $bgc;
   font-size: 16px;
-  text-align: start;
   color: $table-value;
   display: flex;
+  justify-content: start;
   align-items: center;
+}
+
+.main {
+  background-color: $black;
+  font-size: 26px;
+  justify-content: center;
+  color: $white;
 }
