@@ -1,1 +1,1 @@
-export type { Search } from './Search'
+export type { Search, IStatistic } from './Search'

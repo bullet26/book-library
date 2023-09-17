@@ -20,7 +20,7 @@ const CardListBooks: FC<CardListBooksProps> = (props) => {
 
   return (
     <div className={s.wrpper}>
-      {data?.map(({ id, books }, i) => (
+      {data?.map(({ id, books }) => (
         <Card
           key={id}
           id={books.id}

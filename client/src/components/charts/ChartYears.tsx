@@ -3,14 +3,10 @@ import { READ_STATISTIC } from 'apollo'
 import { useLazyQuery } from '@apollo/client'
 import type { RadioChangeEvent } from 'antd'
 import { DiagramBar } from 'components'
+import { IStatistic } from 'types'
 import { Error, RadioGroup } from 'UI'
 import { checkEmptyPeriod } from './utils'
 import s from './Chart.module.scss'
-
-interface IStatistic {
-  period: string
-  count: number
-}
 
 const ChartYears: FC = () => {
   const [label, setLabel] = useState<'all' | 'year'>('all')

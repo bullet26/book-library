@@ -1,7 +1,7 @@
 import { FC, Fragment, useEffect, useState } from 'react'
 import { useQuery } from '@apollo/client'
 import { useParams } from 'react-router-dom'
-import { CardListBooks } from 'components'
+import { CardListBooks, YearSelect } from 'components'
 import { Loader, Error, DateDivider } from 'UI'
 import { ReadDateBook } from 'types'
 import { ALL_BOOKS_BY_SPECIFIC_DATE } from 'apollo'
@@ -25,7 +25,7 @@ const BooksByDate: FC = () => {
   const [formattedBooks, setFormattedBooksState] = useState<FormattedBook>([])
 
   useEffect(() => {
-    if (data?.bookInYear) {
+    if (data?.bookInYear?.length) {
       const booksData = data?.bookInYear
       let currentMonth = booksData[0].readEnd.month
       let arr: ReadDateBook[] = []
@@ -52,15 +52,16 @@ const BooksByDate: FC = () => {
       {!!error && <Error message={error?.message} />}
       {!!data && (
         <div className={s.wrapper}>
+          <YearSelect year={year} />
           <DateDivider message={String(year)} type="main" />
           {formattedBooks?.map((item) => {
             const currentMonth = Object.keys(item)[0]
             const books = item[currentMonth]
             return (
-              <>
-                <DateDivider message={currentMonth} key={currentMonth} />
-                <CardListBooks data={books || []} key={books[0].id} />
-              </>
+              <Fragment key={currentMonth}>
+                <DateDivider message={currentMonth} />
+                <CardListBooks data={books || []} />
+              </Fragment>
             )
           })}
         </div>

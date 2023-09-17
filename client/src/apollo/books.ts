@@ -4,6 +4,7 @@ export const ALL_BOOKS_BY_DATE = gql`
   query GetAllBooksByDate($page: Int, $limit: Int) {
     getAllBooksByDate(page: $page, limit: $limit) {
       readDate {
+        id: _id
         books {
           id: _id
           title
