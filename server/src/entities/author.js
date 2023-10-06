@@ -17,9 +17,10 @@ const typeAuthor = `
   }
   "data for add author"
   input AuthorInput {
-    name: String!
-    surname: String
+    name: String
+    surname: String!
     portrait: String
+    transcriptionName: String
 }
   `;
 

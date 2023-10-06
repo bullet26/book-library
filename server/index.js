@@ -1,11 +1,11 @@
 import { ApolloServer } from '@apollo/server';
 import { expressMiddleware } from '@apollo/server/express4';
 import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer';
-import graphqlUploadExpress from 'graphql-upload/graphqlUploadExpress.mjs';
 import express from 'express';
 import http from 'http';
 import cors from 'cors';
 import bodyParser from 'body-parser';
+import { router } from './src/api/router.js';
 import { typeDefs } from './src/entities/typeDefs.js';
 import { rootResolver } from './src/resolvers/root.js';
 
@@ -26,8 +26,8 @@ await server.start();
 app.use(
     '/',
     cors(),
-    bodyParser.json({ limit: '50mb' }),
-    graphqlUploadExpress({ maxFileSize: 50000000, maxFiles: 10 }),
+    router,
+    bodyParser.json(),
     expressMiddleware(server, {
         context: async ({ req }) => ({ req, dataloaders: new WeakMap() }),
     })
