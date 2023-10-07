@@ -2,7 +2,7 @@ import { FC, Fragment, useEffect, useState } from 'react'
 import { useQuery } from '@apollo/client'
 import { useParams } from 'react-router-dom'
 import { CardListBooks, YearSelect } from 'components'
-import { Loader, Error, DateDivider } from 'UI'
+import { Loader, Error, DateDivider, Button } from 'UI'
 import { ReadDateBook } from 'types'
 import { ALL_BOOKS_BY_SPECIFIC_DATE } from 'apollo'
 import s from './BooksByDate.module.scss'
@@ -15,6 +15,7 @@ type FormattedBook = { [x: string]: ReadDateBook[] }[]
 
 const BooksByDate: FC = () => {
   const { year } = useParams()
+  const windowWidth = window.innerWidth
 
   const { loading, error, data } = useQuery<BooksByDateQuery>(ALL_BOOKS_BY_SPECIFIC_DATE, {
     variables: {
@@ -52,7 +53,10 @@ const BooksByDate: FC = () => {
       {!!error && <Error message={error?.message} />}
       {!!data && (
         <div className={s.wrapper}>
-          <YearSelect year={year} />
+          <div className={s.innerWrapper}>
+            <YearSelect year={year} />
+            {windowWidth < 729 && <Button />}
+          </div>
           <DateDivider message={String(year)} type="main" />
           {formattedBooks?.map((item) => {
             const currentMonth = Object.keys(item)[0]

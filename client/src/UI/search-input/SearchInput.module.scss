@@ -38,3 +38,16 @@
   padding: 3px;
   align-self: flex-start;
 }
+
+.inputForm {
+  position: relative;
+  width: 100%;
+}
+.error {
+  position: absolute;
+  bottom: -15px;
+  left: 12px;
+  text-align: left;
+  font-size: 11px;
+  color: $error;
+}

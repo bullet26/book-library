@@ -27,6 +27,15 @@
   }
 }
 
+.formCardList {
+  background-color: $bgc;
+  display: flex;
+  flex-direction: column;
+  width: 304px;
+  border-radius: 6px;
+  z-index: 15;
+}
+
 .withScrollbar {
   @media (min-width: 568px) {
     right: 33px;

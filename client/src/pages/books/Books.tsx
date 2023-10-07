@@ -2,7 +2,7 @@ import { FC } from 'react'
 import { useQuery } from '@apollo/client'
 import { useSearchParams } from 'react-router-dom'
 import { CardListBooks, YearSelect } from 'components'
-import { Loader, Pagination, Error } from 'UI'
+import { Loader, Pagination, Error, Button } from 'UI'
 import { ReadDateBook } from 'types'
 import { ALL_BOOKS_BY_DATE } from 'apollo'
 import s from './Books.module.scss'
@@ -23,6 +23,7 @@ const BooksByDate: FC = () => {
 
   const books = data?.getAllBooksByDate.readDate
   const totalCount = data?.getAllBooksByDate.totalCount
+  const windowWidth = window.innerWidth
 
   const handleSubmit = (current: number, pageSize: number) => {
     setSearchParams({ page: String(current), perpage: String(pageSize) })
@@ -34,7 +35,10 @@ const BooksByDate: FC = () => {
       {!!error && <Error message={error?.message} />}
       {!!data && (
         <div className={s.wrapper}>
-          <YearSelect />
+          <div className={s.innerWrapper}>
+            <YearSelect />
+            {windowWidth < 729 && <Button />}
+          </div>
           <Pagination
             current={Number(searchParams.get('page'))}
             pageSize={Number(searchParams.get('perpage'))}

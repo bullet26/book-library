@@ -1,8 +1,8 @@
 import { FC } from 'react'
-import { useQuery, useMutation } from '@apollo/client'
+import { useQuery } from '@apollo/client'
 import { useSearchParams } from 'react-router-dom'
 import { CardListAuthors } from 'components'
-import { Loader, Pagination, Error } from 'UI'
+import { Loader, Pagination, Error, Button } from 'UI'
 import { Author } from 'types'
 import { ALL_AUTHORS } from 'apollo'
 import s from './Authors.module.scss'
@@ -23,6 +23,7 @@ const Authors: FC = () => {
 
   const authors = data?.getAllAuthors.authors
   const totalCount = data?.getAllAuthors.totalCount
+  const windowWidth = window.innerWidth
 
   const handleSubmit = (current: number, pageSize: number) => {
     setSearchParams({ page: String(current), perpage: String(pageSize) })
@@ -34,13 +35,16 @@ const Authors: FC = () => {
       {!!error && <Error message={error?.message} />}
       {!!data && (
         <div className={s.wrapper}>
-          <Pagination
-            total={totalCount || 0}
-            perPageRange={[20, 50, 100, 200]}
-            current={Number(searchParams.get('page'))}
-            pageSize={Number(searchParams.get('perpage'))}
-            handleSubmit={handleSubmit}
-          />
+          <div className={s.innerWrapper}>
+            <Pagination
+              total={totalCount || 0}
+              perPageRange={[20, 50, 100, 200]}
+              current={Number(searchParams.get('page'))}
+              pageSize={Number(searchParams.get('perpage'))}
+              handleSubmit={handleSubmit}
+            />
+            {windowWidth < 729 && <Button />}
+          </div>
           <CardListAuthors data={authors || []} />
           <Pagination
             total={totalCount || 0}

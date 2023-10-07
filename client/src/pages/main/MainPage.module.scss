@@ -2,3 +2,10 @@
   display: flex;
   justify-content: space-between;
 }
+
+.innerWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  column-gap: 25px;
+}

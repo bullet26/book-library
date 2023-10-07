@@ -4,3 +4,12 @@
   justify-content: flex-start;
   row-gap: 25px;
 }
+
+.innerWrapper {
+  @media (max-width: 729px) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    column-gap: 25px;
+  }
+}

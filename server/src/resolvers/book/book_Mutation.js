@@ -1,4 +1,4 @@
-import { BooksModel, ReadDateModel } from '../../models/index.js';
+import { BooksModel, ReadDateModel, DescriptionPlotModel } from '../../models/index.js';
 
 const addBook = async (_, { input }) => {
     try {
@@ -7,6 +7,12 @@ const addBook = async (_, { input }) => {
             await ReadDateModel.create({
                 bookID: book._id,
                 readEnd: input.readEnd,
+            });
+        }
+        if (input.hasOwnProperty('plot')) {
+            await DescriptionPlotModel.create({
+                bookID: book._id,
+                plot: input.plot,
             });
         }
         return book;

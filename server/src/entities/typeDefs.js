@@ -4,6 +4,7 @@ import { series } from './series.js';
 import { readDate } from './readDate.js';
 import { descriptionPlot } from './descriptionPlot.js';
 import { analytics } from './ahalytics.js';
+import { search } from './search.js';
 
 export const typeDefs = `
 #graphql
@@ -22,7 +23,7 @@ scalar Upload
         ${readDate.typeReadDateResolvers}
         ${descriptionPlot.typeDescriptionPlotResolvers}    
         ${analytics.typeAnalyticsResolvers}
-        search(searchString: String): [SearchResult!]
+        ${search.typeSearchResolvers}
    }
    type Mutation {
     ${author.typeAuthorMutation}

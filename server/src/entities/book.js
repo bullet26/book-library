@@ -31,6 +31,7 @@ const typeBook = `
     notes: String
     description: String
     readEnd: Date
+    plot: String
     bookCover: String
 }
   `;

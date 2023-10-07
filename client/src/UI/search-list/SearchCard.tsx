@@ -12,7 +12,7 @@ const SearchCard: FC<SearchCardProps> = (props) => {
   const { title, onClick = () => {}, parent = '', id = '' } = props
 
   return (
-    <div className={s.card} onClick={() => onClick(id, parent)}>
+    <div className={s.card} onClick={() => onClick(id, parent || title)}>
       {title}
     </div>
   )

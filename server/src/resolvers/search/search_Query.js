@@ -1,4 +1,4 @@
-import { AuthorModel, BooksModel } from '../../models/index.js';
+import { AuthorModel, BooksModel, SeriesModel } from '../../models/index.js';
 
 const search = async (_, args) => {
     const { searchString } = args;
@@ -13,4 +13,28 @@ const search = async (_, args) => {
     }
 };
 
-export const SearchQuery = { search };
+const searchInAuthors = async (_, args) => {
+    const { searchString } = args;
+    const regexp = new RegExp(searchString, 'i');
+
+    try {
+        const authors = await AuthorModel.find({ $or: [{ surname: regexp }, { name: regexp }, { transcriptionName: regexp }] }).limit(15);
+        return authors;
+    } catch (error) {
+        throw new Error('Couldn`t find authors');
+    }
+};
+
+const searchInSeries = async (_, args) => {
+    const { searchString } = args;
+    const regexp = new RegExp(searchString, 'i');
+
+    try {
+        const series = await SeriesModel.find({ title: regexp }).limit(15);
+        return series;
+    } catch (error) {
+        throw new Error('Couldn`t find series');
+    }
+};
+
+export const SearchQuery = { search, searchInAuthors, searchInSeries };
