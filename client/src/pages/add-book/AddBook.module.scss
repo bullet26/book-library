@@ -5,3 +5,10 @@
   font-size: 56px;
   color: $white;
 }
+
+.formWrapper {
+  margin-top: 25px;
+  display: grid;
+  grid-template-columns: 60vw 30vw;
+  column-gap: 5vw;
+}
