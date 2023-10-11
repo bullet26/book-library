@@ -1,5 +1,11 @@
 @import '../../theme/variables.scss';
 
+.addFormWrapper {
+  display: flex;
+  flex-direction: column;
+  row-gap: 25px;
+}
+
 .form {
   row-gap: 20px;
   display: flex;
@@ -29,4 +35,10 @@
 .flexGrowItem {
   flex: 1;
   position: relative;
+}
+
+.title {
+  text-align: center;
+  font-size: 56px;
+  color: $white;
 }

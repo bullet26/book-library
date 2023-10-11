@@ -24,8 +24,22 @@ export const validationSchemaAddBook = Yup.object({
   series: Yup.string().nullable(),
   seriesNumber: Yup.number().positive('Series number must be a positive').nullable(),
   pages: Yup.number().positive('Pages quantity must be a positive').nullable(),
-  notes: Yup.string().min(2, 'Minimum 5 letters to fill').nullable(),
+  notes: Yup.string().min(5, 'Minimum 5 letters to fill').nullable(),
   description: Yup.string().min(2, 'Minimum 10 letters to fill').required('Required field!'),
   readEnd: Yup.string().required('Required field!'),
   plot: Yup.string().min(100, 'Minimum 100 letters to fill').nullable(),
+})
+
+export const initialValuesAddAuthor = {
+  name: '',
+  surname: '',
+  portrait: null,
+  transcriptionName: null,
+}
+
+export const validationSchemaAddAuthor = Yup.object({
+  name: Yup.string().required('Required field!'),
+  surname: Yup.string().required('Required field!'),
+  portrait: Yup.string().nullable(),
+  transcriptionName: Yup.string().min(3, 'Minimum 3 letters to fill').nullable(),
 })

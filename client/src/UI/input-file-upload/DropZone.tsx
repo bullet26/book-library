@@ -4,7 +4,14 @@ import ky from 'ky'
 import { Error } from 'UI'
 import s from './DropZone.module.scss'
 
-const DropZone: FC = () => {
+interface DropZoneProps {
+  size?: 'small' | 'medium'
+  status?: boolean
+}
+
+const DropZone: FC<DropZoneProps> = (props) => {
+  const { size = 'medium', status = true } = props
+
   const [fileURL, setFileURL] = useState('')
   const [file, setFile] = useState<Blob | string>('')
   const [text, setText] = useState('Drag and Drop here or click')
@@ -76,10 +83,10 @@ const DropZone: FC = () => {
   }
 
   return (
-    <div className={s.wrapper}>
+    <div className={`${s.wrapper} ${!status && s.hide}`}>
       <label htmlFor="bookCover">
         <div
-          className={s.dropZonewrapper}
+          className={`${s.dropZonewrapper} ${size === 'small' && s.wrapperSmall}`}
           ref={dropzoneRef}
           onDragOver={(e) => handleDragOver(e)}
           onDrop={(e) => handleDrop(e)}>
@@ -94,7 +101,7 @@ const DropZone: FC = () => {
         style={{ display: 'none' }}
         onChange={(e) => handleClickDropZone(e)}
       />
-      <div className={s.buttonWrapper}>
+      <div className={`${s.buttonWrapper} ${size === 'small' && s.buttonWrapperSmall}`}>
         <Button
           type="default"
           size="middle"
