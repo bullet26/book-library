@@ -5,6 +5,7 @@ import s from './AddBook.module.scss'
 
 const AddBook: FC = () => {
   const [isShowAuyhorForm, setStatusShowAuyhorForm] = useState(false)
+  const [bookCover, setFieldValue] = useState<string | null>(null)
 
   const handleClickAuthorBtn = () => {
     setStatusShowAuyhorForm((prevState) => !prevState)
@@ -14,6 +15,11 @@ const AddBook: FC = () => {
     setStatusShowAuyhorForm(false)
   }
 
+  const getLinkforUploadedImg = (link: string) => {
+    //!fix bookCover
+    setFieldValue(link)
+  }
+
   return (
     <div className={s.formWrapper}>
       <AddBookForm
@@ -21,7 +27,7 @@ const AddBook: FC = () => {
         isShowAuyhorForm={isShowAuyhorForm}
       />
       {isShowAuyhorForm && <AddAuthorForm handleHideForm={handleHideAuthorForm} />}
-      <DropZone status={!isShowAuyhorForm} />
+      <DropZone status={!isShowAuyhorForm} addLinkToForm={getLinkforUploadedImg} />
     </div>
   )
 }

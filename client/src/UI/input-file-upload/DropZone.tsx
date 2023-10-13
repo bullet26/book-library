@@ -7,10 +7,11 @@ import s from './DropZone.module.scss'
 interface DropZoneProps {
   size?: 'small' | 'medium'
   status?: boolean
+  addLinkToForm: (link: string) => void
 }
 
 const DropZone: FC<DropZoneProps> = (props) => {
-  const { size = 'medium', status = true } = props
+  const { size = 'medium', status = true, addLinkToForm } = props
 
   const [fileURL, setFileURL] = useState('')
   const [file, setFile] = useState<Blob | string>('')
@@ -73,7 +74,9 @@ const DropZone: FC<DropZoneProps> = (props) => {
       const response: { data: { image: string }; messge: string } = await ky
         .post(`${baseURL}upload`, { body: formData })
         .json()
-      console.log(response.data.image) // TODO get URL
+
+      addLinkToForm(response.data.image)
+
       if (dropzoneRef.current) {
         dropzoneRef.current.style.border = '3px solid green'
       }
@@ -83,10 +86,10 @@ const DropZone: FC<DropZoneProps> = (props) => {
   }
 
   return (
-    <div className={`${s.wrapper} ${!status && s.hide}`}>
+    <div className={`${s.wrapper} ${size === 'small' && s.wrapperSmall} ${!status && s.hide}`}>
       <label htmlFor="bookCover">
         <div
-          className={`${s.dropZonewrapper} ${size === 'small' && s.wrapperSmall}`}
+          className={s.dropZonewrapper}
           ref={dropzoneRef}
           onDragOver={(e) => handleDragOver(e)}
           onDrop={(e) => handleDrop(e)}>
@@ -101,7 +104,7 @@ const DropZone: FC<DropZoneProps> = (props) => {
         style={{ display: 'none' }}
         onChange={(e) => handleClickDropZone(e)}
       />
-      <div className={`${s.buttonWrapper} ${size === 'small' && s.buttonWrapperSmall}`}>
+      <div className={s.buttonWrapper}>
         <Button
           type="default"
           size="middle"

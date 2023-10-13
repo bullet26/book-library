@@ -13,6 +13,7 @@ interface AddBookFormProps {
 }
 
 const AddBookForm: FC<AddBookFormProps> = (props) => {
+  const windoowWidth = window.innerWidth
   const { handleClickAuthorBtn, isShowAuyhorForm } = props
 
   return (
@@ -31,11 +32,13 @@ const AddBookForm: FC<AddBookFormProps> = (props) => {
             <div className={s.flexGrowItem}>
               <SearchInForm type="authors" />
             </div>
-            <div className={s.flexItem}>
-              <Button type="default" size="middle" onClick={handleClickAuthorBtn}>
-                {isShowAuyhorForm ? 'Hide author form' : 'Add new author'}
-              </Button>
-            </div>
+            {windoowWidth > 582 && (
+              <div className={s.flexItem}>
+                <Button type="default" size="middle" onClick={handleClickAuthorBtn}>
+                  {isShowAuyhorForm ? 'Hide author form' : 'Add new author'}
+                </Button>
+              </div>
+            )}
           </div>
           <div className={s.innerWrapper}>
             <Input placeholder="Book rating" name="rating" htmlType="number" />
@@ -45,11 +48,13 @@ const AddBookForm: FC<AddBookFormProps> = (props) => {
             <div className={s.flexGrowItem}>
               <SearchInForm type="series" />
             </div>
-            <div className={s.flexItem}>
-              <Button type="default" size="middle" disabled>
-                Add new series
-              </Button>
-            </div>
+            {windoowWidth > 582 && (
+              <div className={s.flexItem}>
+                <Button type="default" size="middle" disabled>
+                  Add new series
+                </Button>
+              </div>
+            )}
             <div className={s.flexItem}>
               <Input placeholder="Book series number" name="seriesNumber" htmlType="number" />
             </div>
@@ -60,6 +65,18 @@ const AddBookForm: FC<AddBookFormProps> = (props) => {
           </div>
           <TextareaInput placeholder="Book annotation (description)" name="description" />
           <TextareaInput placeholder="Book plot description" name="plot" />
+
+          {windoowWidth < 582 && (
+            <div className={s.innerWrapper}>
+              <Button type="default" size="middle" disabled>
+                Add new series
+              </Button>
+              <Button type="default" size="middle" onClick={handleClickAuthorBtn}>
+                {isShowAuyhorForm ? 'Hide author form' : 'Add new author'}
+              </Button>
+            </div>
+          )}
+          <input type="hidden" name="bookCover" />
 
           <Button className={s.submitBtn} type="primary" size="large" htmlType="submit">
             ADD BOOK

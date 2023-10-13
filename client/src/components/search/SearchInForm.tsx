@@ -65,7 +65,7 @@ const SearchInForm: FC<SearchInFormprops> = (props) => {
   return (
     <>
       {type === 'authors' && (
-        <div className={s.wrapper}>
+        <div className={s.inputWrapper}>
           <SearchInputForm
             placeholder="Author"
             name="author"
@@ -82,7 +82,7 @@ const SearchInForm: FC<SearchInFormprops> = (props) => {
       )}
 
       {type === 'series' && (
-        <div className={s.wrapper}>
+        <div className={s.inputWrapper}>
           <SearchInputForm
             placeholder="Book series"
             name="series"

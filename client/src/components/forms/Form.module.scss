@@ -30,6 +30,9 @@
 
 .flexItem {
   position: relative;
+  @media (max-width: 582px) {
+    flex: 0.5;
+  }
 }
 
 .flexGrowItem {
