@@ -2,16 +2,18 @@ import { FC, useState } from 'react'
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Formik, Form } from 'formik'
 import { Button } from 'antd'
+import { AuthorInput } from 'types'
 import { Input, DropZone } from 'UI'
 import { initialValuesAddAuthor, validationSchemaAddAuthor } from '../utils'
 import s from '../Form.module.scss'
 
 interface AddAuthorFormProps {
   handleHideForm: () => void
+  onSubmitRequest: (values: AuthorInput) => void
 }
 
 const AddAuthorForm: FC<AddAuthorFormProps> = (props) => {
-  const { handleHideForm } = props
+  const { handleHideForm, onSubmitRequest } = props
   const [portrait, setFieldValue] = useState<string | null>(null)
 
   const getLinkforUploadedImg = (link: string) => {
@@ -25,7 +27,8 @@ const AddAuthorForm: FC<AddAuthorFormProps> = (props) => {
         initialValues={initialValuesAddAuthor}
         validationSchema={validationSchemaAddAuthor}
         onSubmit={(values, { resetForm }) => {
-          console.log(JSON.stringify(values, null, 2), portrait) // !fix
+          onSubmitRequest({ ...values, portrait })
+
           resetForm()
           handleHideForm()
         }}>

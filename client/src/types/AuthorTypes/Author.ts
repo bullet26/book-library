@@ -9,3 +9,10 @@ export interface Author {
   series: [Series]
   booksWithoutSeries: [Book]
 }
+
+export interface AuthorInput {
+  name: string
+  surname: string
+  portrait: string | null
+  transcriptionName: string | null
+}

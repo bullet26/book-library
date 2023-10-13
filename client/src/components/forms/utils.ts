@@ -5,7 +5,7 @@ export const initialValuesAddBook = {
   author: '',
   authorID: null,
   title: '',
-  rating: '',
+  rating: null,
   series: null,
   seriesID: null,
   seriesNumber: null,

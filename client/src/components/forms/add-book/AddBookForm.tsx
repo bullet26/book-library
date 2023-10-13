@@ -2,6 +2,7 @@ import { FC } from 'react'
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Formik, Form } from 'formik'
 import { Button } from 'antd'
+import { BookInput } from 'types'
 import { SearchInForm } from 'components'
 import { TextareaInput, DatepickerInput, Input } from 'UI'
 import { initialValuesAddBook, validationSchemaAddBook } from '../utils'
@@ -9,12 +10,13 @@ import s from '../Form.module.scss'
 
 interface AddBookFormProps {
   handleClickAuthorBtn: () => void
-  isShowAuyhorForm: boolean
+  isShowAuthorForm: boolean
+  onSubmitRequest: (values: BookInput) => void
 }
 
 const AddBookForm: FC<AddBookFormProps> = (props) => {
   const windoowWidth = window.innerWidth
-  const { handleClickAuthorBtn, isShowAuyhorForm } = props
+  const { handleClickAuthorBtn, isShowAuthorForm: isShowAuyhorForm, onSubmitRequest } = props
 
   return (
     <div className={s.addFormWrapper}>
@@ -23,7 +25,7 @@ const AddBookForm: FC<AddBookFormProps> = (props) => {
         initialValues={initialValuesAddBook}
         validationSchema={validationSchemaAddBook}
         onSubmit={(values, { resetForm }) => {
-          console.log(JSON.stringify(values, null, 2))
+          onSubmitRequest(values)
           resetForm()
         }}>
         <Form className={s.form}>

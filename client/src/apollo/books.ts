@@ -70,3 +70,14 @@ export const ALL_BOOKS_BY_SPECIFIC_DATE = gql`
     }
   }
 `
+export const CREATE_BOOK = gql`
+  mutation Mutation($input: BookInput) {
+    bookInfo: addBook(input: $input) {
+      title
+      author {
+        name
+        surname
+      }
+    }
+  }
+`
