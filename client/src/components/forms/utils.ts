@@ -1,5 +1,6 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 import * as Yup from 'yup'
+// eslint-disable-next-line import/no-extraneous-dependencies
+import dayjs from 'dayjs'
 
 export const initialValuesAddBook = {
   author: '',
@@ -12,7 +13,7 @@ export const initialValuesAddBook = {
   pages: null,
   notes: null,
   description: '',
-  readEnd: '',
+  readEnd: dayjs(),
   plot: null,
   bookCover: null,
 }

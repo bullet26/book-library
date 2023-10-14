@@ -17,6 +17,14 @@ interface AddBookFormProps {
 const AddBookForm: FC<AddBookFormProps> = (props) => {
   const windoowWidth = window.innerWidth
   const { handleClickAuthorBtn, isShowAuthorForm: isShowAuyhorForm, onSubmitRequest } = props
+  const dateFormat = 'YYYY-MM-DD'
+
+  const formatTextforDB = (fieldValue: string | null) => {
+    if (fieldValue) {
+      return fieldValue.replace(/\n\s*\n/g, '<br>')
+    }
+    return null
+  }
 
   return (
     <div className={s.addFormWrapper}>
@@ -25,7 +33,14 @@ const AddBookForm: FC<AddBookFormProps> = (props) => {
         initialValues={initialValuesAddBook}
         validationSchema={validationSchemaAddBook}
         onSubmit={(values, { resetForm }) => {
-          onSubmitRequest(values)
+          const { author, series, plot, description, readEnd, ...filteredValues } = values
+
+          onSubmitRequest({
+            ...filteredValues,
+            plot: formatTextforDB(plot),
+            description: formatTextforDB(description),
+            readEnd: readEnd?.format(dateFormat),
+          })
           resetForm()
         }}>
         <Form className={s.form}>

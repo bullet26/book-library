@@ -100,7 +100,7 @@ const DropZone: FC<DropZoneProps> = (props) => {
         type="file"
         id="bookCover"
         name="bookCover"
-        accept=".jpg, .jpeg, .png"
+        accept=".jpg, .jpeg, .png .webp"
         style={{ display: 'none' }}
         onChange={(e) => handleClickDropZone(e)}
       />

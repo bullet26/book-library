@@ -1,15 +1,15 @@
 import { FC, useState } from 'react'
 import { useMutation } from '@apollo/client'
 import { CREATE_AUTHOR, CREATE_BOOK } from 'apollo'
-import { AuthorInput, BookInput, Book } from 'types'
+import { AuthorInput, BookInput } from 'types'
 import { AddBookForm, AddAuthorForm } from 'components'
 import { DropZone, Error } from 'UI'
 import s from './AddBook.module.scss'
 
 const AddBook: FC = () => {
-  const [createAuthorApollo, { data: newBook, error: errorBook }] = useMutation(CREATE_AUTHOR)
-  const [createBookApollo, { data: newAuthor, error: errorAuthor }] = useMutation(CREATE_BOOK)
-
+  const [createAuthorApollo, { data: newAuthor, error: errorAuthor }] = useMutation(CREATE_AUTHOR)
+  const [createBookApollo, { data: newBook, error: errorBook }] = useMutation(CREATE_BOOK)
+  // TODO show modal when book added
   const [isShowAuthorForm, setStatusShowAuyhorForm] = useState(false)
   const [bookCover, setFieldValue] = useState<string | null>(null)
 
@@ -26,13 +26,11 @@ const AddBook: FC = () => {
   }
 
   const handleOnSubmitAuthorForm = (values: AuthorInput) => {
-    createAuthorApollo({ input: values }) // !fix types
-    console.log(values)
+    createAuthorApollo({ variables: { input: values } })
   }
 
   const handleOnSubmitBookForm = (values: BookInput) => {
-    const filteredVlues = { ...values, bookCover }
-    createBookApollo({ input: filteredVlues }) // TODO delete unused field !fix types
+    createBookApollo({ variables: { input: { ...values, bookCover } } })
     console.log(values, bookCover)
   }
 

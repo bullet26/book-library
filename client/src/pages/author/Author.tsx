@@ -28,7 +28,6 @@ const Author: FC = () => {
   const handleClick = (id?: string) => {
     navigate(`/books/${id}`)
   }
-  console.log(data)
 
   return (
     <>

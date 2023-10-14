@@ -24,7 +24,7 @@ export interface BookInput {
   seriesNumber: number | null
   pages: number | null
   notes: string | null
-  description: string
+  description: string | null
   readEnd: string
   plot: string | null
   bookCover: string | null
