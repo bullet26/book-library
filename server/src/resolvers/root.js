@@ -1,4 +1,3 @@
-import GraphQLUpload from 'graphql-upload/GraphQLUpload.mjs';
 import { BookResolver, BookQuery, BookMutation } from './book/index.js';
 import { AuthorResolver, AuthorQuery, AuthorMutation } from './author/index.js';
 import { ReadDateResolver, ReadDateQuery } from './readDate/index.js';
@@ -10,7 +9,6 @@ import { dateScalar } from '../scalars/Date.js';
 
 export const rootResolver = {
     Date: dateScalar,
-    Upload: GraphQLUpload,
     Book: { ...BookResolver },
     Author: { ...AuthorResolver },
     ReadDate: { ...ReadDateResolver },

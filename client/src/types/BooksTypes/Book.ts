@@ -1,3 +1,5 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { Dayjs } from 'dayjs'
 import { Author, ReadDateBook, Series } from 'types'
 
 export interface Book {
@@ -28,4 +30,10 @@ export interface BookInput {
   readEnd: string
   plot: string | null
   bookCover: string | null
+}
+
+export interface BookInputFormValues extends Omit<BookInput, 'readEnd'> {
+  author: string
+  series: string
+  readEnd: Dayjs
 }

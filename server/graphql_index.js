@@ -5,28 +5,26 @@ import express from 'express';
 import http from 'http';
 import cors from 'cors';
 import bodyParser from 'body-parser';
-import { router } from './src/api/router.js';
 import { typeDefs } from './src/entities/typeDefs.js';
 import { rootResolver } from './src/resolvers/root.js';
 
 const app = express();
 
-export const httpServer = http.createServer(app);
+export const graphqlServer = http.createServer(app);
 
 const server = new ApolloServer({
     typeDefs: typeDefs,
     resolvers: rootResolver,
     csrfPrevention: true,
     introspection: true,
-    plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+    plugins: [ApolloServerPluginDrainHttpServer({ httpServer: graphqlServer })],
 });
 
 await server.start();
 
 app.use(
-    '/',
+    '/graphql',
     cors(),
-    router,
     bodyParser.json(),
     expressMiddleware(server, {
         context: async ({ req }) => ({ req, dataloaders: new WeakMap() }),

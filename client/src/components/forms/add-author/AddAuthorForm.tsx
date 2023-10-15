@@ -1,5 +1,4 @@
 import { FC, useState } from 'react'
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { Formik, Form } from 'formik'
 import { Button } from 'antd'
 import { AuthorInput } from 'types'

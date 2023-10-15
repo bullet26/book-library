@@ -1,5 +1,4 @@
 import { FC } from 'react'
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { Formik, Form } from 'formik'
 import { Button } from 'antd'
 import { BookInput } from 'types'

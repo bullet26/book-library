@@ -3,7 +3,7 @@ import { v2 as cloudinary } from 'cloudinary';
 
 dotenv.config();
 
-export const { DB_URL, PORT, CLOUDINARY_NAME, CLOUDINARY_KEY, CLOUDINARY_SECRET } = process.env;
+export const { DB_URL, GRAPHQL_PORT, REST_PORT, CLOUDINARY_NAME, CLOUDINARY_KEY, CLOUDINARY_SECRET } = process.env;
 
 export const connectionOptions = {
     useUnifiedTopology: true,

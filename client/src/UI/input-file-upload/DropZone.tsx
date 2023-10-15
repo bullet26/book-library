@@ -70,9 +70,9 @@ const DropZone: FC<DropZoneProps> = (props) => {
     formData.append('bookCover', file)
 
     try {
-      const baseURL = import.meta.env.VITE_API_BASE_URL
+      const baseURL = import.meta.env.VITE_REST_API_BASE_URL
       const response: { data: { image: string }; messge: string } = await ky
-        .post(`${baseURL}upload`, { body: formData })
+        .post(`${baseURL}/upload`, { body: formData })
         .json()
 
       addLinkToForm(response.data.image)

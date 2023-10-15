@@ -9,7 +9,6 @@ import { search } from './search.js';
 export const typeDefs = `
 #graphql
 scalar Date
-scalar Upload
     ${book.typeBook}
     ${author.typeAuthor}
     ${series.typeSeries}
