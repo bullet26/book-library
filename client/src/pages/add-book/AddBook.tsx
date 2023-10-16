@@ -3,7 +3,7 @@ import { useMutation } from '@apollo/client'
 import { CREATE_AUTHOR, CREATE_BOOK } from 'apollo'
 import { AuthorInput, BookInput } from 'types'
 import { AddBookForm, AddAuthorForm } from 'components'
-import { DropZone, Error } from 'UI'
+import { DropZone, Error, Modal } from 'UI'
 import s from './AddBook.module.scss'
 
 const AddBook: FC = () => {
@@ -48,6 +48,16 @@ const AddBook: FC = () => {
         />
       )}
       <DropZone status={!isShowAuthorForm} addLinkToForm={getLinkforUploadedImg} />
+      {!!newAuthor && (
+        <Modal
+          content={`author ${newAuthor.authorInfo.name} ${newAuthor.authorInfo.surname} was creted`}
+        />
+      )}
+      {!!newBook && (
+        <Modal
+          content={`book ${newBook.bookInfo.title} was creted, author - ${newBook.bookInfo.author.name} ${newBook.bookInfo.author.surname} `}
+        />
+      )}
       {(!!errorBook || !!errorAuthor) && <Error />}
     </div>
   )
