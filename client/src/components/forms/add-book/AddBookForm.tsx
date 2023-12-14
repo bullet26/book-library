@@ -93,7 +93,7 @@ const AddBookForm: FC<AddBookFormProps> = (props) => {
             </div>
           )}
           <input type="hidden" name="bookCover" />
-
+          <input type="hidden" name="bookCoverThumbnail" />
           <Button className={s.submitBtn} type="primary" size="large" htmlType="submit">
             ADD BOOK
           </Button>

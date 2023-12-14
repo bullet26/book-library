@@ -7,7 +7,7 @@ export const ALL_AUTHORS = gql`
         id: _id
         name
         surname
-        portrait
+        portraitThumbnail
       }
       totalCount
     }
@@ -24,13 +24,13 @@ export const ONE_AUTHOR_BY_ID = gql`
         title
         booksInSeries {
           title
-          bookCover
+          bookCoverThumbnail
           id: _id
         }
       }
       booksWithoutSeries {
         title
-        bookCover
+        bookCoverThumbnail
         id: _id
       }
     }

@@ -26,7 +26,9 @@ const AddAuthorForm: FC<AddAuthorFormProps> = (props) => {
         initialValues={initialValuesAddAuthor}
         validationSchema={validationSchemaAddAuthor}
         onSubmit={(values, { resetForm }) => {
-          onSubmitRequest({ ...values, portrait })
+          const portraitThumbnail =
+            portrait?.replace(/\/upload\//, '/upload/c_thumb,w_180,h_315,g_face') || null
+          onSubmitRequest({ ...values, portraitThumbnail, portrait })
 
           resetForm()
           handleHideForm()
@@ -37,7 +39,7 @@ const AddAuthorForm: FC<AddAuthorFormProps> = (props) => {
           <Input placeholder="Author surname" name="surname" />
           <Input placeholder="Author transcription name" name="transcriptionName" />
           <input type="hidden" name="portrait" />
-
+          <input type="hidden" name="portraitThumbnail" />
           <Button className={s.submitBtn} type="primary" size="large" htmlType="submit">
             ADD AUTHOR
           </Button>

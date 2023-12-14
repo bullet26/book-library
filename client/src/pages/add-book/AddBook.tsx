@@ -29,8 +29,11 @@ const AddBook: FC = () => {
   }
 
   const handleOnSubmitBookForm = (values: BookInput) => {
-    createBookApollo({ variables: { input: { ...values, bookCover } } })
-    console.log(values, bookCover)
+    const bookCoverThumbnail =
+      bookCover?.replace(/\/upload\//, '/upload/c_thumb,w_180,h_315') || null
+
+    createBookApollo({ variables: { input: { ...values, bookCoverThumbnail, bookCover } } })
+    console.log(values, bookCoverThumbnail, bookCover)
   }
 
   return (

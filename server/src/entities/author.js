@@ -6,6 +6,7 @@ const typeAuthor = `
     surname: String
     transcriptionName: String
     portrait: String
+    portraitThumbnail: String
     books: [Book]
     series: [Series]
     booksWithoutSeries: [Book]

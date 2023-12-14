@@ -16,6 +16,7 @@ export interface Book {
   description?: string
   readDate?: ReadDateBook[]
   bookCover: string
+  bookCoverThumbnail: string
 }
 
 export interface BookInput {

@@ -43,7 +43,7 @@ const Carousel: FC<CarouselProps> = (props) => {
               key={item.id}
               id={item.id}
               type="small"
-              img={item.bookCover}
+              img={item.bookCoverThumbnail}
               title={item.title}
               onClick={handleClick}
             />
