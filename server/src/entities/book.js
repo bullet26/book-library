@@ -14,6 +14,7 @@ const typeBook = `
     description: String
     readDate: [ReadDate]
     bookCover: String
+    bookCoverThumbnail: String
   }
   "Book data + total сount"
   type BooksResponse {

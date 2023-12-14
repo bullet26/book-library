@@ -20,12 +20,12 @@ const Carousel: FC<CarouselProps> = (props) => {
   const [slideIndex, setSlideIndex] = useState(0)
   const slidesToShow = GetSlidesToShow()
 
-  const navigte = useNavigate()
+  const navigate = useNavigate()
   const sliderRef: RefObject<Slider> = useRef(null)
 
   const handleClick = (id?: string) => {
     const path = window.location.pathname.split('/').at(1)
-    navigte(`/${path}/${id}`)
+    navigate(`/${path}/${id}`)
   }
 
   return (

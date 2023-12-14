@@ -9,7 +9,6 @@ import s from './AddBook.module.scss'
 const AddBook: FC = () => {
   const [createAuthorApollo, { data: newAuthor, error: errorAuthor }] = useMutation(CREATE_AUTHOR)
   const [createBookApollo, { data: newBook, error: errorBook }] = useMutation(CREATE_BOOK)
-  // TODO show modal when book added
   const [isShowAuthorForm, setStatusShowAuyhorForm] = useState(false)
   const [bookCover, setFieldValue] = useState<string | null>(null)
 

@@ -10,6 +10,7 @@ const Books = new mongoose.Schema({
     notes: String,
     description: String,
     bookCover: String,
+    bookCoverThumbnail: String,
 });
 
 export const BooksModel = mongoose.model('BooksModel', Books, 'books');
