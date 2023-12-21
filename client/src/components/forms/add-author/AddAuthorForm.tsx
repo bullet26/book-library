@@ -27,7 +27,7 @@ const AddAuthorForm: FC<AddAuthorFormProps> = (props) => {
         validationSchema={validationSchemaAddAuthor}
         onSubmit={(values, { resetForm }) => {
           const portraitThumbnail =
-            portrait?.replace(/\/upload\//, '/upload/c_thumb,w_218,h_323,g_face') || null
+            portrait?.replace(/\/upload\//, '/upload/c_thumb,w_218,h_323,g_face/') || null
           onSubmitRequest({ ...values, portraitThumbnail, portrait })
 
           resetForm()
