@@ -35,7 +35,11 @@ const Search: FC = () => {
   }
 
   const handleSearchResultClick = (id: string, parent: string) => {
-    !!id && navigate(`/${parent}/${id}`)
+    !!id &&
+      navigation.navigate('Book', {
+        screen: 'BookDetail',
+        params: { id },
+      })
     windowWidth < 650 && setShowInputStatus(false)
     setShowSearchListStatus(false)
     setInputValue('')

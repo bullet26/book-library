@@ -21,6 +21,7 @@ const typeAuthor = `
     name: String
     surname: String!
     portrait: String
+    portraitThumbnail: String
     transcriptionName: String
 }
   `;

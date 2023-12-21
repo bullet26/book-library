@@ -34,6 +34,7 @@ const typeBook = `
     readEnd: Date
     plot: String
     bookCover: String
+    bookCoverThumbnail: String
 }
   `;
 
