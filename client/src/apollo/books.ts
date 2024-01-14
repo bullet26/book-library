@@ -81,3 +81,14 @@ export const CREATE_BOOK = gql`
     }
   }
 `
+
+export const CREATE_READ_DATE = gql`
+  mutation Mutation($input: ReadDateInput) {
+    bookInfo: addReadDate(input: $input) {
+      readEnd
+      books {
+        title
+      }
+    }
+  }
+`

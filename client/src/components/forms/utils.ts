@@ -44,3 +44,14 @@ export const validationSchemaAddAuthor = Yup.object({
   portrait: Yup.string().nullable(),
   transcriptionName: Yup.string().min(3, 'Minimum 3 letters to fill').nullable(),
 })
+
+export const initialValuesReReadBook = {
+  title: '',
+  bookID: null,
+  readEnd: dayjs(),
+}
+
+export const validationSchemaReReadBook = Yup.object({
+  title: Yup.string().required('Required field!'),
+  readEnd: Yup.string().required('Required field!'),
+})

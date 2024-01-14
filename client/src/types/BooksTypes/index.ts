@@ -1,2 +1,2 @@
 export type { Book, BookInput, BookInputFormValues } from './Book'
-export type { ReadDateBook } from './ReadDateBook'
+export type { ReadDateBook, ReadDateInput } from './ReadDateBook'

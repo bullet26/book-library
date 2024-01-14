@@ -34,3 +34,11 @@ export const SEARCH_IN_SERIES = gql`
     }
   }
 `
+export const SEARCH_IN_BOOKS = gql`
+  query Search($searchString: String) {
+    books: searchInBooks(searchString: $searchString) {
+      id: _id
+      title
+    }
+  }
+`

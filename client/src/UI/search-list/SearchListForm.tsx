@@ -1,11 +1,11 @@
-import { FC, useRef, useEffect } from 'react'
+import { FC } from 'react'
 import { SearchCard } from 'UI'
-import { Author, Series } from 'types'
+import { Author, Series, Book } from 'types'
 import { checkTypesFormTitle } from './utils'
 import s from './SearchCard.module.scss'
 
 interface SearchListProps {
-  data?: Author[] | Series[]
+  data?: Author[] | Series[] | Book[]
   onClick: (id: string, value: string) => void
 }
 

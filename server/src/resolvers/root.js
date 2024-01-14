@@ -1,6 +1,6 @@
 import { BookResolver, BookQuery, BookMutation } from './book/index.js';
 import { AuthorResolver, AuthorQuery, AuthorMutation } from './author/index.js';
-import { ReadDateResolver, ReadDateQuery } from './readDate/index.js';
+import { ReadDateResolver, ReadDateQuery, ReadDateMutation } from './readDate/index.js';
 import { DescriptionPlotQuery, DescriptionPlotMutation } from './descriptionPlot/index.js';
 import { SearchResolver, SearchQuery } from './search/index.js';
 import { SeriesResolver } from './series/index.js';
@@ -15,5 +15,5 @@ export const rootResolver = {
     Series: { ...SeriesResolver },
     SearchResult: { ...SearchResolver },
     Query: { ...BookQuery, ...AuthorQuery, ...ReadDateQuery, ...DescriptionPlotQuery, ...SearchQuery, ...AnalyticsQuery },
-    Mutation: { ...AuthorMutation, ...BookMutation, ...DescriptionPlotMutation },
+    Mutation: { ...AuthorMutation, ...BookMutation, ...DescriptionPlotMutation, ...ReadDateMutation },
 };

@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 import { FC, useState } from 'react'
 import { useLazyQuery } from '@apollo/client'
-import { SEARCH_IN_AUTHORS, SEARCH_IN_SERIES } from 'apollo/search'
+import { SEARCH_IN_AUTHORS, SEARCH_IN_SERIES, SEARCH_IN_BOOKS } from 'apollo'
 import { useFormikContext } from 'formik'
-import { Series, Author } from 'types'
+import { Series, Author, Book } from 'types'
 import { SearchInputForm, SearchListForm, Error } from 'UI'
 import s from './Search.module.scss'
 
-interface SearchInFormprops {
-  type: 'authors' | 'series'
+interface SearchInForProps {
+  type: 'authors' | 'series' | 'books'
 }
 
 interface ISearchSeriesSuccess {
@@ -19,13 +19,19 @@ interface ISearchAuthorsSuccess {
   authors: Author[]
 }
 
-const SearchInForm: FC<SearchInFormprops> = (props) => {
+interface ISearchBooksSuccess {
+  books: Book[]
+}
+
+const SearchInForm: FC<SearchInForProps> = (props) => {
   const { type } = props
 
   const [makeSearchAuthors, { error: authorError, data: authorsData }] =
     useLazyQuery<ISearchAuthorsSuccess>(SEARCH_IN_AUTHORS)
   const [makeSearchSeries, { error: seriesError, data: seriesData }] =
     useLazyQuery<ISearchSeriesSuccess>(SEARCH_IN_SERIES)
+  const [makeSearchBooks, { error: booksError, data: booksData }] =
+    useLazyQuery<ISearchBooksSuccess>(SEARCH_IN_BOOKS)
 
   const { setFieldValue } = useFormikContext()
 
@@ -38,6 +44,8 @@ const SearchInForm: FC<SearchInFormprops> = (props) => {
       makeSearchAuthors({ variables: { searchString } })
     } else if (type === 'series') {
       makeSearchSeries({ variables: { searchString } })
+    } else if (type === 'books') {
+      makeSearchBooks({ variables: { searchString } })
     }
     setShowSearchListStatus(true)
   }
@@ -56,6 +64,8 @@ const SearchInForm: FC<SearchInFormprops> = (props) => {
       setFieldValue('authorID', id)
     } else if (type === 'series') {
       setFieldValue('seriesID', id)
+    } else if (type === 'books') {
+      setFieldValue('bookID', id)
     }
 
     setElementChoosenStatus(true)
@@ -98,8 +108,26 @@ const SearchInForm: FC<SearchInFormprops> = (props) => {
         </div>
       )}
 
+      {type === 'books' && (
+        <div className={s.inputWrapperBooks}>
+          <SearchInputForm
+            placeholder="Book title"
+            name="title"
+            status={elementChoosenStatus}
+            onSearch={handleSearch}
+            inputValue={inputValue}
+            handleChange={handleInputChange}
+          />
+          <input type="hidden" name="bookID" />
+          {!!booksData && showSearchList && (
+            <SearchListForm data={booksData.books} onClick={handleSearchResultClick} />
+          )}
+        </div>
+      )}
+
       {type === 'authors' && !!authorError && <Error message={authorError?.message} />}
       {type === 'series' && !!seriesError && <Error message={seriesError?.message} />}
+      {type === 'books' && !!booksError && <Error message={booksError?.message} />}
     </>
   )
 }

@@ -27,6 +27,7 @@ scalar Date
    type Mutation {
     ${author.typeAuthorMutation}
     ${book.typeBookMutation}
+    ${readDate.typeReadDateMutation}
     ${descriptionPlot.typeDescriptionPlotMutation}
 }
 `;

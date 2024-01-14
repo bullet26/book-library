@@ -10,3 +10,8 @@ export interface ReadDateBook {
     day: string
   }
 }
+
+export interface ReadDateInput {
+  bookID: string
+  readEnd: string
+}

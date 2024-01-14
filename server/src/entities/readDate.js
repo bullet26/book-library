@@ -11,6 +11,11 @@ const typeReadDate = `
     totalCount: Int
     readDate: [ReadDate]
   }
+  "data for add reread book"
+  input ReadDateInput {
+    bookID: ID!
+    readEnd: Date!
+  }
   `;
 
 const typeReadDateResolvers = `
@@ -20,7 +25,13 @@ getAllBooksByDate(limit: Int = 100, page: Int = 1): ReadedBooksResponse
 getAllBooksBySpecificDate(year: Int): [ReadDate]
 `;
 
+const typeReadDateMutation = `
+  "Add new date for reread book"
+  addReadDate(input: ReadDateInput): ReadDate
+  `;
+
 export const readDate = {
     typeReadDate,
     typeReadDateResolvers,
+    typeReadDateMutation,
 };
