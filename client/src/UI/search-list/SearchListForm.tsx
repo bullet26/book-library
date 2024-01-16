@@ -6,13 +6,13 @@ import s from './SearchCard.module.scss'
 
 interface SearchListProps {
   data?: Author[] | Series[] | Book[]
-  fullWidth?: false
+  fullWidth?: boolean
   onClick: (id: string, value: string) => void
 }
 
 // eslint-disable-next-line react/display-name
 const SearchListForm: FC<SearchListProps> = (props) => {
-  const { data = [], onClick, fullWidth } = props
+  const { data = [], onClick, fullWidth = false } = props
 
   const className = fullWidth ? [s.formCardList, s.formCardListFullWidth].join(' ') : s.formCardList
 

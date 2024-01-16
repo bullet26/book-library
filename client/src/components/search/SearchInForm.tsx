@@ -123,6 +123,7 @@ const SearchInForm: FC<SearchInForProps> = (props) => {
             <SearchListForm
               data={booksData.books}
               onClick={handleSearchResultClick}
+              // eslint-disable-next-line react/jsx-boolean-value
               fullWidth={true}
             />
           )}
