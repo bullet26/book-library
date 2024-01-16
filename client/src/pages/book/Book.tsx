@@ -29,7 +29,7 @@ const Book: FC = () => {
             <div className={`${s.title} ${s.mobile}`}>{data?.book.title}</div>
             <div className={s.imgWrapper}>
               {bookCover ? <Image width="100%" src={bookCover} /> : <BookImg width="100%" />}
-              <Rating rating={data?.book.rating || 0} />
+              <Rating rating={data?.book.rating || 0} type="star" />
             </div>
             <div className={s.contentWrapper}>
               <div className={s.title}>{data?.book.title}</div>

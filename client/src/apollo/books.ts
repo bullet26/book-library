@@ -8,6 +8,7 @@ export const ALL_BOOKS_BY_DATE = gql`
         books {
           id: _id
           title
+          rating
           bookCoverThumbnail
           author {
             surname
@@ -60,6 +61,7 @@ export const ALL_BOOKS_BY_SPECIFIC_DATE = gql`
         id: _id
         title
         bookCoverThumbnail
+        rating
         author {
           surname
           name

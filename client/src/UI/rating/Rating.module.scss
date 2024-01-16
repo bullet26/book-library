@@ -20,3 +20,15 @@
   flex-direction: row;
   justify-content: space-around;
 }
+
+.wrapperCircleOnly {
+  position: absolute;
+  top: 55%;
+  right: 5px;
+
+  .ratingCircle {
+    width: 25px;
+    height: 25px;
+    font-size: 18px;
+  }
+}

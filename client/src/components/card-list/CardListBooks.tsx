@@ -27,7 +27,9 @@ const CardListBooks: FC<CardListBooksProps> = (props) => {
           img={books.bookCoverThumbnail}
           title={books.title}
           subtitle={`${books.author.name} ${books.author.surname}`}
+          rating={books.rating}
           onClick={handleClick}
+          type="book"
         />
       ))}
     </div>

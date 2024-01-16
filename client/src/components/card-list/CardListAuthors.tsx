@@ -28,6 +28,7 @@ const CardListAuthors: FC<CardListAuthorsProps> = (props) => {
           title={surname}
           subtitle={name}
           onClick={handleClick}
+          type="author"
         />
       ))}
     </div>
