@@ -27,7 +27,7 @@ const ReReadBookForm: FC<ReReadBookFormProps> = (props) => {
 
         resetForm()
       }}>
-      <Form className={s.form}>
+      <Form className={s.formReread}>
         <SearchInForm type="books" />
         <DatepickerInput name="readEnd" />
         <Button className={s.submitBtn} type="primary" size="large" htmlType="submit">

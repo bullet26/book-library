@@ -18,6 +18,18 @@
   }
 }
 
+.formReread {
+  row-gap: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+
+  .submitBtn {
+    align-self: center;
+  }
+}
+
 .innerWrapper {
   position: relative;
   width: 100%;

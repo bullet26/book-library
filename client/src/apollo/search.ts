@@ -39,6 +39,10 @@ export const SEARCH_IN_BOOKS = gql`
     books: searchInBooks(searchString: $searchString) {
       id: _id
       title
+      author {
+        surname
+        name
+      }
     }
   }
 `

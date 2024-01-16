@@ -120,7 +120,11 @@ const SearchInForm: FC<SearchInForProps> = (props) => {
           />
           <input type="hidden" name="bookID" />
           {!!booksData && showSearchList && (
-            <SearchListForm data={booksData.books} onClick={handleSearchResultClick} />
+            <SearchListForm
+              data={booksData.books}
+              onClick={handleSearchResultClick}
+              fullWidth={true}
+            />
           )}
         </div>
       )}
