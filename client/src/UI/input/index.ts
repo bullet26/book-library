@@ -1,3 +1,3 @@
-export { default as Input } from './Input'
-export { default as TextareaInput } from './TextareaInput'
-export { default as DatepickerInput } from './DatepickerInput'
+export { Input } from './Input'
+export { TextareaInput } from './TextareaInput'
+export { DatepickerInput } from './DatepickerInput'

@@ -9,7 +9,7 @@ interface InputProps {
   placeholder: string
 }
 
-const TextareaInput: FC<InputProps> = (props) => {
+export const TextareaInput: FC<InputProps> = (props) => {
   const { TextArea } = AntInput
 
   const { name, placeholder } = props
@@ -29,5 +29,3 @@ const TextareaInput: FC<InputProps> = (props) => {
     </span>
   )
 }
-
-export default TextareaInput

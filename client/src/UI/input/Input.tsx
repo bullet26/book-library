@@ -10,7 +10,7 @@ interface InputProps {
   htmlType?: 'text' | 'number'
 }
 
-const Input: FC<InputProps> = (props) => {
+export const Input: FC<InputProps> = (props) => {
   const { name, placeholder, htmlType = 'text' } = props
   const [field, meta, helpers] = useField(name)
 
@@ -42,5 +42,3 @@ const Input: FC<InputProps> = (props) => {
     </span>
   )
 }
-
-export default Input

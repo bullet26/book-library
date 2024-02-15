@@ -57,3 +57,16 @@
   font-size: 56px;
   color: $white;
 }
+
+.ratingWrapper {
+  width: 150%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.ratingLabel {
+  color: lightgrey;
+  width: 130px;
+}

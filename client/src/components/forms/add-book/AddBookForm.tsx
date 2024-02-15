@@ -1,6 +1,6 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import { Formik, Form } from 'formik'
-import { Button } from 'antd'
+import { Button, Rate } from 'antd'
 import { BookInput } from 'types'
 import { SearchInForm } from 'components'
 import { TextareaInput, DatepickerInput, Input } from 'UI'
@@ -17,6 +17,7 @@ const AddBookForm: FC<AddBookFormProps> = (props) => {
   const windoowWidth = window.innerWidth
   const { handleClickAuthorBtn, isShowAuthorForm: isShowAuyhorForm, onSubmitRequest } = props
   const dateFormat = 'YYYY-MM-DD'
+  const [rating, setRating] = useState(0)
 
   const formatTextforDB = (fieldValue: string | null) => {
     if (fieldValue) {
@@ -36,6 +37,7 @@ const AddBookForm: FC<AddBookFormProps> = (props) => {
 
           onSubmitRequest({
             ...filteredValues,
+            rating,
             plot: formatTextforDB(plot),
             description: formatTextforDB(description),
             readEnd: readEnd?.format(dateFormat),
@@ -57,7 +59,15 @@ const AddBookForm: FC<AddBookFormProps> = (props) => {
             )}
           </div>
           <div className={s.innerWrapper}>
-            <Input placeholder="Book rating" name="rating" htmlType="number" />
+            <div className={s.ratingWrapper}>
+              <div className={s.ratingLabel}>Book rating:</div>
+              <Rate
+                allowHalf
+                defaultValue={0}
+                style={{ width: '200px', color: '#9E339F' }}
+                onChange={(value) => setRating(value)}
+              />
+            </div>
             <DatepickerInput name="readEnd" />
           </div>
           <div className={s.innerWrapper}>

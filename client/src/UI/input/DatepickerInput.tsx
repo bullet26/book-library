@@ -9,7 +9,7 @@ interface InputProps {
   name: string
 }
 
-const DatepickerInput: FC<InputProps> = (props) => {
+export const DatepickerInput: FC<InputProps> = (props) => {
   const { name } = props
   const [field, meta, helpers] = useField(name)
   const visualisationDateFormat = 'DD/MM/YYYY'
@@ -30,5 +30,3 @@ const DatepickerInput: FC<InputProps> = (props) => {
     </span>
   )
 }
-
-export default DatepickerInput
