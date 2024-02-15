@@ -43,6 +43,7 @@ const AddBookForm: FC<AddBookFormProps> = (props) => {
             readEnd: readEnd?.format(dateFormat),
           })
           resetForm()
+          setRating(0)
         }}>
         <Form className={s.form}>
           <Input placeholder="Book title" name="title" />
@@ -61,9 +62,10 @@ const AddBookForm: FC<AddBookFormProps> = (props) => {
           <div className={s.innerWrapper}>
             <div className={s.ratingWrapper}>
               <div className={s.ratingLabel}>Book rating:</div>
+              <input type="hidden" name="rating" />
               <Rate
                 allowHalf
-                defaultValue={0}
+                value={rating}
                 style={{ width: '200px', color: '#9E339F' }}
                 onChange={(value) => setRating(value)}
               />

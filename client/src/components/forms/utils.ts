@@ -6,7 +6,7 @@ export const initialValuesAddBook = {
   author: '',
   authorID: null,
   title: '',
-  rating: null,
+  rating: 0,
   series: null,
   seriesID: null,
   seriesNumber: null,
@@ -21,7 +21,7 @@ export const initialValuesAddBook = {
 export const validationSchemaAddBook = Yup.object({
   author: Yup.string().required('Required field!'),
   title: Yup.string().min(3, 'Minimum 3 letters to fill').required('Required field!'),
-  rating: Yup.number().min(0).max(5).required('Required field!'),
+  rating: Yup.number().min(0).max(5),
   series: Yup.string().nullable(),
   seriesNumber: Yup.number().positive('Series number must be a positive').nullable(),
   pages: Yup.number().positive('Pages quantity must be a positive').nullable(),
