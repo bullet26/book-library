@@ -46,7 +46,7 @@ const BooksByDate: FC = () => {
             perPageRange={[20, 50, 100, 200]}
             handleSubmit={handleSubmit}
           />
-          <CardListBooks data={books || []} />
+          <CardListBooks data={books || []} typeData="readDate" />
           <Pagination
             current={Number(searchParams.get('page'))}
             pageSize={Number(searchParams.get('perpage'))}

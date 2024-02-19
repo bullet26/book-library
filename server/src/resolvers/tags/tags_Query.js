@@ -1,16 +1,13 @@
-import { BooksModel, BookTagRelationsModel } from '../../models/index.js';
+import { TagModel } from '../../models/index.js';
 
-const getAllBooksByTag = async (_, args) => {
+const getTagById = async (_, args) => {
     try {
-        const { tagID } = args;
-
-        const booksInTagObj = await BookTagRelationsModel.find({ tagID });
-        const booksInTag = booksInTagObj.map(item => item.bookID);
-        const books = await BooksModel.find({ _id: { $in: booksInTag } }).sort({ title: 1 });
-        return books;
+        const { id } = args;
+        const tag = await TagModel.findById(id);
+        return tag;
     } catch (error) {
-        throw new Error(`Couldn't get book in tag with ID ${tagID}:`, error);
+        throw new Error(`Couldn't get tag info with ID ${tagID}:`, error);
     }
 };
 
-export const TagsQuery = { getAllBooksByTag };
+export const TagsQuery = { getTagById };

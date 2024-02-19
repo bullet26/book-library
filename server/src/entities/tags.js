@@ -13,8 +13,8 @@ const typeTags = `
   }`;
 
 const typeTagsResolvers = `
-    "Get books by tag"
-    getAllBooksByTag(tagID: ID): [Book]
+    "Get tag info by id"
+    getTagById(id: ID): Tags
   `;
 
 export const tags = {

@@ -12,11 +12,15 @@ const BookInfo: FC<BookInfoProps> = (props) => {
   const navigate = useNavigate()
 
   const handleClickAuthor = (id?: string) => {
-    !!id && navigate(`/authors/${id}`)
+    if (id) {
+      navigate(`/authors/${id}`)
+    }
   }
 
   const handleClickDate = (year?: string) => {
-    !!year && navigate(`/date/${year}`)
+    if (year) {
+      navigate(`/date/${year}`)
+    }
   }
 
   return (

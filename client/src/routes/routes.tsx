@@ -1,5 +1,16 @@
 import { Route, Routes } from 'react-router-dom'
-import { MainPage, Books, Authors, Book, Home, Author, Page404, BooksByDate, AddBook } from 'pages'
+import {
+  MainPage,
+  Books,
+  Authors,
+  Book,
+  Home,
+  Author,
+  Page404,
+  BooksByDate,
+  AddBook,
+  BooksByTag,
+} from 'pages'
 
 const AppRoutes = () => {
   return (
@@ -10,6 +21,7 @@ const AppRoutes = () => {
         <Route path="books/:id" element={<Book />} />
         <Route path="add" element={<AddBook />} />
         <Route path="date/:year" element={<BooksByDate />} />
+        <Route path="tag/:id" element={<BooksByTag />} />
         <Route path="authors" element={<Authors />} />
         <Route path="authors/:id" element={<Author />} />
       </Route>

@@ -42,6 +42,10 @@ export const ONE_BOOK_BY_ID = gql`
       readDate {
         readEnd
       }
+      tags {
+        id: _id
+        tag
+      }
       bookCover
     }
   }
@@ -72,6 +76,25 @@ export const ALL_BOOKS_BY_SPECIFIC_DATE = gql`
     }
   }
 `
+
+export const ALL_BOOKS_BY_TAG = gql`
+  query GetBooksByTag($id: ID) {
+    tagData: getTagById(id: $id) {
+      tag
+      booksInTag {
+        id: _id
+        title
+        bookCoverThumbnail
+        rating
+        author {
+          surname
+          name
+        }
+      }
+    }
+  }
+`
+
 export const CREATE_BOOK = gql`
   mutation Mutation($input: BookInput) {
     bookInfo: addBook(input: $input) {

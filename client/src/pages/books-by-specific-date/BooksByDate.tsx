@@ -64,7 +64,7 @@ const BooksByDate: FC = () => {
             return (
               <Fragment key={currentMonth}>
                 <DateDivider message={currentMonth} />
-                <CardListBooks data={books || []} />
+                <CardListBooks data={books || []} typeData="readDate" />
               </Fragment>
             )
           })}

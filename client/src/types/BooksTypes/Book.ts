@@ -11,12 +11,19 @@ export interface Book {
   seriesID?: string
   series?: Series
   seriesNumber?: number
+  tags: Tag[]
   pages: number
   notes?: string
   description?: string
   readDate?: ReadDateBook[]
   bookCover: string
   bookCoverThumbnail: string
+}
+
+export interface Tag {
+  id: string
+  tag: string
+  booksInTag: Book[]
 }
 
 export interface BookInput {

@@ -19,7 +19,7 @@ const CardListAuthors: FC<CardListAuthorsProps> = (props) => {
   }
 
   return (
-    <div className={s.wrpper}>
+    <div className={s.wrapper}>
       {data?.map(({ id, surname, name, portraitThumbnail }) => (
         <Card
           key={id}

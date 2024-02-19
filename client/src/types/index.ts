@@ -5,6 +5,7 @@ export type {
   BookInput,
   BookInputFormValues,
   ReadDateInput,
+  Tag,
 } from './BooksTypes'
 export type { Series } from './SeriesTypes'
 export type { Plot } from './PlotTypes'

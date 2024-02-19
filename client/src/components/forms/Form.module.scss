@@ -64,9 +64,15 @@
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
+  @media (max-width: 582px) {
+    width: 67%;
+  }
 }
 
 .ratingLabel {
   color: lightgrey;
   width: 130px;
+  @media (max-width: 582px) {
+    width: 90px;
+  }
 }
