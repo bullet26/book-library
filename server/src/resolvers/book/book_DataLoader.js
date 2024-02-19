@@ -1,5 +1,5 @@
 import DataLoader from 'dataloader';
-import { AuthorModel, SeriesModel, ReadDateModel } from '../../models/index.js';
+import { AuthorModel, SeriesModel, ReadDateModel, TagModel, BookTagRelationsModel } from '../../models/index.js';
 
 const author = (source, args, context, info) => {
     const { dataloaders } = context;
@@ -52,6 +52,32 @@ const series = (source, args, context, info) => {
     return null;
 };
 
+const tags = (source, args, context, info) => {
+    const { dataloaders } = context;
+    let tagsForBookLoader = dataloaders.get(info.fieldNodes);
+
+    if (!tagsForBookLoader) {
+        tagsForBookLoader = new DataLoader(async keys => {
+            return await Promise.all(
+                keys.map(async bookID => {
+                    try {
+                        const tagsForBookObj = await BookTagRelationsModel.find({ bookID });
+                        const tagsForBook = tagsForBookObj.map(item => item.tagID);
+                        const res = await TagModel.find({ _id: { $in: tagsForBook } }).sort({ tag: 1 });
+                        return res;
+                    } catch (error) {
+                        console.error(`Error loading book for tag with ID ${bookID}:`, error);
+                        return null;
+                    }
+                })
+            );
+        });
+    }
+    dataloaders.set(info.fieldNodes, tagsForBookLoader);
+
+    return tagsForBookLoader.load(source._id);
+};
+
 const readDate = (source, args, context, info) => {
     const { dataloaders } = context;
     let readDateLoader = dataloaders.get(info.fieldNodes);
@@ -76,4 +102,4 @@ const readDate = (source, args, context, info) => {
     return readDateLoader.load(source._id);
 };
 
-export const BookResolver = { author, series, readDate };
+export const BookResolver = { author, series, tags, readDate };

@@ -8,6 +8,7 @@ const typeBook = `
     rating: Float
     seriesID: ID
     series: Series 
+    tags: [Tags]
     seriesNumber: Int
     pages: Int
     notes: String

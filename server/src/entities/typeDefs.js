@@ -5,6 +5,7 @@ import { readDate } from './readDate.js';
 import { descriptionPlot } from './descriptionPlot.js';
 import { analytics } from './ahalytics.js';
 import { search } from './search.js';
+import { tags } from './tags.js';
 
 export const typeDefs = `
 #graphql
@@ -12,6 +13,7 @@ scalar Date
     ${book.typeBook}
     ${author.typeAuthor}
     ${series.typeSeries}
+    ${tags.typeTags}
     ${readDate.typeReadDate}
     ${descriptionPlot.typeDescriptionPlot}
     ${analytics.typeAnalytics}
@@ -23,6 +25,7 @@ scalar Date
         ${descriptionPlot.typeDescriptionPlotResolvers}    
         ${analytics.typeAnalyticsResolvers}
         ${search.typeSearchResolvers}
+        ${tags.typeTagsResolvers}
    }
    type Mutation {
     ${author.typeAuthorMutation}

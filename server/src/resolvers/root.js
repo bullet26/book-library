@@ -4,6 +4,7 @@ import { ReadDateResolver, ReadDateQuery, ReadDateMutation } from './readDate/in
 import { DescriptionPlotQuery, DescriptionPlotMutation } from './descriptionPlot/index.js';
 import { SearchResolver, SearchQuery } from './search/index.js';
 import { SeriesResolver } from './series/index.js';
+import { TagsResolver, TagsQuery } from './tags/index.js';
 import { AnalyticsQuery } from './analytics/index.js';
 import { dateScalar } from '../scalars/Date.js';
 
@@ -13,7 +14,8 @@ export const rootResolver = {
     Author: { ...AuthorResolver },
     ReadDate: { ...ReadDateResolver },
     Series: { ...SeriesResolver },
+    Tags: { ...TagsResolver },
     SearchResult: { ...SearchResolver },
-    Query: { ...BookQuery, ...AuthorQuery, ...ReadDateQuery, ...DescriptionPlotQuery, ...SearchQuery, ...AnalyticsQuery },
+    Query: { ...BookQuery, ...AuthorQuery, ...ReadDateQuery, ...DescriptionPlotQuery, ...SearchQuery, ...AnalyticsQuery, ...TagsQuery },
     Mutation: { ...AuthorMutation, ...BookMutation, ...DescriptionPlotMutation, ...ReadDateMutation },
 };
