@@ -10,4 +10,13 @@ const getTagById = async (_, args) => {
     }
 };
 
-export const TagsQuery = { getTagById };
+const getAllTags = async () => {
+    try {
+        const tags = await TagModel.find({}).sort({ tag: 1 });
+        return tags;
+    } catch (error) {
+        throw new Error('Couldn`t get tags', error);
+    }
+};
+
+export const TagsQuery = { getTagById, getAllTags };

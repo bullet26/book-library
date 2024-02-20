@@ -42,7 +42,7 @@ const Book: FC = () => {
                 <Rating rating={data?.book.rating || 0} type="star" />
               </div>
               <div className={s.tagWrapper}>
-                {data.book.tags.map((item) => (
+                {data?.book?.tags.map((item) => (
                   <Tag
                     bordered={false}
                     key={item.id}

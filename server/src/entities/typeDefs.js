@@ -32,5 +32,6 @@ scalar Date
     ${book.typeBookMutation}
     ${readDate.typeReadDateMutation}
     ${descriptionPlot.typeDescriptionPlotMutation}
+    ${tags.typeTagsMutation}
 }
 `;
