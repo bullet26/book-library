@@ -12,7 +12,7 @@ type TagRender = SelectProps['tagRender']
 
 interface SelectTagProps {
   tags: ITag[]
-  bookID: string
+  bookID?: string
 }
 
 const tagRender: TagRender = (props) => {
@@ -33,8 +33,20 @@ const SelectTag: FC<SelectTagProps> = (props) => {
   const navigate = useNavigate()
 
   const { data, error } = useQuery<{ tags: ITag[] }>(ALL_TAGS, {})
-  const [updateLinkTagWithBook, { data: tagsData, error: errorTag }] =
-    useMutation(CREATE_LINK_TAG_WITH_BOOK)
+
+  const [updateLinkTagWithBook, { loading, error: errorTag }] = useMutation(
+    CREATE_LINK_TAG_WITH_BOOK,
+    {
+      update(cache, { data: { book } }) {
+        cache.modify({
+          id: cache.identify(book),
+          fields: {
+            book,
+          },
+        })
+      },
+    },
+  )
 
   const [allTagLabels, setAllTagLabels] = useState<{ value: string; label: string }[]>([])
   const [selectedTag, setSelectedTag] = useState(tags.map((item) => item.id))
@@ -81,7 +93,7 @@ const SelectTag: FC<SelectTagProps> = (props) => {
         options={allTagLabels}
         onChange={onChange}
       />
-      <Button type="dashed" onClick={onSubmit}>
+      <Button type="dashed" onClick={onSubmit} disabled={loading}>
         OK
       </Button>
     </>

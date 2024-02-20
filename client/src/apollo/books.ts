@@ -23,6 +23,7 @@ export const ALL_BOOKS_BY_DATE = gql`
 export const ONE_BOOK_BY_ID = gql`
   query GetOneBookId($id: ID) {
     book: getOneBook(id: $id) {
+      id: _id
       author {
         surname
         name

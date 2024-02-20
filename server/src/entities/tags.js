@@ -27,7 +27,7 @@ const typeTagsResolvers = `
 
 const typeTagsMutation = `
   "link Book with Tag"
-  linkBookWithTag(input: BookTagRelationsInput): Tags
+  linkBookWithTag(input: BookTagRelationsInput): Book
   `;
 
 export const tags = {

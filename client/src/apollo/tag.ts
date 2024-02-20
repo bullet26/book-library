@@ -11,10 +11,32 @@ export const ALL_TAGS = gql`
 
 export const CREATE_LINK_TAG_WITH_BOOK = gql`
   mutation Mutation($input: BookTagRelationsInput) {
-    linkBookWithTag(input: $input) {
-      booksInTag {
-        title
+    book: linkBookWithTag(input: $input) {
+      id: _id
+      author {
+        surname
+        name
+        id: _id
       }
+      title
+      rating
+      series {
+        title
+        booksInSeries {
+          id: _id
+          title
+          bookCoverThumbnail
+        }
+      }
+      description
+      readDate {
+        readEnd
+      }
+      tags {
+        id: _id
+        tag
+      }
+      bookCover
     }
   }
 `
