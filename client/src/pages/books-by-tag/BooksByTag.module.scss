@@ -1,6 +1,17 @@
 @import '../../theme/variables.scss';
 
+.titleWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  @media (max-width: 560px) {
+    flex-direction: column;
+    row-gap: 15px;
+  }
+}
+
 .title {
+  flex: 1;
   color: $lightgray;
   font-size: 28px;
   text-align: center;

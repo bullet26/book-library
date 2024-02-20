@@ -1,10 +1,10 @@
 import { FC } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { useQuery } from '@apollo/client'
-import { Image, Tag } from 'antd'
+import { Image } from 'antd'
 import { Book as IBook } from 'types'
 import { BookTab } from 'components'
-import { Loader, Rating, ScrollArrow, Error } from 'UI'
+import { Loader, Rating, ScrollArrow, Error, SelectTag } from 'UI'
 import { Book as BookImg } from 'assets'
 import { ONE_BOOK_BY_ID } from 'apollo'
 import s from './Book.module.scss'
@@ -17,15 +17,7 @@ const Book: FC = () => {
   const { id } = useParams()
   const { loading, error, data } = useQuery<BookQuery>(ONE_BOOK_BY_ID, { variables: { id } })
 
-  const navigate = useNavigate()
-
   const bookCover = data?.book.bookCover
-
-  const handleClickTag = (tagId: string) => {
-    if (tagId) {
-      navigate(`/tag/${tagId}`)
-    }
-  }
 
   return (
     <>
@@ -41,17 +33,7 @@ const Book: FC = () => {
                 {bookCover ? <Image width="100%" src={bookCover} /> : <BookImg width="100%" />}
                 <Rating rating={data?.book.rating || 0} type="star" />
               </div>
-              <div className={s.tagWrapper}>
-                {data?.book?.tags.map((item) => (
-                  <Tag
-                    bordered={false}
-                    key={item.id}
-                    color="magenta"
-                    onClick={() => handleClickTag(item.id)}>
-                    {item.tag}
-                  </Tag>
-                ))}
-              </div>
+              <SelectTag tags={data?.book?.tags} bookID={id} />
             </div>
             <div className={s.contentWrapper}>
               <div className={s.title}>{data?.book.title}</div>

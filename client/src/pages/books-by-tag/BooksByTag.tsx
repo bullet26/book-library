@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom'
 import { useQuery } from '@apollo/client'
 import { ALL_BOOKS_BY_TAG } from 'apollo'
 import { Tag as ITag } from 'types'
-import { CardListBooks } from 'components'
+import { CardListBooks, TagSelect } from 'components'
 import { Loader, Error } from 'UI'
 import s from './BooksByTag.module.scss'
 
@@ -25,11 +25,16 @@ export const BooksByTag: FC = () => {
       {!!error && <Error message={error?.message} />}
       {!!data && (
         <>
-          <div className={s.title}>
-            <span>Books by tag:</span>&nbsp;
-            <Tag bordered={false} color="magenta">
-              #{data.tagData.tag}
-            </Tag>
+          <div className={s.titleWrapper}>
+            <div>
+              <TagSelect tagID={id} />
+            </div>
+            <div className={s.title}>
+              <span>Books by tag:</span>&nbsp;
+              <Tag bordered={false} color="magenta">
+                #{data.tagData.tag}
+              </Tag>
+            </div>
           </div>
           <CardListBooks data={data.tagData.booksInTag} typeData="tag" />
         </>

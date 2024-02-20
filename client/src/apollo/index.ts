@@ -8,6 +8,7 @@ export {
   CREATE_BOOK,
   CREATE_READ_DATE,
 } from './books'
+export { ALL_TAGS, CREATE_LINK_TAG_WITH_BOOK } from './tag'
 export { ALL_AUTHORS, ONE_AUTHOR_BY_ID, CREATE_AUTHOR } from './authors'
 export {
   SEARCH_IN_BOOKS_AND_AUTHORS,

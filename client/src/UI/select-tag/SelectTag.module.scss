@@ -1,0 +1,12 @@
+.tagWrapper {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  row-gap: 15px;
+
+  span {
+    cursor: pointer;
+  }
+}

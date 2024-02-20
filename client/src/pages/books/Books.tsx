@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import { useQuery } from '@apollo/client'
 import { useSearchParams } from 'react-router-dom'
-import { CardListBooks, YearSelect } from 'components'
+import { CardListBooks, YearSelect, TagSelect } from 'components'
 import { Loader, Pagination, Error, Button } from 'UI'
 import { ReadDateBook } from 'types'
 import { ALL_BOOKS_BY_DATE } from 'apollo'
@@ -37,6 +37,7 @@ const BooksByDate: FC = () => {
         <div className={s.wrapper}>
           <div className={s.innerWrapper}>
             <YearSelect />
+            <TagSelect />
             {windowWidth < 729 && <Button />}
           </div>
           <Pagination

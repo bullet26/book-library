@@ -14,7 +14,7 @@ const typeTags = `
   "data for link Book with Tag"
   input BookTagRelationsInput {
     bookID: ID!
-    tagID: ID!
+    tagID: [ID!]
   }
   `;
 
