@@ -3,7 +3,7 @@ import { Formik, Form } from 'formik'
 import { Button, Rate } from 'antd'
 import { BookInput } from 'types'
 import { SearchInForm } from 'components'
-import { TextareaInput, DatepickerInput, Input } from 'UI'
+import { TextareaInput, DatepickerInput, Input, InputFromEditableDiv } from 'UI'
 import { initialValuesAddBook, validationSchemaAddBook } from '../utils'
 import s from '../Form.module.scss'
 
@@ -15,16 +15,9 @@ interface AddBookFormProps {
 
 const AddBookForm: FC<AddBookFormProps> = (props) => {
   const windoowWidth = window.innerWidth
-  const { handleClickAuthorBtn, isShowAuthorForm: isShowAuyhorForm, onSubmitRequest } = props
+  const { handleClickAuthorBtn, isShowAuthorForm, onSubmitRequest } = props
   const dateFormat = 'YYYY-MM-DD'
   const [rating, setRating] = useState(0)
-
-  const formatTextforDB = (fieldValue: string | null) => {
-    if (fieldValue) {
-      return fieldValue.replace(/\n\s*\n/g, '<br>')
-    }
-    return null
-  }
 
   return (
     <div className={s.addFormWrapper}>
@@ -38,8 +31,8 @@ const AddBookForm: FC<AddBookFormProps> = (props) => {
           onSubmitRequest({
             ...filteredValues,
             rating,
-            plot: formatTextforDB(plot),
-            description: formatTextforDB(description),
+            plot,
+            description,
             readEnd: readEnd?.format(dateFormat),
           })
           resetForm()
@@ -54,7 +47,7 @@ const AddBookForm: FC<AddBookFormProps> = (props) => {
             {windoowWidth > 582 && (
               <div className={s.flexItem}>
                 <Button type="default" size="middle" onClick={handleClickAuthorBtn}>
-                  {isShowAuyhorForm ? 'Hide author form' : 'Add new author'}
+                  {isShowAuthorForm ? 'Hide author form' : 'Add new author'}
                 </Button>
               </div>
             )}
@@ -91,8 +84,8 @@ const AddBookForm: FC<AddBookFormProps> = (props) => {
             <Input placeholder="Book pages" name="pages" htmlType="number" />
             <Input placeholder="Book notes" name="notes" />
           </div>
-          <TextareaInput placeholder="Book annotation (description)" name="description" />
-          <TextareaInput placeholder="Book plot description" name="plot" />
+          <InputFromEditableDiv placeholder="Book annotation" name="description" />
+          <InputFromEditableDiv placeholder="Book plot description" name="plot" />
 
           {windoowWidth < 582 && (
             <div className={s.innerWrapper}>
@@ -100,7 +93,7 @@ const AddBookForm: FC<AddBookFormProps> = (props) => {
                 Add new series
               </Button>
               <Button type="default" size="middle" onClick={handleClickAuthorBtn}>
-                {isShowAuyhorForm ? 'Hide author form' : 'Add new author'}
+                {isShowAuthorForm ? 'Hide author form' : 'Add new author'}
               </Button>
             </div>
           )}
