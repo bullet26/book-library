@@ -37,7 +37,7 @@ const BooksByDate: FC = () => {
         <div className={s.wrapper}>
           <div className={s.innerWrapper}>
             <YearSelect />
-            <TagSelect />
+            <TagSelect tagID={null} sortBy={null} />
             {windowWidth < 729 && <Button />}
           </div>
           <Pagination
