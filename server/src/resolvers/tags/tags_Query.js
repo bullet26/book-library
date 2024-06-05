@@ -2,9 +2,9 @@ import { TagModel } from '../../models/index.js';
 
 const getTagById = async (_, args) => {
     try {
-        const { id } = args;
+        const { id, sortBy } = args;
         const tag = await TagModel.findById(id);
-        return tag;
+        return { ...tag.toObject(), sortBy };
     } catch (error) {
         throw new Error(`Couldn't get tag info with ID ${tagID}:`, error);
     }

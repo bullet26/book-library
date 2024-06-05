@@ -79,8 +79,8 @@ export const ALL_BOOKS_BY_SPECIFIC_DATE = gql`
 `
 
 export const ALL_BOOKS_BY_TAG = gql`
-  query GetBooksByTag($id: ID) {
-    tagData: getTagById(id: $id) {
+  query GetBooksByTag($id: ID, $sortBy: String) {
+    tagData: getTagById(id: $id, sortBy: $sortBy) {
       tag
       booksInTag {
         id: _id

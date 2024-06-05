@@ -7,11 +7,12 @@ import { Error } from 'UI'
 import { Tag } from 'types'
 
 interface TagSelectProps {
-  tagID?: string
+  tagID: string | null
+  sortBy: string | null
 }
 
 const TagSelect: FC<TagSelectProps> = (props) => {
-  const { tagID } = props
+  const { tagID, sortBy } = props
   const navigate = useNavigate()
 
   const [allTagLabels, setAllTagLabels] = useState<{ value: string; label: string }[]>([])
@@ -25,7 +26,11 @@ const TagSelect: FC<TagSelectProps> = (props) => {
   }, [data])
 
   const handleChange = (tagId: string) => {
-    navigate(`/tag/${tagId}`)
+    let url = `/tag?tagID=${encodeURIComponent(tagId)}`
+    if (sortBy) {
+      url += `&sortBy=${encodeURIComponent(sortBy)}`
+    }
+    navigate(url)
   }
 
   return (

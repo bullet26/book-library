@@ -1,10 +1,10 @@
 import { FC } from 'react'
 import { Tag } from 'antd'
-import { useParams } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import { useQuery } from '@apollo/client'
 import { ALL_BOOKS_BY_TAG } from 'apollo'
 import { Tag as ITag } from 'types'
-import { CardListBooks, TagSelect } from 'components'
+import { CardListBooks, SortTypeSelect, TagSelect } from 'components'
 import { Loader, Error } from 'UI'
 import s from './BooksByTag.module.scss'
 
@@ -13,10 +13,13 @@ interface BooksQuery {
 }
 
 export const BooksByTag: FC = () => {
-  const { id } = useParams()
+  const location = useLocation()
+  const queryParams = new URLSearchParams(location.search)
+  const tagID = queryParams.get('tagID')
+  const sortBy = queryParams.get('sortBy') || 'author'
 
   const { loading, error, data } = useQuery<BooksQuery>(ALL_BOOKS_BY_TAG, {
-    variables: { id },
+    variables: { id: tagID, sortBy },
   })
 
   return (
@@ -26,8 +29,9 @@ export const BooksByTag: FC = () => {
       {!!data && (
         <>
           <div className={s.titleWrapper}>
-            <div>
-              <TagSelect tagID={id} />
+            <div className={s.filterWrapper}>
+              <TagSelect tagID={tagID} sortBy={sortBy} />
+              <SortTypeSelect tagID={tagID} sortBy={sortBy} />
             </div>
             <div className={s.title}>
               <span>Books by tag:</span>&nbsp;

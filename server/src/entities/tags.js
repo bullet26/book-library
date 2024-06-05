@@ -3,7 +3,7 @@ const typeTags = `
   type Tags {
     _id: ID
     tag: String!
-    booksInTag: [Book]
+    booksInTag(sortBy: String): [Book]
   }
   "BookTagRelations data"
   type BookTagRelations {
@@ -20,7 +20,7 @@ const typeTags = `
 
 const typeTagsResolvers = `
     "Get tag info by id"
-    getTagById(id: ID): Tags
+    getTagById(id: ID, sortBy: String = "title"): Tags
     "Get all tags"
     getAllTags: [Tags]
   `;

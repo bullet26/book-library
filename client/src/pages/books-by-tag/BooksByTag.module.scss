@@ -17,3 +17,9 @@
   text-align: center;
   margin-bottom: 25px;
 }
+
+.filterWrapper {
+  display: flex;
+  flex-direction: row;
+  column-gap: 25px;
+}
