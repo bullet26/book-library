@@ -59,7 +59,7 @@ const SelectTag: FC<SelectTagProps> = (props) => {
 
   const handleClickTag = (tagId: string) => {
     if (tagId) {
-      navigate(`/tag/${tagId}`)
+      navigate(`/tag?tagID=${encodeURIComponent(tagId)}`)
     }
   }
 
