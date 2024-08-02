@@ -25,12 +25,14 @@ export const ONE_AUTHOR_BY_ID = gql`
         booksInSeries {
           title
           bookCoverThumbnail
+          rating
           id: _id
         }
       }
       booksWithoutSeries {
         title
         bookCoverThumbnail
+        rating
         id: _id
       }
     }

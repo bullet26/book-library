@@ -36,6 +36,7 @@ export const ONE_BOOK_BY_ID = gql`
         booksInSeries {
           id: _id
           title
+          rating
           bookCoverThumbnail
         }
       }

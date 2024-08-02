@@ -29,8 +29,9 @@ const Card: FC<CardProps> = (props) => {
             hoverable
             className={s.smallWrpper}
             cover={bookCover}
-            onClick={() => onClick(id)}
-          />
+            onClick={() => onClick(id)}>
+            <Rating rating={rating} type="circle-only" style={{ bottom: '5px', top: 'auto' }} />
+          </AtntCard>
         </Tooltip>
       )}
       {type === 'author' && (
