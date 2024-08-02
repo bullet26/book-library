@@ -1,4 +1,5 @@
-import { AuthorModel } from '../../models/index.js';
+import { AuthorModel, BooksModel } from '../../models/index.js';
+import { authorsAggregation } from './aggregation.js';
 
 const getAllAuthors = async (_, args) => {
     const { page, limit } = args;
@@ -16,6 +17,15 @@ const getAllAuthors = async (_, args) => {
     }
 };
 
+const getAllAuthorsByBooksCount = async () => {
+    try {
+        const authors = await BooksModel.aggregate(authorsAggregation);
+        return authors;
+    } catch (error) {
+        throw new Error('Couldn`t find info in DB');
+    }
+};
+
 const getOneAuthor = async (_, args) => {
     const { id } = args;
     try {
@@ -26,4 +36,4 @@ const getOneAuthor = async (_, args) => {
     }
 };
 
-export const AuthorQuery = { getAllAuthors, getOneAuthor };
+export const AuthorQuery = { getAllAuthors, getOneAuthor, getAllAuthorsByBooksCount };

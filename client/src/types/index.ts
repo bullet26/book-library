@@ -1,4 +1,4 @@
-export type { Author, AuthorInput } from './AuthorTypes'
+export type { Author, AuthorInput, MostRededAuthorResponse } from './AuthorTypes'
 export type {
   Book,
   ReadDateBook,

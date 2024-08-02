@@ -10,6 +10,7 @@ import {
   BooksByDate,
   AddBook,
   BooksByTag,
+  MostRededAuthors,
 } from 'pages'
 
 const AppRoutes = () => {
@@ -22,6 +23,7 @@ const AppRoutes = () => {
         <Route path="add" element={<AddBook />} />
         <Route path="date/:year" element={<BooksByDate />} />
         <Route path="tag" element={<BooksByTag />} />
+        <Route path="most_reded_authors" element={<MostRededAuthors />} />
         <Route path="authors" element={<Authors />} />
         <Route path="authors/:id" element={<Author />} />
       </Route>

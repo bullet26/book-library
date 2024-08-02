@@ -1,6 +1,7 @@
 import { FC } from 'react'
 import { useQuery } from '@apollo/client'
-import { useSearchParams } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
+import { Button as AntButton } from 'antd'
 import { CardListAuthors } from 'components'
 import { Loader, Pagination, Error, Button } from 'UI'
 import { Author } from 'types'
@@ -43,8 +44,18 @@ const Authors: FC = () => {
               pageSize={Number(searchParams.get('perpage'))}
               handleSubmit={handleSubmit}
             />
+            {windowWidth > 729 && (
+              <Link to="/most_reded_authors" style={{}}>
+                <AntButton shape="round">Show most reded authors</AntButton>
+              </Link>
+            )}
             {windowWidth < 729 && <Button />}
           </div>
+          {windowWidth < 729 && (
+            <Link to="/most_reded_authors" style={{}}>
+              <AntButton shape="round">Show most reded authors</AntButton>
+            </Link>
+          )}
           <CardListAuthors data={authors || []} />
           <Pagination
             total={totalCount || 0}

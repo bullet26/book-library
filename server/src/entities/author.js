@@ -16,6 +16,16 @@ const typeAuthor = `
     totalCount: Int
     authors: [Author]
   }
+  "Author data without pagination"
+  type AuthorMostReadeResponse {
+    id: ID
+    count: Int
+    name: String!
+    surname: String
+    portraitThumbnail: String
+
+  }
+
   "data for add author"
   input AuthorInput {
     name: String
@@ -29,6 +39,8 @@ const typeAuthor = `
 const typeAuthorResolvers = `
   "Get a list of authors"
   getAllAuthors(limit: Int = 50, page: Int = 1): AuthorResponse
+  "Get a list of authors sorted by count reded books"
+  getAllAuthorsByBooksCount: [AuthorMostReadeResponse]
   "Get one author by id"
   getOneAuthor(id: ID): Author
   `;

@@ -6,10 +6,10 @@
 }
 
 .innerWrapper {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   @media (max-width: 729px) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     column-gap: 25px;
   }
 }

@@ -1,1 +1,1 @@
-export type { Author, AuthorInput } from './Author'
+export type { Author, AuthorInput, MostRededAuthorResponse } from './Author'

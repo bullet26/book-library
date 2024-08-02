@@ -11,6 +11,14 @@ export interface Author {
   booksWithoutSeries: [Book]
 }
 
+export interface MostRededAuthorResponse {
+  name: string
+  surname: string
+  id: string
+  portraitThumbnail: string
+  count: number
+}
+
 export interface AuthorInput {
   name: string
   surname: string

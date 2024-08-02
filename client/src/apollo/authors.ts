@@ -46,3 +46,14 @@ export const CREATE_AUTHOR = gql`
     }
   }
 `
+export const ALL_AUTHORS_BY_BOOKS_COUNT = gql`
+  query GetAllAuthorsByBooksCount {
+    author: getAllAuthorsByBooksCount {
+      name
+      surname
+      id
+      portraitThumbnail
+      count
+    }
+  }
+`

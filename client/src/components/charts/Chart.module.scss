@@ -1,9 +1,15 @@
 @import '../../theme/variables.scss';
 
-.wrapper {
+.wrapper,
+.buttonWrapper {
   display: flex;
   flex-direction: column;
   row-gap: 15px;
+  height: 100%;
+}
+
+.buttonWrapper {
+  row-gap: 5px;
 }
 
 .barwrapper {
