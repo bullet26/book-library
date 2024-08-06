@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useMemo } from 'react'
 import { useQuery } from '@apollo/client'
 import { Image } from 'antd'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -7,6 +7,7 @@ import { BookSection } from 'components'
 import { Loader, ScrollArrow, Error } from 'UI'
 import { Author as IAuthor } from 'types'
 import { ONE_AUTHOR_BY_ID } from 'apollo'
+import { colorRate } from 'utils'
 import s from './Author.module.scss'
 
 interface AuthorQuery {
@@ -22,6 +23,30 @@ const Author: FC = () => {
   const series = data?.author.series
   const books = data?.author.booksWithoutSeries
   const portrait = data?.author.portrait
+
+  const { booksQuant, booksAverageRating } = useMemo(() => {
+    let booksInSeriesQuant = 0
+    let booksWithoutSeriesQuant = books?.length || 0
+    let booksInSeriesTotalRating = 0
+    let booksWithoutSeriesTotalRating = 0
+
+    series?.forEach(({ booksInSeries }) => {
+      booksInSeriesQuant += booksInSeries?.length || 0
+      booksInSeries.forEach(({ rating }) => (booksInSeriesTotalRating += rating))
+    })
+
+    books?.forEach(({ rating }) => (booksWithoutSeriesTotalRating += rating))
+
+    const booksQuant = booksInSeriesQuant + booksWithoutSeriesQuant
+    const booksAverageRating =
+      Math.ceil(((booksInSeriesTotalRating + booksWithoutSeriesTotalRating) / booksQuant) * 100) /
+      100
+
+    return {
+      booksQuant,
+      booksAverageRating,
+    }
+  }, [series, books])
 
   const navigate = useNavigate()
 
@@ -46,6 +71,11 @@ const Author: FC = () => {
                 <BookImg width="100%" />
               )}
               <div className={s.title}>{`${data?.author.name} ${data?.author.surname}`}</div>
+              <div className={s.statistic}>Total number of books read: {booksQuant}</div>
+              <div className={s.statistic}>
+                Average rating:
+                <span style={{ color: colorRate(booksAverageRating) }}> {booksAverageRating}</span>
+              </div>
             </div>
             <div className={s.bookWrapper}>
               {!!series?.length &&

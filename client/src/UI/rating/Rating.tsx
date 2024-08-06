@@ -1,7 +1,8 @@
 import { CSSProperties, FC } from 'react'
 import { StarTwoTone } from '@ant-design/icons'
 import { Tick } from 'assets'
-import { colorRate, makeArray } from './utils'
+import { colorRate } from 'utils'
+import { makeArray } from './utils'
 import s from './Rating.module.scss'
 
 interface RatingProps {

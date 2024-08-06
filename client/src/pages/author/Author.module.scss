@@ -46,6 +46,12 @@
   }
 }
 
+.statistic {
+  margin-top: 10px;
+  color: $lightgray;
+  font-size: 20px;
+}
+
 .mobile {
   display: none;
   @media (max-width: 568px) {
