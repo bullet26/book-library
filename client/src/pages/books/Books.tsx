@@ -35,18 +35,20 @@ const BooksByDate: FC = () => {
       {!!error && <Error message={error?.message} />}
       {!!data && (
         <div className={s.wrapper}>
-          <div className={s.innerWrapper}>
-            <YearSelect />
-            <TagSelect tagID={null} sortBy={null} />
-            {windowWidth < 729 && <Button />}
+          <div className={s.paginationTagWrapper}>
+            <Pagination
+              current={Number(searchParams.get('page'))}
+              pageSize={Number(searchParams.get('perpage'))}
+              total={totalCount || 0}
+              perPageRange={[20, 50, 100, 200]}
+              handleSubmit={handleSubmit}
+            />
+            <div className={s.innerWrapper}>
+              <YearSelect />
+              <TagSelect tagID={null} sortBy={null} />
+              {windowWidth < 729 && <Button />}
+            </div>
           </div>
-          <Pagination
-            current={Number(searchParams.get('page'))}
-            pageSize={Number(searchParams.get('perpage'))}
-            total={totalCount || 0}
-            perPageRange={[20, 50, 100, 200]}
-            handleSubmit={handleSubmit}
-          />
           <CardListBooks data={books || []} typeData="readDate" />
           <Pagination
             current={Number(searchParams.get('page'))}

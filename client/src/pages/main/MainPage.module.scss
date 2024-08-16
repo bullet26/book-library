@@ -1,11 +1,17 @@
 .wrapper {
   display: flex;
   justify-content: space-between;
+  background-color: #222222;
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+  z-index: 3;
+  padding: 15px 0;
 }
 
 .innerWrapper {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   column-gap: 25px;
 }

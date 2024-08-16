@@ -1,42 +1,29 @@
 import { FC, useEffect } from 'react'
-import { Tabs } from 'antd'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import s from './NavigationHeader.module.scss'
 
 const NavigationHeader: FC = () => {
+  const selectedKey = window.location.pathname.split('/').at(1)
   const navigate = useNavigate()
-  const defultKey = window.location.pathname.split('/').at(1)
-
-  const onChange = (key: string) => {
-    navigate(`/${key}`)
-  }
 
   useEffect(() => {
-    if (!defultKey) {
+    if (!selectedKey) {
       navigate('/home')
     }
-  }, [defultKey])
+  }, [])
 
   return (
-    <Tabs
-      onChange={onChange}
-      defaultActiveKey={defultKey}
-      activeKey={defultKey}
-      type="card"
-      items={[
-        {
-          label: 'Home',
-          key: 'home',
-        },
-        {
-          label: 'Books',
-          key: 'books',
-        },
-        {
-          label: 'Authors',
-          key: 'authors',
-        },
-      ]}
-    />
+    <div className={s.wrapper}>
+      <Link to="/home" style={{ textDecoration: 'none' }}>
+        <div className={`${s.button} ${selectedKey === 'home' && s.active}`}>Home</div>
+      </Link>
+      <Link to="/books" style={{ textDecoration: 'none' }}>
+        <div className={`${s.button} ${selectedKey === 'books' && s.active}`}>Books</div>
+      </Link>
+      <Link to="/authors" style={{ textDecoration: 'none' }}>
+        <div className={`${s.button} ${selectedKey === 'authors' && s.active}`}>Authors</div>
+      </Link>
+    </div>
   )
 }
 

@@ -1,9 +1,11 @@
 @import './theme/variables.scss';
 
 body {
-  padding: 15px 45px;
+  padding: 0 45px 15px 45px;
   margin: 0;
   background-color: $dark;
+  font-family: 'Segoe UI', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+
   /* width */
   &::-webkit-scrollbar {
     width: 15px;
