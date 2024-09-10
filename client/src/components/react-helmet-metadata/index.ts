@@ -1,0 +1,1 @@
+export { ReactHelmetMetadata } from './ReactHelmetMetadata'
