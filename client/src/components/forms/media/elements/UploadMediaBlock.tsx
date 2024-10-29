@@ -4,7 +4,7 @@ import { UploadOutlined } from '@ant-design/icons'
 import { RcFile, UploadProps } from 'antd/es/upload'
 import ky from 'ky'
 import { useField } from 'formik'
-import { Input, Error } from 'UI'
+import { Input } from 'UI'
 import { MediaType } from 'types'
 import { beforeUpload } from './utils'
 
@@ -18,29 +18,9 @@ const UploadMediaBlock: FC<DropZoneProps> = (props) => {
   const baseURL = import.meta.env.VITE_REST_API_BASE_URL
 
   const [field, , helpers] = useField('type')
-  const [error, setError] = useState(false)
 
   const onChangeType = (value: MediaType) => {
     helpers.setValue(value)
-  }
-
-  const handleUploadImage = async (file: string | RcFile | Blob) => {
-    if (typeof file === 'string') {
-      return
-    }
-
-    const formData = new FormData()
-    formData.append('file', file)
-
-    try {
-      const response: { data: { image: string }; messge: string } = await ky
-        .post(`${baseURL}/upload`, { body: formData })
-        .json()
-
-      addLinkToForm(response.data.image)
-    } catch (e) {
-      setError(true)
-    }
   }
 
   const handleChange: UploadProps['onChange'] = (info) => {
@@ -56,12 +36,6 @@ const UploadMediaBlock: FC<DropZoneProps> = (props) => {
 
     addLinkToForm(urls)
   }
-
-  //  action={`${baseURL}/upload`}
-
-  // customRequest={({ file }) => {
-  //   handleUploadImage(file)
-  // }}
 
   return (
     <>
@@ -82,7 +56,6 @@ const UploadMediaBlock: FC<DropZoneProps> = (props) => {
           <input type="hidden" name="portrait" />
         </Upload>
       )}
-      {/* {!!error && <Error />} */}
     </>
   )
 }
