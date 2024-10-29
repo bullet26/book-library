@@ -2,10 +2,11 @@ import { v2 as cloudinary } from 'cloudinary';
 import multer from 'multer';
 
 const storage = multer.memoryStorage();
-export const multerMiddleware = multer({ storage }).single('bookCover');
+export const multerMiddleware = multer({ storage }).single('file');
 
 async function cloudinaryUpload(file) {
     const res = await cloudinary.uploader.upload(file, {
+        folder: 'books',
         resource_type: 'auto',
     });
 

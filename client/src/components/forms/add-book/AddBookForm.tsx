@@ -1,9 +1,9 @@
 import { FC, useState } from 'react'
-import { Formik, Form } from 'formik'
+import { Formik, Form, FormikHelpers } from 'formik'
 import { Button, Rate } from 'antd'
 import { BookInput } from 'types'
 import { SearchInForm } from 'components'
-import { TextareaInput, DatepickerInput, Input, InputFromEditableDiv } from 'UI'
+import { DatepickerInput, Input, InputFromEditableDiv } from 'UI'
 import { initialValuesAddBook, validationSchemaAddBook } from '../utils'
 import s from '../Form.module.scss'
 
@@ -13,11 +13,27 @@ interface AddBookFormProps {
   onSubmitRequest: (values: BookInput) => void
 }
 
+type ValuesAddBookType = typeof initialValuesAddBook
+
 const AddBookForm: FC<AddBookFormProps> = (props) => {
   const windoowWidth = window.innerWidth
   const { handleClickAuthorBtn, isShowAuthorForm, onSubmitRequest } = props
   const dateFormat = 'YYYY-MM-DD'
   const [rating, setRating] = useState(0)
+
+  const onSubmit = (values: ValuesAddBookType, { resetForm }: FormikHelpers<ValuesAddBookType>) => {
+    const { author, series, plot, description, readEnd, ...filteredValues } = values
+
+    onSubmitRequest({
+      ...filteredValues,
+      rating,
+      plot,
+      description,
+      readEnd: readEnd?.format(dateFormat),
+    })
+    resetForm()
+    setRating(0)
+  }
 
   return (
     <div className={s.addFormWrapper}>
@@ -25,19 +41,7 @@ const AddBookForm: FC<AddBookFormProps> = (props) => {
       <Formik
         initialValues={initialValuesAddBook}
         validationSchema={validationSchemaAddBook}
-        onSubmit={(values, { resetForm }) => {
-          const { author, series, plot, description, readEnd, ...filteredValues } = values
-
-          onSubmitRequest({
-            ...filteredValues,
-            rating,
-            plot,
-            description,
-            readEnd: readEnd?.format(dateFormat),
-          })
-          resetForm()
-          setRating(0)
-        }}>
+        onSubmit={onSubmit}>
         <Form className={s.form}>
           <Input placeholder="Book title" name="title" />
           <div className={s.innerWrapper}>

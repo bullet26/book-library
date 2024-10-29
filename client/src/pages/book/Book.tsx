@@ -1,3 +1,4 @@
+/* eslint-disable react/no-children-prop */
 import { FC } from 'react'
 import { useParams } from 'react-router-dom'
 import { useQuery } from '@apollo/client'

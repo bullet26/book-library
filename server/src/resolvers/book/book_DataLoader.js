@@ -1,5 +1,5 @@
 import DataLoader from 'dataloader';
-import { AuthorModel, SeriesModel, ReadDateModel, TagModel, BookTagRelationsModel } from '../../models/index.js';
+import { AuthorModel, SeriesModel, ReadDateModel, TagModel, BookTagRelationsModel, AdditionalMediaModel } from '../../models/index.js';
 
 const author = (source, args, context, info) => {
     const { dataloaders } = context;
@@ -102,4 +102,73 @@ const readDate = (source, args, context, info) => {
     return readDateLoader.load(source._id);
 };
 
-export const BookResolver = { author, series, tags, readDate };
+const isAdditionalMediaExist = (source, args, context, info) => {
+    const { dataloaders } = context;
+    let isAdditionalMediaExistLoader = dataloaders.get(info.fieldNodes);
+
+    if (!isAdditionalMediaExistLoader) {
+        isAdditionalMediaExistLoader = new DataLoader(async keys => {
+            return await Promise.all(
+                keys.map(async bookID => {
+                    try {
+                        const res = await AdditionalMediaModel.find({ bookID });
+                        return !!res.length;
+                    } catch (error) {
+                        console.error(`Error loading media with ID ${bookID}:`, error);
+                        return null;
+                    }
+                })
+            );
+        });
+    }
+    dataloaders.set(info.fieldNodes, isAdditionalMediaExistLoader);
+
+    return isAdditionalMediaExistLoader.load(source._id);
+};
+
+const additionalMedia = (source, args, context, info) => {
+    const { dataloaders } = context;
+    let additionalMediaLoader = dataloaders.get(info.fieldNodes);
+
+    if (!additionalMediaLoader) {
+        additionalMediaLoader = new DataLoader(async keys => {
+            return await Promise.all(
+                keys.map(async bookID => {
+                    try {
+                        const groupedMedia = await AdditionalMediaModel.aggregate([
+                            { $match: { bookID } },
+                            {
+                                $group: {
+                                    _id: '$type', // Группируем по полю type
+                                    media: { $push: '$$ROOT' }, // Собираем все документы в массив media
+                                },
+                            },
+                            {
+                                $project: {
+                                    _id: 0,
+                                    type: '$_id',
+                                    media: 1,
+                                },
+                            },
+                        ]);
+
+                        const result = {
+                            image: groupedMedia.find(item => item.type === 'IMAGE')?.media || [],
+                            video: groupedMedia.find(item => item.type === 'VIDEO')?.media || [],
+                        };
+
+                        return result;
+                    } catch (error) {
+                        console.error(`Error loading book for tag with ID ${bookID}:`, error);
+                        return null;
+                    }
+                })
+            );
+        });
+    }
+    dataloaders.set(info.fieldNodes, additionalMediaLoader);
+
+    return additionalMediaLoader.load(source._id);
+};
+
+export const BookResolver = { author, series, tags, readDate, additionalMedia, isAdditionalMediaExist };

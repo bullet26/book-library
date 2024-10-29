@@ -13,3 +13,4 @@ export { Input, TextareaInput, DatepickerInput, InputFromEditableDiv } from './i
 export { DropZone } from './input-file-upload'
 export { Modal } from './modal'
 export { SelectTag } from './select-tag'
+export { VideoEmbed } from './video-embed'

@@ -67,7 +67,7 @@ const DropZone: FC<DropZoneProps> = (props) => {
 
   const handleUpload = async () => {
     const formData = new FormData()
-    formData.append('bookCover', file)
+    formData.append('file', file)
 
     try {
       const baseURL = import.meta.env.VITE_REST_API_BASE_URL

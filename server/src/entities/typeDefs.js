@@ -6,6 +6,7 @@ import { descriptionPlot } from './descriptionPlot.js';
 import { analytics } from './ahalytics.js';
 import { search } from './search.js';
 import { tags } from './tags.js';
+import { additionalMedia } from './additionalMedia.js';
 
 export const typeDefs = `
 #graphql
@@ -17,6 +18,7 @@ scalar Date
     ${readDate.typeReadDate}
     ${descriptionPlot.typeDescriptionPlot}
     ${analytics.typeAnalytics}
+    ${additionalMedia.typeAdditionalMedia}
     union SearchResult = Book | Author
     type Query {
         ${book.typeBookResolvers}
@@ -33,5 +35,6 @@ scalar Date
     ${readDate.typeReadDateMutation}
     ${descriptionPlot.typeDescriptionPlotMutation}
     ${tags.typeTagsMutation}
+    ${additionalMedia.typeAdditionalMediaMutation}
 }
 `;

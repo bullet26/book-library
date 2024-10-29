@@ -1,19 +1,20 @@
 import { FC, useState } from 'react'
-import { Switch } from 'antd'
-import { AddBookNew, AddBookReread } from 'pages'
+import { Radio } from 'antd'
+import { AddBookNew, AddBookReread, AddMediaForBook } from 'pages'
 
 const AddBook: FC = () => {
-  const [isNewBook, setBookStatus] = useState(true)
-  const onChange = () => setBookStatus((prevState) => !prevState)
+  const [page, setPage] = useState('new-book')
+
   return (
     <>
-      <Switch
-        checkedChildren="new book"
-        unCheckedChildren="reread"
-        defaultChecked
-        onChange={onChange}
-      />
-      {isNewBook ? <AddBookNew /> : <AddBookReread />}
+      <Radio.Group onChange={(e) => setPage(e.target.value)} value={page}>
+        <Radio value="new-book">Add new book</Radio>
+        <Radio value="reread">Add new read date (reread)</Radio>
+        <Radio value="media">Add media for book</Radio>
+      </Radio.Group>
+      {page === 'new-book' && <AddBookNew />}
+      {page === 'reread' && <AddBookReread />}
+      {page === 'media' && <AddMediaForBook />}
     </>
   )
 }

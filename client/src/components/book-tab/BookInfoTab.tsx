@@ -1,18 +1,17 @@
 import { FC } from 'react'
-import { useParams } from 'react-router-dom'
 import { BookInfo, Carousel } from 'components'
-import { useQuery } from '@apollo/client'
 import { Book as IBook } from 'types'
-import { ONE_BOOK_BY_ID } from 'apollo'
 import s from './BookTab.module.scss'
 
-interface BookQuery {
-  book: IBook
+interface BookInfoTabProps {
+  data?: {
+    book: IBook
+  }
 }
 
-const BookInfoTab: FC = () => {
-  const { id } = useParams()
-  const { data } = useQuery<BookQuery>(ONE_BOOK_BY_ID, { variables: { id } })
+const BookInfoTab: FC<BookInfoTabProps> = (props) => {
+  const { data } = props
+
   const series = data?.book.series
 
   return (

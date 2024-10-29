@@ -10,3 +10,5 @@ export type {
 export type { Series } from './SeriesTypes'
 export type { Plot } from './PlotTypes'
 export type { Search, IStatistic } from './SearchTypes'
+export type { AdditionalMediaInput, AdditionalMedia, AllMediaForItem } from './MediaTypes'
+export { MediaType } from './MediaTypes'

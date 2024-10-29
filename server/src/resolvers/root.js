@@ -7,6 +7,7 @@ import { SeriesResolver } from './series/index.js';
 import { TagsResolver, TagsQuery, TagsMutation } from './tags/index.js';
 import { AnalyticsQuery } from './analytics/index.js';
 import { dateScalar } from '../scalars/Date.js';
+import { AdditionalMediaMutation } from './additionalMedia/index.js';
 
 export const rootResolver = {
     Date: dateScalar,
@@ -17,5 +18,5 @@ export const rootResolver = {
     Tags: { ...TagsResolver },
     SearchResult: { ...SearchResolver },
     Query: { ...BookQuery, ...AuthorQuery, ...ReadDateQuery, ...DescriptionPlotQuery, ...SearchQuery, ...AnalyticsQuery, ...TagsQuery },
-    Mutation: { ...AuthorMutation, ...BookMutation, ...DescriptionPlotMutation, ...ReadDateMutation, ...TagsMutation },
+    Mutation: { ...AuthorMutation, ...BookMutation, ...DescriptionPlotMutation, ...ReadDateMutation, ...TagsMutation, ...AdditionalMediaMutation },
 };

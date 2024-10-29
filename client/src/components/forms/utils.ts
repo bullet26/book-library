@@ -1,6 +1,7 @@
 import * as Yup from 'yup'
 // eslint-disable-next-line import/no-extraneous-dependencies
 import dayjs from 'dayjs'
+import { MediaType } from 'types'
 
 export const initialValuesAddBook = {
   author: '',
@@ -54,4 +55,15 @@ export const initialValuesReReadBook = {
 export const validationSchemaReReadBook = Yup.object({
   title: Yup.string().required('Required field!'),
   readEnd: Yup.string().required('Required field!'),
+})
+
+export const initialValuesMedia = {
+  title: '',
+  bookID: null,
+  url: '',
+  type: MediaType.VIDEO,
+}
+
+export const validationSchemaMedia = Yup.object({
+  title: Yup.string().required('Required field!'),
 })

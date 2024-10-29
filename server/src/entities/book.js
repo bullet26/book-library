@@ -16,6 +16,8 @@ const typeBook = `
     readDate: [ReadDate]
     bookCover: String
     bookCoverThumbnail: String
+    isAdditionalMediaExist: Boolean
+    additionalMedia: AllMediaForItem
   }
   "Book data + total сount"
   type BooksResponse {

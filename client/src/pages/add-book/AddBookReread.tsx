@@ -1,12 +1,12 @@
+import { FC } from 'react'
 import { ReReadBookForm } from 'components'
 import { useMutation } from '@apollo/client'
 import { CREATE_READ_DATE } from 'apollo'
 import { ReadDateInput } from 'types'
 import { Error, Modal } from 'UI'
-
 import s from './AddBook.module.scss'
 
-const AddBookReread = () => {
+const AddBookReread: FC = () => {
   const [createRereadBookDateApollo, { data: newReadDate, error: errorReadDate }] =
     useMutation(CREATE_READ_DATE)
 
@@ -14,7 +14,6 @@ const AddBookReread = () => {
     createRereadBookDateApollo({
       variables: { input: values },
     })
-    console.log(values)
   }
 
   return (

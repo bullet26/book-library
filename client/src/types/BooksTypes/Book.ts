@@ -1,6 +1,6 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Dayjs } from 'dayjs'
-import { Author, ReadDateBook, Series } from 'types'
+import { Author, ReadDateBook, Series, AllMediaForItem } from 'types'
 
 export interface Book {
   id: string
@@ -18,6 +18,8 @@ export interface Book {
   readDate?: ReadDateBook[]
   bookCover: string
   bookCoverThumbnail: string
+  isAdditionalMediaExist: boolean
+  additionalMedia: AllMediaForItem
 }
 
 export interface Tag {
