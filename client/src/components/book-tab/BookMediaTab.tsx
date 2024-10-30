@@ -2,6 +2,7 @@ import { FC } from 'react'
 import { Image } from 'antd'
 import { useParams } from 'react-router-dom'
 import { useQuery } from '@apollo/client'
+import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry'
 import { AllMediaForItem } from 'types'
 import { ALL_MEDIA_FOR_BOOK } from 'apollo'
 import { Error, VideoEmbed } from 'UI'
@@ -29,9 +30,13 @@ const BookMediaTab: FC = () => {
           {media?.video.map((item) => <VideoEmbed key={item.id} url={item.url} />)}
         </div>
       )}
-      <div className={s.imageWrapper}>
-        {media?.image.map((item) => <Image key={item.id} src={item.url} />)}
-      </div>
+      {!!media?.image.length && (
+        <ResponsiveMasonry columnsCountBreakPoints={{ 350: 1, 560: 2, 900: 3, 1300: 5 }}>
+          <Masonry columnsCount={5} itemStyle={{ maxWidth: '206px', maxHeight: '137px' }}>
+            {media?.image.map((item) => <Image key={item.id} src={item.url} />)}
+          </Masonry>
+        </ResponsiveMasonry>
+      )}
       {!loading && !media && <span>You can add media on settings page</span>}
     </>
   )

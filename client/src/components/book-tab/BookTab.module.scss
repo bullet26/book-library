@@ -21,21 +21,6 @@
   margin-bottom: 25px;
 }
 
-.imageWrapper {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  column-gap: 5px;
-  row-gap: 5px;
-
-  img {
-    max-width: 206px;
-    max-height: 137px;
-    object-fit: cover;
-  }
-}
-
 .emptyPlot {
   img {
     width: 55vw;
