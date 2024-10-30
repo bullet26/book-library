@@ -13,7 +13,7 @@
   background-color: $bgc;
   position: absolute;
   top: 65px;
-  right: 20px;
+  right: 72px;
   display: flex;
   flex-direction: column;
   width: 304px;
@@ -42,7 +42,7 @@
 
 .withScrollbar {
   @media (min-width: 568px) {
-    right: 33px;
+    right: 78px;
   }
 }
 

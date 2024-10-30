@@ -4,6 +4,7 @@ import { useQuery } from '@apollo/client'
 import { Plot } from 'types'
 import { ONE_BOOK_PLOT } from 'apollo'
 import { Error } from 'UI'
+import { emptyPlotImg } from 'assets'
 import s from './BookTab.module.scss'
 
 interface PlotQuery {
@@ -26,7 +27,11 @@ const BookPlotTab: FC = () => {
       {plot && ( // eslint-disable-next-line react/no-danger
         <div className={s.text} dangerouslySetInnerHTML={{ __html: plot as TrustedHTML }} />
       )}
-      {!loading && !plot && <span>add plot someday</span>}
+      {!loading && !plot && (
+        <div className={s.emptyPlot}>
+          <img src={emptyPlotImg} alt="empty-plot" />
+        </div>
+      )}
     </>
   )
 }

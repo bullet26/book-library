@@ -1,8 +1,9 @@
+/* eslint-disable react/no-children-prop */
 import { FC, useMemo } from 'react'
 import { useQuery } from '@apollo/client'
 import { Image } from 'antd'
 import { useNavigate, useParams } from 'react-router-dom'
-import { Book as BookImg } from 'assets'
+import { Book as BookImg, unknownAuthor1, unknownAuthor2 } from 'assets'
 import { BookSection, ReactHelmetMetadata } from 'components'
 import { Loader, ScrollArrow, Error } from 'UI'
 import { Author as IAuthor } from 'types'
@@ -14,6 +15,12 @@ interface AuthorQuery {
   author: IAuthor
 }
 
+function getRandomImage() {
+  const images = [unknownAuthor1, unknownAuthor2]
+  const randomIndex = Math.floor(Math.random() * images.length)
+  return images[randomIndex]
+}
+
 const Author: FC = () => {
   const { id: authorId } = useParams()
 
@@ -22,20 +29,24 @@ const Author: FC = () => {
   })
   const series = data?.author.series
   const books = data?.author.booksWithoutSeries
-  const portrait = data?.author.portrait
+  const portrait = data?.author.portrait || getRandomImage()
 
   const { booksQuant, booksAverageRating } = useMemo(() => {
     let booksInSeriesQuant = 0
-    let booksWithoutSeriesQuant = books?.length || 0
+    const booksWithoutSeriesQuant = books?.length || 0
     let booksInSeriesTotalRating = 0
     let booksWithoutSeriesTotalRating = 0
 
     series?.forEach(({ booksInSeries }) => {
       booksInSeriesQuant += booksInSeries?.length || 0
-      booksInSeries.forEach(({ rating }) => (booksInSeriesTotalRating += rating))
+      booksInSeries.forEach(({ rating }) => {
+        booksInSeriesTotalRating += rating
+      })
     })
 
-    books?.forEach(({ rating }) => (booksWithoutSeriesTotalRating += rating))
+    books?.forEach(({ rating }) => {
+      booksWithoutSeriesTotalRating += rating
+    })
 
     const booksQuant = booksInSeriesQuant + booksWithoutSeriesQuant
     const booksAverageRating =
@@ -81,7 +92,6 @@ const Author: FC = () => {
                   <div className={s.statistic}>
                     Average rating:
                     <span style={{ color: colorRate(booksAverageRating) }}>
-                      {' '}
                       {booksAverageRating}
                     </span>
                   </div>

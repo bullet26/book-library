@@ -2,6 +2,7 @@ import { FC } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Card } from 'UI'
 import { Author, MostRededAuthorResponse } from 'types'
+import { unknownAuthor1, unknownAuthor2 } from 'assets'
 import s from './CardList.module.scss'
 
 interface CardListAuthorsProps {
@@ -24,13 +25,19 @@ const CardListAuthors: FC<CardListAuthorsProps> = (props) => {
     }
   }
 
+  function getRandomImage() {
+    const images = [unknownAuthor1, unknownAuthor2]
+    const randomIndex = Math.floor(Math.random() * images.length)
+    return images[randomIndex]
+  }
+
   return (
     <div className={s.wrapper}>
       {data?.map((item) => (
         <Card
           key={item.id}
           id={item.id}
-          img={item.portraitThumbnail}
+          img={item.portraitThumbnail || getRandomImage()}
           title={item.surname}
           subtitle={item.name}
           count={isMostRededAuthorResponse(item) ? item.count : 0}
