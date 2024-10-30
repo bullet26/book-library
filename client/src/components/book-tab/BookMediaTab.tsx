@@ -21,6 +21,8 @@ const BookMediaTab: FC = () => {
 
   const media = data?.book?.media
 
+  const msProps = { columnsCount: 5, itemStyle: { maxWidth: '206px', maxHeight: '137px' } }
+
   return (
     <>
       {!!loading && <div>Loading..</div>}
@@ -32,7 +34,7 @@ const BookMediaTab: FC = () => {
       )}
       {!!media?.image.length && (
         <ResponsiveMasonry columnsCountBreakPoints={{ 350: 1, 560: 2, 900: 3, 1300: 5 }}>
-          <Masonry columnsCount={5} itemStyle={{ maxWidth: '206px', maxHeight: '137px' }}>
+          <Masonry {...msProps}>
             {media?.image.map((item) => <Image key={item.id} src={item.url} />)}
           </Masonry>
         </ResponsiveMasonry>
