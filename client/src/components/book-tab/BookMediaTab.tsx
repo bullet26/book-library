@@ -33,11 +33,15 @@ const BookMediaTab: FC = () => {
         </div>
       )}
       {!!media?.image.length && (
-        <ResponsiveMasonry columnsCountBreakPoints={{ 350: 1, 560: 2, 900: 3, 1300: 5 }}>
-          <Masonry {...msProps}>
-            {media?.image.map((item) => <Image key={item.id} src={item.url} />)}
-          </Masonry>
-        </ResponsiveMasonry>
+        <Image.PreviewGroup>
+          <ResponsiveMasonry columnsCountBreakPoints={{ 350: 1, 560: 2, 900: 3, 1300: 5 }}>
+            <Masonry {...msProps}>
+              {media?.image.map((item) => (
+                <Image key={item.id} src={item.url} alt="additional-book-media" />
+              ))}
+            </Masonry>
+          </ResponsiveMasonry>
+        </Image.PreviewGroup>
       )}
       {!loading && !media && <span>You can add media on settings page</span>}
     </>

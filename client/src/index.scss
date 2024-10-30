@@ -38,3 +38,8 @@ body {
 }
 
 // Note: The -webkit-scrollbar is not supported in Firefox or in Edge, prior version 79.
+
+// override antd default style
+.ant-image-preview-mask {
+  background-color: rgba(0, 0, 0, 0.95) !important;
+}
