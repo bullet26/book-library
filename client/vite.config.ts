@@ -19,6 +19,9 @@ export default defineConfig({
       utils: '/src/utils/',
     },
   },
+  server: {
+    host: true,
+  },
   css: {
     modules: {
       localsConvention: 'camelCaseOnly',
