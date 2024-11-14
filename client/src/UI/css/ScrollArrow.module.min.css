@@ -1,1 +1,0 @@
-.wrapper{cursor:pointer;z-index:2;position:fixed;opacity:0;top:60px;left:20px}@media(max-width: 568px){.wrapper{top:63px;right:23px;left:auto}}.show{rotate:180deg;opacity:1;visibility:visible}@media(max-width: 568px){.show{display:none}}.return{opacity:1;visibility:visible;rotate:90deg}/*# sourceMappingURL=ScrollArrow.module.min.css.map */

@@ -1,1 +1,0 @@
-.wrapper img{-o-object-fit:cover;object-fit:cover;width:85vw;height:550px}.pieWrapper{margin-top:35px;display:grid;grid-template-columns:repeat(2, 50%);grid-template-rows:250px;-webkit-column-gap:30px;-moz-column-gap:30px;column-gap:30px}@media(max-width: 400px){.pieWrapper{grid-template-columns:1fr;grid-template-rows:370px 420px}}/*# sourceMappingURL=Home.module.min.css.map */
