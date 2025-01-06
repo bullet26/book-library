@@ -16,7 +16,7 @@ interface AddBookFormProps {
 type ValuesAddBookType = typeof initialValuesAddBook
 
 const AddBookForm: FC<AddBookFormProps> = (props) => {
-  const windoowWidth = window.innerWidth
+  const windowWidth = window.innerWidth
   const { handleClickAuthorBtn, isShowAuthorForm, onSubmitRequest } = props
   const dateFormat = 'YYYY-MM-DD'
   const [rating, setRating] = useState(0)
@@ -48,7 +48,7 @@ const AddBookForm: FC<AddBookFormProps> = (props) => {
             <div className={s.flexGrowItem}>
               <SearchInForm type="authors" />
             </div>
-            {windoowWidth > 582 && (
+            {windowWidth > 582 && (
               <div className={s.flexItem}>
                 <Button type="default" size="middle" onClick={handleClickAuthorBtn}>
                   {isShowAuthorForm ? 'Hide author form' : 'Add new author'}
@@ -73,7 +73,7 @@ const AddBookForm: FC<AddBookFormProps> = (props) => {
             <div className={s.flexGrowItem}>
               <SearchInForm type="series" />
             </div>
-            {windoowWidth > 582 && (
+            {windowWidth > 582 && (
               <div className={s.flexItem}>
                 <Button type="default" size="middle" disabled>
                   Add new series
@@ -91,7 +91,7 @@ const AddBookForm: FC<AddBookFormProps> = (props) => {
           <InputFromEditableDiv placeholder="Book annotation" name="description" />
           <InputFromEditableDiv placeholder="Book plot description" name="plot" />
 
-          {windoowWidth < 582 && (
+          {windowWidth < 582 && (
             <div className={s.innerWrapper}>
               <Button type="default" size="middle" disabled>
                 Add new series

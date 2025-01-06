@@ -9,18 +9,18 @@ import s from './AddBook.module.scss'
 const AddBookNew: FC = () => {
   const [createAuthorApollo, { data: newAuthor, error: errorAuthor }] = useMutation(CREATE_AUTHOR)
   const [createBookApollo, { data: newBook, error: errorBook }] = useMutation(CREATE_BOOK)
-  const [isShowAuthorForm, setStatusShowAuyhorForm] = useState(false)
+  const [isShowAuthorForm, setStatusShowAuthorForm] = useState(false)
   const [bookCover, setFieldValue] = useState<string | null>(null)
 
   const handleClickAuthorBtn = () => {
-    setStatusShowAuyhorForm((prevState) => !prevState)
+    setStatusShowAuthorForm((prevState) => !prevState)
   }
 
   const handleHideAuthorForm = () => {
-    setStatusShowAuyhorForm(false)
+    setStatusShowAuthorForm(false)
   }
 
-  const getLinkforUploadedImg = (link: string) => {
+  const getLinkForUploadedImg = (link: string) => {
     setFieldValue(link)
   }
 
@@ -49,7 +49,7 @@ const AddBookNew: FC = () => {
           onSubmitRequest={handleOnSubmitAuthorForm}
         />
       )}
-      <DropZone status={!isShowAuthorForm} addLinkToForm={getLinkforUploadedImg} />
+      <DropZone status={!isShowAuthorForm} addLinkToForm={getLinkForUploadedImg} />
       {!!newAuthor && (
         <Modal
           content={`author ${newAuthor.authorInfo.name} ${newAuthor.authorInfo.surname} was creted`}
@@ -57,7 +57,7 @@ const AddBookNew: FC = () => {
       )}
       {!!newBook && (
         <Modal
-          content={`book ${newBook.bookInfo.title} was creted, author - ${newBook.bookInfo.author.name} ${newBook.bookInfo.author.surname} `}
+          content={`book ${newBook.bookInfo.title} was created, author - ${newBook.bookInfo.author.name} ${newBook.bookInfo.author.surname} `}
         />
       )}
       {(!!errorBook || !!errorAuthor) && <Error />}

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { useLazyQuery } from '@apollo/client'
 import { SEARCH_IN_AUTHORS, SEARCH_IN_SERIES, SEARCH_IN_BOOKS } from 'apollo'
 import { useFormikContext } from 'formik'
@@ -36,7 +36,7 @@ const SearchInForm: FC<SearchInForProps> = (props) => {
   const { setFieldValue } = useFormikContext()
 
   const [inputValue, setInputValue] = useState('')
-  const [elementChoosenStatus, setElementChoosenStatus] = useState(false)
+  const [elementChosenStatus, setElementChosenStatus] = useState(false)
   const [showSearchList, setShowSearchListStatus] = useState(false)
 
   const handleSearch = (searchString: string) => {
@@ -50,9 +50,23 @@ const SearchInForm: FC<SearchInForProps> = (props) => {
     setShowSearchListStatus(true)
   }
 
+  useEffect(() => {
+    let debounce: NodeJS.Timeout | undefined
+    if (!elementChosenStatus) {
+      debounce = setTimeout(() => {
+        if (inputValue) {
+          handleSearch(inputValue)
+        }
+      }, 500)
+    }
+
+    return () => clearTimeout(debounce)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [inputValue, elementChosenStatus])
+
   const handleInputChange = (value: string) => {
     setInputValue(value)
-    setElementChoosenStatus(false)
+    setElementChosenStatus(false)
     if (!value) {
       setShowSearchListStatus(false)
     }
@@ -68,7 +82,7 @@ const SearchInForm: FC<SearchInForProps> = (props) => {
       setFieldValue('bookID', id)
     }
 
-    setElementChoosenStatus(true)
+    setElementChosenStatus(true)
     setInputValue(value)
   }
 
@@ -79,8 +93,6 @@ const SearchInForm: FC<SearchInForProps> = (props) => {
           <SearchInputForm
             placeholder="Author"
             name="author"
-            status={elementChoosenStatus}
-            onSearch={handleSearch}
             inputValue={inputValue}
             handleChange={handleInputChange}
           />
@@ -96,8 +108,6 @@ const SearchInForm: FC<SearchInForProps> = (props) => {
           <SearchInputForm
             placeholder="Book series"
             name="series"
-            status={elementChoosenStatus}
-            onSearch={handleSearch}
             inputValue={inputValue}
             handleChange={handleInputChange}
           />
@@ -113,8 +123,6 @@ const SearchInForm: FC<SearchInForProps> = (props) => {
           <SearchInputForm
             placeholder="Book title"
             name="title"
-            status={elementChoosenStatus}
-            onSearch={handleSearch}
             inputValue={inputValue}
             handleChange={handleInputChange}
           />

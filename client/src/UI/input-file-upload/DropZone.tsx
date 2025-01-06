@@ -1,4 +1,4 @@
-import { Button } from 'antd'
+import { Button, Input } from 'antd'
 import { FC, useState, useRef, DragEvent, ChangeEvent } from 'react'
 import ky from 'ky'
 import { Error } from 'UI'
@@ -85,6 +85,11 @@ const DropZone: FC<DropZoneProps> = (props) => {
     }
   }
 
+  const onPasteLink = (link: string) => {
+    addLinkToForm(link)
+    setFileURL(link)
+  }
+
   return (
     <div className={`${s.wrapper} ${size === 'small' && s.wrapperSmall} ${!status && s.hide}`}>
       <label htmlFor="bookCover">
@@ -123,6 +128,12 @@ const DropZone: FC<DropZoneProps> = (props) => {
         </Button>
       </div>
       {!!error && <Error />}
+      <Input
+        className={s.input}
+        value={fileURL}
+        onChange={(e) => onPasteLink(e.target.value)}
+        placeholder="paste link to image"
+      />
     </div>
   )
 }

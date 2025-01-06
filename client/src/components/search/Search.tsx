@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useLazyQuery } from '@apollo/client'
 import { SEARCH_IN_BOOKS_AND_AUTHORS } from 'apollo/search'
@@ -24,6 +24,16 @@ const Search: FC = () => {
     setShowSearchListStatus(true)
   }
 
+  useEffect(() => {
+    const debounce = setTimeout(() => {
+      if (inputValue) {
+        handleSearch(inputValue)
+      }
+    }, 500)
+    return () => clearTimeout(debounce)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [inputValue])
+
   const handleIconClick = () => {
     setShowInputStatus((prevState) => !prevState)
     setInputValue('')
@@ -43,13 +53,13 @@ const Search: FC = () => {
   }
 
   const hideSearchResultList = () => {
+    setInputValue('')
     setShowSearchListStatus(false)
   }
 
   return (
-    <>
+    <div>
       <SearchInput
-        onSearch={handleSearch}
         inputValue={inputValue}
         showInputStatus={showInputStatus}
         onIconClick={handleIconClick}
@@ -63,7 +73,7 @@ const Search: FC = () => {
         />
       )}
       {!!error && <Error message={error?.message} />}
-    </>
+    </div>
   )
 }
 

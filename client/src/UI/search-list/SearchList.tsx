@@ -1,4 +1,4 @@
-import { FC, useRef, useEffect } from 'react'
+import { FC, useRef, useEffect, CSSProperties } from 'react'
 import { SearchCard } from 'UI'
 import { Search as ISearch } from 'types'
 import { checkTypesTitle, checkTypesRoute } from './utils'
@@ -8,11 +8,12 @@ interface SearchListProps {
   data?: ISearch[]
   onClick: (id: string, parent: string) => void
   handleWrapperClick: () => void
+  style?: CSSProperties
 }
 
 // eslint-disable-next-line react/display-name
 const SearchList: FC<SearchListProps> = (props) => {
-  const { data = [], onClick, handleWrapperClick } = props
+  const { data = [], onClick, handleWrapperClick, style } = props
   const listRef = useRef(null)
   const hasScrollbar = document.body.offsetHeight > window.innerHeight
 
@@ -29,7 +30,7 @@ const SearchList: FC<SearchListProps> = (props) => {
 
   return (
     <div className={s.wrapper} ref={listRef}>
-      <div className={`${s.cardList} ${hasScrollbar && s.withScrollbar}`}>
+      <div className={`${s.cardList} ${hasScrollbar && s.withScrollbar}`} style={style}>
         {data.map((item) => (
           <SearchCard
             key={item.id}
