@@ -88,9 +88,9 @@ const Author: FC = () => {
                     <BookImg width="100%" />
                   )}
                   <div className={s.title}>{`${data?.author.name} ${data?.author.surname}`}</div>
-                  <div className={s.statistic}>Total number of books read: {booksQuant}</div>
+                  <div className={s.statistic}>Total number of books read:&nbsp;{booksQuant}</div>
                   <div className={s.statistic}>
-                    Average rating:
+                    Average rating:&nbsp;
                     <span style={{ color: colorRate(booksAverageRating) }}>
                       {booksAverageRating}
                     </span>

@@ -1,4 +1,4 @@
-import { Button, Input } from 'antd'
+import { Button, Input, Radio } from 'antd'
 import { FC, useState, useRef, DragEvent, ChangeEvent } from 'react'
 import ky from 'ky'
 import { Error } from 'UI'
@@ -17,6 +17,7 @@ const DropZone: FC<DropZoneProps> = (props) => {
   const [file, setFile] = useState<Blob | string>('')
   const [text, setText] = useState('Drag and Drop here or click')
   const [error, setError] = useState(false)
+  const [source, setSource] = useState<'link' | 'PC'>('PC')
 
   const dropzoneRef = useRef<HTMLDivElement>(null)
 
@@ -92,48 +93,61 @@ const DropZone: FC<DropZoneProps> = (props) => {
 
   return (
     <div className={`${s.wrapper} ${size === 'small' && s.wrapperSmall} ${!status && s.hide}`}>
-      <label htmlFor="bookCover">
-        <div
-          className={s.dropZonewrapper}
-          ref={dropzoneRef}
-          onDragOver={(e) => handleDragOver(e)}
-          onDrop={(e) => handleDrop(e)}>
-          {fileURL ? <img src={fileURL} alt="book cover" /> : text}
-        </div>
-      </label>
-      <input
-        type="file"
-        id="bookCover"
-        name="bookCover"
-        accept=".jpg, .jpeg, .png, .webp"
-        style={{ display: 'none' }}
-        onChange={(e) => handleClickDropZone(e)}
-      />
-      <div className={s.buttonWrapper}>
-        <Button
-          type="default"
-          size="middle"
-          onClick={() => {
-            handleCancel()
-          }}>
-          Cancel
-        </Button>
-        <Button
-          type="primary"
-          size="middle"
-          onClick={() => {
-            handleUpload()
-          }}>
-          Upload
-        </Button>
-      </div>
+      <Radio.Group
+        onChange={(e) => setSource(e.target.value)}
+        value={source}
+        className={s.radioGroup}>
+        <Radio value="PC">from PC</Radio>
+        <Radio value="link">paste link</Radio>
+      </Radio.Group>
+      {source === 'PC' && (
+        <>
+          <label htmlFor="bookCover">
+            <div
+              className={s.dropZonewrapper}
+              ref={dropzoneRef}
+              onDragOver={(e) => handleDragOver(e)}
+              onDrop={(e) => handleDrop(e)}>
+              {fileURL ? <img src={fileURL} alt="book cover" /> : text}
+            </div>
+          </label>
+          <input
+            type="file"
+            id="bookCover"
+            name="bookCover"
+            accept=".jpg, .jpeg, .png, .webp"
+            style={{ display: 'none' }}
+            onChange={(e) => handleClickDropZone(e)}
+          />
+          <div className={s.buttonWrapper}>
+            <Button
+              type="default"
+              size="middle"
+              onClick={() => {
+                handleCancel()
+              }}>
+              Cancel
+            </Button>
+            <Button
+              type="primary"
+              size="middle"
+              onClick={() => {
+                handleUpload()
+              }}>
+              Upload
+            </Button>
+          </div>
+        </>
+      )}
+      {source === 'link' && (
+        <Input
+          className={s.input}
+          value={fileURL}
+          onChange={(e) => onPasteLink(e.target.value)}
+          placeholder="paste link to image"
+        />
+      )}
       {!!error && <Error />}
-      <Input
-        className={s.input}
-        value={fileURL}
-        onChange={(e) => onPasteLink(e.target.value)}
-        placeholder="paste link to image"
-      />
     </div>
   )
 }
