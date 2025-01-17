@@ -33,21 +33,23 @@ const ChartAuthor: FC = () => {
   return (
     <div className={s.buttonWrapper}>
       <div className={s.wrapper}>
-        <div className={s.title}>MOST READED AUTHORS</div>
+        <div className={s.titleBtnWrapper}>
+          <div className={s.title}>MOST READED AUTHORS</div>
+          <Link to="/most_reded_authors">
+            <Button
+              shape="round"
+              style={{
+                width: '200px',
+                height: '38px',
+              }}>
+              Show more
+            </Button>
+          </Link>
+        </div>
         {!!loading && <div className={s.loading}>Loading..</div>}
         {!!error && <Error message={error?.message} />}
         {!!chartData.length && <DiagramPie chartData={chartData} />}
       </div>
-      <Link
-        to="/most_reded_authors"
-        style={{
-          width: '200px',
-          alignSelf: 'flex-end',
-          marginTop: '35px',
-          marginRight: '20px',
-        }}>
-        <Button shape="round">Show more</Button>
-      </Link>
     </div>
   )
 }

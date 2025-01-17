@@ -27,6 +27,12 @@
   text-transform: uppercase;
 }
 
+.titleBtnWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .loading {
   font-size: 20px;
   color: $white;
