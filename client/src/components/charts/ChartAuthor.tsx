@@ -43,6 +43,7 @@ const ChartAuthor: FC = () => {
         style={{
           width: '200px',
           alignSelf: 'flex-end',
+          marginTop: '35px',
           marginRight: '20px',
         }}>
         <Button shape="round">Show more</Button>

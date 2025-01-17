@@ -33,7 +33,7 @@ const DiagramPie: FC<DiagrmPieProps> = (props) => {
           contentStyle={{ borderRadius: '15px', backgroundColor: '#222222' }}
           itemStyle={{ color: 'white' }}
         />
-        <Legend layout={width > 600 ? 'radial' : 'horizontal'} verticalAlign="top" />
+        <Legend layout={width > 600 ? 'vertical' : 'horizontal'} align="left" verticalAlign="top" />
       </PieChart>
     </ResponsiveContainer>
   )
