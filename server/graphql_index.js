@@ -25,7 +25,7 @@ await server.start();
 app.use(
     '/graphql',
     cors(),
-    bodyParser.json(),
+    bodyParser.json({ limit: '10mb' }),
     expressMiddleware(server, {
         context: async ({ req }) => ({ req, dataloaders: new WeakMap() }),
     })
