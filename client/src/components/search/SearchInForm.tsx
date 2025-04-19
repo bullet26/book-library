@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
-import { FC, useEffect, useState } from 'react'
+import { CSSProperties, FC, useEffect, useState } from 'react'
 import { useLazyQuery } from '@apollo/client'
 import { SEARCH_IN_AUTHORS, SEARCH_IN_SERIES, SEARCH_IN_BOOKS } from 'apollo'
 import { useFormikContext } from 'formik'
@@ -9,6 +9,7 @@ import s from './Search.module.scss'
 
 interface SearchInForProps {
   type: 'authors' | 'series' | 'books'
+  style?: CSSProperties
 }
 
 interface ISearchSeriesSuccess {
@@ -24,7 +25,7 @@ interface ISearchBooksSuccess {
 }
 
 const SearchInForm: FC<SearchInForProps> = (props) => {
-  const { type } = props
+  const { type, style } = props
 
   const [makeSearchAuthors, { error: authorError, data: authorsData }] =
     useLazyQuery<ISearchAuthorsSuccess>(SEARCH_IN_AUTHORS)
@@ -89,7 +90,7 @@ const SearchInForm: FC<SearchInForProps> = (props) => {
   return (
     <>
       {type === 'authors' && (
-        <div className={s.inputWrapper}>
+        <div className={s.inputWrapper} style={style}>
           <SearchInputForm
             placeholder="Author"
             name="author"
@@ -104,7 +105,7 @@ const SearchInForm: FC<SearchInForProps> = (props) => {
       )}
 
       {type === 'series' && (
-        <div className={s.inputWrapper}>
+        <div className={s.inputWrapper} style={style}>
           <SearchInputForm
             placeholder="Book series"
             name="series"
@@ -119,7 +120,7 @@ const SearchInForm: FC<SearchInForProps> = (props) => {
       )}
 
       {type === 'books' && (
-        <div className={s.inputWrapperBooks}>
+        <div className={s.inputWrapperBooks} style={style}>
           <SearchInputForm
             placeholder="Book title"
             name="title"

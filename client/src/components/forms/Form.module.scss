@@ -18,6 +18,23 @@
   }
 }
 
+.formSeries {
+  grid-column: 1/3;
+  display: flex;
+  align-items: flex-start;
+  column-gap: 15px;
+  width: 100%;
+
+  @media (max-width: 582px) {
+    flex-direction: column;
+    row-gap: 15px;
+  }
+
+  .submitBtn {
+    margin: 0;
+  }
+}
+
 .formReread {
   row-gap: 20px;
   display: flex;
@@ -44,6 +61,10 @@
   position: relative;
   @media (max-width: 582px) {
     flex: 0.5;
+  }
+
+  button {
+    width: 135px;
   }
 }
 

@@ -19,3 +19,4 @@ export {
 } from './search'
 export { MOST_READED_BOOKS, MOST_READED_AUTHORS, READ_STATISTIC } from './ahalytics'
 export { ADD_MEDIA } from './media'
+export { CREATE_SERIE } from './serie'

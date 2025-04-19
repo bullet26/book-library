@@ -7,5 +7,11 @@ export { BookSection } from './book-section'
 export { Search, SearchInForm } from './search'
 export { DiagramPie, ChartAuthor, ChartBook, DiagramBar, ChartYears } from './charts'
 export { YearSelect, TagSelect, SortTypeSelect } from './filters'
-export { AddBookForm, AddAuthorForm, ReReadBookForm, AdditionalMediaForm } from './forms'
+export {
+  AddBookForm,
+  AddAuthorForm,
+  ReReadBookForm,
+  AdditionalMediaForm,
+  AddSerieForm,
+} from './forms'
 export { ReactHelmetMetadata } from './react-helmet-metadata'

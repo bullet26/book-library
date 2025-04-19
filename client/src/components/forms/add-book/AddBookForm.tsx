@@ -1,36 +1,61 @@
 import { FC, useState } from 'react'
 import { Formik, Form, FormikHelpers } from 'formik'
 import { Button, Rate } from 'antd'
-import { BookInput } from 'types'
+import { useMutation } from '@apollo/client'
+import { CREATE_BOOK } from 'apollo'
 import { SearchInForm } from 'components'
-import { DatepickerInput, Input, InputFromEditableDiv } from 'UI'
+import { DatepickerInput, Input, InputFromEditableDiv, Modal, Error } from 'UI'
 import { initialValuesAddBook, validationSchemaAddBook } from '../utils'
 import s from '../Form.module.scss'
 
 interface AddBookFormProps {
+  bookCover: string | null
   handleClickAuthorBtn: () => void
   isShowAuthorForm: boolean
-  onSubmitRequest: (values: BookInput) => void
+  handleClickSerieBtn: () => void
+  isShowSerieForm: boolean
 }
 
 type ValuesAddBookType = typeof initialValuesAddBook
 
 const AddBookForm: FC<AddBookFormProps> = (props) => {
+  const {
+    handleClickAuthorBtn,
+    isShowAuthorForm,
+    isShowSerieForm,
+    handleClickSerieBtn,
+    bookCover,
+  } = props
+
   const windowWidth = window.innerWidth
-  const { handleClickAuthorBtn, isShowAuthorForm, onSubmitRequest } = props
+
   const dateFormat = 'YYYY-MM-DD'
+
+  const [createBookApollo, { data, error }] = useMutation(CREATE_BOOK)
+
   const [rating, setRating] = useState(0)
 
   const onSubmit = (values: ValuesAddBookType, { resetForm }: FormikHelpers<ValuesAddBookType>) => {
     const { author, series, plot, description, readEnd, ...filteredValues } = values
 
-    onSubmitRequest({
-      ...filteredValues,
-      rating,
-      plot,
-      description,
-      readEnd: readEnd?.format(dateFormat),
+    const bookCoverThumbnail =
+      bookCover?.replace(/\/upload\//, '/upload/c_thumb,w_218,h_323/') || null
+
+    createBookApollo({
+      variables: {
+        input: {
+          ...filteredValues,
+          rating,
+          plot,
+          description,
+          readEnd: readEnd?.format(dateFormat),
+          bookCoverThumbnail,
+          bookCover,
+        },
+      },
     })
+    console.log(values, bookCoverThumbnail, bookCover)
+
     resetForm()
     setRating(0)
   }
@@ -73,16 +98,17 @@ const AddBookForm: FC<AddBookFormProps> = (props) => {
             <div className={s.flexGrowItem}>
               <SearchInForm type="series" />
             </div>
-            {windowWidth > 582 && (
-              <div className={s.flexItem}>
-                <Button type="default" size="middle" disabled>
-                  Add new series
-                </Button>
-              </div>
-            )}
             <div className={s.flexItem}>
               <Input placeholder="Book series number" name="seriesNumber" htmlType="number" />
             </div>
+
+            {windowWidth > 582 && (
+              <div className={s.flexItem}>
+                <Button type="default" size="middle" onClick={handleClickSerieBtn}>
+                  {isShowSerieForm ? 'Hide serie form' : 'Add new serie'}
+                </Button>
+              </div>
+            )}
           </div>
           <div className={s.innerWrapper}>
             <Input placeholder="Book pages" name="pages" htmlType="number" />
@@ -93,8 +119,8 @@ const AddBookForm: FC<AddBookFormProps> = (props) => {
 
           {windowWidth < 582 && (
             <div className={s.innerWrapper}>
-              <Button type="default" size="middle" disabled>
-                Add new series
+              <Button type="default" size="middle" onClick={handleClickSerieBtn}>
+                {isShowSerieForm ? 'Hide serie form' : 'Add new serie'}
               </Button>
               <Button type="default" size="middle" onClick={handleClickAuthorBtn}>
                 {isShowAuthorForm ? 'Hide author form' : 'Add new author'}
@@ -108,6 +134,12 @@ const AddBookForm: FC<AddBookFormProps> = (props) => {
           </Button>
         </Form>
       </Formik>
+      {!!data && (
+        <Modal
+          content={`book ${data.bookInfo.title} was created, author - ${data.bookInfo.author.name} ${data.bookInfo.author.surname} `}
+        />
+      )}
+      {!!error && <Error />}
     </div>
   )
 }

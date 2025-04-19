@@ -57,6 +57,17 @@ export const validationSchemaReReadBook = Yup.object({
   readEnd: Yup.string().required('Required field!'),
 })
 
+export const initialValuesAddSerie = {
+  author: '',
+  authorID: null,
+  title: '',
+}
+
+export const validationSchemaAddSerie = Yup.object({
+  author: Yup.string().required('Required field!'),
+  title: Yup.string().required('Required field!'),
+})
+
 export const initialValuesMedia = {
   title: '',
   bookID: null,

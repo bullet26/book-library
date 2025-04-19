@@ -36,5 +36,6 @@ scalar Date
     ${descriptionPlot.typeDescriptionPlotMutation}
     ${tags.typeTagsMutation}
     ${additionalMedia.typeAdditionalMediaMutation}
+    ${series.typeSeriesMutation}
 }
 `;

@@ -1,20 +1,23 @@
 import { FC, useState } from 'react'
 import { Formik, Form, FormikHelpers } from 'formik'
 import { Button } from 'antd'
-import { AuthorInput } from 'types'
-import { Input, DropZone } from 'UI'
+import { useMutation } from '@apollo/client'
+import { CREATE_AUTHOR } from 'apollo'
+import { Input, DropZone, Modal, Error } from 'UI'
 import { initialValuesAddAuthor, validationSchemaAddAuthor } from '../utils'
 import s from '../Form.module.scss'
 
 interface AddAuthorFormProps {
   handleHideForm: () => void
-  onSubmitRequest: (values: AuthorInput) => void
 }
 
 type ValueType = typeof initialValuesAddAuthor
 
 const AddAuthorForm: FC<AddAuthorFormProps> = (props) => {
-  const { handleHideForm, onSubmitRequest } = props
+  const { handleHideForm } = props
+
+  const [createAuthorApollo, { data, error }] = useMutation(CREATE_AUTHOR)
+
   const [portrait, setFieldValue] = useState<string | null>(null)
 
   const getLinkForUploadedImg = (link: string) => {
@@ -24,7 +27,8 @@ const AddAuthorForm: FC<AddAuthorFormProps> = (props) => {
   const onSubmit = (values: ValueType, { resetForm }: FormikHelpers<ValueType>) => {
     const portraitThumbnail =
       portrait?.replace(/\/upload\//, '/upload/c_thumb,w_218,h_323,g_face/') || null
-    onSubmitRequest({ ...values, portraitThumbnail, portrait })
+
+    createAuthorApollo({ variables: { input: { ...values, portraitThumbnail, portrait } } })
 
     resetForm()
     handleHideForm()
@@ -49,6 +53,11 @@ const AddAuthorForm: FC<AddAuthorFormProps> = (props) => {
           </Button>
         </Form>
       </Formik>
+      {!!data && (
+        <Modal content={`author ${data.authorInfo.name} ${data.authorInfo.surname} was creted`} />
+      )}
+
+      {!!error && <Error />}
     </div>
   )
 }
