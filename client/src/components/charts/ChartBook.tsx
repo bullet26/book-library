@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from 'react'
 import { MOST_READED_BOOKS } from 'apollo'
-import { useQuery } from '@apollo/client'
+import { useQuery } from '@apollo/client/react'
 import { DiagramPie } from 'components'
 import { Error } from 'UI'
 import s from './Chart.module.scss'

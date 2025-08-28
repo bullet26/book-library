@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import { Tag } from 'antd'
 import { useLocation } from 'react-router-dom'
-import { useQuery } from '@apollo/client'
+import { useQuery } from '@apollo/client/react'
 import { ALL_BOOKS_BY_TAG } from 'apollo'
 import { Tag as ITag } from 'types'
 import { CardListBooks, SortTypeSelect, TagSelect } from 'components'

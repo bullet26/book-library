@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import { Image } from 'antd'
 import { useParams } from 'react-router-dom'
-import { useQuery } from '@apollo/client'
+import { useQuery } from '@apollo/client/react'
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry'
 import { AllMediaForItem } from 'types'
 import { ALL_MEDIA_FOR_BOOK } from 'apollo'
@@ -29,7 +29,9 @@ const BookMediaTab: FC = () => {
       {!!error && <Error message={error?.message} />}
       {!!media?.video?.length && (
         <div className={s.videoWrapper}>
-          {media?.video.map((item) => <VideoEmbed key={item.id} url={item.url} />)}
+          {media?.video.map((item) => (
+            <VideoEmbed key={item.id} url={item.url} />
+          ))}
         </div>
       )}
       {!!media?.image.length && (

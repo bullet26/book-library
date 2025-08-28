@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 import { FC, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useLazyQuery } from '@apollo/client'
+import { useLazyQuery } from '@apollo/client/react'
 import { SEARCH_IN_BOOKS_AND_AUTHORS } from 'apollo/search'
 import { Search as ISearch } from 'types'
 import { SearchInput, SearchList, Error } from 'UI'

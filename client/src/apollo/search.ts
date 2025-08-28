@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client'
+import gql from 'graphql-tag'
 
 export const SEARCH_IN_BOOKS_AND_AUTHORS = gql`
   query Search($searchString: String) {

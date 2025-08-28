@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from 'react'
 import { READ_STATISTIC } from 'apollo'
-import { useLazyQuery } from '@apollo/client'
+import { useLazyQuery } from '@apollo/client/react'
 import type { RadioChangeEvent } from 'antd'
 import { DiagramBar } from 'components'
 import { IStatistic } from 'types'
@@ -12,52 +12,59 @@ const ChartYears: FC = () => {
   const [label, setLabel] = useState<'all' | 'year'>('all')
   const [year, setYear] = useState('all')
   const [allYears, setAllYears] = useState<string[]>([])
-  const [preapearedData, setPreapearedData] = useState<{ period: string; count: number }[]>([])
+  const [preparedData, setPreparedData] = useState<{ period: string; count: number }[]>([])
 
   const [getStatistic, { loading, error, data }] = useLazyQuery<{ statistic: IStatistic[] }>(
     READ_STATISTIC,
-    {
-      variables: {
-        label,
-        year: Number(year),
-      },
-    },
   )
 
   useEffect(() => {
-    getStatistic()
+    getStatistic({
+      variables: {
+        label: 'all',
+        year: year === 'all' ? null : Number(year),
+      },
+    })
   }, [])
 
   useEffect(() => {
     if (label === 'all' && data?.statistic) {
       setAllYears(data.statistic.map(({ period }) => period))
-      setPreapearedData(data.statistic)
+      setPreparedData(data.statistic)
     }
 
     if (label === 'year' && data?.statistic) {
-      setPreapearedData(checkEmptyPeriod(data.statistic))
+      setPreparedData(checkEmptyPeriod(data.statistic))
     }
   }, [data, label])
 
   const handleChange = (e: RadioChangeEvent) => {
+    let label: 'all' | 'year' = 'year'
+    const year = e.target.value
     if (e.target.value === 'all') {
-      setLabel('all')
-    } else {
-      setLabel('year')
+      label = 'all'
     }
-    setYear(e.target.value)
-    getStatistic()
+
+    getStatistic({
+      variables: {
+        label,
+        year: year === 'all' ? null : Number(year),
+      },
+    })
+
+    setLabel(label)
+    setYear(year)
   }
 
   return (
-    <div className={s.barwrapper}>
+    <div className={s.barWrapper}>
       <div className={s.title}>Reading dynamics</div>
       {!!loading && <div className={s.loading}>Loading..</div>}
       {!!error && <Error message={error?.message} />}
       {!!data?.statistic?.length && (
         <>
           <RadioGroup onChange={handleChange} data={allYears} value={year} />
-          <DiagramBar chartData={preapearedData} />
+          <DiagramBar chartData={preparedData} />
         </>
       )}
     </div>

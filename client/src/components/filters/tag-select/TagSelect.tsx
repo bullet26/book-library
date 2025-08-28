@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from 'react'
-import { useQuery } from '@apollo/client'
+import { useQuery } from '@apollo/client/react'
 import { ALL_TAGS } from 'apollo'
 import { useNavigate } from 'react-router-dom'
 import { Select } from 'antd'

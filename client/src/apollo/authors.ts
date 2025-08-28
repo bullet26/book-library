@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client'
+import gql from 'graphql-tag'
 
 export const ALL_AUTHORS = gql`
   query GetAllAuthors($page: Int, $limit: Int) {

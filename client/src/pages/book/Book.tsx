@@ -1,7 +1,7 @@
 /* eslint-disable react/no-children-prop */
 import { FC } from 'react'
 import { useParams } from 'react-router-dom'
-import { useQuery } from '@apollo/client'
+import { useQuery } from '@apollo/client/react'
 import { Image } from 'antd'
 import { Book as IBook } from 'types'
 import { BookTab, ReactHelmetMetadata } from 'components'

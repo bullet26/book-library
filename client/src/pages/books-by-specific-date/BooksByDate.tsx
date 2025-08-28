@@ -1,5 +1,5 @@
 import { FC, Fragment, useEffect, useState } from 'react'
-import { useQuery } from '@apollo/client'
+import { useQuery } from '@apollo/client/react'
 import { useParams } from 'react-router-dom'
 import { CardListBooks, YearSelect } from 'components'
 import { Loader, Error, DateDivider, Button } from 'UI'

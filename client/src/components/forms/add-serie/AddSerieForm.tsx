@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { useMutation } from '@apollo/client'
+import { useMutation } from '@apollo/client/react'
 import { Formik, Form, FormikHelpers } from 'formik'
 import { Button } from 'antd'
 import { CREATE_SERIE } from 'apollo'

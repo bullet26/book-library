@@ -1,7 +1,7 @@
 import { FC, useState } from 'react'
 import { Formik, Form, FormikHelpers } from 'formik'
 import { Button } from 'antd'
-import { useMutation } from '@apollo/client'
+import { useMutation } from '@apollo/client/react'
 import { CREATE_AUTHOR } from 'apollo'
 import { Input, DropZone, Modal, Error } from 'UI'
 import { initialValuesAddAuthor, validationSchemaAddAuthor } from '../utils'

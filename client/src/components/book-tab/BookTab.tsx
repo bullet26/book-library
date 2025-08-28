@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import { Tabs } from 'antd'
 import { useParams } from 'react-router-dom'
-import { useQuery } from '@apollo/client'
+import { useQuery } from '@apollo/client/react'
 import { ONE_BOOK_BY_ID } from 'apollo'
 import { Book as IBook } from 'types'
 import { BookInfoTab, BookPlotTab, BookMediaTab } from 'components'

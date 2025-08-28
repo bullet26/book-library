@@ -8,7 +8,7 @@ interface VideoProps {
 const VideoEmbed: FC<VideoProps> = (props) => {
   const { url } = props
 
-  return <ReactPlayer url={url} height="210px" width="390px" controls />
+  return <ReactPlayer src={url} height="210px" width="390px" controls />
 }
 
 export default VideoEmbed

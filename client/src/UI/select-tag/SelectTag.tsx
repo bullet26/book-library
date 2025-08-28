@@ -1,7 +1,7 @@
 import { FC, useState, useEffect } from 'react'
 import { Button, Select, Tag } from 'antd'
 import type { SelectProps } from 'antd'
-import { useQuery, useMutation } from '@apollo/client'
+import { useQuery, useMutation } from '@apollo/client/react'
 import { ALL_TAGS, CREATE_LINK_TAG_WITH_BOOK } from 'apollo'
 import { useNavigate } from 'react-router-dom'
 import { Error } from 'UI'

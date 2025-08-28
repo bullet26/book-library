@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import { useParams } from 'react-router-dom'
-import { useQuery } from '@apollo/client'
+import { useQuery } from '@apollo/client/react'
 import { Plot } from 'types'
 import { ONE_BOOK_PLOT } from 'apollo'
 import { Error } from 'UI'

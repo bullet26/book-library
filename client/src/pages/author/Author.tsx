@@ -1,6 +1,6 @@
 /* eslint-disable react/no-children-prop */
 import { FC, useMemo } from 'react'
-import { useQuery } from '@apollo/client'
+import { useQuery } from '@apollo/client/react'
 import { Image } from 'antd'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Book as BookImg, unknownAuthor1, unknownAuthor2 } from 'assets'

@@ -50,7 +50,6 @@ const booksInTag = (source, args, context, info) => {
                                 },
                             ]);
 
-                            console.log(res);
                             return res;
                         }
                         return null;

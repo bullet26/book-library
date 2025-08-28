@@ -30,14 +30,10 @@ const AdditionalMediaForm: FC<AdditionalMediaFormProps> = (props) => {
     }
 
     if (type === MediaType.VIDEO && url) {
-      console.log(type, url)
-
       onSubmitRequest([{ url, type, bookID }])
     }
 
     if (type === MediaType.IMAGE) {
-      console.log(type, type === MediaType.IMAGE, values, imageURLs)
-
       const formValues = imageURLs.map((item) => {
         return { url: item, type, bookID }
       })

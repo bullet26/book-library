@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { useQuery } from '@apollo/client'
+import { useQuery } from '@apollo/client/react'
 import { CardListAuthors } from 'components'
 import { Loader, Error } from 'UI'
 import { ALL_AUTHORS_BY_BOOKS_COUNT } from 'apollo'

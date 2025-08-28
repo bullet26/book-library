@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { useQuery } from '@apollo/client'
+import { useQuery } from '@apollo/client/react'
 import { useSearchParams } from 'react-router-dom'
 import { CardListBooks, YearSelect, TagSelect } from 'components'
 import { Loader, Pagination, Error, Button } from 'UI'

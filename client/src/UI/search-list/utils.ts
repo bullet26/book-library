@@ -1,4 +1,4 @@
-import { Author, Book, Series, Search as ISearch } from 'types'
+import { type Author, type Book, type Series, type Search as ISearch } from 'types'
 
 export const checkTypesTitle = (item: ISearch) => {
   if (Object.hasOwn(item, 'name')) {

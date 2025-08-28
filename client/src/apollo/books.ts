@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client'
+import gql from 'graphql-tag'
 
 export const ALL_BOOKS_BY_DATE = gql`
   query GetAllBooksByDate($page: Int, $limit: Int) {

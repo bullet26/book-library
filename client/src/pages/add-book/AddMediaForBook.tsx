@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import { AdditionalMediaForm } from 'components'
-import { useMutation } from '@apollo/client'
+import { useMutation } from '@apollo/client/react'
 import { ADD_MEDIA } from 'apollo'
 import { AdditionalMediaInput } from 'types'
 import { Error, Modal } from 'UI'

@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import { ReReadBookForm } from 'components'
-import { useMutation } from '@apollo/client'
+import { useMutation } from '@apollo/client/react'
 import { CREATE_READ_DATE } from 'apollo'
 import { ReadDateInput } from 'types'
 import { Error, Modal } from 'UI'

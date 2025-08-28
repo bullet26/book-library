@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { useQuery } from '@apollo/client'
+import { useQuery } from '@apollo/client/react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { Button as AntButton } from 'antd'
 import { CardListAuthors } from 'components'

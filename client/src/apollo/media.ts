@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client'
+import gql from 'graphql-tag'
 
 export const CREATE_BOOK = gql`
   mutation Mutation($input: BookInput) {

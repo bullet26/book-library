@@ -1,7 +1,7 @@
 import { FC, useState } from 'react'
 import { Formik, Form, FormikHelpers } from 'formik'
 import { Button, Rate } from 'antd'
-import { useMutation } from '@apollo/client'
+import { useMutation } from '@apollo/client/react'
 import { CREATE_BOOK } from 'apollo'
 import { SearchInForm } from 'components'
 import { DatepickerInput, Input, InputFromEditableDiv, Modal, Error } from 'UI'
@@ -54,7 +54,6 @@ const AddBookForm: FC<AddBookFormProps> = (props) => {
         },
       },
     })
-    console.log(values, bookCoverThumbnail, bookCover)
 
     resetForm()
     setRating(0)
