@@ -1,4 +1,4 @@
-import { AdditionalMediaModel, BooksModel } from '../../../models';
+import { AdditionalMediaModel, BooksModel } from '#models/index.js';
 
 export const AdditionalMediaMutation = {
     addAdditionalMedia: async (_, { input }) => {

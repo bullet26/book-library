@@ -1,5 +1,5 @@
 import DataLoader from 'dataloader';
-import { BooksModel } from '../../models/index.js';
+import { BooksModel } from '#models/index.js';
 
 export const SeriesDL = {
     booksInSeries: new DataLoader(async (seriesIDs: readonly string[]) => {

@@ -1,6 +1,6 @@
 import { mergeResolvers } from '@graphql-tools/merge';
 
-import { SeriesResolver } from './resolver';
-import { SeriesMutation } from './mutation';
+import { SeriesResolver } from './resolver.js';
+import { SeriesMutation } from './mutation.js';
 
-export const seriesResolvers = mergeResolvers([{ Mutation: SeriesMutation }, { series: SeriesResolver }]);
+export const seriesResolvers = mergeResolvers([{ Mutation: SeriesMutation }, { Series: SeriesResolver }]);

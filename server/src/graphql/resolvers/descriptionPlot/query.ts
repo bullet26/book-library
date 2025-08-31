@@ -1,4 +1,4 @@
-import { DescriptionPlotModel } from '../../../models';
+import { DescriptionPlotModel } from '#models/index.js';
 
 export const DescriptionPlotQuery = {
     getOneBookPlot: async (_, args) => {

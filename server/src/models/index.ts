@@ -1,7 +1,7 @@
-export { AuthorModel } from './author';
-export { BooksModel } from './book';
-export { ReadDateModel } from './readDate';
-export { SeriesModel } from './series';
-export { DescriptionPlotModel } from './descriptionPlot';
-export { TagModel, BookTagRelationsModel } from './tag';
-export { AdditionalMediaModel } from './additionalMedia';
+export { AuthorModel } from './author.js';
+export { BooksModel } from './book.js';
+export { ReadDateModel } from './readDate.js';
+export { SeriesModel } from './series.js';
+export { DescriptionPlotModel } from './descriptionPlot.js';
+export { TagModel, BookTagRelationsModel } from './tag.js';
+export { AdditionalMediaModel } from './additionalMedia.js';

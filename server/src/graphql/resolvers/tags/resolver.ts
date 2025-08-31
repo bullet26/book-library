@@ -1,5 +1,5 @@
-import { BooksModel } from '../../../models';
-import { authorsAggregation } from './aggregation';
+import { BooksModel } from '#models/index.js';
+import { authorsAggregation } from './aggregation.js';
 
 export const TagsResolver = {
     booksInTag: async (tags, args, { dataloaders }) => {

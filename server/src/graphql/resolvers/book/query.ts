@@ -1,4 +1,4 @@
-import { BooksModel } from '../../../models';
+import { BooksModel } from '#models/index.js';
 
 export const BookQuery = {
     getAllBooksByName: async (_, args) => {

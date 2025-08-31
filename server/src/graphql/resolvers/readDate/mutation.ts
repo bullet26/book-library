@@ -1,4 +1,4 @@
-import { ReadDateModel } from '../../../models';
+import { ReadDateModel } from '#models/index.js';
 
 export const ReadDateMutation = {
     addReadDate: async (_, { input }) => {

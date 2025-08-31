@@ -1,9 +1,9 @@
 import DataLoader from 'dataloader';
-import { AuthorDL } from './author';
-import { BookDL } from './book';
-import { ReadDateDL } from './readDate';
-import { SeriesDL } from './series';
-import { TagsDL } from './tags';
+import { AuthorDL } from './author.js';
+import { BookDL } from './book.js';
+import { ReadDateDL } from './readDate.js';
+import { SeriesDL } from './series.js';
+import { TagsDL } from './tags.js';
 
 type DataLoaderItem = { [key: string]: DataLoader<string, any[]> };
 

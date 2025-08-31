@@ -1,7 +1,7 @@
 import { mergeResolvers } from '@graphql-tools/merge';
 
-import { ReadDateResolver } from './resolver';
-import { ReadDateMutation } from './mutation';
-import { ReadDateQuery } from './query';
+import { ReadDateResolver } from './resolver.js';
+import { ReadDateMutation } from './mutation.js';
+import { ReadDateQuery } from './query.js';
 
 export const readDateResolvers = mergeResolvers([{ Query: ReadDateQuery }, { Mutation: ReadDateMutation }, { ReadDate: ReadDateResolver }]);

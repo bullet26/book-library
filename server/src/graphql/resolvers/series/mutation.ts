@@ -1,4 +1,4 @@
-import { SeriesModel } from '../../../models';
+import { SeriesModel } from '#models/index.js';
 
 export const SeriesMutation = {
     creteSerie: async (_, { input }) => {

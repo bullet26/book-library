@@ -1,4 +1,4 @@
-import { TagModel } from '../../../models';
+import { TagModel } from '#models/index.js';
 
 export const TagsQuery = {
     getTagById: async (_, args) => {

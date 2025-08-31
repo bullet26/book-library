@@ -1,5 +1,5 @@
-import { BooksModel, ReadDateModel } from '../../../models';
-import { booksAggregation, authorsAggregation, yearsAggregate } from './aggregation';
+import { BooksModel, ReadDateModel } from '#models/index.js';
+import { booksAggregation, authorsAggregation, yearsAggregate } from './aggregation.js';
 
 export const AnalyticsQuery = {
     getMostReadBooks: async () => {

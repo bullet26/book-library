@@ -1,5 +1,5 @@
 import DataLoader from 'dataloader';
-import { ReadDateModel, TagModel, BookTagRelationsModel, AdditionalMediaModel, AuthorModel, SeriesModel } from '../../models';
+import { ReadDateModel, TagModel, BookTagRelationsModel, AdditionalMediaModel, AuthorModel, SeriesModel } from '#models/index.js';
 
 export const BookDL = {
     author: new DataLoader(async (authorIDs: readonly string[]) => {

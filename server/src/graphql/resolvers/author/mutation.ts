@@ -1,4 +1,4 @@
-import { AuthorModel } from '../../../models';
+import { AuthorModel } from '#models/index.js';
 
 export const AuthorMutation = {
     creteAuthor: async (_, { input }) => {

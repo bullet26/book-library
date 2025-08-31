@@ -1,4 +1,4 @@
-import { BooksModel, ReadDateModel, DescriptionPlotModel } from '../../../models';
+import { BooksModel, ReadDateModel, DescriptionPlotModel } from '#models/index.js';
 
 export const BookMutation = {
     addBook: async (_, { input }) => {

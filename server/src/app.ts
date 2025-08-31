@@ -5,10 +5,11 @@ import express from 'express';
 import http from 'http';
 import cors from 'cors';
 import bodyParser from 'body-parser';
-import { typeDefs } from './graphql/schema';
-import { resolvers } from './graphql/resolvers';
-import { router } from './api/router';
-import { createContext, DataLoadersType } from './graphql/dataloaders';
+
+import { typeDefs } from '#graphql/schema/index.js';
+import { resolvers } from '#graphql/resolvers/index.js';
+import { router } from '#api/router.js';
+import { createContext, DataLoadersType } from '#graphql/dataloaders/index.js';
 
 interface MyContext {
     token?: string;

@@ -1,20 +1,18 @@
-  # Series data type
-  type Series {
+# Series data type
+type Series {
     _id: ID
-    authorID: ID! 
+    authorID: ID!
     title: String!
     booksInSeries: [Book]
-  }
-    
-  # input data for add series
-  input SerieInput {
-      authorID: ID! 
-      title: String!
-  } 
-`;
-
-extend type Query = {
-  # Add serie
-  creteSerie(input: SerieInput): Series
 }
 
+# input data for add series
+input SerieInput {
+    authorID: ID!
+    title: String!
+}
+
+extend type Mutation {
+    # Add serie
+    creteSerie(input: SerieInput): Series
+}

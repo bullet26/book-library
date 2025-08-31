@@ -1,4 +1,4 @@
-import { BookTagRelationsModel, BooksModel } from '../../models/index.js';
+import { BookTagRelationsModel, BooksModel } from '#models/index.js';
 
 export const TagsMutation = {
     linkBookWithTag: async (_, { input }) => {

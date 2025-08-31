@@ -1,4 +1,4 @@
-import { AuthorModel, BooksModel, SeriesModel } from '../../../models';
+import { AuthorModel, BooksModel, SeriesModel } from '#models/index.js';
 
 export const SearchQuery = {
     search: async (_, args) => {

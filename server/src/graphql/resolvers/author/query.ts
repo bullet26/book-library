@@ -1,5 +1,5 @@
-import { AuthorModel, BooksModel } from '../../../models';
-import { authorsAggregation } from './aggregation';
+import { AuthorModel, BooksModel } from '#models/index.js';
+import { authorsAggregation } from './aggregation.js';
 
 export const AuthorQuery = {
     getAllAuthors: async (_, args) => {

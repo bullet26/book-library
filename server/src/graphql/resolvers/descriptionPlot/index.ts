@@ -1,6 +1,6 @@
 import { mergeResolvers } from '@graphql-tools/merge';
 
-import { DescriptionPlotQuery } from './query';
-import { DescriptionPlotMutation } from './mutation';
+import { DescriptionPlotQuery } from './query.js';
+import { DescriptionPlotMutation } from './mutation.js';
 
 export const descriptionPlotResolvers = mergeResolvers([{ Query: DescriptionPlotQuery }, { Mutation: DescriptionPlotMutation }]);

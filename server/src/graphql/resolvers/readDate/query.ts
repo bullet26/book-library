@@ -1,4 +1,4 @@
-import { ReadDateModel } from '../../../models';
+import { ReadDateModel } from '#models/index.js';
 
 export const ReadDateQuery = {
     getAllBooksByDate: async (_, args) => {

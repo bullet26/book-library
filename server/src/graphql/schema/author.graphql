@@ -1,6 +1,5 @@
-
-  # Author data
-  type Author {
+# Author data
+type Author {
     _id: ID
     name: String!
     surname: String
@@ -10,26 +9,25 @@
     books: [Book]
     series: [Series]
     booksWithoutSeries: [Book]
-  }
+}
 
-  # Author data + total count
-  type AuthorResponse {
+# Author data + total count
+type AuthorResponse {
     totalCount: Int
     authors: [Author]
-  }
+}
 
-  # Author data without pagination
-  type AuthorMostReadeResponse {
+# Author data without pagination
+type AuthorMostReadeResponse {
     id: ID
     count: Int
     name: String!
     surname: String
     portraitThumbnail: String
+}
 
-  }
-
-  # input data for add author
-  input AuthorInput {
+# input data for add author
+input AuthorInput {
     name: String
     surname: String!
     portrait: String
@@ -37,20 +35,18 @@
     transcriptionName: String
 }
 
-extend type Query = {
-  # Get a list of authors
-  getAllAuthors(limit: Int = 50, page: Int = 1): AuthorResponse
+extend type Query {
+    # Get a list of authors
+    getAllAuthors(limit: Int = 50, page: Int = 1): AuthorResponse
 
-  # Get a list of authors sorted by count reded books
-  getAllAuthorsByBooksCount: [AuthorMostReadeResponse]
+    # Get a list of authors sorted by count reded books
+    getAllAuthorsByBooksCount: [AuthorMostReadeResponse]
 
-  # Get one author by id
-  getOneAuthor(id: ID): Author
+    # Get one author by id
+    getOneAuthor(id: ID): Author
 }
 
-extend type Mutation = {
-  # Add author
-  creteAuthor(input: AuthorInput): Author
+extend type Mutation {
+    # Add author
+    creteAuthor(input: AuthorInput): Author
 }
-
-
