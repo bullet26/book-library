@@ -17,6 +17,6 @@ export {
   SEARCH_IN_AUTHORS,
   SEARCH_IN_SERIES,
 } from './search'
-export { MOST_READED_BOOKS, MOST_READED_AUTHORS, READ_STATISTIC } from './ahalytics'
+export { MOST_READ_BOOKS, MOST_READ_AUTHORS, READ_STATISTIC } from './analytics'
 export { ADD_MEDIA } from './media'
 export { CREATE_SERIE } from './serie'

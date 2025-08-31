@@ -1,5 +1,5 @@
 export { Card } from './card'
-export { Pagination } from './pagintion'
+export { Pagination } from './pagination'
 export { Rating } from './rating'
 export { ScrollArrow } from './scroll-arrow'
 export { Loader } from './loader'

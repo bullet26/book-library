@@ -1,12 +1,12 @@
-import { FC, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { PieChart, ResponsiveContainer, Pie, Cell, Tooltip, Legend } from 'recharts'
 import { COLORS, handleResponsive } from './utils'
 
-interface DiagrmPieProps {
+interface DiagramPieProps {
   chartData: { name: string; count: number }[]
 }
 
-const DiagramPie: FC<DiagrmPieProps> = (props) => {
+export const DiagramPie = (props: DiagramPieProps) => {
   const { chartData } = props
   const [radius, setRadius] = useState({ inner: 85, outer: 100 })
   const width = window.innerWidth
@@ -38,5 +38,3 @@ const DiagramPie: FC<DiagrmPieProps> = (props) => {
     </ResponsiveContainer>
   )
 }
-
-export default DiagramPie

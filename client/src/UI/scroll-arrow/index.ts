@@ -1,1 +1,1 @@
-export { default as ScrollArrow } from './ScrollArrow'
+export { ScrollArrow } from './ScrollArrow'

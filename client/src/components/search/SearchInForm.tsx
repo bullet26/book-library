@@ -1,9 +1,8 @@
-/* eslint-disable @typescript-eslint/no-unused-expressions */
-import { CSSProperties, FC, useEffect, useState } from 'react'
+import { type CSSProperties, useEffect, useState } from 'react'
 import { useLazyQuery } from '@apollo/client/react'
 import { SEARCH_IN_AUTHORS, SEARCH_IN_SERIES, SEARCH_IN_BOOKS } from 'apollo'
 import { useFormikContext } from 'formik'
-import { Series, Author, Book } from 'types'
+import { type Series, type Author, type Book } from 'types'
 import { SearchInputForm, SearchListForm, Error } from 'UI'
 import s from './Search.module.scss'
 
@@ -24,7 +23,7 @@ interface ISearchBooksSuccess {
   books: Book[]
 }
 
-const SearchInForm: FC<SearchInForProps> = (props) => {
+export const SearchInForm = (props: SearchInForProps) => {
   const { type, style } = props
 
   const [makeSearchAuthors, { error: authorError, data: authorsData }] =
@@ -145,5 +144,3 @@ const SearchInForm: FC<SearchInForProps> = (props) => {
     </>
   )
 }
-
-export default SearchInForm

@@ -1,1 +1,1 @@
-export { default as DateDivider } from './DateDivider'
+export { DateDivider } from './DateDivider'

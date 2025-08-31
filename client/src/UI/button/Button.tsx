@@ -1,8 +1,7 @@
-import { FC } from 'react'
 import { Button as AntButton } from 'antd'
 import { useNavigate } from 'react-router-dom'
 
-const Button: FC = () => {
+export const Button = () => {
   const navigate = useNavigate()
 
   const handleClick = () => {
@@ -15,5 +14,3 @@ const Button: FC = () => {
     </AntButton>
   )
 }
-
-export default Button

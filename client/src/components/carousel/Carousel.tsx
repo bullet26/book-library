@@ -1,12 +1,12 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import { FC, useState, useRef, RefObject } from 'react'
+import { useState, useRef, type RefObject } from 'react'
 import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import { Slider as InputRange } from 'antd'
 import { useNavigate } from 'react-router-dom'
 import { Card } from 'UI'
-import { Book } from 'types'
+import { type Book } from 'types'
 import { settings, GetSlidesToShow } from './utils'
 import s from './Carousel.module.scss'
 
@@ -15,13 +15,13 @@ interface CarouselProps {
   data: Book[]
 }
 
-const Carousel: FC<CarouselProps> = (props) => {
+export const Carousel = (props: CarouselProps) => {
   const { data, title } = props
   const [slideIndex, setSlideIndex] = useState(0)
   const slidesToShow = GetSlidesToShow()
 
   const navigate = useNavigate()
-  const sliderRef: RefObject<Slider> = useRef(null)
+  const sliderRef: RefObject<Slider | null> = useRef(null)
 
   const handleClick = (id?: string) => {
     const path = window.location.pathname.split('/').at(1)
@@ -64,5 +64,3 @@ const Carousel: FC<CarouselProps> = (props) => {
     </div>
   )
 }
-
-export default Carousel

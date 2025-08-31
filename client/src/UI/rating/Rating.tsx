@@ -1,4 +1,4 @@
-import { CSSProperties, FC } from 'react'
+import { type CSSProperties } from 'react'
 import { StarTwoTone } from '@ant-design/icons'
 import { Tick } from 'assets'
 import { colorRate } from 'utils'
@@ -11,7 +11,7 @@ interface RatingProps {
   style?: CSSProperties
 }
 
-const Rating: FC<RatingProps> = (props) => {
+export const Rating = (props: RatingProps) => {
   const { rating, type, style = {} } = props
 
   return (
@@ -19,7 +19,7 @@ const Rating: FC<RatingProps> = (props) => {
       {type === 'star' && (
         <div className={s.wrapper} style={style}>
           <div className={s.ratingStar}>
-            {makeArray(rating).map((item, i) => {
+            {makeArray(rating).map((_, i) => {
               return (
                 <StarTwoTone twoToneColor={colorRate(rating)} style={{ fontSize: 40 }} key={i} />
               )
@@ -40,5 +40,3 @@ const Rating: FC<RatingProps> = (props) => {
     </>
   )
 }
-
-export default Rating

@@ -1,5 +1,5 @@
 import { Button, Input, Radio } from 'antd'
-import { FC, useState, useRef, DragEvent, ChangeEvent } from 'react'
+import { useState, useRef, type DragEvent, type ChangeEvent } from 'react'
 import ky from 'ky'
 import { Error } from 'UI'
 import s from './DropZone.module.scss'
@@ -10,7 +10,7 @@ interface DropZoneProps {
   addLinkToForm: (link: string) => void
 }
 
-const DropZone: FC<DropZoneProps> = (props) => {
+export const DropZone = (props: DropZoneProps) => {
   const { size = 'medium', status = true, addLinkToForm } = props
 
   const [fileURL, setFileURL] = useState('')
@@ -151,5 +151,3 @@ const DropZone: FC<DropZoneProps> = (props) => {
     </div>
   )
 }
-
-export default DropZone

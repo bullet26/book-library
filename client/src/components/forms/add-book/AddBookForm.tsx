@@ -1,5 +1,5 @@
-import { FC, useState } from 'react'
-import { Formik, Form, FormikHelpers } from 'formik'
+import { useState } from 'react'
+import { Formik, Form, type FormikHelpers } from 'formik'
 import { Button, Rate } from 'antd'
 import { useMutation } from '@apollo/client/react'
 import { CREATE_BOOK } from 'apollo'
@@ -18,7 +18,7 @@ interface AddBookFormProps {
 
 type ValuesAddBookType = typeof initialValuesAddBook
 
-const AddBookForm: FC<AddBookFormProps> = (props) => {
+export const AddBookForm = (props: AddBookFormProps) => {
   const {
     handleClickAuthorBtn,
     isShowAuthorForm,
@@ -142,5 +142,3 @@ const AddBookForm: FC<AddBookFormProps> = (props) => {
     </div>
   )
 }
-
-export default AddBookForm

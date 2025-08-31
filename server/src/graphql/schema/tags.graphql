@@ -1,0 +1,35 @@
+  # Tag data type
+  type Tags {
+    _id: ID
+    tag: String!
+    booksInTag(sortBy: String): [Book]
+  }
+
+  # BookTagRelations data type
+  type BookTagRelations {
+    _id: ID
+    bookID: ID!
+    tagID: ID!
+  }
+
+  # input data for link Book with Tag
+  input BookTagRelationsInput {
+    bookID: ID!
+    tagID: [ID!]
+  }
+  
+
+extend type Query = {
+    # Get tag info by id
+    getTagById(id: ID, sortBy: String = "title"): Tags
+
+    # Get all tags
+    getAllTags: [Tags]
+}
+
+extend type Mutation = {
+  # link Book with Tag
+  linkBookWithTag(input: BookTagRelationsInput): Book
+}
+
+

@@ -1,1 +1,1 @@
-export { default as AddAuthorForm } from './AddAuthorForm'
+export { AddAuthorForm } from './AddAuthorForm'

@@ -1,16 +1,15 @@
-/* eslint-disable @typescript-eslint/no-unused-expressions */
-import { FC, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useLazyQuery } from '@apollo/client/react'
 import { SEARCH_IN_BOOKS_AND_AUTHORS } from 'apollo/search'
-import { Search as ISearch } from 'types'
+import { type Search as ISearch } from 'types'
 import { SearchInput, SearchList, Error } from 'UI'
 
 interface ISearchSuccess {
   search: ISearch[]
 }
 
-const Search: FC = () => {
+export const Search = () => {
   const [makeSearch, { error, data }] = useLazyQuery<ISearchSuccess>(SEARCH_IN_BOOKS_AND_AUTHORS)
   const windowWidth = window.innerWidth
   const navigate = useNavigate()
@@ -76,5 +75,3 @@ const Search: FC = () => {
     </div>
   )
 }
-
-export default Search

@@ -1,1 +1,1 @@
-export { default as MostRededAuthors } from './MostRededAuthors'
+export { MostRededAuthors } from './MostRededAuthors'

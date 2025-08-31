@@ -1,9 +1,8 @@
-import { FC } from 'react'
-import { Formik, Form, FormikHelpers } from 'formik'
+import { Formik, Form, type FormikHelpers } from 'formik'
 import { Button } from 'antd'
 import { SearchInForm } from 'components'
 import { DatepickerInput } from 'UI'
-import { ReadDateInput } from 'types'
+import { type ReadDateInput } from 'types'
 import { initialValuesReReadBook, validationSchemaReReadBook } from '../utils'
 import s from '../Form.module.scss'
 
@@ -13,7 +12,7 @@ interface ReReadBookFormProps {
 
 type ValueType = typeof initialValuesReReadBook
 
-const ReReadBookForm: FC<ReReadBookFormProps> = (props) => {
+export const ReReadBookForm = (props: ReReadBookFormProps) => {
   const { onSubmitRequest } = props
   const dateFormat = 'YYYY-MM-DD'
 
@@ -41,5 +40,3 @@ const ReReadBookForm: FC<ReReadBookFormProps> = (props) => {
     </Formik>
   )
 }
-
-export default ReReadBookForm

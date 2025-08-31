@@ -1,7 +1,6 @@
-import { FC } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Card } from 'UI'
-import { Author, MostRededAuthorResponse } from 'types'
+import { type Author, type MostRededAuthorResponse } from 'types'
 import { unknownAuthor1, unknownAuthor2 } from 'assets'
 import s from './CardList.module.scss'
 
@@ -15,7 +14,7 @@ const isMostRededAuthorResponse = (
   return (item as MostRededAuthorResponse).count !== undefined
 }
 
-const CardListAuthors: FC<CardListAuthorsProps> = (props) => {
+export const CardListAuthors = (props: CardListAuthorsProps) => {
   const { data } = props
   const navigate = useNavigate()
 
@@ -48,5 +47,3 @@ const CardListAuthors: FC<CardListAuthorsProps> = (props) => {
     </div>
   )
 }
-
-export default CardListAuthors

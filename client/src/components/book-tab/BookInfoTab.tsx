@@ -1,6 +1,5 @@
-import { FC } from 'react'
 import { BookInfo, Carousel } from 'components'
-import { Book as IBook } from 'types'
+import { type Book as IBook } from 'types'
 import s from './BookTab.module.scss'
 
 interface BookInfoTabProps {
@@ -9,7 +8,7 @@ interface BookInfoTabProps {
   }
 }
 
-const BookInfoTab: FC<BookInfoTabProps> = (props) => {
+export const BookInfoTab = (props: BookInfoTabProps) => {
   const { data } = props
 
   const series = data?.book.series
@@ -23,5 +22,3 @@ const BookInfoTab: FC<BookInfoTabProps> = (props) => {
     </div>
   )
 }
-
-export default BookInfoTab

@@ -1,8 +1,8 @@
-import { FC, useState } from 'react'
+import { useState } from 'react'
 import { Radio } from 'antd'
 import { AddBookNew, AddBookReread, AddMediaForBook } from 'pages'
 
-const AddBook: FC = () => {
+export const AddBook = () => {
   const [page, setPage] = useState('new-book')
 
   return (
@@ -18,5 +18,3 @@ const AddBook: FC = () => {
     </>
   )
 }
-
-export default AddBook

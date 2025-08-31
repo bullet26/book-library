@@ -5,10 +5,8 @@ interface DateDividerProps {
   type?: 'main' | 'ordinary'
 }
 
-const DateDivider = (props: DateDividerProps) => {
+export const DateDivider = (props: DateDividerProps) => {
   const { message, type = 'ordinary' } = props
 
   return <div className={`${s.wrapper} ${type === 'main' && s.main}`}>{message}</div>
 }
-
-export default DateDivider

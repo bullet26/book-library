@@ -1,4 +1,3 @@
-import { FC } from 'react'
 import s from './SearchCard.module.scss'
 
 interface SearchCardProps {
@@ -8,7 +7,7 @@ interface SearchCardProps {
   onClick?: (id: string, parent: string) => void
 }
 
-const SearchCard: FC<SearchCardProps> = (props) => {
+export const SearchCard = (props: SearchCardProps) => {
   const { title, onClick = () => {}, parent = '', id = '' } = props
 
   return (
@@ -17,5 +16,3 @@ const SearchCard: FC<SearchCardProps> = (props) => {
     </div>
   )
 }
-
-export default SearchCard

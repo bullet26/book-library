@@ -1,9 +1,8 @@
-import { FC } from 'react'
 import { mainImage } from 'assets'
 import { ChartAuthor, ChartBook, ChartYears } from 'components'
 import s from './Home.module.scss'
 
-const Home: FC = () => {
+export const Home = () => {
   return (
     <div className={s.wrapper}>
       <img src={mainImage} alt="main section" />
@@ -15,5 +14,3 @@ const Home: FC = () => {
     </div>
   )
 }
-
-export default Home

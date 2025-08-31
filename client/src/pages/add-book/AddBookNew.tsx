@@ -1,9 +1,9 @@
-import { FC, useState } from 'react'
+import { useState } from 'react'
 import { AddBookForm, AddAuthorForm, AddSerieForm } from 'components'
 import { DropZone } from 'UI'
 import s from './AddBook.module.scss'
 
-const AddBookNew: FC = () => {
+export const AddBookNew = () => {
   const [isShowAuthorForm, setStatusShowAuthorForm] = useState(false)
   const [isShowSerieForm, setStatusShowSerieForm] = useState(false)
   const [bookCover, setFieldValue] = useState<string | null>(null)
@@ -41,5 +41,3 @@ const AddBookNew: FC = () => {
     </div>
   )
 }
-
-export default AddBookNew

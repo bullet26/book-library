@@ -1,1 +1,1 @@
-export { default as AddBookForm } from './AddBookForm'
+export { AddBookForm } from './AddBookForm'

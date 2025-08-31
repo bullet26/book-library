@@ -1,8 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unused-expressions */
-/* eslint-disable import/no-extraneous-dependencies */
-import { FC, RefObject } from 'react'
+import { type RefObject } from 'react'
 import { useField } from 'formik'
-import ContentEditable, { ContentEditableEvent } from 'react-contenteditable'
+import ContentEditable, { type ContentEditableEvent } from 'react-contenteditable'
 import s from './Input.module.scss'
 
 interface InputProps {
@@ -13,7 +11,7 @@ interface InputProps {
   innerRef?: RefObject<HTMLElement>
 }
 
-export const InputFromEditableDiv: FC<InputProps> = (props) => {
+export const InputFromEditableDiv = (props: InputProps) => {
   const { style, name, placeholder, innerRef, disabled } = props
   const [field, meta, helpers] = useField(name)
 

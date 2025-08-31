@@ -1,4 +1,3 @@
-import { FC } from 'react'
 import { Card } from 'UI'
 import s from './BookSection.module.scss'
 
@@ -14,7 +13,7 @@ interface BookSectionProps {
   onClick: (id?: string) => void
 }
 
-const BookSection: FC<BookSectionProps> = (props) => {
+export const BookSection = (props: BookSectionProps) => {
   const { seriesTitle, booksInSeries, onClick } = props
 
   return (
@@ -38,5 +37,3 @@ const BookSection: FC<BookSectionProps> = (props) => {
     </>
   )
 }
-
-export default BookSection

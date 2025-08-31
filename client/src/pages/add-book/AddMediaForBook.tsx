@@ -1,12 +1,11 @@
-import { FC } from 'react'
 import { AdditionalMediaForm } from 'components'
 import { useMutation } from '@apollo/client/react'
 import { ADD_MEDIA } from 'apollo'
-import { AdditionalMediaInput } from 'types'
+import { type AdditionalMediaInput } from 'types'
 import { Error, Modal } from 'UI'
 import s from './AddBook.module.scss'
 
-const AddMediaForBook: FC = () => {
+export const AddMediaForBook = () => {
   const [addMediaApollo, { data, error: errorReadDate }] = useMutation(ADD_MEDIA)
 
   const handleOnSubmit = (values: AdditionalMediaInput[]) => {
@@ -26,5 +25,3 @@ const AddMediaForBook: FC = () => {
     </div>
   )
 }
-
-export default AddMediaForBook

@@ -1,11 +1,11 @@
-import { FC, useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { Modal as AntModal } from 'antd'
 
 interface ModalProps {
   content: string
 }
 
-const Modal: FC<ModalProps> = (props) => {
+export const Modal = (props: ModalProps) => {
   const { content } = props
 
   const [modalOpenStatus, setModalOpenStatus] = useState(true)
@@ -30,5 +30,3 @@ const Modal: FC<ModalProps> = (props) => {
     </AntModal>
   )
 }
-
-export default Modal

@@ -1,1 +1,1 @@
-export { default as NavigationHeader } from './NavigationHeader'
+export { NavigationHeader } from './NavigationHeader'

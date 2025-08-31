@@ -1,7 +1,6 @@
-import { FC } from 'react'
 import { Button, Radio, Upload } from 'antd'
 import { UploadOutlined } from '@ant-design/icons'
-import { UploadProps } from 'antd/es/upload'
+import { type UploadProps } from 'antd/es/upload'
 import { useField } from 'formik'
 import { Input } from 'UI'
 import { MediaType } from 'types'
@@ -11,7 +10,7 @@ interface DropZoneProps {
   addLinkToForm: (links: string[]) => void
 }
 
-const UploadMediaBlock: FC<DropZoneProps> = (props) => {
+export const UploadMediaBlock = (props: DropZoneProps) => {
   const { addLinkToForm } = props
 
   const baseURL = import.meta.env.VITE_REST_API_BASE_URL
@@ -58,5 +57,3 @@ const UploadMediaBlock: FC<DropZoneProps> = (props) => {
     </>
   )
 }
-
-export default UploadMediaBlock

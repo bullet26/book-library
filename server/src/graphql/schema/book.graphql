@@ -1,0 +1,58 @@
+  # Book data type
+  type Book {
+    _id: ID
+    authorID: ID! 
+    author: Author
+    title: String!
+    rating: Float
+    seriesID: ID
+    series: Series 
+    tags: [Tags]
+    seriesNumber: Int
+    pages: Int
+    notes: String
+    description: String
+    readDate: [ReadDate]
+    bookCover: String
+    bookCoverThumbnail: String
+    isAdditionalMediaExist: Boolean
+    additionalMedia: AllMediaForItem
+  }
+
+  # Book data + total count type
+  type BooksResponse {
+    totalCount: Int
+    books: [Book]
+  }
+
+  # input data for add book
+  input BookInput {
+    authorID: ID! 
+    title: String!
+    rating: Float
+    seriesID: ID
+    seriesNumber: Int
+    pages: Int
+    notes: String
+    description: String
+    readEnd: Date
+    plot: String
+    bookCover: String
+    bookCoverThumbnail: String
+}
+  
+
+extend type Query = {
+    # Get a list of books (unique values), that were sorted by title
+    getAllBooksByName(limit: Int = 50, page: Int = 1): BooksResponse
+
+    # Get one book by id
+    getOneBook(id: ID): Book
+}
+
+extend type Mutation = {
+  # Add book
+  addBook(input: BookInput): Book
+}
+
+

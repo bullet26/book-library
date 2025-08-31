@@ -1,1 +1,1 @@
-export { default as SortTypeSelect } from './SortTypeSelect'
+export { SortTypeSelect } from './SortTypeSelect'

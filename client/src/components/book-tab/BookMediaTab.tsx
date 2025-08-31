@@ -1,9 +1,8 @@
-import { FC } from 'react'
 import { Image } from 'antd'
 import { useParams } from 'react-router-dom'
 import { useQuery } from '@apollo/client/react'
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry'
-import { AllMediaForItem } from 'types'
+import { type AllMediaForItem } from 'types'
 import { ALL_MEDIA_FOR_BOOK } from 'apollo'
 import { Error, VideoEmbed } from 'UI'
 import s from './BookTab.module.scss'
@@ -12,7 +11,7 @@ interface BookQuery {
   book: { id: string; title: string; media: AllMediaForItem }
 }
 
-const BookMediaTab: FC = () => {
+export const BookMediaTab = () => {
   const { id } = useParams()
 
   const { loading, error, data } = useQuery<BookQuery>(ALL_MEDIA_FOR_BOOK, {
@@ -49,5 +48,3 @@ const BookMediaTab: FC = () => {
     </>
   )
 }
-
-export default BookMediaTab

@@ -1,4 +1,3 @@
-import { FC } from 'react'
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
 import { useNavigate } from 'react-router-dom'
 
@@ -6,7 +5,7 @@ interface DiagramBarProps {
   chartData: { period: string; count: number }[]
 }
 
-const DiagramBar: FC<DiagramBarProps> = (props) => {
+export const DiagramBar = (props: DiagramBarProps) => {
   const { chartData } = props
   const navigate = useNavigate()
 
@@ -29,5 +28,3 @@ const DiagramBar: FC<DiagramBarProps> = (props) => {
   )
 }
 // or Bar onClick={(e) => handleClickDate(e.period)}
-
-export default DiagramBar

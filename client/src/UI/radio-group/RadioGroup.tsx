@@ -1,4 +1,3 @@
-import { FC } from 'react'
 import type { RadioChangeEvent } from 'antd'
 import { Radio } from 'antd'
 
@@ -8,7 +7,7 @@ interface IPaginationProps {
   onChange: (e: RadioChangeEvent) => void
 }
 
-const RadioGroup: FC<IPaginationProps> = (props) => {
+export const RadioGroup = (props: IPaginationProps) => {
   const { value, data, onChange } = props
 
   return (
@@ -24,4 +23,3 @@ const RadioGroup: FC<IPaginationProps> = (props) => {
     </Radio.Group>
   )
 }
-export default RadioGroup

@@ -1,4 +1,4 @@
-export { default as BookTab } from './BookTab'
-export { default as BookInfoTab } from './BookInfoTab'
-export { default as BookPlotTab } from './BookPlotTab'
-export { default as BookMediaTab } from './BookMediaTab'
+export { BookTab } from './BookTab'
+export { BookInfoTab } from './BookInfoTab'
+export { BookPlotTab } from './BookPlotTab'
+export { BookMediaTab } from './BookMediaTab'

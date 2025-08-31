@@ -1,1 +1,1 @@
-export { default as BookSection } from './BookSection'
+export { BookSection } from './BookSection'

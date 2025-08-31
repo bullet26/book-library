@@ -1,16 +1,15 @@
-import { FC } from 'react'
 import { useQuery } from '@apollo/client/react'
 import { CardListAuthors } from 'components'
 import { Loader, Error } from 'UI'
 import { ALL_AUTHORS_BY_BOOKS_COUNT } from 'apollo'
-import { MostRededAuthorResponse } from 'types'
+import { type MostRededAuthorResponse } from 'types'
 import s from './MostRededAuthors.module.scss'
 
 interface AuthorsQuery {
   author: MostRededAuthorResponse[]
 }
 
-const MostRededAuthors: FC = () => {
+export const MostRededAuthors = () => {
   const { loading, error, data } = useQuery<AuthorsQuery>(ALL_AUTHORS_BY_BOOKS_COUNT)
 
   return (
@@ -27,5 +26,3 @@ const MostRededAuthors: FC = () => {
     </>
   )
 }
-
-export default MostRededAuthors

@@ -1,1 +1,1 @@
-export { default as SelectTag } from './SelectTag'
+export { SelectTag } from './SelectTag'

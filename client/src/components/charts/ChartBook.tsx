@@ -1,5 +1,5 @@
-import { FC, useEffect, useState } from 'react'
-import { MOST_READED_BOOKS } from 'apollo'
+import { useEffect, useState } from 'react'
+import { MOST_READ_BOOKS } from 'apollo'
 import { useQuery } from '@apollo/client/react'
 import { DiagramPie } from 'components'
 import { Error } from 'UI'
@@ -11,8 +11,8 @@ interface IBook {
   count: number
 }
 
-const ChartBook: FC = () => {
-  const { loading, error, data } = useQuery<{ books: IBook[] }>(MOST_READED_BOOKS)
+export const ChartBook = () => {
+  const { loading, error, data } = useQuery<{ books: IBook[] }>(MOST_READ_BOOKS)
   const [chartData, setChartData] = useState<{ name: string; count: number }[]>([])
 
   useEffect(() => {
@@ -37,5 +37,3 @@ const ChartBook: FC = () => {
     </div>
   )
 }
-
-export default ChartBook

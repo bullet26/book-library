@@ -1,5 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
-import { FC } from 'react'
 import dayjs from 'dayjs'
 import { DatePicker } from 'antd'
 import { useField } from 'formik'
@@ -9,10 +7,10 @@ interface InputProps {
   name: string
 }
 
-export const DatepickerInput: FC<InputProps> = (props) => {
+export const DatepickerInput = (props: InputProps) => {
   const { name } = props
   const [field, meta, helpers] = useField(name)
-  const visualisationDateFormat = 'DD/MM/YYYY'
+  const visualizationDateFormat = 'DD/MM/YYYY'
 
   return (
     <span className={s.input}>
@@ -21,7 +19,7 @@ export const DatepickerInput: FC<InputProps> = (props) => {
         name={name}
         value={field.value}
         defaultValue={dayjs()}
-        format={visualisationDateFormat}
+        format={visualizationDateFormat}
         onChange={(date) => {
           helpers.setValue(date, true)
         }}

@@ -1,4 +1,3 @@
-import { FC } from 'react'
 import { Card as AntdCard, Badge, Tooltip } from 'antd'
 import { Book } from 'assets'
 import { Rating } from 'UI'
@@ -18,7 +17,7 @@ interface CardProps {
 
 const { Meta } = AntdCard
 
-const Card: FC<CardProps> = (props) => {
+export const Card = (props: CardProps) => {
   const { img, title, subtitle, onClick, id, type, rating = 0, count } = props
 
   const bookCover = img ? <img alt="book cover" src={img} /> : <Book height={215} />
@@ -63,5 +62,3 @@ const Card: FC<CardProps> = (props) => {
     </>
   )
 }
-
-export default Card

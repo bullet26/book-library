@@ -1,3 +1,3 @@
-export { default as SearchCard } from './SearchCard'
-export { default as SearchList } from './SearchList'
-export { default as SearchListForm } from './SearchListForm'
+export { SearchCard } from './SearchCard'
+export { SearchList } from './SearchList'
+export { SearchListForm } from './SearchListForm'

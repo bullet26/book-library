@@ -1,6 +1,5 @@
-import { FC } from 'react'
 import { useMutation } from '@apollo/client/react'
-import { Formik, Form, FormikHelpers } from 'formik'
+import { Formik, Form, type FormikHelpers } from 'formik'
 import { Button } from 'antd'
 import { CREATE_SERIE } from 'apollo'
 import { SearchInForm } from 'components'
@@ -14,7 +13,7 @@ interface AddSerieFormProps {
 
 type ValueType = typeof initialValuesAddSerie
 
-const AddSerieForm: FC<AddSerieFormProps> = (props) => {
+export const AddSerieForm = (props: AddSerieFormProps) => {
   const { handleHideForm } = props
 
   const [createSerieApollo, { data, error }] = useMutation(CREATE_SERIE)
@@ -50,5 +49,3 @@ const AddSerieForm: FC<AddSerieFormProps> = (props) => {
     </>
   )
 }
-
-export default AddSerieForm

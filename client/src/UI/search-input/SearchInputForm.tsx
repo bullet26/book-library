@@ -1,5 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import { FC, useEffect } from 'react'
+import { useEffect } from 'react'
 import { Input as AntInput } from 'antd'
 import { useField } from 'formik'
 import s from './SearchInput.module.scss'
@@ -11,7 +11,7 @@ interface InputProps {
   handleChange: (value: string) => void
 }
 
-const SearchInputForm: FC<InputProps> = (props) => {
+export const SearchInputForm = (props: InputProps) => {
   const { Search } = AntInput
 
   const { name, placeholder, inputValue, handleChange } = props
@@ -42,5 +42,3 @@ const SearchInputForm: FC<InputProps> = (props) => {
     </span>
   )
 }
-
-export default SearchInputForm

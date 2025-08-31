@@ -13,7 +13,7 @@ import {
   MostRededAuthors,
 } from 'pages'
 
-const AppRoutes = () => {
+export const AppRoutes = () => {
   return (
     <Routes>
       <Route path="/" element={<MainPage />}>
@@ -31,5 +31,3 @@ const AppRoutes = () => {
     </Routes>
   )
 }
-
-export default AppRoutes

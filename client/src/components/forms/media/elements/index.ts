@@ -1,1 +1,1 @@
-export { default as UploadMediaBlock } from './UploadMediaBlock'
+export { UploadMediaBlock } from './UploadMediaBlock'

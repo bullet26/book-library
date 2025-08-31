@@ -1,6 +1,5 @@
-import { FC } from 'react'
 import { SearchCard } from 'UI'
-import { Author, Series, Book } from 'types'
+import { type Author, type Series, type Book } from 'types'
 import { checkTypesFormTitle } from './utils'
 import s from './SearchCard.module.scss'
 
@@ -10,8 +9,7 @@ interface SearchListProps {
   onClick: (id: string, value: string) => void
 }
 
-// eslint-disable-next-line react/display-name
-const SearchListForm: FC<SearchListProps> = (props) => {
+export const SearchListForm = (props: SearchListProps) => {
   const { data = [], onClick, fullWidth = false } = props
 
   const className = fullWidth ? [s.formCardList, s.formCardListFullWidth].join(' ') : s.formCardList
@@ -30,5 +28,3 @@ const SearchListForm: FC<SearchListProps> = (props) => {
     </div>
   )
 }
-
-export default SearchListForm

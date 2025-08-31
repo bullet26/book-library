@@ -1,9 +1,9 @@
-import { FC, Fragment, useEffect, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { useQuery } from '@apollo/client/react'
 import { useParams } from 'react-router-dom'
 import { CardListBooks, YearSelect } from 'components'
 import { Loader, Error, DateDivider, Button } from 'UI'
-import { ReadDateBook } from 'types'
+import { type ReadDateBook } from 'types'
 import { ALL_BOOKS_BY_SPECIFIC_DATE } from 'apollo'
 import s from './BooksByDate.module.scss'
 
@@ -13,7 +13,7 @@ interface BooksByDateQuery {
 
 type FormattedBook = { [x: string]: ReadDateBook[] }[]
 
-const BooksByDate: FC = () => {
+export const BooksByDate = () => {
   const { year } = useParams()
   const windowWidth = window.innerWidth
 
@@ -73,5 +73,3 @@ const BooksByDate: FC = () => {
     </>
   )
 }
-
-export default BooksByDate

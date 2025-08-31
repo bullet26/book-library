@@ -6,7 +6,7 @@ interface ErrorProps {
   message?: string
 }
 
-const Error = (props: ErrorProps) => {
+export const Error = (props: ErrorProps) => {
   const { message } = props
   const [show, setShowStatus] = useState(true)
 
@@ -27,5 +27,3 @@ const Error = (props: ErrorProps) => {
     )
   )
 }
-
-export default Error

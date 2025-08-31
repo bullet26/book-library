@@ -1,13 +1,12 @@
-import { FC } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Book } from 'types'
+import { type Book } from 'types'
 import s from './BookInfo.module.scss'
 
 interface BookInfoProps {
   data?: { book: Book }
 }
 
-const BookInfo: FC<BookInfoProps> = (props) => {
+export const BookInfo = (props: BookInfoProps) => {
   const { data } = props
   const navigate = useNavigate()
 
@@ -56,5 +55,3 @@ const BookInfo: FC<BookInfoProps> = (props) => {
     </div>
   )
 }
-
-export default BookInfo

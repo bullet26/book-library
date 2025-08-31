@@ -1,4 +1,4 @@
-import { GetProp, UploadProps, message } from 'antd'
+import { type GetProp, type UploadProps, message } from 'antd'
 
 export type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0]
 

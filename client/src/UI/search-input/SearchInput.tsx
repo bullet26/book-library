@@ -1,4 +1,3 @@
-import { FC } from 'react'
 import { SearchOutlined, ArrowLeftOutlined } from '@ant-design/icons'
 import { Input } from 'antd'
 import s from './SearchInput.module.scss'
@@ -10,7 +9,7 @@ interface SearchInputProps {
   onChange: (value: string) => void
 }
 
-const SearchInput: FC<SearchInputProps> = (props) => {
+export const SearchInput = (props: SearchInputProps) => {
   const { inputValue, onIconClick, onChange, showInputStatus } = props
 
   const { Search: AntSearch } = Input
@@ -40,5 +39,3 @@ const SearchInput: FC<SearchInputProps> = (props) => {
     </>
   )
 }
-
-export default SearchInput

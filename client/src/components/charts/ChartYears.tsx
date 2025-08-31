@@ -1,14 +1,14 @@
-import { FC, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { READ_STATISTIC } from 'apollo'
 import { useLazyQuery } from '@apollo/client/react'
 import type { RadioChangeEvent } from 'antd'
 import { DiagramBar } from 'components'
-import { IStatistic } from 'types'
+import { type IStatistic } from 'types'
 import { Error, RadioGroup } from 'UI'
 import { checkEmptyPeriod } from './utils'
 import s from './Chart.module.scss'
 
-const ChartYears: FC = () => {
+export const ChartYears = () => {
   const [label, setLabel] = useState<'all' | 'year'>('all')
   const [year, setYear] = useState('all')
   const [allYears, setAllYears] = useState<string[]>([])
@@ -70,5 +70,3 @@ const ChartYears: FC = () => {
     </div>
   )
 }
-
-export default ChartYears

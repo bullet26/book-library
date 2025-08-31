@@ -1,4 +1,3 @@
-import { FC } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Select } from 'antd'
 
@@ -7,7 +6,7 @@ interface SortTypeSelectProps {
   sortBy: string | null
 }
 
-const SortTypeSelect: FC<SortTypeSelectProps> = (props) => {
+export const SortTypeSelect = (props: SortTypeSelectProps) => {
   const { tagID = '', sortBy } = props
   const navigate = useNavigate()
 
@@ -40,5 +39,3 @@ const SortTypeSelect: FC<SortTypeSelectProps> = (props) => {
     />
   )
 }
-
-export default SortTypeSelect

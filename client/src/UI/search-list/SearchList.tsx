@@ -1,6 +1,6 @@
-import { FC, useRef, useEffect, CSSProperties } from 'react'
+import { useRef, useEffect, type CSSProperties } from 'react'
 import { SearchCard } from 'UI'
-import { Search as ISearch } from 'types'
+import { type Search as ISearch } from 'types'
 import { checkTypesTitle, checkTypesRoute } from './utils'
 import s from './SearchCard.module.scss'
 
@@ -11,8 +11,7 @@ interface SearchListProps {
   style?: CSSProperties
 }
 
-// eslint-disable-next-line react/display-name
-const SearchList: FC<SearchListProps> = (props) => {
+export const SearchList = (props: SearchListProps) => {
   const { data = [], onClick, handleWrapperClick, style } = props
   const listRef = useRef(null)
   const hasScrollbar = document.body.offsetHeight > window.innerHeight
@@ -45,5 +44,3 @@ const SearchList: FC<SearchListProps> = (props) => {
     </div>
   )
 }
-
-export default SearchList

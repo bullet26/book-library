@@ -1,5 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
-import { FC } from 'react'
 import { Input as AntInput } from 'antd'
 import { useField } from 'formik'
 import s from './Input.module.scss'
@@ -9,7 +7,7 @@ interface InputProps {
   placeholder: string
 }
 
-export const TextareaInput: FC<InputProps> = (props) => {
+export const TextareaInput = (props: InputProps) => {
   const { TextArea } = AntInput
 
   const { name, placeholder } = props

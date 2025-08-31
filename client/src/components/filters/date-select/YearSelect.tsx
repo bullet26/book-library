@@ -1,16 +1,16 @@
-import { FC, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useQuery } from '@apollo/client/react'
 import { READ_STATISTIC } from 'apollo'
 import { useNavigate } from 'react-router-dom'
 import { Select } from 'antd'
 import { Error } from 'UI'
-import { IStatistic } from 'types'
+import { type IStatistic } from 'types'
 
 interface YearSelectProps {
   year?: string
 }
 
-const YearSelect: FC<YearSelectProps> = (props) => {
+export const YearSelect = (props: YearSelectProps) => {
   const { year } = props
   const navigate = useNavigate()
 
@@ -53,5 +53,3 @@ const YearSelect: FC<YearSelectProps> = (props) => {
     </>
   )
 }
-
-export default YearSelect

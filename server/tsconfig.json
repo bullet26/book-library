@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+        "target": "es2023",
+        "module": "ESNext",
+        "moduleResolution": "node",
+        "rootDir": "src",
+        "lib": ["es2023"],
+        "outDir": "dist",
+        "strict": true,
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "skipLibCheck": true,
+        "resolveJsonModule": true,
+        "types": ["node"],
+        "baseUrl": "src",
+        "paths": {
+            "common/*": ["common/*"]
+        }
+    },
+
+    "include": ["src"]
+}

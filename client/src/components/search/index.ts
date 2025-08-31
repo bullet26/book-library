@@ -1,2 +1,2 @@
-export { default as Search } from './Search'
-export { default as SearchInForm } from './SearchInForm'
+export { Search } from './Search'
+export { SearchInForm } from './SearchInForm'

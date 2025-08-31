@@ -1,16 +1,15 @@
-import { FC } from 'react'
 import { Tabs } from 'antd'
 import { useParams } from 'react-router-dom'
 import { useQuery } from '@apollo/client/react'
 import { ONE_BOOK_BY_ID } from 'apollo'
-import { Book as IBook } from 'types'
+import { type Book as IBook } from 'types'
 import { BookInfoTab, BookPlotTab, BookMediaTab } from 'components'
 
 interface BookQuery {
   book: IBook
 }
 
-const BookTab: FC = () => {
+export const BookTab = () => {
   const { id } = useParams()
   const { data } = useQuery<BookQuery>(ONE_BOOK_BY_ID, { variables: { id } })
 
@@ -38,5 +37,3 @@ const BookTab: FC = () => {
     />
   )
 }
-
-export default BookTab

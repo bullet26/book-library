@@ -1,9 +1,7 @@
-/* eslint-disable react/no-children-prop */
-import { FC } from 'react'
 import { useParams } from 'react-router-dom'
 import { useQuery } from '@apollo/client/react'
 import { Image } from 'antd'
-import { Book as IBook } from 'types'
+import { type Book as IBook } from 'types'
 import { BookTab, ReactHelmetMetadata } from 'components'
 import { Loader, Rating, ScrollArrow, Error, SelectTag } from 'UI'
 import { Book as BookImg } from 'assets'
@@ -14,7 +12,7 @@ interface BookQuery {
   book: IBook
 }
 
-const Book: FC = () => {
+export const Book = () => {
   const { id } = useParams()
 
   const { loading, error, data } = useQuery<BookQuery>(ONE_BOOK_BY_ID, { variables: { id } })
@@ -56,5 +54,3 @@ const Book: FC = () => {
     </>
   )
 }
-
-export default Book

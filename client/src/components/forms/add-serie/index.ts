@@ -1,1 +1,1 @@
-export { default as AddSerieForm } from './AddSerieForm'
+export { AddSerieForm } from './AddSerieForm'

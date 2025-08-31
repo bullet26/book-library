@@ -1,9 +1,8 @@
-import { FC } from 'react'
 import { useQuery } from '@apollo/client/react'
 import { useSearchParams } from 'react-router-dom'
 import { CardListBooks, YearSelect, TagSelect } from 'components'
 import { Loader, Pagination, Error, Button } from 'UI'
-import { ReadDateBook } from 'types'
+import { type ReadDateBook } from 'types'
 import { ALL_BOOKS_BY_DATE } from 'apollo'
 import s from './Books.module.scss'
 
@@ -11,7 +10,7 @@ interface BooksQuery {
   getAllBooksByDate: { readDate: ReadDateBook[]; totalCount: number }
 }
 
-const BooksByDate: FC = () => {
+export const Books = () => {
   const [searchParams, setSearchParams] = useSearchParams()
 
   const { loading, error, data } = useQuery<BooksQuery>(ALL_BOOKS_BY_DATE, {
@@ -62,5 +61,3 @@ const BooksByDate: FC = () => {
     </>
   )
 }
-
-export default BooksByDate

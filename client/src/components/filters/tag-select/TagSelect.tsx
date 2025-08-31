@@ -1,17 +1,17 @@
-import { FC, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useQuery } from '@apollo/client/react'
 import { ALL_TAGS } from 'apollo'
 import { useNavigate } from 'react-router-dom'
 import { Select } from 'antd'
 import { Error } from 'UI'
-import { Tag } from 'types'
+import { type Tag } from 'types'
 
 interface TagSelectProps {
   tagID: string | null
   sortBy: string | null
 }
 
-const TagSelect: FC<TagSelectProps> = (props) => {
+export const TagSelect = (props: TagSelectProps) => {
   const { tagID, sortBy } = props
   const navigate = useNavigate()
 
@@ -54,5 +54,3 @@ const TagSelect: FC<TagSelectProps> = (props) => {
     </>
   )
 }
-
-export default TagSelect

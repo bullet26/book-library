@@ -1,4 +1,4 @@
-import { FC, ReactNode } from 'react'
+import { type ReactNode } from 'react'
 import { Helmet } from 'react-helmet'
 
 interface ReactHelmetMetadata {
@@ -9,7 +9,7 @@ interface ReactHelmetMetadata {
   imageURL?: string
 }
 
-export const ReactHelmetMetadata: FC<ReactHelmetMetadata> = (props) => {
+export const ReactHelmetMetadata = (props: ReactHelmetMetadata) => {
   const { title, children, description, imageURL, pageURL } = props
 
   return (

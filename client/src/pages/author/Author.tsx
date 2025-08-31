@@ -1,12 +1,11 @@
-/* eslint-disable react/no-children-prop */
-import { FC, useMemo } from 'react'
+import { useMemo } from 'react'
 import { useQuery } from '@apollo/client/react'
 import { Image } from 'antd'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Book as BookImg, unknownAuthor1, unknownAuthor2 } from 'assets'
 import { BookSection, ReactHelmetMetadata } from 'components'
 import { Loader, ScrollArrow, Error } from 'UI'
-import { Author as IAuthor } from 'types'
+import { type Author as IAuthor } from 'types'
 import { ONE_AUTHOR_BY_ID } from 'apollo'
 import { colorRate } from 'utils'
 import s from './Author.module.scss'
@@ -21,7 +20,7 @@ function getRandomImage() {
   return images[randomIndex]
 }
 
-const Author: FC = () => {
+export const Author = () => {
   const { id: authorId } = useParams()
 
   const { loading, error, data } = useQuery<AuthorQuery>(ONE_AUTHOR_BY_ID, {
@@ -122,5 +121,3 @@ const Author: FC = () => {
     </>
   )
 }
-
-export default Author

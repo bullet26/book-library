@@ -1,10 +1,9 @@
-import { FC } from 'react'
 import { useQuery } from '@apollo/client/react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { Button as AntButton } from 'antd'
 import { CardListAuthors } from 'components'
 import { Loader, Pagination, Error, Button } from 'UI'
-import { Author } from 'types'
+import { type Author } from 'types'
 import { ALL_AUTHORS } from 'apollo'
 import s from './Authors.module.scss'
 
@@ -12,7 +11,7 @@ interface AuthorsQuery {
   getAllAuthors: { authors: Author[]; totalCount: number }
 }
 
-const Authors: FC = () => {
+export const Authors = () => {
   const [searchParams, setSearchParams] = useSearchParams()
 
   const { loading, error, data } = useQuery<AuthorsQuery>(ALL_AUTHORS, {
@@ -69,5 +68,3 @@ const Authors: FC = () => {
     </>
   )
 }
-
-export default Authors

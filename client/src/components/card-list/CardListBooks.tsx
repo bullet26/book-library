@@ -1,7 +1,6 @@
-import { FC } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Card } from 'UI'
-import { ReadDateBook, Book } from 'types'
+import { type ReadDateBook, type Book } from 'types'
 import s from './CardList.module.scss'
 
 interface CardListBooksProps {
@@ -9,7 +8,7 @@ interface CardListBooksProps {
   typeData: 'readDate' | 'tag'
 }
 
-const CardListBooks: FC<CardListBooksProps> = (props) => {
+export const CardListBooks = (props: CardListBooksProps) => {
   const { data, typeData } = props
   const navigate = useNavigate()
 
@@ -50,5 +49,3 @@ const CardListBooks: FC<CardListBooksProps> = (props) => {
     </div>
   )
 }
-
-export default CardListBooks

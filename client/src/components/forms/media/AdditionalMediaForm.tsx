@@ -1,8 +1,8 @@
-import { FC, useState } from 'react'
-import { Formik, Form, FormikHelpers } from 'formik'
+import { useState } from 'react'
+import { Formik, Form, type FormikHelpers } from 'formik'
 import { Button } from 'antd'
 import { SearchInForm } from 'components'
-import { AdditionalMediaInput, MediaType } from 'types'
+import { type AdditionalMediaInput, MediaType } from 'types'
 import { initialValuesMedia, validationSchemaMedia } from '../utils'
 import { UploadMediaBlock } from './elements'
 import s from '../Form.module.scss'
@@ -13,7 +13,7 @@ interface AdditionalMediaFormProps {
 
 type ValueType = typeof initialValuesMedia
 
-const AdditionalMediaForm: FC<AdditionalMediaFormProps> = (props) => {
+export const AdditionalMediaForm = (props: AdditionalMediaFormProps) => {
   const { onSubmitRequest } = props
 
   const [imageURLs, setImageFieldValue] = useState<string[]>([])
@@ -60,5 +60,3 @@ const AdditionalMediaForm: FC<AdditionalMediaFormProps> = (props) => {
     </Formik>
   )
 }
-
-export default AdditionalMediaForm

@@ -1,1 +1,1 @@
-export { default as YearSelect } from './YearSelect'
+export { YearSelect } from './YearSelect'

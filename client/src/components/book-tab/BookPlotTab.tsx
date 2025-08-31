@@ -1,7 +1,6 @@
-import { FC } from 'react'
 import { useParams } from 'react-router-dom'
 import { useQuery } from '@apollo/client/react'
-import { Plot } from 'types'
+import { type Plot } from 'types'
 import { ONE_BOOK_PLOT } from 'apollo'
 import { Error } from 'UI'
 import { emptyPlotImg } from 'assets'
@@ -11,7 +10,7 @@ interface PlotQuery {
   book: Plot
 }
 
-const BookPlotTab: FC = () => {
+export const BookPlotTab = () => {
   const { id } = useParams()
 
   const { loading, error, data } = useQuery<PlotQuery>(ONE_BOOK_PLOT, {
@@ -35,5 +34,3 @@ const BookPlotTab: FC = () => {
     </>
   )
 }
-
-export default BookPlotTab

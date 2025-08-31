@@ -1,9 +1,9 @@
-import { FC, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Arrow } from 'assets'
 import s from './ScrollArrow.module.scss'
 
-const ScrollArrow: FC = () => {
+export const ScrollArrow = () => {
   const [scroll, setScroll] = useState(0)
 
   const parentTab = window.location.pathname.split('/').at(1)
@@ -38,5 +38,3 @@ const ScrollArrow: FC = () => {
     </div>
   )
 }
-
-export default ScrollArrow

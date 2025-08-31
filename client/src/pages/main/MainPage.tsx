@@ -1,10 +1,9 @@
-import { FC } from 'react'
 import { Outlet } from 'react-router-dom'
 import { NavigationHeader, ReactHelmetMetadata, Search } from 'components'
 import { Button } from 'UI'
 import s from './MainPage.module.scss'
 
-const MainPage: FC = () => {
+export const MainPage = () => {
   const windowWidth = window.innerWidth
 
   return (
@@ -29,5 +28,3 @@ const MainPage: FC = () => {
     />
   )
 }
-
-export default MainPage

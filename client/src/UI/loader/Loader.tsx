@@ -1,7 +1,6 @@
-import { FC } from 'react'
 import s from './Loader.module.scss'
 
-const Loader: FC = () => {
+export const Loader = () => {
   const liArr = Array(18).fill(1)
 
   return (
@@ -24,7 +23,5 @@ const Loader: FC = () => {
     </div>
   )
 }
-
-export default Loader
 
 //https://codepen.io/aaroniker/pen/zYOewEP - loader

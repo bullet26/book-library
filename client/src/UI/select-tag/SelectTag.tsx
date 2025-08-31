@@ -1,11 +1,11 @@
-import { FC, useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { Button, Select, Tag } from 'antd'
 import type { SelectProps } from 'antd'
 import { useQuery, useMutation } from '@apollo/client/react'
 import { ALL_TAGS, CREATE_LINK_TAG_WITH_BOOK } from 'apollo'
 import { useNavigate } from 'react-router-dom'
 import { Error } from 'UI'
-import { Tag as ITag } from 'types'
+import { type Tag as ITag } from 'types'
 import s from './SelectTag.module.scss'
 
 type TagRender = SelectProps['tagRender']
@@ -28,7 +28,7 @@ const tagRender: TagRender = (props) => {
   )
 }
 
-const SelectTag: FC<SelectTagProps> = (props) => {
+export const SelectTag = (props: SelectTagProps) => {
   const { tags, bookID } = props
   const navigate = useNavigate()
 
@@ -99,5 +99,3 @@ const SelectTag: FC<SelectTagProps> = (props) => {
     </>
   )
 }
-
-export default SelectTag

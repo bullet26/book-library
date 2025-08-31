@@ -1,1 +1,1 @@
-export { default as AdditionalMediaForm } from './AdditionalMediaForm'
+export { AdditionalMediaForm } from './AdditionalMediaForm'

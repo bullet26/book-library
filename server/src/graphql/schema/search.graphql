@@ -1,0 +1,10 @@
+extend type Query = {
+search(searchString: String): [SearchResult!]
+
+searchInAuthors(searchString: String) : [Author]
+
+searchInSeries(searchString: String) : [Series]
+
+searchInBooks(searchString: String) : [Book]
+}
+

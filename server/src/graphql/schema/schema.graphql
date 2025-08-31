@@ -1,0 +1,6 @@
+scalar Date
+
+union SearchResult = Book | Author
+
+type Query
+type Mutation

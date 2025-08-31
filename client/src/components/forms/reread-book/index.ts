@@ -1,1 +1,1 @@
-export { default as ReReadBookForm } from './ReReadBookForm'
+export { ReReadBookForm } from './ReReadBookForm'

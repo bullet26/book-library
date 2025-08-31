@@ -1,5 +1,5 @@
-import { FC, useState } from 'react'
-import { Formik, Form, FormikHelpers } from 'formik'
+import { useState } from 'react'
+import { Formik, Form, type FormikHelpers } from 'formik'
 import { Button } from 'antd'
 import { useMutation } from '@apollo/client/react'
 import { CREATE_AUTHOR } from 'apollo'
@@ -13,7 +13,7 @@ interface AddAuthorFormProps {
 
 type ValueType = typeof initialValuesAddAuthor
 
-const AddAuthorForm: FC<AddAuthorFormProps> = (props) => {
+export const AddAuthorForm = (props: AddAuthorFormProps) => {
   const { handleHideForm } = props
 
   const [createAuthorApollo, { data, error }] = useMutation(CREATE_AUTHOR)
@@ -61,5 +61,3 @@ const AddAuthorForm: FC<AddAuthorFormProps> = (props) => {
     </div>
   )
 }
-
-export default AddAuthorForm

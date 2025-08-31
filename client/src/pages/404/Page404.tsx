@@ -1,9 +1,8 @@
-import { FC } from 'react'
 import { Link } from 'react-router-dom'
 import { NotFound404Img } from 'assets'
 import s from './Page404.module.scss'
 
-const Page404: FC = () => {
+export const Page404 = () => {
   return (
     <div className={s.wrapper}>
       <img src={NotFound404Img} alt="404" />
@@ -13,5 +12,3 @@ const Page404: FC = () => {
     </div>
   )
 }
-
-export default Page404

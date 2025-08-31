@@ -1,8 +1,8 @@
-import { FC, useEffect } from 'react'
+import { useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import s from './NavigationHeader.module.scss'
 
-const NavigationHeader: FC = () => {
+export const NavigationHeader = () => {
   const selectedKey = window.location.pathname.split('/').at(1)
   const navigate = useNavigate()
 
@@ -26,5 +26,3 @@ const NavigationHeader: FC = () => {
     </div>
   )
 }
-
-export default NavigationHeader

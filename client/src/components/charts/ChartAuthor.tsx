@@ -1,7 +1,7 @@
-import { FC, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Button } from 'antd'
-import { MOST_READED_AUTHORS } from 'apollo'
+import { MOST_READ_AUTHORS } from 'apollo'
 import { useQuery } from '@apollo/client/react'
 import { DiagramPie } from 'components'
 import { Error } from 'UI'
@@ -13,8 +13,8 @@ interface IAuthor {
   surname: number
 }
 
-const ChartAuthor: FC = () => {
-  const { loading, error, data } = useQuery<{ authors: IAuthor[] }>(MOST_READED_AUTHORS)
+export const ChartAuthor = () => {
+  const { loading, error, data } = useQuery<{ authors: IAuthor[] }>(MOST_READ_AUTHORS)
   const [chartData, setChartData] = useState<{ name: string; count: number }[]>([])
 
   useEffect(() => {
@@ -53,5 +53,3 @@ const ChartAuthor: FC = () => {
     </div>
   )
 }
-
-export default ChartAuthor

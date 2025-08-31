@@ -1,5 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
-import { FC } from 'react'
 import { Input as AntInput, InputNumber } from 'antd'
 import { useField } from 'formik'
 import s from './Input.module.scss'
@@ -10,7 +8,7 @@ interface InputProps {
   htmlType?: 'text' | 'number'
 }
 
-export const Input: FC<InputProps> = (props) => {
+export const Input = (props: InputProps) => {
   const { name, placeholder, htmlType = 'text' } = props
   const [field, meta, helpers] = useField(name)
 

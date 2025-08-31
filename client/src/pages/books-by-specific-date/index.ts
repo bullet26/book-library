@@ -1,1 +1,1 @@
-export { default as BooksByDate } from './BooksByDate'
+export { BooksByDate } from './BooksByDate'

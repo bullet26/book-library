@@ -1,1 +1,1 @@
-export { default as VideoEmbed } from './VideoEmbed'
+export { VideoEmbed } from './VideoEmbed'
