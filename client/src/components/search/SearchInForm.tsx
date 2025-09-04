@@ -5,6 +5,7 @@ import { useFormikContext } from 'formik'
 import { type Series, type Author, type Book } from 'types'
 import { SearchInputForm, SearchListForm, Error } from 'UI'
 import s from './Search.module.scss'
+import { useDebounce } from 'hooks/useDebounce'
 
 interface SearchInForProps {
   type: 'authors' | 'series' | 'books'
@@ -36,6 +37,8 @@ export const SearchInForm = (props: SearchInForProps) => {
   const { setFieldValue } = useFormikContext()
 
   const [inputValue, setInputValue] = useState('')
+  const debouncedValue = useDebounce(inputValue, 500)
+
   const [elementChosenStatus, setElementChosenStatus] = useState(false)
   const [showSearchList, setShowSearchListStatus] = useState(false)
 
@@ -51,18 +54,10 @@ export const SearchInForm = (props: SearchInForProps) => {
   }
 
   useEffect(() => {
-    let debounce: NodeJS.Timeout | undefined
-    if (!elementChosenStatus) {
-      debounce = setTimeout(() => {
-        if (inputValue) {
-          handleSearch(inputValue)
-        }
-      }, 500)
+    if (!elementChosenStatus && debouncedValue) {
+      handleSearch(inputValue)
     }
-
-    return () => clearTimeout(debounce)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [inputValue, elementChosenStatus])
+  }, [debouncedValue, elementChosenStatus])
 
   const handleInputChange = (value: string) => {
     setInputValue(value)

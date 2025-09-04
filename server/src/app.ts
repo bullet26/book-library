@@ -5,11 +5,13 @@ import express from 'express';
 import http from 'http';
 import cors from 'cors';
 import bodyParser from 'body-parser';
+import mongoose from 'mongoose';
 
 import { typeDefs } from '#graphql/schema/index.js';
 import { resolvers } from '#graphql/resolvers/index.js';
 import { router } from '#api/router.js';
 import { createContext, DataLoadersType } from '#graphql/dataloaders/index.js';
+import { APP_MODE } from '#config/index.js';
 
 interface MyContext {
     token?: string;
@@ -32,6 +34,8 @@ const server = new ApolloServer<MyContext>({
 });
 
 await server.start();
+
+mongoose.set('debug', APP_MODE === 'development');
 
 app.use(
     '/graphql',

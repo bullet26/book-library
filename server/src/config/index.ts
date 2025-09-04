@@ -3,7 +3,7 @@ import { v2 as cloudinary } from 'cloudinary';
 
 dotenv.config();
 
-export const { DB_URL = '', PORT = 3000, CLOUDINARY_NAME, CLOUDINARY_KEY, CLOUDINARY_SECRET } = process.env;
+export const { DB_URL = '', PORT = 3000, CLOUDINARY_NAME, CLOUDINARY_KEY, CLOUDINARY_SECRET, APP_MODE = 'production' } = process.env;
 
 cloudinary.config({
     cloud_name: CLOUDINARY_NAME,

@@ -1,10 +1,17 @@
 import DataLoader from 'dataloader';
-import { BookTagRelationsModel } from '#models/index.js';
+import { BooksModel, BookTagRelationsModel } from '#models/index.js';
 
 export const TagsDL = {
     booksInTag: new DataLoader(async (tagIDs: readonly string[]) => {
-        const booksInTagObj = await BookTagRelationsModel.find({ BookTagRelationsModel: { $in: tagIDs } });
+        const booksInTagObj = await BookTagRelationsModel.find({ tagID: { $in: tagIDs } });
         const booksInTagIds = booksInTagObj.map(item => item.bookID);
-        return tagIDs.map(id => booksInTagIds.filter(bookID => booksInTagObj.find(item => item?.bookID === bookID && item?.tagID === id)));
+        const books = await BooksModel.find({ _id: { $in: booksInTagIds } }).sort({ title: 1 });
+        // !fix TODO: убрать консоли и пофиксить, не работает
+        console.log(
+            books.map(item => item.id),
+            'books'
+        );
+        console.log(booksInTagObj);
+        return tagIDs.map(id => books.filter(book => booksInTagObj.find(item => item.bookID?.toString() === book._id?.toString() && item.tagID?.toString() === id.toString())));
     }),
 };

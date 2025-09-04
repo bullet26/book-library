@@ -4,6 +4,7 @@ import { useLazyQuery } from '@apollo/client/react'
 import { SEARCH_IN_BOOKS_AND_AUTHORS } from 'apollo/search'
 import { type Search as ISearch } from 'types'
 import { SearchInput, SearchList, Error } from 'UI'
+import { useDebounce } from 'hooks/useDebounce'
 
 interface ISearchSuccess {
   search: ISearch[]
@@ -17,6 +18,7 @@ export const Search = () => {
   const [showSearchList, setShowSearchListStatus] = useState(false)
   const [showInputStatus, setShowInputStatus] = useState(windowWidth > 650)
   const [inputValue, setInputValue] = useState('')
+  const debouncedValue = useDebounce(inputValue, 500)
 
   const handleSearch = (searchString: string) => {
     makeSearch({ variables: { searchString } })
@@ -24,14 +26,10 @@ export const Search = () => {
   }
 
   useEffect(() => {
-    const debounce = setTimeout(() => {
-      if (inputValue) {
-        handleSearch(inputValue)
-      }
-    }, 500)
-    return () => clearTimeout(debounce)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [inputValue])
+    if (debouncedValue) {
+      handleSearch(debouncedValue)
+    }
+  }, [debouncedValue])
 
   const handleIconClick = () => {
     setShowInputStatus((prevState) => !prevState)
