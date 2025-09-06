@@ -3,7 +3,7 @@ import { gql } from '@apollo/client'
 export const ALL_TAGS = gql`
   query GetAllTags {
     tags: getAllTags {
-      id: _id
+      id
       tag
     }
   }
@@ -12,18 +12,18 @@ export const ALL_TAGS = gql`
 export const CREATE_LINK_TAG_WITH_BOOK = gql`
   mutation Mutation($input: BookTagRelationsInput) {
     book: linkBookWithTag(input: $input) {
-      id: _id
+      id
       author {
         surname
         name
-        id: _id
+        id
       }
       title
       rating
       series {
         title
         booksInSeries {
-          id: _id
+          id
           title
           bookCoverThumbnail
         }
@@ -33,7 +33,7 @@ export const CREATE_LINK_TAG_WITH_BOOK = gql`
         readEnd
       }
       tags {
-        id: _id
+        id
         tag
       }
       bookCover

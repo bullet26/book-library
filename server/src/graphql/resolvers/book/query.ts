@@ -1,29 +1,30 @@
-import { BooksModel } from '#models/index.js';
+import { BooksModel } from '#models/index.js'
+import { type QueryResolvers } from '#graphql/generated/types.js'
 
-export const BookQuery = {
-    getAllBooksByName: async (_, args) => {
-        const { page, limit } = args;
+export const BookQuery: QueryResolvers = {
+  getAllBooksByName: async (_, args) => {
+    const { page, limit } = args
 
-        try {
-            const totalCount = await BooksModel.countDocuments({});
-            const books = await BooksModel.find({})
-                .sort({ title: 1 })
-                .skip((page - 1) * limit)
-                .limit(limit);
+    try {
+      const totalCount = await BooksModel.countDocuments({})
+      const books = await BooksModel.find({})
+        .sort({ title: 1 })
+        .skip((page - 1) * limit)
+        .limit(limit)
 
-            return { totalCount, books };
-        } catch (error) {
-            throw new Error('Couldn`t get books');
-        }
-    },
+      return { totalCount, books }
+    } catch (error) {
+      throw new Error('Couldn`t get books')
+    }
+  },
 
-    getOneBook: async (_, args) => {
-        const { id } = args;
-        try {
-            const book = await BooksModel.findById(id);
-            return book;
-        } catch (error) {
-            throw new Error('Couldn`t get book');
-        }
-    },
-};
+  getOneBook: async (_, args) => {
+    const { id } = args
+    try {
+      const book = await BooksModel.findById(id)
+      return book
+    } catch (error) {
+      throw new Error('Couldn`t get book')
+    }
+  },
+}

@@ -1,5 +1,5 @@
-import { mergeResolvers } from '@graphql-tools/merge';
+import { mergeResolvers } from '@graphql-tools/merge'
 
-import { AnalyticsQuery } from './query.js';
+import { AnalyticsQuery } from './query.js'
 
-export const additionalMediaResolvers = mergeResolvers([{ Query: AnalyticsQuery }]);
+export const analyticsResolvers = mergeResolvers([{ Query: AnalyticsQuery }])

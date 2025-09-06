@@ -1,20 +1,16 @@
-import { BooksModel } from '#models/index.js';
-import { authorsAggregation } from './aggregation.js';
+import { type TagsResolvers } from '#graphql/generated/types.js'
 
-export const TagsResolver = {
-    booksInTag: async (tags, args, { dataloaders }) => {
-        const booksInTagIds = await dataloaders.tags.booksInTag.load(tags._id);
+export const TagsResolver: TagsResolvers = {
+  booksInTag: async (tag, args, { dataloaders }) => {
+    const { sortBy = 'title' } = args
 
-        const { sortBy } = args;
-
-        if (sortBy === 'title') {
-            const books = await BooksModel.find({ _id: { $in: booksInTagIds } }).sort({ title: 1 });
-            return books;
-        }
-        if (sortBy === 'author') {
-            const books = await BooksModel.aggregate(authorsAggregation(booksInTagIds));
-
-            return books;
-        }
-    },
-};
+    if (sortBy === 'title') {
+      const books = await dataloaders.tags.booksInTag.load(tag._id)
+      return books
+    }
+    if (sortBy === 'author') {
+      const books = await dataloaders.tags.booksInTagByAuthor.load(tag._id)
+      return books
+    }
+  },
+}

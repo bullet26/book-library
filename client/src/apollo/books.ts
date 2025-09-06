@@ -4,9 +4,9 @@ export const ALL_BOOKS_BY_DATE = gql`
   query GetAllBooksByDate($page: Int, $limit: Int) {
     getAllBooksByDate(page: $page, limit: $limit) {
       readDate {
-        id: _id
+        id
         books {
-          id: _id
+          id
           title
           rating
           bookCoverThumbnail
@@ -23,18 +23,18 @@ export const ALL_BOOKS_BY_DATE = gql`
 export const ONE_BOOK_BY_ID = gql`
   query GetOneBookId($id: ID) {
     book: getOneBook(id: $id) {
-      id: _id
+      id
       author {
         surname
         name
-        id: _id
+        id
       }
       title
       rating
       series {
         title
         booksInSeries {
-          id: _id
+          id
           title
           rating
           bookCoverThumbnail
@@ -45,7 +45,7 @@ export const ONE_BOOK_BY_ID = gql`
         readEnd
       }
       tags {
-        id: _id
+        id
         tag
       }
       bookCover
@@ -65,7 +65,7 @@ export const ALL_BOOKS_BY_SPECIFIC_DATE = gql`
   query GetAllBooksBySpecificDate($year: Int) {
     bookInYear: getAllBooksBySpecificDate(year: $year) {
       books {
-        id: _id
+        id
         title
         bookCoverThumbnail
         rating
@@ -75,7 +75,7 @@ export const ALL_BOOKS_BY_SPECIFIC_DATE = gql`
         }
       }
       readEnd
-      id: _id
+      id
     }
   }
 `
@@ -85,7 +85,7 @@ export const ALL_BOOKS_BY_TAG = gql`
     tagData: getTagById(id: $id, sortBy: $sortBy) {
       tag
       booksInTag {
-        id: _id
+        id
         title
         bookCoverThumbnail
         rating
@@ -124,16 +124,16 @@ export const CREATE_READ_DATE = gql`
 export const ALL_MEDIA_FOR_BOOK = gql`
   query Query($id: ID) {
     book: getOneBook(id: $id) {
-      id: _id
+      id
       title
       media: additionalMedia {
         video {
-          id: _id
+          id
           type
           url
         }
         image {
-          id: _id
+          id
           url
           type
         }

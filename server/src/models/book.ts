@@ -1,6 +1,7 @@
-import mongoose from 'mongoose';
+import mongoose from 'mongoose'
 
-const Books = new mongoose.Schema({
+const Books = new mongoose.Schema(
+  {
     authorID: { type: mongoose.Types.ObjectId, ref: 'AuthorModel' },
     title: { type: String, required: true },
     rating: Number,
@@ -11,6 +12,17 @@ const Books = new mongoose.Schema({
     description: String,
     bookCover: String,
     bookCoverThumbnail: String,
-});
+  },
+  {
+    toObject: {
+      transform: function (_, ret: any) {
+        ret.id = ret._id.toString()
+        ret.authorID = ret.authorID.toString()
+        ret.seriesID = ret.seriesID?.toString() || null
+        delete ret._id
+      },
+    },
+  },
+)
 
-export const BooksModel = mongoose.model('BooksModel', Books, 'books');
+export const BooksModel = mongoose.model('BooksModel', Books, 'books')

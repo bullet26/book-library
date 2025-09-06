@@ -1,21 +1,21 @@
 # description plot data
 type DescriptionPlot {
-    _id: ID
-    bookID: ID!
-    plot: String
+  id: ID
+  bookID: ID!
+  plot: String
 }
 
 input BookPlotInput {
-    bookID: ID!
-    plot: String!
+  bookID: ID!
+  plot: String!
 }
 
 extend type Query {
-    # Get one book plot by id
-    getOneBookPlot(bookID: ID): DescriptionPlot
+  # Get one book plot by id
+  getOneBookPlot(bookID: ID): DescriptionPlot
 }
 
 extend type Mutation {
-    # Add book plot
-    addBookPlot(input: BookPlotInput): DescriptionPlot
+  # Add book plot
+  addBookPlot(input: BookPlotInput!): DescriptionPlot
 }

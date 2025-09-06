@@ -1,5 +1,8 @@
-export const AuthorResolver = {
-    books: (author, args, { dataloaders }) => dataloaders.author.books.load(author._id),
-    series: (author, args, { dataloaders }) => dataloaders.author.series.load(author._id),
-    booksWithoutSeries: (author, args, { dataloaders }) => dataloaders.author.booksWithoutSeries.load(author._id),
-};
+import { type AuthorResolvers } from '#graphql/generated/types.js'
+
+export const AuthorResolver: AuthorResolvers = {
+  books: (author, _, { dataloaders }) => dataloaders.author.books.load(author._id),
+  series: (author, _, { dataloaders }) => dataloaders.author.series.load(author._id),
+  booksWithoutSeries: (author, _, { dataloaders }) =>
+    dataloaders.author.booksWithoutSeries.load(author._id),
+}

@@ -1,18 +1,18 @@
 # Series data type
 type Series {
-    _id: ID
-    authorID: ID!
-    title: String!
-    booksInSeries: [Book]
+  id: ID!
+  authorID: ID!
+  title: String!
+  booksInSeries: [Book]
 }
 
 # input data for add series
 input SerieInput {
-    authorID: ID!
-    title: String!
+  authorID: ID!
+  title: String!
 }
 
 extend type Mutation {
-    # Add serie
-    creteSerie(input: SerieInput): Series
+  # Add serie
+  createSerie(input: SerieInput!): Series
 }

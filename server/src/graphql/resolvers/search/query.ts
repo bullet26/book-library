@@ -1,52 +1,57 @@
-import { AuthorModel, BooksModel, SeriesModel } from '#models/index.js';
+import { AuthorModel, BooksModel, SeriesModel } from '#models/index.js'
+import { type QueryResolvers } from '#graphql/generated/types.js'
 
-export const SearchQuery = {
-    search: async (_, args) => {
-        const { searchString } = args;
-        const regexp = new RegExp(searchString, 'i');
+export const SearchQuery: QueryResolvers = {
+  search: async (_, args) => {
+    const { searchString } = args
+    const regexp = new RegExp(searchString, 'i')
 
-        try {
-            const books = await BooksModel.find({ title: regexp }).limit(15);
-            const authors = await AuthorModel.find({ $or: [{ surname: regexp }, { name: regexp }, { transcriptionName: regexp }] }).limit(15);
-            return [...books, ...authors];
-        } catch (error) {
-            throw new Error('Couldn`t find author or book');
-        }
-    },
+    try {
+      const books = await BooksModel.find({ title: regexp }).limit(15)
+      const authors = await AuthorModel.find({
+        $or: [{ surname: regexp }, { name: regexp }, { transcriptionName: regexp }],
+      }).limit(15)
+      return [...books, ...authors]
+    } catch (error) {
+      throw new Error('Couldn`t find author or book')
+    }
+  },
 
-    searchInAuthors: async (_, args) => {
-        const { searchString } = args;
-        const regexp = new RegExp(searchString, 'i');
+  searchInAuthors: async (_, args) => {
+    const { searchString } = args
+    const regexp = new RegExp(searchString, 'i')
 
-        try {
-            const authors = await AuthorModel.find({ $or: [{ surname: regexp }, { name: regexp }, { transcriptionName: regexp }] }).limit(15);
-            return authors;
-        } catch (error) {
-            throw new Error('Couldn`t find authors');
-        }
-    },
+    try {
+      const authors = await AuthorModel.find({
+        $or: [{ surname: regexp }, { name: regexp }, { transcriptionName: regexp }],
+      }).limit(15)
+      return authors
+    } catch (error) {
+      throw new Error('Couldn`t find authors')
+    }
+  },
 
-    searchInSeries: async (_, args) => {
-        const { searchString } = args;
-        const regexp = new RegExp(searchString, 'i');
+  searchInSeries: async (_, args) => {
+    const { searchString } = args
+    const regexp = new RegExp(searchString, 'i')
 
-        try {
-            const series = await SeriesModel.find({ title: regexp }).limit(15);
-            return series;
-        } catch (error) {
-            throw new Error('Couldn`t find series');
-        }
-    },
+    try {
+      const series = await SeriesModel.find({ title: regexp }).limit(15)
+      return series
+    } catch (error) {
+      throw new Error('Couldn`t find series')
+    }
+  },
 
-    searchInBooks: async (_, args) => {
-        const { searchString } = args;
-        const regexp = new RegExp(searchString, 'i');
+  searchInBooks: async (_, args) => {
+    const { searchString } = args
+    const regexp = new RegExp(searchString, 'i')
 
-        try {
-            const books = await BooksModel.find({ title: regexp }).limit(15);
-            return books;
-        } catch (error) {
-            throw new Error('Couldn`t find books');
-        }
-    },
-};
+    try {
+      const books = await BooksModel.find({ title: regexp }).limit(15)
+      return books
+    } catch (error) {
+      throw new Error('Couldn`t find books')
+    }
+  },
+}

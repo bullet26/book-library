@@ -4,7 +4,7 @@ export const ALL_AUTHORS = gql`
   query GetAllAuthors($page: Int, $limit: Int) {
     getAllAuthors(page: $page, limit: $limit) {
       authors {
-        id: _id
+        id
         name
         surname
         portraitThumbnail
@@ -26,14 +26,14 @@ export const ONE_AUTHOR_BY_ID = gql`
           title
           bookCoverThumbnail
           rating
-          id: _id
+          id
         }
       }
       booksWithoutSeries {
         title
         bookCoverThumbnail
         rating
-        id: _id
+        id
       }
     }
   }

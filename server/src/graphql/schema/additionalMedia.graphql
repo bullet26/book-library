@@ -1,29 +1,29 @@
 enum MediaType {
-    IMAGE
-    VIDEO
+  IMAGE
+  VIDEO
 }
 
 # additional image, video for books
 type AdditionalMedia {
-    _id: ID
-    bookID: ID!
-    url: String!
-    type: MediaType!
+  id: ID!
+  bookID: ID!
+  url: String!
+  type: MediaType!
 }
 
 # input data for add media
 input AdditionalMediaInput {
-    bookID: ID!
-    url: String!
-    type: MediaType!
+  bookID: ID!
+  url: String!
+  type: MediaType!
 }
 
 type AllMediaForItem {
-    image: [AdditionalMedia]
-    video: [AdditionalMedia]
+  image: [AdditionalMedia]
+  video: [AdditionalMedia]
 }
 
 extend type Mutation {
-    # Add image, video for book
-    addAdditionalMedia(input: [AdditionalMediaInput]): Book
+  # Add image, video for book
+  addAdditionalMedia(input: [AdditionalMediaInput]): Book
 }

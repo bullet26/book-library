@@ -1,9 +1,9 @@
 extend type Query {
-    search(searchString: String): [SearchResult!]
+  search(searchString: String!): [SearchResult!]
 
-    searchInAuthors(searchString: String): [Author]
+  searchInAuthors(searchString: String!): [Author]
 
-    searchInSeries(searchString: String): [Series]
+  searchInSeries(searchString: String!): [Series]
 
-    searchInBooks(searchString: String): [Book]
+  searchInBooks(searchString: String!): [Book]
 }

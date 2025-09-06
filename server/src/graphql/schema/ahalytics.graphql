@@ -1,30 +1,30 @@
 # Book data + count
 type BooksStatisticResponse {
-    count: Int
-    bookTitle: String
-    author: String
+  count: Int!
+  bookTitle: String!
+  author: String!
 }
 
 # Author data + count
 type AuthorsStatisticResponse {
-    count: Int
-    surname: String
-    name: String
+  count: Int!
+  surname: String!
+  name: String!
 }
 
 # statistic per months in year, or per years in all time
 type Statistic {
-    count: Int
-    period: String
+  count: Int
+  period: String
 }
 
 extend type Query {
-    # Get a list of books, which were read more times than others
-    getMostReadBooks: [BooksStatisticResponse]
+  # Get a list of books, which were read more times than others
+  getMostReadBooks: [BooksStatisticResponse]
 
-    # Get a list of authors, which were read more times than others
-    getMostReadAuthors: [AuthorsStatisticResponse]
+  # Get a list of authors, which were read more times than others
+  getMostReadAuthors: [AuthorsStatisticResponse]
 
-    # Get read statistic per months, years
-    getReadStatistic(year: Int, label: String): [Statistic]
+  # Get read statistic per months, years
+  getReadStatistic(year: Int, label: String): [Statistic]
 }
