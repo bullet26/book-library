@@ -20,13 +20,13 @@ input ReadDateInput {
 
 extend type Query {
   # Get a list of read books, that were sorted by date
-  getAllBooksByDate(limit: Int = 100, page: Int = 1): ReadBooksResponse
+  getAllBooksByDate(limit: Int = 100, page: Int = 1): ReadBooksResponse!
 
   # Get a list of read books read in specific year
-  getAllBooksBySpecificDate(year: Int!): [ReadDate]
+  getAllBooksBySpecificDate(year: Int!): [ReadDate]!
 }
 
 extend type Mutation {
   # Add new date for reread book
-  addReadDate(input: ReadDateInput!): ReadDate
+  addReadDate(input: ReadDateInput!): ReadDate!
 }

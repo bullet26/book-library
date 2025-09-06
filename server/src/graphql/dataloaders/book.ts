@@ -7,38 +7,45 @@ import {
   AuthorModel,
   SeriesModel,
 } from '#models/index.js'
+import { toObjectMapping } from '#utils/mappers.js'
+import { Author, BookTagRelations, ReadDate, Series, Tags } from '#graphql/generated/types.js'
 
 export const BookDL = {
   author: new DataLoader(async (authorIDs: readonly string[]) => {
-    const authors = await AuthorModel.find({ _id: { $in: authorIDs } })
-    return authorIDs.map((id) => authors.find((item) => item._id.toString() === id.toString()))
+    const authorsDocs = await AuthorModel.find({ _id: { $in: authorIDs } })
+    const authors = toObjectMapping<Author>(authorsDocs)
+
+    return authorIDs.map((id) => authors.find((item) => item.id === id.toString()))
   }),
 
   series: new DataLoader(async (seriesIDs: readonly string[]) => {
-    const series = await SeriesModel.find({ _id: { $in: seriesIDs } })
-    return seriesIDs.map((id) => series.find((item) => item._id.toString() === id.toString()))
+    const seriesDocs = await SeriesModel.find({ _id: { $in: seriesIDs } })
+    const series = toObjectMapping<Series>(seriesDocs)
+
+    return seriesIDs.map((id) => series.find((item) => item.id === id.toString()))
   }),
 
   tags: new DataLoader(async (bookIDs: readonly string[]) => {
-    const tagsForBookObj = await BookTagRelationsModel.find({ bookID: { $in: bookIDs } })
+    const tagsForBookObjDocs = await BookTagRelationsModel.find({ bookID: { $in: bookIDs } })
+    const tagsForBookObj = toObjectMapping<BookTagRelations>(tagsForBookObjDocs)
     const tagsForBookIds = tagsForBookObj.map((item) => item.tagID)
-    const tags = await TagModel.find({ _id: { $in: tagsForBookIds } }).sort({ tag: 1 })
+    const tagsDocs = await TagModel.find({ _id: { $in: tagsForBookIds } }).sort({ tag: 1 })
+    const tags = toObjectMapping<Tags>(tagsDocs)
+
     return bookIDs.map((id) =>
       tags.filter((tag) =>
-        tagsForBookObj.find(
-          (item) =>
-            item.bookID?.toString() === id.toString() &&
-            item?.tagID?.toString() === tag._id.toString(),
-        ),
+        tagsForBookObj.find((item) => item.bookID === id.toString() && item.tagID === tag.id),
       ),
     )
   }),
 
   readDate: new DataLoader(async (bookIDs: readonly string[]) => {
-    const readDates = await ReadDateModel.find({ bookID: { $in: bookIDs } }).sort({ readEnd: -1 })
-    return bookIDs.map((id) =>
-      readDates.filter((item) => item.bookID?.toString() === id.toString()),
-    )
+    const readDatesDocs = await ReadDateModel.find({ bookID: { $in: bookIDs } }).sort({
+      readEnd: -1,
+    })
+    const readDates = toObjectMapping<ReadDate>(readDatesDocs)
+
+    return bookIDs.map((id) => readDates.filter((item) => item.bookID === id.toString()))
   }),
 
   isAdditionalMediaExist: new DataLoader(async (bookIDs: readonly string[]) => {

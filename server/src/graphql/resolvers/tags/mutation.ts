@@ -1,21 +1,21 @@
 import { BookTagRelationsModel, BooksModel } from '#models/index.js'
-import { type MutationResolvers } from '#graphql/generated/types.js'
+import { Book, type MutationResolvers } from '#graphql/generated/types.js'
+import { toObjectMappingSingle } from '#utils/mappers.js'
+import { HttpError } from '#utils/http-error.js'
 
 export const TagsMutation: MutationResolvers = {
   linkBookWithTag: async (_, { input }) => {
-    try {
-      await BookTagRelationsModel.deleteMany({ bookID: input.bookID })
+    await BookTagRelationsModel.deleteMany({ bookID: input.bookID })
 
-      await Promise.all(
-        input.tagID.map(
-          async (item) => await BookTagRelationsModel.create({ bookID: input.bookID, tagID: item }),
-        ),
-      )
+    await Promise.all(
+      input.tagID.map(
+        async (item) => await BookTagRelationsModel.create({ bookID: input.bookID, tagID: item }),
+      ),
+    )
 
-      const book = await BooksModel.findById(input.bookID)
-      return book
-    } catch (error: any) {
-      throw new Error(error.message)
-    }
+    const bookDoc = await BooksModel.findById(input.bookID)
+    if (!bookDoc) throw new HttpError('Book not found', 404)
+
+    return toObjectMappingSingle<Book>(bookDoc)
   },
 }

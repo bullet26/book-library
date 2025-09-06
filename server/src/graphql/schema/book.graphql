@@ -2,7 +2,7 @@
 type Book {
   id: ID!
   authorID: ID!
-  author: Author
+  author: Author!
   title: String!
   rating: Float
   seriesID: ID
@@ -12,10 +12,10 @@ type Book {
   pages: Int
   notes: String
   description: String
-  readDate: [ReadDate]
+  readDate: [ReadDate]!
   bookCover: String
   bookCoverThumbnail: String
-  isAdditionalMediaExist: Boolean
+  isAdditionalMediaExist: Boolean!
   additionalMedia: AllMediaForItem
 }
 
@@ -43,7 +43,7 @@ input BookInput {
 
 extend type Query {
   # Get a list of books (unique values), that were sorted by title
-  getAllBooksByName(limit: Int = 50, page: Int = 1): BooksResponse
+  getAllBooksByName(limit: Int = 50, page: Int = 1): BooksResponse!
 
   # Get one book by id
   getOneBook(id: ID!): Book
@@ -51,5 +51,5 @@ extend type Query {
 
 extend type Mutation {
   # Add book
-  addBook(input: BookInput!): Book
+  addBook(input: BookInput!): Book!
 }

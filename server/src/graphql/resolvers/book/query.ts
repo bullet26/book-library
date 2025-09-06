@@ -1,30 +1,30 @@
 import { BooksModel } from '#models/index.js'
-import { type QueryResolvers } from '#graphql/generated/types.js'
+import { type Book, type QueryResolvers } from '#graphql/generated/types.js'
+import { toObjectMapping, toObjectMappingSingle } from '#utils/mappers.js'
+import { HttpError } from '#utils/http-error.js'
 
 export const BookQuery: QueryResolvers = {
   getAllBooksByName: async (_, args) => {
     const { page, limit } = args
 
-    try {
-      const totalCount = await BooksModel.countDocuments({})
-      const books = await BooksModel.find({})
-        .sort({ title: 1 })
-        .skip((page - 1) * limit)
-        .limit(limit)
+    const totalCount = await BooksModel.countDocuments({})
+    const booksDocs = await BooksModel.find({})
+      .sort({ title: 1 })
+      .skip((page - 1) * limit)
+      .limit(limit)
+    const books = toObjectMapping<Book>(booksDocs)
 
-      return { totalCount, books }
-    } catch (error) {
-      throw new Error('Couldn`t get books')
-    }
+    return { totalCount, books }
   },
 
   getOneBook: async (_, args) => {
     const { id } = args
-    try {
-      const book = await BooksModel.findById(id)
-      return book
-    } catch (error) {
-      throw new Error('Couldn`t get book')
-    }
+    if (!id) throw new HttpError('ID is required', 400)
+
+    const bookDoc = await BooksModel.findById(id)
+    if (!bookDoc) throw new HttpError('Book wasn`t found', 404)
+
+    const book = toObjectMappingSingle<Book>(bookDoc)
+    return book
   },
 }

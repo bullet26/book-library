@@ -1,8 +1,8 @@
 # description plot data
 type DescriptionPlot {
-  id: ID
+  id: ID!
   bookID: ID!
-  plot: String
+  plot: String!
 }
 
 input BookPlotInput {
@@ -17,5 +17,5 @@ extend type Query {
 
 extend type Mutation {
   # Add book plot
-  addBookPlot(input: BookPlotInput!): DescriptionPlot
+  addBookPlot(input: BookPlotInput!): DescriptionPlot!
 }

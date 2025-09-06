@@ -1,16 +1,13 @@
 import { ReadDateModel } from '#models/index.js'
-import { type MutationResolvers } from '#graphql/generated/types.js'
+import { type ReadDate, type MutationResolvers } from '#graphql/generated/types.js'
+import { toObjectMappingSingle } from '#utils/mappers.js'
 
 export const ReadDateMutation: MutationResolvers = {
   addReadDate: async (_, { input }) => {
-    try {
-      const book = await ReadDateModel.create({
-        bookID: input.bookID,
-        readEnd: input.readEnd,
-      })
-      return book
-    } catch (error: any) {
-      throw new Error(error.message)
-    }
+    const bookDoc = await ReadDateModel.create({
+      bookID: input.bookID,
+      readEnd: input.readEnd,
+    })
+    return toObjectMappingSingle<ReadDate>(bookDoc)
   },
 }

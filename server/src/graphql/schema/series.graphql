@@ -14,5 +14,5 @@ input SerieInput {
 
 extend type Mutation {
   # Add serie
-  createSerie(input: SerieInput!): Series
+  createSerie(input: SerieInput!): Series!
 }

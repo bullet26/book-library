@@ -5,11 +5,11 @@ export const TagsResolver: TagsResolvers = {
     const { sortBy = 'title' } = args
 
     if (sortBy === 'title') {
-      const books = await dataloaders.tags.booksInTag.load(tag._id)
+      const books = await dataloaders.tags.booksInTag.load(tag.id)
       return books
     }
     if (sortBy === 'author') {
-      const books = await dataloaders.tags.booksInTagByAuthor.load(tag._id)
+      const books = await dataloaders.tags.booksInTagByAuthor.load(tag.id)
       return books
     }
   },

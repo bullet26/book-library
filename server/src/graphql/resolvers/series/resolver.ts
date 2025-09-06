@@ -1,5 +1,5 @@
 import { type SeriesResolvers } from '#graphql/generated/types.js'
 
 export const SeriesResolver: SeriesResolvers = {
-  booksInSeries: (series, _, { dataloaders }) => dataloaders.series.booksInSeries.load(series._id),
+  booksInSeries: (series, _, { dataloaders }) => dataloaders.series.booksInSeries.load(series.id),
 }

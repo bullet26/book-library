@@ -4,28 +4,35 @@ import { BookDL } from './book.js'
 import { ReadDateDL } from './readDate.js'
 import { SeriesDL } from './series.js'
 import { TagsDL } from './tags.js'
-import { Author, Book, ReadDate, Series, Tags } from '#graphql/generated/types.js'
+import {
+  type Author,
+  type Book,
+  type ReadDate,
+  type Series,
+  type Tags,
+} from '#graphql/generated/types.js'
 
-type DataLoaderItem<T> = DataLoader<string, T[]>
+type DataLoaderItemMany<T> = DataLoader<string, T[]>
+type DataLoaderItemOne<T> = DataLoader<string, T | undefined>
 
 export interface DataLoadersType {
   dataloaders: {
     author: {
-      books: DataLoaderItem<Book>
-      series: DataLoaderItem<Series>
-      booksWithoutSeries: DataLoaderItem<Book>
+      books: DataLoaderItemMany<Book>
+      series: DataLoaderItemMany<Series>
+      booksWithoutSeries: DataLoaderItemMany<Book>
     }
     book: {
-      author: DataLoaderItem<Author>
-      series: DataLoaderItem<Series>
-      tags: DataLoaderItem<Tags>
-      readDate: DataLoaderItem<ReadDate>
-      isAdditionalMediaExist: DataLoaderItem<boolean>
-      additionalMedia: DataLoaderItem<any>
+      author: DataLoaderItemOne<Author>
+      series: DataLoaderItemOne<Series>
+      tags: DataLoaderItemMany<Tags>
+      readDate: DataLoaderItemMany<ReadDate>
+      isAdditionalMediaExist: DataLoaderItemOne<Book['isAdditionalMediaExist']>
+      additionalMedia: DataLoaderItemOne<{}>
     }
-    readDate: { books: DataLoaderItem<Book> }
-    series: { booksInSeries: DataLoaderItem<Book> }
-    tags: { booksInTag: DataLoaderItem<Book>; booksInTagByAuthor: DataLoaderItem<Book> }
+    readDate: { books: DataLoaderItemOne<Book> }
+    series: { booksInSeries: DataLoaderItemMany<Book> }
+    tags: { booksInTag: DataLoaderItemMany<Book>; booksInTagByAuthor: DataLoaderItemMany<Book> }
   }
 }
 

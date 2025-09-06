@@ -15,7 +15,7 @@ type BookTagRelations {
 # input data for link Book with Tag
 input BookTagRelationsInput {
   bookID: ID!
-  tagID: [ID!]
+  tagID: [ID]!
 }
 
 extend type Query {

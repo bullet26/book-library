@@ -13,8 +13,8 @@ type Author {
 
 # Author data + total count
 type AuthorResponse {
-  totalCount: Int
-  authors: [Author]
+  totalCount: Int!
+  authors: [Author]!
 }
 
 # Author data without pagination
@@ -37,10 +37,10 @@ input AuthorInput {
 
 extend type Query {
   # Get a list of authors
-  getAllAuthors(limit: Int = 50, page: Int = 1): AuthorResponse
+  getAllAuthors(limit: Int = 50, page: Int = 1): AuthorResponse!
 
   # Get a list of authors sorted by count reded books
-  getAllAuthorsByBooksCount: [AuthorMostReadResponse]
+  getAllAuthorsByBooksCount: [AuthorMostReadResponse]!
 
   # Get one author by id
   getOneAuthor(id: ID!): Author
@@ -48,5 +48,5 @@ extend type Query {
 
 extend type Mutation {
   # Add author
-  createAuthor(input: AuthorInput!): Author
+  createAuthor(input: AuthorInput!): Author!
 }

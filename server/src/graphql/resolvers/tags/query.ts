@@ -1,23 +1,19 @@
 import { TagModel } from '#models/index.js'
-import { type QueryResolvers } from '#graphql/generated/types.js'
+import { type Tags, type QueryResolvers } from '#graphql/generated/types.js'
+import { HttpError } from '#utils/http-error.js'
+import { toObjectMapping, toObjectMappingSingle } from '#utils/mappers.js'
 
 export const TagsQuery: QueryResolvers = {
   getTagById: async (_, args) => {
-    try {
-      const { id } = args
-      const tag = await TagModel.findById(id)
-      return tag
-    } catch (error: any) {
-      throw new Error(`Couldn't get tag info with ID ${args.id}:`, error.message)
-    }
+    const { id } = args
+    if (!id) throw new HttpError('ID is required', 400)
+    const tagDoc = await TagModel.findById(id)
+    if (!tagDoc) throw new HttpError('Tag wasn`t found', 404)
+    return toObjectMappingSingle<Tags>(tagDoc)
   },
 
   getAllTags: async () => {
-    try {
-      const tags = await TagModel.find({}).sort({ tag: 1 })
-      return tags
-    } catch (error: any) {
-      throw new Error('Couldn`t get tags', error.message)
-    }
+    const tagsDocs = await TagModel.find({}).sort({ tag: 1 })
+    return toObjectMapping<Tags>(tagsDocs)
   },
 }

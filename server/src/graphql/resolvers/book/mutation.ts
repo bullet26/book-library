@@ -1,25 +1,24 @@
 import { BooksModel, ReadDateModel, DescriptionPlotModel } from '#models/index.js'
-import { type MutationResolvers } from '#graphql/generated/types.js'
+import { type Book, type MutationResolvers } from '#graphql/generated/types.js'
+import { toObjectMappingSingle } from '#utils/mappers.js'
 
 export const BookMutation: MutationResolvers = {
   addBook: async (_, { input }) => {
-    try {
-      const book = await BooksModel.create(input)
-      if (input.hasOwnProperty('readEnd') && !!input.readEnd) {
-        await ReadDateModel.create({
-          bookID: book._id,
-          readEnd: input.readEnd,
-        })
-      }
-      if (input.hasOwnProperty('plot') && !!input.plot) {
-        await DescriptionPlotModel.create({
-          bookID: book._id,
-          plot: input.plot,
-        })
-      }
-      return book
-    } catch (error: any) {
-      throw new Error(error.message)
+    const bookDoc = await BooksModel.create(input)
+    const book = toObjectMappingSingle<Book>(bookDoc)
+
+    if (input.hasOwnProperty('readEnd') && !!input.readEnd) {
+      await ReadDateModel.create({
+        bookID: book.id,
+        readEnd: input.readEnd,
+      })
     }
+    if (input.hasOwnProperty('plot') && !!input.plot) {
+      await DescriptionPlotModel.create({
+        bookID: book.id,
+        plot: input.plot,
+      })
+    }
+    return book
   },
 }

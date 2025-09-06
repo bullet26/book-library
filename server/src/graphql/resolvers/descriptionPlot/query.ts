@@ -1,14 +1,16 @@
 import { DescriptionPlotModel } from '#models/index.js'
-import { type QueryResolvers } from '#graphql/generated/types.js'
+import { type DescriptionPlot, type QueryResolvers } from '#graphql/generated/types.js'
+import { HttpError } from '#utils/http-error.js'
+import { toObjectMappingSingle } from '#utils/mappers.js'
 
 export const DescriptionPlotQuery: QueryResolvers = {
   getOneBookPlot: async (_, args) => {
     const { bookID } = args
-    try {
-      const [book] = await DescriptionPlotModel.find({ bookID })
-      return book
-    } catch (error) {
-      throw new Error('Couldn`t get book')
-    }
+    if (!bookID) throw new HttpError('Book ID is required', 400)
+
+    const [bookDoc] = await DescriptionPlotModel.find({ bookID })
+    if (!bookDoc) throw new HttpError('Book plot wasn`t found', 404)
+
+    return toObjectMappingSingle<DescriptionPlot>(bookDoc)
   },
 }

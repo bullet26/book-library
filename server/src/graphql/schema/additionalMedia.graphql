@@ -25,5 +25,5 @@ type AllMediaForItem {
 
 extend type Mutation {
   # Add image, video for book
-  addAdditionalMedia(input: [AdditionalMediaInput]): Book
+  addAdditionalMedia(input: [AdditionalMediaInput]!): Book
 }
