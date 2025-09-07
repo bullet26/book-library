@@ -1,6 +1,7 @@
 import { ReadDateModel } from '#models/index.js'
 import { type ReadDate, type QueryResolvers } from '#graphql/generated/types.js'
 import { toObjectMapping } from '#utils/mappers.js'
+import { HttpError } from '#utils/http-error.js'
 
 export const ReadDateQuery: QueryResolvers = {
   getAllBooksByDate: async (_, args) => {
@@ -18,6 +19,7 @@ export const ReadDateQuery: QueryResolvers = {
 
   getAllBooksBySpecificDate: async (_, args) => {
     const { year } = args
+    if (!year) throw new HttpError('year is required', 400)
 
     const booksDocs = await ReadDateModel.find({
       readEnd: {

@@ -3,13 +3,9 @@ import { useQuery } from '@apollo/client/react'
 import { useParams } from 'react-router-dom'
 import { CardListBooks, YearSelect } from 'components'
 import { Loader, Error, DateDivider, Button } from 'UI'
-import { type ReadDateBook } from 'types'
-import { ALL_BOOKS_BY_SPECIFIC_DATE } from 'apollo'
+import { ALL_BOOKS_BY_SPECIFIC_DATE } from '__graphql'
+import type { ReadDateBook } from 'types'
 import s from './BooksByDate.module.scss'
-
-interface BooksByDateQuery {
-  bookInYear: ReadDateBook[]
-}
 
 type FormattedBook = { [x: string]: ReadDateBook[] }[]
 
@@ -17,7 +13,8 @@ export const BooksByDate = () => {
   const { year } = useParams()
   const windowWidth = window.innerWidth
 
-  const { loading, error, data } = useQuery<BooksByDateQuery>(ALL_BOOKS_BY_SPECIFIC_DATE, {
+  const { loading, error, data } = useQuery(ALL_BOOKS_BY_SPECIFIC_DATE, {
+    skip: !year,
     variables: {
       year: Number(year),
     },
@@ -28,17 +25,17 @@ export const BooksByDate = () => {
   useEffect(() => {
     if (data?.bookInYear?.length) {
       const booksData = data?.bookInYear
-      let currentMonth = booksData[0].readEnd.month
+      let currentMonth = booksData[0]?.readEnd.month
       let arr: ReadDateBook[] = []
       const result: FormattedBook = []
 
       booksData?.forEach((item, i) => {
-        if (item.readEnd.month !== currentMonth) {
+        if (item && item?.readEnd.month !== currentMonth) {
           result.push({ [currentMonth]: arr })
           arr = []
           currentMonth = item.readEnd.month
         }
-        arr.push(item)
+        if (item) arr.push(item)
         if (booksData.length - 1 === i) {
           result.push({ [currentMonth]: arr })
         }

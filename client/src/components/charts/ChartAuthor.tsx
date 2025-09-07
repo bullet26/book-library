@@ -1,31 +1,27 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Button } from 'antd'
-import { MOST_READ_AUTHORS } from 'apollo'
+import { MOST_READ_AUTHORS } from '__graphql'
 import { useQuery } from '@apollo/client/react'
 import { DiagramPie } from 'components'
 import { Error } from 'UI'
 import s from './Chart.module.scss'
 
-interface IAuthor {
-  count: number
-  name: string
-  surname: number
-}
-
 export const ChartAuthor = () => {
-  const { loading, error, data } = useQuery<{ authors: IAuthor[] }>(MOST_READ_AUTHORS)
+  const { loading, error, data } = useQuery(MOST_READ_AUTHORS)
   const [chartData, setChartData] = useState<{ name: string; count: number }[]>([])
 
   useEffect(() => {
     if (data?.authors?.length) {
       setChartData(
-        data.authors.map(({ count, surname, name }) => {
-          return {
-            name: `${name} ${surname}`,
-            count,
-          }
-        }),
+        data.authors
+          .filter((item) => !!item)
+          .map(({ count, surname, name }) => {
+            return {
+              name: `${name} ${surname}`,
+              count,
+            }
+          }),
       )
     }
   }, [data])
@@ -34,7 +30,7 @@ export const ChartAuthor = () => {
     <div className={s.buttonWrapper}>
       <div className={s.wrapper}>
         <div className={s.titleBtnWrapper}>
-          <div className={s.title}>MOST READED AUTHORS</div>
+          <div className={s.title}>MOST READ AUTHORS</div>
           <Link to="/most_reded_authors">
             <Button
               shape="round"

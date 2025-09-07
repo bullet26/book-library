@@ -3,7 +3,7 @@ import { useSearchParams } from 'react-router-dom'
 import { CardListBooks, YearSelect, TagSelect } from 'components'
 import { Loader, Pagination, Error, Button } from 'UI'
 import { type ReadDateBook } from 'types'
-import { ALL_BOOKS_BY_DATE } from 'apollo'
+import { ALL_BOOKS_BY_DATE } from '__graphql'
 import s from './Books.module.scss'
 
 interface BooksQuery {

@@ -43,7 +43,7 @@ extend type Query {
   getAllAuthorsByBooksCount: [AuthorMostReadResponse]!
 
   # Get one author by id
-  getOneAuthor(id: ID!): Author
+  getOneAuthor(id: ID): Author
 }
 
 extend type Mutation {

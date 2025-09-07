@@ -1,10 +1,12 @@
 import { useNavigate } from 'react-router-dom'
 import { Card } from 'UI'
-import { type ReadDateBook, type Book } from 'types'
+import type { GetBooksByTagQuery } from '__graphql/__generated__/graphql'
+import type { ReadDateBook } from 'types/book'
 import s from './CardList.module.scss'
 
+type TagBook = NonNullable<GetBooksByTagQuery['tagData']>['booksInTag']
 interface CardListBooksProps {
-  data: ReadDateBook[] | Book[]
+  data: ReadDateBook[] | TagBook[]
   typeData: 'readDate' | 'tag'
 }
 
@@ -21,20 +23,23 @@ export const CardListBooks = (props: CardListBooksProps) => {
   return (
     <div className={s.wrapper}>
       {typeData === 'readDate' &&
-        (data as ReadDateBook[])?.map(({ id, books }) => (
-          <Card
-            key={id}
-            id={books.id}
-            img={books.bookCoverThumbnail}
-            title={books.title}
-            subtitle={`${books.author.name} ${books.author.surname}`}
-            rating={books.rating}
-            onClick={handleClick}
-            type="book"
-          />
-        ))}
+        (data as ReadDateBook[]).map(
+          (item) =>
+            item?.books && (
+              <Card
+                key={item.id}
+                id={item.books.id}
+                img={item.books.bookCoverThumbnail}
+                title={item.books.title}
+                subtitle={`${item.books.author.name} ${item.books.author.surname}`}
+                rating={item.books.rating}
+                onClick={handleClick}
+                type="book"
+              />
+            ),
+        )}
       {typeData === 'tag' &&
-        (data as Book[])?.map((item) => (
+        (data as TagBook[])?.map((item) => (
           <Card
             key={item.id}
             id={item.id}

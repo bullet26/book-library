@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom'
 import { useQuery } from '@apollo/client/react'
 import { type Plot } from 'types'
-import { ONE_BOOK_PLOT } from 'apollo'
+import { ONE_BOOK_PLOT } from '__graphql'
 import { Error } from 'UI'
 import { emptyPlotImg } from 'assets'
 import s from './BookTab.module.scss'
@@ -15,6 +15,7 @@ export const BookPlotTab = () => {
 
   const { loading, error, data } = useQuery<PlotQuery>(ONE_BOOK_PLOT, {
     variables: { bookID: id },
+    skip: !id,
   })
 
   const plot = data?.book?.plot

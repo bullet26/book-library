@@ -3,25 +3,20 @@ import { Link, useSearchParams } from 'react-router-dom'
 import { Button as AntButton } from 'antd'
 import { CardListAuthors } from 'components'
 import { Loader, Pagination, Error, Button } from 'UI'
-import { type Author } from 'types'
-import { ALL_AUTHORS } from 'apollo'
+import { ALL_AUTHORS } from '__graphql'
 import s from './Authors.module.scss'
-
-interface AuthorsQuery {
-  getAllAuthors: { authors: Author[]; totalCount: number }
-}
 
 export const Authors = () => {
   const [searchParams, setSearchParams] = useSearchParams()
 
-  const { loading, error, data } = useQuery<AuthorsQuery>(ALL_AUTHORS, {
+  const { loading, error, data } = useQuery(ALL_AUTHORS, {
     variables: {
       page: Number(searchParams.get('page')) || 1,
       limit: Number(searchParams.get('perpage')) || 50,
     },
   })
 
-  const authors = data?.getAllAuthors.authors
+  const authors = data?.getAllAuthors.authors?.filter((item) => !!item)
   const totalCount = data?.getAllAuthors.totalCount
   const windowWidth = window.innerWidth
 

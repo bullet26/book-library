@@ -1,22 +1,20 @@
 import { BookInfo, Carousel } from 'components'
-import { type Book as IBook } from 'types'
+import type { GetOneBookByIdQuery } from '__graphql/__generated__/graphql'
 import s from './BookTab.module.scss'
 
 interface BookInfoTabProps {
-  data?: {
-    book: IBook
-  }
+  data?: GetOneBookByIdQuery
 }
 
 export const BookInfoTab = (props: BookInfoTabProps) => {
   const { data } = props
 
-  const series = data?.book.series
+  const series = data?.book?.series
 
   return (
     <div className={s.contentWrapper}>
       <BookInfo data={data} />
-      {!!series && (
+      {!!series?.booksInSeries && (
         <Carousel data={series.booksInSeries} title={`All books in the series: ${series.title}`} />
       )}
     </div>

@@ -23,7 +23,7 @@ extend type Query {
   getAllBooksByDate(limit: Int = 100, page: Int = 1): ReadBooksResponse!
 
   # Get a list of read books read in specific year
-  getAllBooksBySpecificDate(year: Int!): [ReadDate]!
+  getAllBooksBySpecificDate(year: Int): [ReadDate]!
 }
 
 extend type Mutation {

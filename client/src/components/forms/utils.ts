@@ -1,7 +1,7 @@
 import * as Yup from 'yup'
 // eslint-disable-next-line import/no-extraneous-dependencies
 import dayjs from 'dayjs'
-import { MediaType } from 'types'
+import { MediaType } from '__graphql/__generated__/graphql'
 
 export const initialValuesAddBook = {
   author: '',
@@ -72,7 +72,7 @@ export const initialValuesMedia = {
   title: '',
   bookID: null,
   url: '',
-  type: MediaType.VIDEO,
+  type: MediaType.Video,
 }
 
 export const validationSchemaMedia = Yup.object({

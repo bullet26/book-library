@@ -245,17 +245,17 @@ export type QueryGetAllBooksByNameArgs = {
 
 
 export type QueryGetAllBooksBySpecificDateArgs = {
-  year: Scalars['Int']['input'];
+  year?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
 export type QueryGetOneAuthorArgs = {
-  id: Scalars['ID']['input'];
+  id?: InputMaybe<Scalars['ID']['input']>;
 };
 
 
 export type QueryGetOneBookArgs = {
-  id: Scalars['ID']['input'];
+  id?: InputMaybe<Scalars['ID']['input']>;
 };
 
 
@@ -271,7 +271,7 @@ export type QueryGetReadStatisticArgs = {
 
 
 export type QueryGetTagByIdArgs = {
-  id: Scalars['ID']['input'];
+  id?: InputMaybe<Scalars['ID']['input']>;
 };
 
 
@@ -609,15 +609,15 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   getAllAuthorsByBooksCount?: Resolver<Array<Maybe<ResolversTypes['AuthorMostReadResponse']>>, ParentType, ContextType>;
   getAllBooksByDate?: Resolver<ResolversTypes['ReadBooksResponse'], ParentType, ContextType, RequireFields<QueryGetAllBooksByDateArgs, 'limit' | 'page'>>;
   getAllBooksByName?: Resolver<ResolversTypes['BooksResponse'], ParentType, ContextType, RequireFields<QueryGetAllBooksByNameArgs, 'limit' | 'page'>>;
-  getAllBooksBySpecificDate?: Resolver<Array<Maybe<ResolversTypes['ReadDate']>>, ParentType, ContextType, RequireFields<QueryGetAllBooksBySpecificDateArgs, 'year'>>;
+  getAllBooksBySpecificDate?: Resolver<Array<Maybe<ResolversTypes['ReadDate']>>, ParentType, ContextType, Partial<QueryGetAllBooksBySpecificDateArgs>>;
   getAllTags?: Resolver<Array<Maybe<ResolversTypes['Tags']>>, ParentType, ContextType>;
   getMostReadAuthors?: Resolver<Array<Maybe<ResolversTypes['AuthorsStatisticResponse']>>, ParentType, ContextType>;
   getMostReadBooks?: Resolver<Array<Maybe<ResolversTypes['BooksStatisticResponse']>>, ParentType, ContextType>;
-  getOneAuthor?: Resolver<Maybe<ResolversTypes['Author']>, ParentType, ContextType, RequireFields<QueryGetOneAuthorArgs, 'id'>>;
-  getOneBook?: Resolver<Maybe<ResolversTypes['Book']>, ParentType, ContextType, RequireFields<QueryGetOneBookArgs, 'id'>>;
+  getOneAuthor?: Resolver<Maybe<ResolversTypes['Author']>, ParentType, ContextType, Partial<QueryGetOneAuthorArgs>>;
+  getOneBook?: Resolver<Maybe<ResolversTypes['Book']>, ParentType, ContextType, Partial<QueryGetOneBookArgs>>;
   getOneBookPlot?: Resolver<Maybe<ResolversTypes['DescriptionPlot']>, ParentType, ContextType, Partial<QueryGetOneBookPlotArgs>>;
   getReadStatistic?: Resolver<Array<Maybe<ResolversTypes['Statistic']>>, ParentType, ContextType, RequireFields<QueryGetReadStatisticArgs, 'label'>>;
-  getTagById?: Resolver<Maybe<ResolversTypes['Tags']>, ParentType, ContextType, RequireFields<QueryGetTagByIdArgs, 'id'>>;
+  getTagById?: Resolver<Maybe<ResolversTypes['Tags']>, ParentType, ContextType, Partial<QueryGetTagByIdArgs>>;
   search?: Resolver<Array<Maybe<ResolversTypes['SearchResult']>>, ParentType, ContextType, RequireFields<QuerySearchArgs, 'searchString'>>;
   searchInAuthors?: Resolver<Array<Maybe<ResolversTypes['Author']>>, ParentType, ContextType, RequireFields<QuerySearchInAuthorsArgs, 'searchString'>>;
   searchInBooks?: Resolver<Array<Maybe<ResolversTypes['Book']>>, ParentType, ContextType, RequireFields<QuerySearchInBooksArgs, 'searchString'>>;

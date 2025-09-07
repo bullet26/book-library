@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react'
 import { useQuery } from '@apollo/client/react'
-import { READ_STATISTIC } from 'apollo'
+import { READ_STATISTIC } from '__graphql'
 import { useNavigate } from 'react-router-dom'
 import { Select } from 'antd'
 import { Error } from 'UI'
-import { type IStatistic } from 'types'
 
 interface YearSelectProps {
   year?: string
@@ -16,7 +15,7 @@ export const YearSelect = (props: YearSelectProps) => {
 
   const [allYearsLabels, setAllYearsLabels] = useState<{ value: string; label: string }[]>([])
 
-  const { data, error } = useQuery<{ statistic: IStatistic[] }>(READ_STATISTIC, {
+  const { data, error } = useQuery(READ_STATISTIC, {
     variables: {
       label: 'all',
     },
@@ -24,7 +23,11 @@ export const YearSelect = (props: YearSelectProps) => {
 
   useEffect(() => {
     if (data) {
-      setAllYearsLabels(data.statistic.map(({ period }) => ({ value: period, label: period })))
+      setAllYearsLabels(
+        data.statistic
+          .filter((item) => !!item)
+          .map(({ period }) => ({ value: period, label: period })),
+      )
     }
   }, [data])
 

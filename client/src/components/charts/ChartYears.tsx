@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react'
-import { READ_STATISTIC } from 'apollo'
+import { READ_STATISTIC } from '__graphql'
 import { useLazyQuery } from '@apollo/client/react'
 import type { RadioChangeEvent } from 'antd'
 import { DiagramBar } from 'components'
-import { type IStatistic } from 'types'
 import { Error, RadioGroup } from 'UI'
 import { checkEmptyPeriod } from './utils'
 import s from './Chart.module.scss'
@@ -14,9 +13,7 @@ export const ChartYears = () => {
   const [allYears, setAllYears] = useState<string[]>([])
   const [preparedData, setPreparedData] = useState<{ period: string; count: number }[]>([])
 
-  const [getStatistic, { loading, error, data }] = useLazyQuery<{ statistic: IStatistic[] }>(
-    READ_STATISTIC,
-  )
+  const [getStatistic, { loading, error, data }] = useLazyQuery(READ_STATISTIC)
 
   useEffect(() => {
     getStatistic({
@@ -29,12 +26,14 @@ export const ChartYears = () => {
 
   useEffect(() => {
     if (label === 'all' && data?.statistic) {
-      setAllYears(data.statistic.map(({ period }) => period))
-      setPreparedData(data.statistic)
+      const statistic = data.statistic.filter((item) => !!item)
+      setAllYears(statistic.map(({ period }) => period))
+      setPreparedData(statistic)
     }
 
     if (label === 'year' && data?.statistic) {
-      setPreparedData(checkEmptyPeriod(data.statistic))
+      const statistic = data.statistic.filter((item) => !!item)
+      setPreparedData(checkEmptyPeriod(statistic))
     }
   }, [data, label])
 

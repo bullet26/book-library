@@ -1,17 +1,12 @@
 import { Tabs } from 'antd'
 import { useParams } from 'react-router-dom'
 import { useQuery } from '@apollo/client/react'
-import { ONE_BOOK_BY_ID } from 'apollo'
-import { type Book as IBook } from 'types'
+import { ONE_BOOK_BY_ID } from '__graphql'
 import { BookInfoTab, BookPlotTab, BookMediaTab } from 'components'
-
-interface BookQuery {
-  book: IBook
-}
 
 export const BookTab = () => {
   const { id } = useParams()
-  const { data } = useQuery<BookQuery>(ONE_BOOK_BY_ID, { variables: { id } })
+  const { data } = useQuery(ONE_BOOK_BY_ID, { skip: !id, variables: { id } })
 
   return (
     <Tabs
@@ -31,7 +26,7 @@ export const BookTab = () => {
           label: 'Media',
           key: 'media',
           children: <BookMediaTab />,
-          disabled: !data?.book.isAdditionalMediaExist,
+          disabled: !data?.book?.isAdditionalMediaExist,
         },
       ]}
     />

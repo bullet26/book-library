@@ -6,11 +6,11 @@ import s from './Card.module.scss'
 
 interface CardProps {
   type: 'small' | 'book' | 'author'
-  img: string
+  img?: string | null
   title: string
   subtitle?: string
   id?: string
-  rating?: number
+  rating?: number | null
   count?: number
   onClick: (id?: string) => void
 }
@@ -18,7 +18,8 @@ interface CardProps {
 const { Meta } = AntdCard
 
 export const Card = (props: CardProps) => {
-  const { img, title, subtitle, onClick, id, type, rating = 0, count } = props
+  const { img, title, subtitle, onClick, id, type, count } = props
+  const rating = props.rating ?? 0
 
   const bookCover = img ? <img alt="book cover" src={img} /> : <Book height={215} />
 
@@ -28,7 +29,7 @@ export const Card = (props: CardProps) => {
         <Tooltip placement="rightTop" title={title}>
           <AntdCard
             hoverable
-            className={s.smallWrpper}
+            className={s.smallWrapper}
             cover={bookCover}
             onClick={() => onClick(id)}>
             <Rating rating={rating} type="circle-only" style={{ bottom: '5px', top: 'auto' }} />

@@ -1,6 +1,6 @@
-import gql from 'graphql-tag'
+import { graphql } from './__generated__'
 
-export const ALL_BOOKS_BY_DATE = gql`
+export const ALL_BOOKS_BY_DATE = graphql(`
   query GetAllBooksByDate($page: Int, $limit: Int) {
     getAllBooksByDate(page: $page, limit: $limit) {
       readDate {
@@ -19,9 +19,10 @@ export const ALL_BOOKS_BY_DATE = gql`
       totalCount
     }
   }
-`
-export const ONE_BOOK_BY_ID = gql`
-  query GetOneBookId($id: ID) {
+`)
+
+export const ONE_BOOK_BY_ID = graphql(`
+  query GetOneBookById($id: ID) {
     book: getOneBook(id: $id) {
       id
       author {
@@ -52,17 +53,18 @@ export const ONE_BOOK_BY_ID = gql`
       isAdditionalMediaExist
     }
   }
-`
+`)
 
-export const ONE_BOOK_PLOT = gql`
+export const ONE_BOOK_PLOT = graphql(`
   query GetOneBookPlot($bookID: ID) {
     book: getOneBookPlot(bookID: $bookID) {
       plot
     }
   }
-`
-export const ALL_BOOKS_BY_SPECIFIC_DATE = gql`
-  query GetAllBooksBySpecificDate($year: Int) {
+`)
+
+export const ALL_BOOKS_BY_SPECIFIC_DATE = graphql(`
+  query GetAllBooksBySpecificDate($year: Int!) {
     bookInYear: getAllBooksBySpecificDate(year: $year) {
       books {
         id
@@ -78,13 +80,13 @@ export const ALL_BOOKS_BY_SPECIFIC_DATE = gql`
       id
     }
   }
-`
+`)
 
-export const ALL_BOOKS_BY_TAG = gql`
+export const ALL_BOOKS_BY_TAG = graphql(`
   query GetBooksByTag($id: ID, $sortBy: String) {
-    tagData: getTagById(id: $id, sortBy: $sortBy) {
+    tagData: getTagById(id: $id) {
       tag
-      booksInTag {
+      booksInTag(sortBy: $sortBy) {
         id
         title
         bookCoverThumbnail
@@ -96,10 +98,10 @@ export const ALL_BOOKS_BY_TAG = gql`
       }
     }
   }
-`
+`)
 
-export const CREATE_BOOK = gql`
-  mutation Mutation($input: BookInput) {
+export const CREATE_BOOK = graphql(`
+  mutation CreteBook($input: BookInput!) {
     bookInfo: addBook(input: $input) {
       title
       author {
@@ -108,10 +110,10 @@ export const CREATE_BOOK = gql`
       }
     }
   }
-`
+`)
 
-export const CREATE_READ_DATE = gql`
-  mutation Mutation($input: ReadDateInput) {
+export const CREATE_READ_DATE = graphql(`
+  mutation CreateReadDate($input: ReadDateInput!) {
     bookInfo: addReadDate(input: $input) {
       readEnd
       books {
@@ -119,10 +121,10 @@ export const CREATE_READ_DATE = gql`
       }
     }
   }
-`
+`)
 
-export const ALL_MEDIA_FOR_BOOK = gql`
-  query Query($id: ID) {
+export const ALL_MEDIA_FOR_BOOK = graphql(`
+  query GetMediaForBook($id: ID) {
     book: getOneBook(id: $id) {
       id
       title
@@ -140,4 +142,4 @@ export const ALL_MEDIA_FOR_BOOK = gql`
       }
     }
   }
-`
+`)

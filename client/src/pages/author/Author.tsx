@@ -5,14 +5,9 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { Book as BookImg, unknownAuthor1, unknownAuthor2 } from 'assets'
 import { BookSection, ReactHelmetMetadata } from 'components'
 import { Loader, ScrollArrow, Error } from 'UI'
-import { type Author as IAuthor } from 'types'
-import { ONE_AUTHOR_BY_ID } from 'apollo'
+import { ONE_AUTHOR_BY_ID } from '__graphql'
 import { colorRate } from 'utils'
 import s from './Author.module.scss'
-
-interface AuthorQuery {
-  author: IAuthor
-}
 
 function getRandomImage() {
   const images = [unknownAuthor1, unknownAuthor2]
@@ -23,12 +18,13 @@ function getRandomImage() {
 export const Author = () => {
   const { id: authorId } = useParams()
 
-  const { loading, error, data } = useQuery<AuthorQuery>(ONE_AUTHOR_BY_ID, {
+  const { loading, error, data } = useQuery(ONE_AUTHOR_BY_ID, {
+    skip: !authorId,
     variables: { id: authorId },
   })
-  const series = data?.author.series
-  const books = data?.author.booksWithoutSeries
-  const portrait = data?.author.portrait || getRandomImage()
+  const series = data?.author?.series
+  const books = data?.author?.booksWithoutSeries
+  const portrait = data?.author?.portrait || getRandomImage()
 
   const { booksQuant, booksAverageRating } = useMemo(() => {
     let booksInSeriesQuant = 0
@@ -36,15 +32,17 @@ export const Author = () => {
     let booksInSeriesTotalRating = 0
     let booksWithoutSeriesTotalRating = 0
 
-    series?.forEach(({ booksInSeries }) => {
-      booksInSeriesQuant += booksInSeries?.length || 0
-      booksInSeries.forEach(({ rating }) => {
-        booksInSeriesTotalRating += rating
+    series
+      ?.filter((item) => !!item)
+      .forEach(({ booksInSeries }) => {
+        booksInSeriesQuant += booksInSeries?.length || 0
+        booksInSeries?.forEach((r) => {
+          booksInSeriesTotalRating += r?.rating || 0
+        })
       })
-    })
 
-    books?.forEach(({ rating }) => {
-      booksWithoutSeriesTotalRating += rating
+    books?.forEach((r) => {
+      booksWithoutSeriesTotalRating += r?.rating || 0
     })
 
     const booksQuant = booksInSeriesQuant + booksWithoutSeriesQuant
@@ -68,7 +66,7 @@ export const Author = () => {
     <>
       {!!loading && <Loader />}
       {!!error && <Error message={error?.message} />}
-      {!!data && (
+      {!!data?.author && (
         <ReactHelmetMetadata
           title={`${data?.author.surname}, ${data?.author.name}`}
           pageURL={window.location.href}
@@ -97,14 +95,16 @@ export const Author = () => {
                 </div>
                 <div className={s.bookWrapper}>
                   {!!series?.length &&
-                    series.map(({ title, booksInSeries }) => (
-                      <BookSection
-                        key={title}
-                        seriesTitle={title}
-                        booksInSeries={booksInSeries}
-                        onClick={handleClick}
-                      />
-                    ))}
+                    series
+                      .filter((item) => !!item)
+                      .map(({ title, booksInSeries }) => (
+                        <BookSection
+                          key={title}
+                          seriesTitle={title}
+                          booksInSeries={booksInSeries}
+                          onClick={handleClick}
+                        />
+                      ))}
                   {!!books?.length && (
                     <BookSection
                       seriesTitle="Books outside the series"

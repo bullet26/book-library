@@ -1,6 +1,6 @@
-import { gql } from '@apollo/client'
+import { graphql } from './__generated__'
 
-export const MOST_READ_BOOKS = gql`
+export const MOST_READ_BOOKS = graphql(`
   query GetMostReadBooks {
     books: getMostReadBooks {
       bookTitle
@@ -8,23 +8,23 @@ export const MOST_READ_BOOKS = gql`
       author
     }
   }
-`
+`)
 
-export const MOST_READ_AUTHORS = gql`
-  query GetMostReadBooks {
+export const MOST_READ_AUTHORS = graphql(`
+  query GetMostReadAuthors {
     authors: getMostReadAuthors {
       name
       surname
       count
     }
   }
-`
+`)
 
-export const READ_STATISTIC = gql`
-  query GetMostReadBooks($label: String, $year: Int) {
+export const READ_STATISTIC = graphql(`
+  query GetReadStatistic($label: String!, $year: Int) {
     statistic: getReadStatistic(label: $label, year: $year) {
       count
       period
     }
   }
-`
+`)

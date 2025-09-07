@@ -1,6 +1,6 @@
-import gql from 'graphql-tag'
+import { graphql } from './__generated__'
 
-export const ALL_AUTHORS = gql`
+export const ALL_AUTHORS = graphql(`
   query GetAllAuthors($page: Int, $limit: Int) {
     getAllAuthors(page: $page, limit: $limit) {
       authors {
@@ -12,10 +12,10 @@ export const ALL_AUTHORS = gql`
       totalCount
     }
   }
-`
+`)
 
-export const ONE_AUTHOR_BY_ID = gql`
-  query GetOneAuthor($id: ID) {
+export const ONE_AUTHOR_BY_ID = graphql(`
+  query GetOneAuthorById($id: ID) {
     author: getOneAuthor(id: $id) {
       name
       surname
@@ -37,16 +37,18 @@ export const ONE_AUTHOR_BY_ID = gql`
       }
     }
   }
-`
-export const CREATE_AUTHOR = gql`
-  mutation Mutation($input: AuthorInput) {
-    authorInfo: creteAuthor(input: $input) {
+`)
+
+export const CREATE_AUTHOR = graphql(`
+  mutation CreateAuthor($input: AuthorInput!) {
+    authorInfo: createAuthor(input: $input) {
       surname
       name
     }
   }
-`
-export const ALL_AUTHORS_BY_BOOKS_COUNT = gql`
+`)
+
+export const ALL_AUTHORS_BY_BOOKS_COUNT = graphql(`
   query GetAllAuthorsByBooksCount {
     author: getAllAuthorsByBooksCount {
       name
@@ -56,4 +58,4 @@ export const ALL_AUTHORS_BY_BOOKS_COUNT = gql`
       count
     }
   }
-`
+`)

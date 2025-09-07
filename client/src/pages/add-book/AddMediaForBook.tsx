@@ -1,7 +1,7 @@
 import { AdditionalMediaForm } from 'components'
 import { useMutation } from '@apollo/client/react'
-import { ADD_MEDIA } from 'apollo'
-import { type AdditionalMediaInput } from 'types'
+import { ADD_MEDIA } from '__graphql'
+import { type AdditionalMediaInput } from '__graphql/__generated__/graphql'
 import { Error, Modal } from 'UI'
 import s from './AddBook.module.scss'
 

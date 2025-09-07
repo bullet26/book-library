@@ -1,16 +1,13 @@
 import { useQuery } from '@apollo/client/react'
 import { CardListAuthors } from 'components'
 import { Loader, Error } from 'UI'
-import { ALL_AUTHORS_BY_BOOKS_COUNT } from 'apollo'
-import { type MostRededAuthorResponse } from 'types'
+import { ALL_AUTHORS_BY_BOOKS_COUNT } from '__graphql'
 import s from './MostRededAuthors.module.scss'
 
-interface AuthorsQuery {
-  author: MostRededAuthorResponse[]
-}
-
 export const MostRededAuthors = () => {
-  const { loading, error, data } = useQuery<AuthorsQuery>(ALL_AUTHORS_BY_BOOKS_COUNT)
+  const { loading, error, data } = useQuery(ALL_AUTHORS_BY_BOOKS_COUNT)
+
+  const authors = data?.author?.filter((item) => !!item) || []
 
   return (
     <>
@@ -19,7 +16,7 @@ export const MostRededAuthors = () => {
       {!!data && (
         <div className={s.wrapper}>
           <div className={s.innerWrapper}>
-            <CardListAuthors data={data.author || []} />
+            <CardListAuthors data={authors} />
           </div>
         </div>
       )}

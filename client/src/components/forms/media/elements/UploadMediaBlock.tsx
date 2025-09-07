@@ -3,7 +3,7 @@ import { UploadOutlined } from '@ant-design/icons'
 import { type UploadProps } from 'antd/es/upload'
 import { useField } from 'formik'
 import { Input } from 'UI'
-import { MediaType } from 'types'
+import { MediaType } from '__graphql/__generated__/graphql'
 import { beforeUpload } from './utils'
 
 interface DropZoneProps {
@@ -38,11 +38,11 @@ export const UploadMediaBlock = (props: DropZoneProps) => {
   return (
     <>
       <Radio.Group onChange={(e) => onChangeType(e.target.value)} value={field.value}>
-        <Radio value={MediaType.VIDEO}>video</Radio>
-        <Radio value={MediaType.IMAGE}>images</Radio>
+        <Radio value={MediaType.Video}>video</Radio>
+        <Radio value={MediaType.Image}>images</Radio>
       </Radio.Group>
-      {field.value === MediaType.VIDEO && <Input placeholder="Insert video link" name="url" />}
-      {field.value === MediaType.IMAGE && (
+      {field.value === MediaType.Video && <Input placeholder="Insert video link" name="url" />}
+      {field.value === MediaType.Image && (
         <Upload
           listType="picture"
           maxCount={10}

@@ -13,10 +13,10 @@ export default defineConfig({
       routes: '/src/routes/',
       pages: '/src/pages/',
       theme: '/src/theme/',
-      apollo: '/src/apollo/',
       types: '/src/types/',
       UI: '/src/UI/',
       utils: '/src/utils/',
+      __graphql: '/src/__graphql/',
     },
   },
   server: {

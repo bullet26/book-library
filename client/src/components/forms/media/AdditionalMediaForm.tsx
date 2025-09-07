@@ -2,9 +2,9 @@ import { useState } from 'react'
 import { Formik, Form, type FormikHelpers } from 'formik'
 import { Button } from 'antd'
 import { SearchInForm } from 'components'
-import { type AdditionalMediaInput, MediaType } from 'types'
 import { initialValuesMedia, validationSchemaMedia } from '../utils'
 import { UploadMediaBlock } from './elements'
+import { MediaType, type AdditionalMediaInput } from '__graphql/__generated__/graphql'
 import s from '../Form.module.scss'
 
 interface AdditionalMediaFormProps {
@@ -29,11 +29,11 @@ export const AdditionalMediaForm = (props: AdditionalMediaFormProps) => {
       return
     }
 
-    if (type === MediaType.VIDEO && url) {
+    if (type === MediaType.Video && url) {
       onSubmitRequest([{ url, type, bookID }])
     }
 
-    if (type === MediaType.IMAGE) {
+    if (type === MediaType.Image) {
       const formValues = imageURLs.map((item) => {
         return { url: item, type, bookID }
       })

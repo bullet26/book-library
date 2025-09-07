@@ -20,7 +20,7 @@ input BookTagRelationsInput {
 
 extend type Query {
   # Get tag info by id
-  getTagById(id: ID!): Tags
+  getTagById(id: ID): Tags
 
   # Get all tags
   getAllTags: [Tags]!

@@ -1,8 +1,7 @@
 import { type CSSProperties, useEffect, useState } from 'react'
 import { useLazyQuery } from '@apollo/client/react'
-import { SEARCH_IN_AUTHORS, SEARCH_IN_SERIES, SEARCH_IN_BOOKS } from 'apollo'
+import { SEARCH_IN_AUTHORS, SEARCH_IN_SERIES, SEARCH_IN_BOOKS } from '__graphql'
 import { useFormikContext } from 'formik'
-import { type Series, type Author, type Book } from 'types'
 import { SearchInputForm, SearchListForm, Error } from 'UI'
 import s from './Search.module.scss'
 import { useDebounce } from 'hooks/useDebounce'
@@ -12,27 +11,14 @@ interface SearchInForProps {
   style?: CSSProperties
 }
 
-interface ISearchSeriesSuccess {
-  series: Series[]
-}
-
-interface ISearchAuthorsSuccess {
-  authors: Author[]
-}
-
-interface ISearchBooksSuccess {
-  books: Book[]
-}
-
 export const SearchInForm = (props: SearchInForProps) => {
   const { type, style } = props
 
   const [makeSearchAuthors, { error: authorError, data: authorsData }] =
-    useLazyQuery<ISearchAuthorsSuccess>(SEARCH_IN_AUTHORS)
+    useLazyQuery(SEARCH_IN_AUTHORS)
   const [makeSearchSeries, { error: seriesError, data: seriesData }] =
-    useLazyQuery<ISearchSeriesSuccess>(SEARCH_IN_SERIES)
-  const [makeSearchBooks, { error: booksError, data: booksData }] =
-    useLazyQuery<ISearchBooksSuccess>(SEARCH_IN_BOOKS)
+    useLazyQuery(SEARCH_IN_SERIES)
+  const [makeSearchBooks, { error: booksError, data: booksData }] = useLazyQuery(SEARCH_IN_BOOKS)
 
   const { setFieldValue } = useFormikContext()
 

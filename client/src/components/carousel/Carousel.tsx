@@ -6,7 +6,7 @@ import 'slick-carousel/slick/slick-theme.css'
 import { Slider as InputRange } from 'antd'
 import { useNavigate } from 'react-router-dom'
 import { Card } from 'UI'
-import { type Book } from 'types'
+import type { Book } from '__graphql/__generated__/graphql'
 import { settings, GetSlidesToShow } from './utils'
 import s from './Carousel.module.scss'
 
@@ -34,7 +34,7 @@ export const Carousel = (props: CarouselProps) => {
 
       <Slider
         {...settings}
-        beforeChange={(current, next) => setSlideIndex(next)}
+        beforeChange={(_, next) => setSlideIndex(next)}
         className={s.carouselContainer}
         ref={sliderRef}>
         {data.map((item) => {

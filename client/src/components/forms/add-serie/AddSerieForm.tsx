@@ -1,7 +1,7 @@
 import { useMutation } from '@apollo/client/react'
 import { Formik, Form, type FormikHelpers } from 'formik'
 import { Button } from 'antd'
-import { CREATE_SERIE } from 'apollo'
+import { CREATE_SERIE } from '__graphql'
 import { SearchInForm } from 'components'
 import { Input, Modal, Error } from 'UI'
 import { initialValuesAddSerie, validationSchemaAddSerie } from '../utils'
@@ -11,7 +11,7 @@ interface AddSerieFormProps {
   handleHideForm: () => void
 }
 
-type ValueType = typeof initialValuesAddSerie
+type ValueType = typeof initialValuesAddSerie & { authorID: string | null }
 
 export const AddSerieForm = (props: AddSerieFormProps) => {
   const { handleHideForm } = props
@@ -19,9 +19,11 @@ export const AddSerieForm = (props: AddSerieFormProps) => {
   const [createSerieApollo, { data, error }] = useMutation(CREATE_SERIE)
 
   const onSubmit = (values: ValueType, { resetForm }: FormikHelpers<ValueType>) => {
-    const { author, ...filteredValues } = values
+    const { author, authorID, ...filteredValues } = values
 
-    createSerieApollo({ variables: { input: filteredValues } })
+    if (!authorID) return
+
+    createSerieApollo({ variables: { input: { authorID, ...filteredValues } } })
     resetForm()
     handleHideForm()
   }

@@ -1,15 +1,10 @@
 import { Tag } from 'antd'
 import { useLocation } from 'react-router-dom'
 import { useQuery } from '@apollo/client/react'
-import { ALL_BOOKS_BY_TAG } from 'apollo'
-import { type Tag as ITag } from 'types'
+import { ALL_BOOKS_BY_TAG } from '__graphql'
 import { CardListBooks, SortTypeSelect, TagSelect } from 'components'
 import { Loader, Error } from 'UI'
 import s from './BooksByTag.module.scss'
-
-interface BooksQuery {
-  tagData: ITag
-}
 
 export const BooksByTag = () => {
   const location = useLocation()
@@ -17,7 +12,8 @@ export const BooksByTag = () => {
   const tagID = queryParams.get('tagID')
   const sortBy = queryParams.get('sortBy') || 'author'
 
-  const { loading, error, data } = useQuery<BooksQuery>(ALL_BOOKS_BY_TAG, {
+  const { loading, error, data } = useQuery(ALL_BOOKS_BY_TAG, {
+    skip: !tagID,
     variables: { id: tagID, sortBy },
   })
 
@@ -35,11 +31,11 @@ export const BooksByTag = () => {
             <div className={s.title}>
               <span>Books by tag:</span>&nbsp;
               <Tag bordered={false} color="magenta">
-                #{data.tagData.tag}
+                #{data?.tagData?.tag}
               </Tag>
             </div>
           </div>
-          <CardListBooks data={data.tagData.booksInTag} typeData="tag" />
+          <CardListBooks data={data?.tagData?.booksInTag || []} typeData="tag" />
         </>
       )}
     </>

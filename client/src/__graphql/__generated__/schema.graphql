@@ -1,0 +1,209 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+type AdditionalMedia {
+  bookID: ID!
+  id: ID!
+  type: MediaType!
+  url: String!
+}
+
+input AdditionalMediaInput {
+  bookID: ID!
+  type: MediaType!
+  url: String!
+}
+
+type AllMediaForItem {
+  image: [AdditionalMedia]
+  video: [AdditionalMedia]
+}
+
+type Author {
+  books: [Book]
+  booksWithoutSeries: [Book]
+  id: ID!
+  name: String!
+  portrait: String
+  portraitThumbnail: String
+  series: [Series]
+  surname: String
+  transcriptionName: String
+}
+
+input AuthorInput {
+  name: String!
+  portrait: String
+  portraitThumbnail: String
+  surname: String
+  transcriptionName: String
+}
+
+type AuthorMostReadResponse {
+  count: Int!
+  id: ID!
+  name: String!
+  portraitThumbnail: String
+  surname: String
+}
+
+type AuthorResponse {
+  authors: [Author]!
+  totalCount: Int!
+}
+
+type AuthorsStatisticResponse {
+  count: Int!
+  name: String!
+  surname: String!
+}
+
+type Book {
+  additionalMedia: AllMediaForItem
+  author: Author!
+  authorID: ID!
+  bookCover: String
+  bookCoverThumbnail: String
+  description: String
+  id: ID!
+  isAdditionalMediaExist: Boolean!
+  notes: String
+  pages: Int
+  rating: Float
+  readDate: [ReadDate]!
+  series: Series
+  seriesID: ID
+  seriesNumber: Int
+  tags: [Tags]
+  title: String!
+}
+
+input BookInput {
+  authorID: ID!
+  bookCover: String
+  bookCoverThumbnail: String
+  description: String
+  notes: String
+  pages: Int
+  plot: String
+  rating: Float
+  readEnd: Date!
+  seriesID: ID
+  seriesNumber: Int
+  title: String!
+}
+
+input BookPlotInput {
+  bookID: ID!
+  plot: String!
+}
+
+type BookTagRelations {
+  bookID: ID!
+  id: ID!
+  tagID: ID!
+}
+
+input BookTagRelationsInput {
+  bookID: ID!
+  tagID: [ID]!
+}
+
+type BooksResponse {
+  books: [Book]!
+  totalCount: Int!
+}
+
+type BooksStatisticResponse {
+  author: String!
+  bookTitle: String!
+  count: Int!
+}
+
+"""Date custom scalar type"""
+scalar Date
+
+type DescriptionPlot {
+  bookID: ID!
+  id: ID!
+  plot: String!
+}
+
+enum MediaType {
+  IMAGE
+  VIDEO
+}
+
+type Mutation {
+  addAdditionalMedia(input: [AdditionalMediaInput]!): Book
+  addBook(input: BookInput!): Book!
+  addBookPlot(input: BookPlotInput!): DescriptionPlot!
+  addReadDate(input: ReadDateInput!): ReadDate!
+  createAuthor(input: AuthorInput!): Author!
+  createSerie(input: SerieInput!): Series!
+  linkBookWithTag(input: BookTagRelationsInput!): Book
+}
+
+type Query {
+  getAllAuthors(limit: Int = 50, page: Int = 1): AuthorResponse!
+  getAllAuthorsByBooksCount: [AuthorMostReadResponse]!
+  getAllBooksByDate(limit: Int = 100, page: Int = 1): ReadBooksResponse!
+  getAllBooksByName(limit: Int = 50, page: Int = 1): BooksResponse!
+  getAllBooksBySpecificDate(year: Int): [ReadDate]!
+  getAllTags: [Tags]!
+  getMostReadAuthors: [AuthorsStatisticResponse]!
+  getMostReadBooks: [BooksStatisticResponse]!
+  getOneAuthor(id: ID): Author
+  getOneBook(id: ID): Book
+  getOneBookPlot(bookID: ID): DescriptionPlot
+  getReadStatistic(label: String!, year: Int): [Statistic]!
+  getTagById(id: ID): Tags
+  search(searchString: String!): [SearchResult]!
+  searchInAuthors(searchString: String!): [Author]!
+  searchInBooks(searchString: String!): [Book]!
+  searchInSeries(searchString: String!): [Series]!
+}
+
+type ReadBooksResponse {
+  readDate: [ReadDate]!
+  totalCount: Int!
+}
+
+type ReadDate {
+  bookID: ID!
+  books: Book
+  id: ID!
+  readEnd: Date!
+}
+
+input ReadDateInput {
+  bookID: ID!
+  readEnd: Date!
+}
+
+union SearchResult = Author | Book
+
+input SerieInput {
+  authorID: ID!
+  title: String!
+}
+
+type Series {
+  authorID: ID!
+  booksInSeries: [Book]
+  id: ID!
+  title: String!
+}
+
+type Statistic {
+  count: Int!
+  period: String!
+}
+
+type Tags {
+  booksInTag(sortBy: String): [Book]
+  id: ID!
+  tag: String!
+}

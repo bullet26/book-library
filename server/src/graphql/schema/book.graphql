@@ -46,7 +46,7 @@ extend type Query {
   getAllBooksByName(limit: Int = 50, page: Int = 1): BooksResponse!
 
   # Get one book by id
-  getOneBook(id: ID!): Book
+  getOneBook(id: ID): Book
 }
 
 extend type Mutation {

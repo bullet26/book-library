@@ -2,19 +2,15 @@ import { Image } from 'antd'
 import { useParams } from 'react-router-dom'
 import { useQuery } from '@apollo/client/react'
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry'
-import { type AllMediaForItem } from 'types'
-import { ALL_MEDIA_FOR_BOOK } from 'apollo'
+import { ALL_MEDIA_FOR_BOOK } from '__graphql'
 import { Error, VideoEmbed } from 'UI'
 import s from './BookTab.module.scss'
-
-interface BookQuery {
-  book: { id: string; title: string; media: AllMediaForItem }
-}
 
 export const BookMediaTab = () => {
   const { id } = useParams()
 
-  const { loading, error, data } = useQuery<BookQuery>(ALL_MEDIA_FOR_BOOK, {
+  const { loading, error, data } = useQuery(ALL_MEDIA_FOR_BOOK, {
+    skip: !id,
     variables: { id },
   })
 
@@ -28,18 +24,17 @@ export const BookMediaTab = () => {
       {!!error && <Error message={error?.message} />}
       {!!media?.video?.length && (
         <div className={s.videoWrapper}>
-          {media?.video.map((item) => (
-            <VideoEmbed key={item.id} url={item.url} />
-          ))}
+          {media?.video.map((item) => item?.url && <VideoEmbed key={item.id} url={item.url} />)}
         </div>
       )}
-      {!!media?.image.length && (
+      {!!media?.image?.length && (
         <Image.PreviewGroup>
           <ResponsiveMasonry columnsCountBreakPoints={{ 350: 1, 560: 2, 900: 3, 1300: 5 }}>
             <Masonry {...msProps}>
-              {media?.image.map((item) => (
-                <Image key={item.id} src={item.url} alt="additional-book-media" />
-              ))}
+              {media?.image.map(
+                (item) =>
+                  item?.url && <Image key={item.id} src={item.url} alt="additional-book-media" />,
+              )}
             </Masonry>
           </ResponsiveMasonry>
         </Image.PreviewGroup>

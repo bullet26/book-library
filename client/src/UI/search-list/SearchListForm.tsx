@@ -1,5 +1,5 @@
 import { SearchCard } from 'UI'
-import { type Author, type Series, type Book } from 'types'
+import { type Author, type Series, type Book } from '__graphql/__generated__/graphql'
 import { checkTypesFormTitle } from './utils'
 import s from './SearchCard.module.scss'
 

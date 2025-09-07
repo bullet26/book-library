@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "gql:generate": "npx graphql-codegen --config codegen.ts",
+    "gql:watch": "npx graphql-codegen --config codegen.ts --watch"
   },
   "dependencies": {
     "@ant-design/icons": "^6.0.0",
@@ -32,7 +34,11 @@
     "yup": "^1.7.0"
   },
   "devDependencies": {
+    "@0no-co/graphqlsp": "^1.15.0",
     "@eslint/js": "^9.33.0",
+    "@graphql-codegen/cli": "^5.0.7",
+    "@graphql-codegen/schema-ast": "^4.1.0",
+    "@parcel/watcher": "^2.5.1",
     "@types/react": "^19.1.10",
     "@types/react-dom": "^19.1.7",
     "@types/react-helmet": "^6.1.11",

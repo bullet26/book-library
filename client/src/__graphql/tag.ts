@@ -1,16 +1,16 @@
-import { gql } from '@apollo/client'
+import { graphql } from './__generated__'
 
-export const ALL_TAGS = gql`
+export const ALL_TAGS = graphql(`
   query GetAllTags {
     tags: getAllTags {
       id
       tag
     }
   }
-`
+`)
 
-export const CREATE_LINK_TAG_WITH_BOOK = gql`
-  mutation Mutation($input: BookTagRelationsInput) {
+export const CREATE_LINK_TAG_WITH_BOOK = graphql(`
+  mutation CreteLinkedTag($input: BookTagRelationsInput!) {
     book: linkBookWithTag(input: $input) {
       id
       author {
@@ -39,4 +39,4 @@ export const CREATE_LINK_TAG_WITH_BOOK = gql`
       bookCover
     }
   }
-`
+`)

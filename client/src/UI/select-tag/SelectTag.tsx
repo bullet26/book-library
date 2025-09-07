@@ -2,10 +2,10 @@ import { useState, useEffect } from 'react'
 import { Button, Select, Tag } from 'antd'
 import type { SelectProps } from 'antd'
 import { useQuery, useMutation } from '@apollo/client/react'
-import { ALL_TAGS, CREATE_LINK_TAG_WITH_BOOK } from 'apollo'
+import { ALL_TAGS, CREATE_LINK_TAG_WITH_BOOK } from '__graphql'
 import { useNavigate } from 'react-router-dom'
 import { Error } from 'UI'
-import { type Tag as ITag } from 'types'
+import { type Tags as ITag } from '__graphql/__generated__/graphql'
 import s from './SelectTag.module.scss'
 
 type TagRender = SelectProps['tagRender']
@@ -32,7 +32,7 @@ export const SelectTag = (props: SelectTagProps) => {
   const { tags, bookID } = props
   const navigate = useNavigate()
 
-  const { data, error } = useQuery<{ tags: ITag[] }>(ALL_TAGS, {})
+  const { data, error } = useQuery(ALL_TAGS, {})
 
   const [updateLinkTagWithBook, { loading, error: errorTag }] = useMutation(
     CREATE_LINK_TAG_WITH_BOOK,
@@ -52,8 +52,12 @@ export const SelectTag = (props: SelectTagProps) => {
   const [selectedTag, setSelectedTag] = useState(tags.map((item) => item.id))
 
   useEffect(() => {
-    if (data) {
-      setAllTagLabels(data.tags.map(({ id, tag }) => ({ value: id, label: tag })))
+    if (data?.tags) {
+      const tagLabels = data.tags
+        .filter((item) => !!item)
+        .map(({ id, tag }) => ({ value: id, label: tag }))
+
+      setAllTagLabels(tagLabels)
     }
   }, [data])
 
@@ -68,6 +72,7 @@ export const SelectTag = (props: SelectTagProps) => {
   }
 
   const onSubmit = () => {
+    if (!bookID) return
     updateLinkTagWithBook({ variables: { input: { bookID, tagID: selectedTag } } })
   }
 

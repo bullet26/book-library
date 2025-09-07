@@ -2,7 +2,7 @@ import { Formik, Form, type FormikHelpers } from 'formik'
 import { Button } from 'antd'
 import { SearchInForm } from 'components'
 import { DatepickerInput } from 'UI'
-import { type ReadDateInput } from 'types'
+import { type ReadDateInput } from '__graphql/__generated__/graphql'
 import { initialValuesReReadBook, validationSchemaReReadBook } from '../utils'
 import s from '../Form.module.scss'
 

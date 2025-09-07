@@ -1,17 +1,12 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useLazyQuery } from '@apollo/client/react'
-import { SEARCH_IN_BOOKS_AND_AUTHORS } from 'apollo/search'
-import { type Search as ISearch } from 'types'
+import { SEARCH_IN_BOOKS_AND_AUTHORS } from '__graphql/search'
 import { SearchInput, SearchList, Error } from 'UI'
 import { useDebounce } from 'hooks/useDebounce'
 
-interface ISearchSuccess {
-  search: ISearch[]
-}
-
 export const Search = () => {
-  const [makeSearch, { error, data }] = useLazyQuery<ISearchSuccess>(SEARCH_IN_BOOKS_AND_AUTHORS)
+  const [makeSearch, { error, data }] = useLazyQuery(SEARCH_IN_BOOKS_AND_AUTHORS)
   const windowWidth = window.innerWidth
   const navigate = useNavigate()
 

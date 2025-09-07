@@ -10,7 +10,7 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "erasableSyntaxOnly": true,
+    "erasableSyntaxOnly": false,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
     "forceConsistentCasingInFileNames": true,
@@ -34,8 +34,15 @@
       "store/*": ["store/*"],
       "types/*": ["types/*"],
       "UI/*": ["UI/*"],
-      "utils/*": ["utils/*"]
-    }
+      "utils/*": ["utils/*"],
+      "__graphql/*": ["__graphql/*"]
+    },
+    "plugins": [
+      {
+        "name": "@0no-co/graphqlsp",
+        "schema": "./src/__graphql/__generated__/schema.graphql"
+      }
+    ]
   },
   "include": ["src", "vite.config.ts"]
 }

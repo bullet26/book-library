@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Formik, Form, type FormikHelpers } from 'formik'
 import { Button, Rate } from 'antd'
 import { useMutation } from '@apollo/client/react'
-import { CREATE_BOOK } from 'apollo'
+import { CREATE_BOOK } from '__graphql'
 import { SearchInForm } from 'components'
 import { DatepickerInput, Input, InputFromEditableDiv, Modal, Error } from 'UI'
 import { initialValuesAddBook, validationSchemaAddBook } from '../utils'
@@ -36,7 +36,9 @@ export const AddBookForm = (props: AddBookFormProps) => {
   const [rating, setRating] = useState(0)
 
   const onSubmit = (values: ValuesAddBookType, { resetForm }: FormikHelpers<ValuesAddBookType>) => {
-    const { author, series, plot, description, readEnd, ...filteredValues } = values
+    const { author, series, plot, description, readEnd, authorID, ...filteredValues } = values
+
+    if (!authorID) return
 
     const bookCoverThumbnail =
       bookCover?.replace(/\/upload\//, '/upload/c_thumb,w_218,h_323/') || null
@@ -45,6 +47,7 @@ export const AddBookForm = (props: AddBookFormProps) => {
       variables: {
         input: {
           ...filteredValues,
+          authorID,
           rating,
           plot,
           description,

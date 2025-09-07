@@ -8,7 +8,14 @@ import {
   SeriesModel,
 } from '#models/index.js'
 import { toObjectMapping } from '#utils/mappers.js'
-import { Author, BookTagRelations, ReadDate, Series, Tags } from '#graphql/generated/types.js'
+import {
+  Author,
+  BookTagRelations,
+  MediaType,
+  ReadDate,
+  Series,
+  Tags,
+} from '#graphql/generated/types.js'
 
 export const BookDL = {
   author: new DataLoader(async (authorIDs: readonly string[]) => {
@@ -69,8 +76,8 @@ export const BookDL = {
         (item) => item._id.bookID.toString() === id.toString(),
       )
       return {
-        image: mediaForBook.find((item) => item._id.type === 'IMAGE')?.media || [],
-        video: mediaForBook.find((item) => item._id.type === 'VIDEO')?.media || [],
+        image: mediaForBook.find((item) => item._id.type === MediaType.Image)?.media || [],
+        video: mediaForBook.find((item) => item._id.type === MediaType.Video)?.media || [],
       }
     })
   }),
