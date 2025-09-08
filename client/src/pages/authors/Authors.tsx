@@ -16,7 +16,7 @@ export const Authors = () => {
     },
   })
 
-  const authors = data?.getAllAuthors.authors?.filter((item) => !!item)
+  const authors = data?.getAllAuthors.authors || []
   const totalCount = data?.getAllAuthors.totalCount
   const windowWidth = window.innerWidth
 
@@ -50,7 +50,7 @@ export const Authors = () => {
               <AntButton shape="round">Show most reded authors</AntButton>
             </Link>
           )}
-          <CardListAuthors data={authors || []} />
+          <CardListAuthors data={authors} />
           <Pagination
             total={totalCount || 0}
             perPageRange={[20, 50, 100, 200]}

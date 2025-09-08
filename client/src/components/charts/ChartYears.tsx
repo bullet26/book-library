@@ -26,14 +26,12 @@ export const ChartYears = () => {
 
   useEffect(() => {
     if (label === 'all' && data?.statistic) {
-      const statistic = data.statistic.filter((item) => !!item)
-      setAllYears(statistic.map(({ period }) => period))
-      setPreparedData(statistic)
+      setAllYears(data.statistic.map(({ period }) => period))
+      setPreparedData(data.statistic)
     }
 
     if (label === 'year' && data?.statistic) {
-      const statistic = data.statistic.filter((item) => !!item)
-      setPreparedData(checkEmptyPeriod(statistic))
+      setPreparedData(checkEmptyPeriod(data.statistic))
     }
   }, [data, label])
 

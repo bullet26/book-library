@@ -6,15 +6,15 @@ type Author {
   transcriptionName: String
   portrait: String
   portraitThumbnail: String
-  books: [Book]
-  series: [Series]
-  booksWithoutSeries: [Book]
+  books: [Book!]!
+  series: [Series!]!
+  booksWithoutSeries: [Book!]!
 }
 
 # Author data + total count
 type AuthorResponse {
   totalCount: Int!
-  authors: [Author]!
+  authors: [Author!]!
 }
 
 # Author data without pagination
@@ -40,7 +40,7 @@ extend type Query {
   getAllAuthors(limit: Int = 50, page: Int = 1): AuthorResponse!
 
   # Get a list of authors sorted by count reded books
-  getAllAuthorsByBooksCount: [AuthorMostReadResponse]!
+  getAllAuthorsByBooksCount: [AuthorMostReadResponse!]!
 
   # Get one author by id
   getOneAuthor(id: ID): Author

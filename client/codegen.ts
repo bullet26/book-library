@@ -12,6 +12,7 @@ const config: CodegenConfig = {
       plugins: ['schema-ast'],
       config: {
         includeDirectives: true,
+        useTypeImports: true,
       },
     },
   },

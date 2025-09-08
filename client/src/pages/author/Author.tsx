@@ -22,24 +22,33 @@ export const Author = () => {
     skip: !authorId,
     variables: { id: authorId },
   })
-  const series = data?.author?.series
-  const books = data?.author?.booksWithoutSeries
-  const portrait = data?.author?.portrait || getRandomImage()
 
-  const { booksQuant, booksAverageRating } = useMemo(() => {
+  const { booksQuant, booksAverageRating, portrait, books, series } = useMemo(() => {
+    if (data?.author) {
+      return {
+        booksQuant: 0,
+        booksAverageRating: 0,
+        portrait: getRandomImage(),
+        books: [],
+        series: [],
+      }
+    }
+
+    const series = data?.author?.series
+    const books = data?.author?.booksWithoutSeries
+    const portrait = data?.author?.portrait || getRandomImage()
+
     let booksInSeriesQuant = 0
     const booksWithoutSeriesQuant = books?.length || 0
     let booksInSeriesTotalRating = 0
     let booksWithoutSeriesTotalRating = 0
 
-    series
-      ?.filter((item) => !!item)
-      .forEach(({ booksInSeries }) => {
-        booksInSeriesQuant += booksInSeries?.length || 0
-        booksInSeries?.forEach((r) => {
-          booksInSeriesTotalRating += r?.rating || 0
-        })
+    series?.forEach(({ booksInSeries }) => {
+      booksInSeriesQuant += booksInSeries?.length || 0
+      booksInSeries?.forEach((r) => {
+        booksInSeriesTotalRating += r?.rating || 0
       })
+    })
 
     books?.forEach((r) => {
       booksWithoutSeriesTotalRating += r?.rating || 0
@@ -53,8 +62,11 @@ export const Author = () => {
     return {
       booksQuant,
       booksAverageRating,
+      portrait,
+      books,
+      series,
     }
-  }, [series, books])
+  }, [data?.author])
 
   const navigate = useNavigate()
 
@@ -68,7 +80,7 @@ export const Author = () => {
       {!!error && <Error message={error?.message} />}
       {!!data?.author && (
         <ReactHelmetMetadata
-          title={`${data?.author.surname}, ${data?.author.name}`}
+          title={`${data.author.surname}, ${data.author.name}`}
           pageURL={window.location.href}
           imageURL={portrait}
           description={`${data?.author.name} ${data?.author.surname}`}
@@ -94,20 +106,17 @@ export const Author = () => {
                   </div>
                 </div>
                 <div className={s.bookWrapper}>
-                  {!!series?.length &&
-                    series
-                      .filter((item) => !!item)
-                      .map(({ title, booksInSeries }) => (
-                        <BookSection
-                          key={title}
-                          seriesTitle={title}
-                          booksInSeries={booksInSeries}
-                          onClick={handleClick}
-                        />
-                      ))}
+                  {series?.map(({ title, booksInSeries }) => (
+                    <BookSection
+                      key={title}
+                      title={title}
+                      booksInSeries={booksInSeries}
+                      onClick={handleClick}
+                    />
+                  ))}
                   {!!books?.length && (
                     <BookSection
-                      seriesTitle="Books outside the series"
+                      title="Books outside the series"
                       booksInSeries={books}
                       onClick={handleClick}
                     />

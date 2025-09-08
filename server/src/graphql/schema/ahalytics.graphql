@@ -20,11 +20,11 @@ type Statistic {
 
 extend type Query {
   # Get a list of books, which were read more times than others
-  getMostReadBooks: [BooksStatisticResponse]!
+  getMostReadBooks: [BooksStatisticResponse!]!
 
   # Get a list of authors, which were read more times than others
-  getMostReadAuthors: [AuthorsStatisticResponse]!
+  getMostReadAuthors: [AuthorsStatisticResponse!]!
 
   # Get read statistic per months, years
-  getReadStatistic(year: Int, label: String!): [Statistic]!
+  getReadStatistic(year: Int, label: String!): [Statistic!]!
 }

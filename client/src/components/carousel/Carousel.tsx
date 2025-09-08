@@ -6,17 +6,12 @@ import 'slick-carousel/slick/slick-theme.css'
 import { Slider as InputRange } from 'antd'
 import { useNavigate } from 'react-router-dom'
 import { Card } from 'UI'
-import type { Book } from '__graphql/__generated__/graphql'
 import { settings, GetSlidesToShow } from './utils'
+import type { SerieBooks } from 'types'
 import s from './Carousel.module.scss'
 
-interface CarouselProps {
-  title: string
-  data: Book[]
-}
-
-export const Carousel = (props: CarouselProps) => {
-  const { data, title } = props
+export const Carousel = (props: SerieBooks) => {
+  const { booksInSeries, title } = props
   const [slideIndex, setSlideIndex] = useState(0)
   const slidesToShow = GetSlidesToShow()
 
@@ -37,7 +32,7 @@ export const Carousel = (props: CarouselProps) => {
         beforeChange={(_, next) => setSlideIndex(next)}
         className={s.carouselContainer}
         ref={sliderRef}>
-        {data.map((item) => {
+        {booksInSeries.map((item) => {
           return (
             <Card
               key={item.id}
@@ -51,12 +46,12 @@ export const Carousel = (props: CarouselProps) => {
           )
         })}
       </Slider>
-      {data.length > slidesToShow && (
+      {booksInSeries.length > slidesToShow && (
         <InputRange
           defaultValue={0}
           value={slideIndex}
           min={0}
-          max={data.length - slidesToShow}
+          max={booksInSeries.length - slidesToShow}
           tooltip={{ formatter: null }}
           onChange={(value) => sliderRef?.current?.slickGoTo(value)}
         />

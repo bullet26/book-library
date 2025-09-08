@@ -4,7 +4,7 @@ import { checkTypesFormTitle } from './utils'
 import s from './SearchCard.module.scss'
 
 interface SearchListProps {
-  data?: Author[] | Series[] | Book[]
+  data: Author[] | Series[] | Book[]
   fullWidth?: boolean
   onClick: (id: string, value: string) => void
 }

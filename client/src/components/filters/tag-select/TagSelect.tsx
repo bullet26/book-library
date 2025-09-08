@@ -20,9 +20,7 @@ export const TagSelect = (props: TagSelectProps) => {
 
   useEffect(() => {
     if (data?.tags) {
-      const tags = data.tags
-        .filter((item) => !!item)
-        .map(({ id, tag }) => ({ value: id, label: tag }))
+      const tags = data.tags.map(({ id, tag }) => ({ value: id, label: tag }))
 
       setAllTagLabels(tags)
     }

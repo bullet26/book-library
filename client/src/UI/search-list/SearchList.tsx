@@ -5,7 +5,7 @@ import { checkTypesTitle, checkTypesRoute } from './utils'
 import s from './SearchCard.module.scss'
 
 interface SearchListProps {
-  data?: SearchInBooksAndAuthorsQuery['search']
+  data: SearchInBooksAndAuthorsQuery['search']
   onClick: (id: string, parent: string) => void
   handleWrapperClick: () => void
   style?: CSSProperties
@@ -30,17 +30,15 @@ export const SearchList = (props: SearchListProps) => {
   return (
     <div className={s.wrapper} ref={listRef}>
       <div className={`${s.cardList} ${hasScrollbar && s.withScrollbar}`} style={style}>
-        {data
-          .filter((item) => !!item)
-          .map((item) => (
-            <SearchCard
-              key={item.id}
-              id={item.id}
-              title={checkTypesTitle(item)}
-              onClick={onClick}
-              parent={checkTypesRoute(item)}
-            />
-          ))}
+        {data.map((item) => (
+          <SearchCard
+            key={item.id}
+            id={item.id}
+            title={checkTypesTitle(item)}
+            onClick={onClick}
+            parent={checkTypesRoute(item)}
+          />
+        ))}
         {!data.length && <SearchCard title="Сouldn't find anything" />}
       </div>
     </div>

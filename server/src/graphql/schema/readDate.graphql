@@ -2,14 +2,14 @@
 type ReadDate {
   id: ID!
   bookID: ID!
-  books: Book
+  books: Book!
   readEnd: Date!
 }
 
 # read books data + total count type
 type ReadBooksResponse {
   totalCount: Int!
-  readDate: [ReadDate]!
+  readDate: [ReadDate!]!
 }
 
 # input data for add reread book
@@ -23,7 +23,7 @@ extend type Query {
   getAllBooksByDate(limit: Int = 100, page: Int = 1): ReadBooksResponse!
 
   # Get a list of read books read in specific year
-  getAllBooksBySpecificDate(year: Int): [ReadDate]!
+  getAllBooksBySpecificDate(year: Int): [ReadDate!]!
 }
 
 extend type Mutation {

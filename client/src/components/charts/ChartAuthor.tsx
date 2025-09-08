@@ -14,14 +14,12 @@ export const ChartAuthor = () => {
   useEffect(() => {
     if (data?.authors?.length) {
       setChartData(
-        data.authors
-          .filter((item) => !!item)
-          .map(({ count, surname, name }) => {
-            return {
-              name: `${name} ${surname}`,
-              count,
-            }
-          }),
+        data.authors.map(({ count, surname, name }) => {
+          return {
+            name: `${name} ${surname}`,
+            count,
+          }
+        }),
       )
     }
   }, [data])

@@ -23,11 +23,7 @@ export const YearSelect = (props: YearSelectProps) => {
 
   useEffect(() => {
     if (data) {
-      setAllYearsLabels(
-        data.statistic
-          .filter((item) => !!item)
-          .map(({ period }) => ({ value: period, label: period })),
-      )
+      setAllYearsLabels(data.statistic.map(({ period }) => ({ value: period, label: period })))
     }
   }, [data])
 

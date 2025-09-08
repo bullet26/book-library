@@ -17,18 +17,18 @@ input AdditionalMediaInput {
 }
 
 type AllMediaForItem {
-  image: [AdditionalMedia]
-  video: [AdditionalMedia]
+  image: [AdditionalMedia!]!
+  video: [AdditionalMedia!]!
 }
 
 type Author {
-  books: [Book]
-  booksWithoutSeries: [Book]
+  books: [Book!]!
+  booksWithoutSeries: [Book!]!
   id: ID!
   name: String!
   portrait: String
   portraitThumbnail: String
-  series: [Series]
+  series: [Series!]!
   surname: String
   transcriptionName: String
 }
@@ -50,7 +50,7 @@ type AuthorMostReadResponse {
 }
 
 type AuthorResponse {
-  authors: [Author]!
+  authors: [Author!]!
   totalCount: Int!
 }
 
@@ -66,17 +66,17 @@ type Book {
   authorID: ID!
   bookCover: String
   bookCoverThumbnail: String
-  description: String
+  description: String!
   id: ID!
   isAdditionalMediaExist: Boolean!
   notes: String
   pages: Int
   rating: Float
-  readDate: [ReadDate]!
+  readDate: [ReadDate!]!
   series: Series
   seriesID: ID
   seriesNumber: Int
-  tags: [Tags]
+  tags: [Tags!]!
   title: String!
 }
 
@@ -84,7 +84,7 @@ input BookInput {
   authorID: ID!
   bookCover: String
   bookCoverThumbnail: String
-  description: String
+  description: String!
   notes: String
   pages: Int
   plot: String
@@ -108,11 +108,11 @@ type BookTagRelations {
 
 input BookTagRelationsInput {
   bookID: ID!
-  tagID: [ID]!
+  tagID: [ID!]!
 }
 
 type BooksResponse {
-  books: [Book]!
+  books: [Book!]!
   totalCount: Int!
 }
 
@@ -137,43 +137,43 @@ enum MediaType {
 }
 
 type Mutation {
-  addAdditionalMedia(input: [AdditionalMediaInput]!): Book
+  addAdditionalMedia(input: [AdditionalMediaInput]!): Book!
   addBook(input: BookInput!): Book!
   addBookPlot(input: BookPlotInput!): DescriptionPlot!
   addReadDate(input: ReadDateInput!): ReadDate!
   createAuthor(input: AuthorInput!): Author!
   createSerie(input: SerieInput!): Series!
-  linkBookWithTag(input: BookTagRelationsInput!): Book
+  linkBookWithTag(input: BookTagRelationsInput!): Book!
 }
 
 type Query {
   getAllAuthors(limit: Int = 50, page: Int = 1): AuthorResponse!
-  getAllAuthorsByBooksCount: [AuthorMostReadResponse]!
+  getAllAuthorsByBooksCount: [AuthorMostReadResponse!]!
   getAllBooksByDate(limit: Int = 100, page: Int = 1): ReadBooksResponse!
   getAllBooksByName(limit: Int = 50, page: Int = 1): BooksResponse!
-  getAllBooksBySpecificDate(year: Int): [ReadDate]!
-  getAllTags: [Tags]!
-  getMostReadAuthors: [AuthorsStatisticResponse]!
-  getMostReadBooks: [BooksStatisticResponse]!
+  getAllBooksBySpecificDate(year: Int): [ReadDate!]!
+  getAllTags: [Tags!]!
+  getMostReadAuthors: [AuthorsStatisticResponse!]!
+  getMostReadBooks: [BooksStatisticResponse!]!
   getOneAuthor(id: ID): Author
   getOneBook(id: ID): Book
   getOneBookPlot(bookID: ID): DescriptionPlot
-  getReadStatistic(label: String!, year: Int): [Statistic]!
-  getTagById(id: ID): Tags
-  search(searchString: String!): [SearchResult]!
-  searchInAuthors(searchString: String!): [Author]!
-  searchInBooks(searchString: String!): [Book]!
-  searchInSeries(searchString: String!): [Series]!
+  getReadStatistic(label: String!, year: Int): [Statistic!]!
+  getTagById(id: ID): Tags!
+  search(searchString: String!): [SearchResult!]!
+  searchInAuthors(searchString: String!): [Author!]!
+  searchInBooks(searchString: String!): [Book!]!
+  searchInSeries(searchString: String!): [Series!]!
 }
 
 type ReadBooksResponse {
-  readDate: [ReadDate]!
+  readDate: [ReadDate!]!
   totalCount: Int!
 }
 
 type ReadDate {
   bookID: ID!
-  books: Book
+  books: Book!
   id: ID!
   readEnd: Date!
 }
@@ -192,7 +192,7 @@ input SerieInput {
 
 type Series {
   authorID: ID!
-  booksInSeries: [Book]
+  booksInSeries: [Book!]!
   id: ID!
   title: String!
 }
@@ -203,7 +203,7 @@ type Statistic {
 }
 
 type Tags {
-  booksInTag(sortBy: String): [Book]
+  booksInTag(sortBy: String): [Book!]!
   id: ID!
   tag: String!
 }

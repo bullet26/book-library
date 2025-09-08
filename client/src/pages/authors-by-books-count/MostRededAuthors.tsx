@@ -7,7 +7,7 @@ import s from './MostRededAuthors.module.scss'
 export const MostRededAuthors = () => {
   const { loading, error, data } = useQuery(ALL_AUTHORS_BY_BOOKS_COUNT)
 
-  const authors = data?.author?.filter((item) => !!item) || []
+  const authors = data?.author || []
 
   return (
     <>

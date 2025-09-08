@@ -3,7 +3,7 @@ type Series {
   id: ID!
   authorID: ID!
   title: String!
-  booksInSeries: [Book]
+  booksInSeries: [Book!]!
 }
 
 # input data for add series

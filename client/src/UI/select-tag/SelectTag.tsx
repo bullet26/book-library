@@ -37,11 +37,14 @@ export const SelectTag = (props: SelectTagProps) => {
   const [updateLinkTagWithBook, { loading, error: errorTag }] = useMutation(
     CREATE_LINK_TAG_WITH_BOOK,
     {
-      update(cache, { data: { book } }) {
+      update(cache, { data }) {
+        if (!data) return
         cache.modify({
-          id: cache.identify(book),
+          id: cache.identify(data.book),
           fields: {
-            book,
+            tags() {
+              return data.book.tags
+            },
           },
         })
       },
@@ -53,9 +56,7 @@ export const SelectTag = (props: SelectTagProps) => {
 
   useEffect(() => {
     if (data?.tags) {
-      const tagLabels = data.tags
-        .filter((item) => !!item)
-        .map(({ id, tag }) => ({ value: id, label: tag }))
+      const tagLabels = data.tags.map(({ id, tag }) => ({ value: id, label: tag }))
 
       setAllTagLabels(tagLabels)
     }

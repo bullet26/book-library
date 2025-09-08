@@ -6,7 +6,7 @@ import s from './CardList.module.scss'
 
 type TagBook = NonNullable<GetBooksByTagQuery['tagData']>['booksInTag']
 interface CardListBooksProps {
-  data: ReadDateBook[] | TagBook[]
+  data: ReadDateBook[] | TagBook
   typeData: 'readDate' | 'tag'
 }
 
@@ -23,23 +23,20 @@ export const CardListBooks = (props: CardListBooksProps) => {
   return (
     <div className={s.wrapper}>
       {typeData === 'readDate' &&
-        (data as ReadDateBook[]).map(
-          (item) =>
-            item?.books && (
-              <Card
-                key={item.id}
-                id={item.books.id}
-                img={item.books.bookCoverThumbnail}
-                title={item.books.title}
-                subtitle={`${item.books.author.name} ${item.books.author.surname}`}
-                rating={item.books.rating}
-                onClick={handleClick}
-                type="book"
-              />
-            ),
-        )}
+        (data as ReadDateBook[]).map((item) => (
+          <Card
+            key={item.id}
+            id={item.books.id}
+            img={item.books.bookCoverThumbnail}
+            title={item.books.title}
+            subtitle={`${item.books.author.name} ${item.books.author.surname}`}
+            rating={item.books.rating}
+            onClick={handleClick}
+            type="book"
+          />
+        ))}
       {typeData === 'tag' &&
-        (data as TagBook[])?.map((item) => (
+        (data as TagBook)?.map((item) => (
           <Card
             key={item.id}
             id={item.id}

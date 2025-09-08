@@ -1,1 +1,1 @@
-export type { ReadDateBook } from './book'
+export type { ReadDateBook, SerieBooks } from './book'

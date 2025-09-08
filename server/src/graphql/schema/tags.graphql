@@ -2,7 +2,7 @@
 type Tags {
   id: ID!
   tag: String!
-  booksInTag(sortBy: String): [Book]
+  booksInTag(sortBy: String): [Book!]!
 }
 
 # BookTagRelations data type
@@ -15,18 +15,18 @@ type BookTagRelations {
 # input data for link Book with Tag
 input BookTagRelationsInput {
   bookID: ID!
-  tagID: [ID]!
+  tagID: [ID!]!
 }
 
 extend type Query {
   # Get tag info by id
-  getTagById(id: ID): Tags
+  getTagById(id: ID): Tags!
 
   # Get all tags
-  getAllTags: [Tags]!
+  getAllTags: [Tags!]!
 }
 
 extend type Mutation {
   # link Book with Tag
-  linkBookWithTag(input: BookTagRelationsInput!): Book
+  linkBookWithTag(input: BookTagRelationsInput!): Book!
 }

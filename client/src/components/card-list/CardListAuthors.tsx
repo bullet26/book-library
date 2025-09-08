@@ -1,11 +1,13 @@
 import { useNavigate } from 'react-router-dom'
 import { Card } from 'UI'
 import { unknownAuthor1, unknownAuthor2 } from 'assets'
-import type { Author, AuthorMostReadResponse } from '__graphql/__generated__/graphql'
+import type { AuthorMostReadResponse, GetAllAuthorsQuery } from '__graphql/__generated__/graphql'
 import s from './CardList.module.scss'
 
+type Authors = NonNullable<GetAllAuthorsQuery['getAllAuthors']>['authors']
+type Author = Authors[0]
 interface CardListAuthorsProps {
-  data: Author[] | AuthorMostReadResponse[]
+  data: Authors | AuthorMostReadResponse[]
 }
 
 const isMostRededAuthorResponse = (

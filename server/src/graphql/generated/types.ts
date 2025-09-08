@@ -33,19 +33,19 @@ export type AdditionalMediaInput = {
 
 export type AllMediaForItem = {
   __typename?: 'AllMediaForItem';
-  image?: Maybe<Array<Maybe<AdditionalMedia>>>;
-  video?: Maybe<Array<Maybe<AdditionalMedia>>>;
+  image: Array<AdditionalMedia>;
+  video: Array<AdditionalMedia>;
 };
 
 export type Author = {
   __typename?: 'Author';
-  books?: Maybe<Array<Maybe<Book>>>;
-  booksWithoutSeries?: Maybe<Array<Maybe<Book>>>;
+  books: Array<Book>;
+  booksWithoutSeries: Array<Book>;
   id: Scalars['ID']['output'];
   name: Scalars['String']['output'];
   portrait?: Maybe<Scalars['String']['output']>;
   portraitThumbnail?: Maybe<Scalars['String']['output']>;
-  series?: Maybe<Array<Maybe<Series>>>;
+  series: Array<Series>;
   surname?: Maybe<Scalars['String']['output']>;
   transcriptionName?: Maybe<Scalars['String']['output']>;
 };
@@ -69,7 +69,7 @@ export type AuthorMostReadResponse = {
 
 export type AuthorResponse = {
   __typename?: 'AuthorResponse';
-  authors: Array<Maybe<Author>>;
+  authors: Array<Author>;
   totalCount: Scalars['Int']['output'];
 };
 
@@ -87,17 +87,17 @@ export type Book = {
   authorID: Scalars['ID']['output'];
   bookCover?: Maybe<Scalars['String']['output']>;
   bookCoverThumbnail?: Maybe<Scalars['String']['output']>;
-  description?: Maybe<Scalars['String']['output']>;
+  description: Scalars['String']['output'];
   id: Scalars['ID']['output'];
   isAdditionalMediaExist: Scalars['Boolean']['output'];
   notes?: Maybe<Scalars['String']['output']>;
   pages?: Maybe<Scalars['Int']['output']>;
   rating?: Maybe<Scalars['Float']['output']>;
-  readDate: Array<Maybe<ReadDate>>;
+  readDate: Array<ReadDate>;
   series?: Maybe<Series>;
   seriesID?: Maybe<Scalars['ID']['output']>;
   seriesNumber?: Maybe<Scalars['Int']['output']>;
-  tags?: Maybe<Array<Maybe<Tags>>>;
+  tags: Array<Tags>;
   title: Scalars['String']['output'];
 };
 
@@ -105,7 +105,7 @@ export type BookInput = {
   authorID: Scalars['ID']['input'];
   bookCover?: InputMaybe<Scalars['String']['input']>;
   bookCoverThumbnail?: InputMaybe<Scalars['String']['input']>;
-  description?: InputMaybe<Scalars['String']['input']>;
+  description: Scalars['String']['input'];
   notes?: InputMaybe<Scalars['String']['input']>;
   pages?: InputMaybe<Scalars['Int']['input']>;
   plot?: InputMaybe<Scalars['String']['input']>;
@@ -130,12 +130,12 @@ export type BookTagRelations = {
 
 export type BookTagRelationsInput = {
   bookID: Scalars['ID']['input'];
-  tagID: Array<InputMaybe<Scalars['ID']['input']>>;
+  tagID: Array<Scalars['ID']['input']>;
 };
 
 export type BooksResponse = {
   __typename?: 'BooksResponse';
-  books: Array<Maybe<Book>>;
+  books: Array<Book>;
   totalCount: Scalars['Int']['output'];
 };
 
@@ -160,13 +160,13 @@ export enum MediaType {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  addAdditionalMedia?: Maybe<Book>;
+  addAdditionalMedia: Book;
   addBook: Book;
   addBookPlot: DescriptionPlot;
   addReadDate: ReadDate;
   createAuthor: Author;
   createSerie: Series;
-  linkBookWithTag?: Maybe<Book>;
+  linkBookWithTag: Book;
 };
 
 
@@ -207,22 +207,22 @@ export type MutationLinkBookWithTagArgs = {
 export type Query = {
   __typename?: 'Query';
   getAllAuthors: AuthorResponse;
-  getAllAuthorsByBooksCount: Array<Maybe<AuthorMostReadResponse>>;
+  getAllAuthorsByBooksCount: Array<AuthorMostReadResponse>;
   getAllBooksByDate: ReadBooksResponse;
   getAllBooksByName: BooksResponse;
-  getAllBooksBySpecificDate: Array<Maybe<ReadDate>>;
-  getAllTags: Array<Maybe<Tags>>;
-  getMostReadAuthors: Array<Maybe<AuthorsStatisticResponse>>;
-  getMostReadBooks: Array<Maybe<BooksStatisticResponse>>;
+  getAllBooksBySpecificDate: Array<ReadDate>;
+  getAllTags: Array<Tags>;
+  getMostReadAuthors: Array<AuthorsStatisticResponse>;
+  getMostReadBooks: Array<BooksStatisticResponse>;
   getOneAuthor?: Maybe<Author>;
   getOneBook?: Maybe<Book>;
   getOneBookPlot?: Maybe<DescriptionPlot>;
-  getReadStatistic: Array<Maybe<Statistic>>;
-  getTagById?: Maybe<Tags>;
-  search: Array<Maybe<SearchResult>>;
-  searchInAuthors: Array<Maybe<Author>>;
-  searchInBooks: Array<Maybe<Book>>;
-  searchInSeries: Array<Maybe<Series>>;
+  getReadStatistic: Array<Statistic>;
+  getTagById: Tags;
+  search: Array<SearchResult>;
+  searchInAuthors: Array<Author>;
+  searchInBooks: Array<Book>;
+  searchInSeries: Array<Series>;
 };
 
 
@@ -296,14 +296,14 @@ export type QuerySearchInSeriesArgs = {
 
 export type ReadBooksResponse = {
   __typename?: 'ReadBooksResponse';
-  readDate: Array<Maybe<ReadDate>>;
+  readDate: Array<ReadDate>;
   totalCount: Scalars['Int']['output'];
 };
 
 export type ReadDate = {
   __typename?: 'ReadDate';
   bookID: Scalars['ID']['output'];
-  books?: Maybe<Book>;
+  books: Book;
   id: Scalars['ID']['output'];
   readEnd: Scalars['Date']['output'];
 };
@@ -323,7 +323,7 @@ export type SerieInput = {
 export type Series = {
   __typename?: 'Series';
   authorID: Scalars['ID']['output'];
-  booksInSeries?: Maybe<Array<Maybe<Book>>>;
+  booksInSeries: Array<Book>;
   id: Scalars['ID']['output'];
   title: Scalars['String']['output'];
 };
@@ -336,7 +336,7 @@ export type Statistic = {
 
 export type Tags = {
   __typename?: 'Tags';
-  booksInTag?: Maybe<Array<Maybe<Book>>>;
+  booksInTag: Array<Book>;
   id: Scalars['ID']['output'];
   tag: Scalars['String']['output'];
 };
@@ -502,19 +502,19 @@ export type AdditionalMediaResolvers<ContextType = any, ParentType extends Resol
 }>;
 
 export type AllMediaForItemResolvers<ContextType = any, ParentType extends ResolversParentTypes['AllMediaForItem'] = ResolversParentTypes['AllMediaForItem']> = ResolversObject<{
-  image?: Resolver<Maybe<Array<Maybe<ResolversTypes['AdditionalMedia']>>>, ParentType, ContextType>;
-  video?: Resolver<Maybe<Array<Maybe<ResolversTypes['AdditionalMedia']>>>, ParentType, ContextType>;
+  image?: Resolver<Array<ResolversTypes['AdditionalMedia']>, ParentType, ContextType>;
+  video?: Resolver<Array<ResolversTypes['AdditionalMedia']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type AuthorResolvers<ContextType = any, ParentType extends ResolversParentTypes['Author'] = ResolversParentTypes['Author']> = ResolversObject<{
-  books?: Resolver<Maybe<Array<Maybe<ResolversTypes['Book']>>>, ParentType, ContextType>;
-  booksWithoutSeries?: Resolver<Maybe<Array<Maybe<ResolversTypes['Book']>>>, ParentType, ContextType>;
+  books?: Resolver<Array<ResolversTypes['Book']>, ParentType, ContextType>;
+  booksWithoutSeries?: Resolver<Array<ResolversTypes['Book']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   portrait?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   portraitThumbnail?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  series?: Resolver<Maybe<Array<Maybe<ResolversTypes['Series']>>>, ParentType, ContextType>;
+  series?: Resolver<Array<ResolversTypes['Series']>, ParentType, ContextType>;
   surname?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   transcriptionName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -530,7 +530,7 @@ export type AuthorMostReadResponseResolvers<ContextType = any, ParentType extend
 }>;
 
 export type AuthorResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['AuthorResponse'] = ResolversParentTypes['AuthorResponse']> = ResolversObject<{
-  authors?: Resolver<Array<Maybe<ResolversTypes['Author']>>, ParentType, ContextType>;
+  authors?: Resolver<Array<ResolversTypes['Author']>, ParentType, ContextType>;
   totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
@@ -548,17 +548,17 @@ export type BookResolvers<ContextType = any, ParentType extends ResolversParentT
   authorID?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   bookCover?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   bookCoverThumbnail?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   isAdditionalMediaExist?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   notes?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   pages?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   rating?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  readDate?: Resolver<Array<Maybe<ResolversTypes['ReadDate']>>, ParentType, ContextType>;
+  readDate?: Resolver<Array<ResolversTypes['ReadDate']>, ParentType, ContextType>;
   series?: Resolver<Maybe<ResolversTypes['Series']>, ParentType, ContextType>;
   seriesID?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
   seriesNumber?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  tags?: Resolver<Maybe<Array<Maybe<ResolversTypes['Tags']>>>, ParentType, ContextType>;
+  tags?: Resolver<Array<ResolversTypes['Tags']>, ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
@@ -571,7 +571,7 @@ export type BookTagRelationsResolvers<ContextType = any, ParentType extends Reso
 }>;
 
 export type BooksResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['BooksResponse'] = ResolversParentTypes['BooksResponse']> = ResolversObject<{
-  books?: Resolver<Array<Maybe<ResolversTypes['Book']>>, ParentType, ContextType>;
+  books?: Resolver<Array<ResolversTypes['Book']>, ParentType, ContextType>;
   totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
@@ -595,44 +595,44 @@ export type DescriptionPlotResolvers<ContextType = any, ParentType extends Resol
 }>;
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
-  addAdditionalMedia?: Resolver<Maybe<ResolversTypes['Book']>, ParentType, ContextType, RequireFields<MutationAddAdditionalMediaArgs, 'input'>>;
+  addAdditionalMedia?: Resolver<ResolversTypes['Book'], ParentType, ContextType, RequireFields<MutationAddAdditionalMediaArgs, 'input'>>;
   addBook?: Resolver<ResolversTypes['Book'], ParentType, ContextType, RequireFields<MutationAddBookArgs, 'input'>>;
   addBookPlot?: Resolver<ResolversTypes['DescriptionPlot'], ParentType, ContextType, RequireFields<MutationAddBookPlotArgs, 'input'>>;
   addReadDate?: Resolver<ResolversTypes['ReadDate'], ParentType, ContextType, RequireFields<MutationAddReadDateArgs, 'input'>>;
   createAuthor?: Resolver<ResolversTypes['Author'], ParentType, ContextType, RequireFields<MutationCreateAuthorArgs, 'input'>>;
   createSerie?: Resolver<ResolversTypes['Series'], ParentType, ContextType, RequireFields<MutationCreateSerieArgs, 'input'>>;
-  linkBookWithTag?: Resolver<Maybe<ResolversTypes['Book']>, ParentType, ContextType, RequireFields<MutationLinkBookWithTagArgs, 'input'>>;
+  linkBookWithTag?: Resolver<ResolversTypes['Book'], ParentType, ContextType, RequireFields<MutationLinkBookWithTagArgs, 'input'>>;
 }>;
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
   getAllAuthors?: Resolver<ResolversTypes['AuthorResponse'], ParentType, ContextType, RequireFields<QueryGetAllAuthorsArgs, 'limit' | 'page'>>;
-  getAllAuthorsByBooksCount?: Resolver<Array<Maybe<ResolversTypes['AuthorMostReadResponse']>>, ParentType, ContextType>;
+  getAllAuthorsByBooksCount?: Resolver<Array<ResolversTypes['AuthorMostReadResponse']>, ParentType, ContextType>;
   getAllBooksByDate?: Resolver<ResolversTypes['ReadBooksResponse'], ParentType, ContextType, RequireFields<QueryGetAllBooksByDateArgs, 'limit' | 'page'>>;
   getAllBooksByName?: Resolver<ResolversTypes['BooksResponse'], ParentType, ContextType, RequireFields<QueryGetAllBooksByNameArgs, 'limit' | 'page'>>;
-  getAllBooksBySpecificDate?: Resolver<Array<Maybe<ResolversTypes['ReadDate']>>, ParentType, ContextType, Partial<QueryGetAllBooksBySpecificDateArgs>>;
-  getAllTags?: Resolver<Array<Maybe<ResolversTypes['Tags']>>, ParentType, ContextType>;
-  getMostReadAuthors?: Resolver<Array<Maybe<ResolversTypes['AuthorsStatisticResponse']>>, ParentType, ContextType>;
-  getMostReadBooks?: Resolver<Array<Maybe<ResolversTypes['BooksStatisticResponse']>>, ParentType, ContextType>;
+  getAllBooksBySpecificDate?: Resolver<Array<ResolversTypes['ReadDate']>, ParentType, ContextType, Partial<QueryGetAllBooksBySpecificDateArgs>>;
+  getAllTags?: Resolver<Array<ResolversTypes['Tags']>, ParentType, ContextType>;
+  getMostReadAuthors?: Resolver<Array<ResolversTypes['AuthorsStatisticResponse']>, ParentType, ContextType>;
+  getMostReadBooks?: Resolver<Array<ResolversTypes['BooksStatisticResponse']>, ParentType, ContextType>;
   getOneAuthor?: Resolver<Maybe<ResolversTypes['Author']>, ParentType, ContextType, Partial<QueryGetOneAuthorArgs>>;
   getOneBook?: Resolver<Maybe<ResolversTypes['Book']>, ParentType, ContextType, Partial<QueryGetOneBookArgs>>;
   getOneBookPlot?: Resolver<Maybe<ResolversTypes['DescriptionPlot']>, ParentType, ContextType, Partial<QueryGetOneBookPlotArgs>>;
-  getReadStatistic?: Resolver<Array<Maybe<ResolversTypes['Statistic']>>, ParentType, ContextType, RequireFields<QueryGetReadStatisticArgs, 'label'>>;
-  getTagById?: Resolver<Maybe<ResolversTypes['Tags']>, ParentType, ContextType, Partial<QueryGetTagByIdArgs>>;
-  search?: Resolver<Array<Maybe<ResolversTypes['SearchResult']>>, ParentType, ContextType, RequireFields<QuerySearchArgs, 'searchString'>>;
-  searchInAuthors?: Resolver<Array<Maybe<ResolversTypes['Author']>>, ParentType, ContextType, RequireFields<QuerySearchInAuthorsArgs, 'searchString'>>;
-  searchInBooks?: Resolver<Array<Maybe<ResolversTypes['Book']>>, ParentType, ContextType, RequireFields<QuerySearchInBooksArgs, 'searchString'>>;
-  searchInSeries?: Resolver<Array<Maybe<ResolversTypes['Series']>>, ParentType, ContextType, RequireFields<QuerySearchInSeriesArgs, 'searchString'>>;
+  getReadStatistic?: Resolver<Array<ResolversTypes['Statistic']>, ParentType, ContextType, RequireFields<QueryGetReadStatisticArgs, 'label'>>;
+  getTagById?: Resolver<ResolversTypes['Tags'], ParentType, ContextType, Partial<QueryGetTagByIdArgs>>;
+  search?: Resolver<Array<ResolversTypes['SearchResult']>, ParentType, ContextType, RequireFields<QuerySearchArgs, 'searchString'>>;
+  searchInAuthors?: Resolver<Array<ResolversTypes['Author']>, ParentType, ContextType, RequireFields<QuerySearchInAuthorsArgs, 'searchString'>>;
+  searchInBooks?: Resolver<Array<ResolversTypes['Book']>, ParentType, ContextType, RequireFields<QuerySearchInBooksArgs, 'searchString'>>;
+  searchInSeries?: Resolver<Array<ResolversTypes['Series']>, ParentType, ContextType, RequireFields<QuerySearchInSeriesArgs, 'searchString'>>;
 }>;
 
 export type ReadBooksResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['ReadBooksResponse'] = ResolversParentTypes['ReadBooksResponse']> = ResolversObject<{
-  readDate?: Resolver<Array<Maybe<ResolversTypes['ReadDate']>>, ParentType, ContextType>;
+  readDate?: Resolver<Array<ResolversTypes['ReadDate']>, ParentType, ContextType>;
   totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type ReadDateResolvers<ContextType = any, ParentType extends ResolversParentTypes['ReadDate'] = ResolversParentTypes['ReadDate']> = ResolversObject<{
   bookID?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  books?: Resolver<Maybe<ResolversTypes['Book']>, ParentType, ContextType>;
+  books?: Resolver<ResolversTypes['Book'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   readEnd?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -644,7 +644,7 @@ export type SearchResultResolvers<ContextType = any, ParentType extends Resolver
 
 export type SeriesResolvers<ContextType = any, ParentType extends ResolversParentTypes['Series'] = ResolversParentTypes['Series']> = ResolversObject<{
   authorID?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  booksInSeries?: Resolver<Maybe<Array<Maybe<ResolversTypes['Book']>>>, ParentType, ContextType>;
+  booksInSeries?: Resolver<Array<ResolversTypes['Book']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -657,7 +657,7 @@ export type StatisticResolvers<ContextType = any, ParentType extends ResolversPa
 }>;
 
 export type TagsResolvers<ContextType = any, ParentType extends ResolversParentTypes['Tags'] = ResolversParentTypes['Tags']> = ResolversObject<{
-  booksInTag?: Resolver<Maybe<Array<Maybe<ResolversTypes['Book']>>>, ParentType, ContextType, Partial<TagsBooksInTagArgs>>;
+  booksInTag?: Resolver<Array<ResolversTypes['Book']>, ParentType, ContextType, Partial<TagsBooksInTagArgs>>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   tag?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;

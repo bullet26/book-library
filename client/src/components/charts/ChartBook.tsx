@@ -12,14 +12,12 @@ export const ChartBook = () => {
   useEffect(() => {
     if (data?.books?.length) {
       setChartData(
-        data.books
-          .filter((item) => !!item)
-          .map(({ bookTitle, author, count }) => {
-            return {
-              name: `${bookTitle}, ${author}`,
-              count,
-            }
-          }),
+        data.books.map(({ bookTitle, author, count }) => {
+          return {
+            name: `${bookTitle}, ${author}`,
+            count,
+          }
+        }),
       )
     }
   }, [data])

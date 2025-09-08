@@ -15,7 +15,10 @@ export const BookInfoTab = (props: BookInfoTabProps) => {
     <div className={s.contentWrapper}>
       <BookInfo data={data} />
       {!!series?.booksInSeries && (
-        <Carousel data={series.booksInSeries} title={`All books in the series: ${series.title}`} />
+        <Carousel
+          booksInSeries={series.booksInSeries}
+          title={`All books in the series: ${series.title}`}
+        />
       )}
     </div>
   )
