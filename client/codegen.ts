@@ -7,12 +7,14 @@ const config: CodegenConfig = {
   generates: {
     './src/__graphql/__generated__/': {
       preset: 'client',
+      config: {
+        useTypeImports: true,
+      },
     },
     './src/__graphql/__generated__/schema.graphql': {
       plugins: ['schema-ast'],
       config: {
         includeDirectives: true,
-        useTypeImports: true,
       },
     },
   },
