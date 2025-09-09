@@ -1,11 +1,5 @@
-import {
-  type Statistic,
-  type AuthorsStatisticResponse,
-  type BooksStatisticResponse,
-  type QueryResolvers,
-} from '#graphql/generated/types.js'
+import { type QueryResolvers } from '#graphql/generated/types.js'
 import { BooksModel, ReadDateModel } from '#models/index.js'
-import { toObjectMapping } from '#utils/mappers.js'
 import {
   booksAggregation,
   authorsAggregation,
@@ -15,25 +9,25 @@ import {
 
 export const AnalyticsQuery: QueryResolvers = {
   getMostReadBooks: async () => {
-    const booksDocs = await ReadDateModel.aggregate(booksAggregation)
-    return toObjectMapping<BooksStatisticResponse>(booksDocs)
+    const booksStat = await ReadDateModel.aggregate(booksAggregation)
+    return booksStat
   },
 
   getMostReadAuthors: async () => {
-    const authorsDocs = await BooksModel.aggregate(authorsAggregation)
-    return toObjectMapping<AuthorsStatisticResponse>(authorsDocs)
+    const authorsStat = await BooksModel.aggregate(authorsAggregation)
+    return authorsStat
   },
 
   getReadStatistic: async (_, args) => {
     const { label, year } = args
 
     if (label === 'all') {
-      const booksDocs = await ReadDateModel.aggregate(yearsStatisticAggregate)
-      return toObjectMapping<Statistic>(booksDocs)
+      const booksStat = await ReadDateModel.aggregate(yearsStatisticAggregate)
+      return booksStat
     }
     if (label === 'year' && !!year) {
-      const booksDocs = await ReadDateModel.aggregate(yearsAggregate(year))
-      return toObjectMapping<Statistic>(booksDocs)
+      const booksStat = await ReadDateModel.aggregate(yearsAggregate(year))
+      return booksStat
     }
     return []
   },

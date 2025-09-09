@@ -22,7 +22,7 @@ export const TagsDL = {
     const booksInTagObjDocs = await BookTagRelationsModel.find({ tagID: { $in: tagIDs } })
     const booksInTagObj = toObjectMapping<BookTagRelations>(booksInTagObjDocs)
     const booksInTagIds = booksInTagObj.map((item) => item.bookID)
-    const booksDocs = await BooksModel.aggregate([
+    const books = await BooksModel.aggregate([
       {
         $match: { _id: { $in: booksInTagIds } },
       },
@@ -41,7 +41,6 @@ export const TagsDL = {
       },
       { $project: { authorSurname: 0, authorData: 0 } },
     ])
-    const books = toObjectMapping<Book>(booksDocs)
 
     return tagIDs.map((id) =>
       books.filter((book) =>

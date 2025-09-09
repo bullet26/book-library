@@ -22,8 +22,8 @@ export const AuthorQuery: QueryResolvers = {
   },
 
   getAllAuthorsByBooksCount: async () => {
-    const authorsDocs = await BooksModel.aggregate(authorsAggregation)
-    return toObjectMapping<AuthorMostReadResponse>(authorsDocs)
+    const authors = await BooksModel.aggregate(authorsAggregation)
+    return authors
   },
 
   getOneAuthor: async (_, args) => {

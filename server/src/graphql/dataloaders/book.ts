@@ -71,6 +71,8 @@ export const BookDL = {
       },
     ])
 
+    console.log(groupedMedia, 'groupedMedia')
+
     return bookIDs.map((id) => {
       const mediaForBook = groupedMedia.filter(
         (item) => item._id.bookID.toString() === id.toString(),

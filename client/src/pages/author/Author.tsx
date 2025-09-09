@@ -8,6 +8,7 @@ import { Loader, ScrollArrow, Error } from 'UI'
 import { ONE_AUTHOR_BY_ID } from '__graphql'
 import { colorRate } from 'utils'
 import s from './Author.module.scss'
+import { calcRating } from './utils'
 
 function getRandomImage() {
   const images = [unknownAuthor1, unknownAuthor2]
@@ -23,56 +24,14 @@ export const Author = () => {
     variables: { id: authorId },
   })
 
-  const { booksQuant, booksAverageRating, portrait, books, series } = useMemo(() => {
-    if (data?.author) {
-      return {
-        booksQuant: 0,
-        booksAverageRating: 0,
-        portrait: getRandomImage(),
-        books: [],
-        series: [],
-      }
-    }
-
-    const series = data?.author?.series
-    const books = data?.author?.booksWithoutSeries
-    const portrait = data?.author?.portrait || getRandomImage()
-
-    let booksInSeriesQuant = 0
-    const booksWithoutSeriesQuant = books?.length || 0
-    let booksInSeriesTotalRating = 0
-    let booksWithoutSeriesTotalRating = 0
-
-    series?.forEach(({ booksInSeries }) => {
-      booksInSeriesQuant += booksInSeries?.length || 0
-      booksInSeries?.forEach((r) => {
-        booksInSeriesTotalRating += r?.rating || 0
-      })
-    })
-
-    books?.forEach((r) => {
-      booksWithoutSeriesTotalRating += r?.rating || 0
-    })
-
-    const booksQuant = booksInSeriesQuant + booksWithoutSeriesQuant
-    const booksAverageRating =
-      Math.ceil(((booksInSeriesTotalRating + booksWithoutSeriesTotalRating) / booksQuant) * 100) /
-      100
-
-    return {
-      booksQuant,
-      booksAverageRating,
-      portrait,
-      books,
-      series,
-    }
-  }, [data?.author])
-
   const navigate = useNavigate()
 
   const handleClick = (id?: string) => {
     navigate(`/books/${id}`)
   }
+
+  const { booksQuant, booksAverageRating } = calcRating(data)
+  const portrait = data?.author?.portrait || getRandomImage()
 
   return (
     <>
@@ -106,7 +65,7 @@ export const Author = () => {
                   </div>
                 </div>
                 <div className={s.bookWrapper}>
-                  {series?.map(({ title, booksInSeries }) => (
+                  {data.author.series.map(({ title, booksInSeries }) => (
                     <BookSection
                       key={title}
                       title={title}
@@ -114,10 +73,10 @@ export const Author = () => {
                       onClick={handleClick}
                     />
                   ))}
-                  {!!books?.length && (
+                  {!!data.author.booksWithoutSeries.length && (
                     <BookSection
                       title="Books outside the series"
-                      booksInSeries={books}
+                      booksInSeries={data.author.booksWithoutSeries}
                       onClick={handleClick}
                     />
                   )}

@@ -7,13 +7,13 @@ import s from './MostRededAuthors.module.scss'
 export const MostRededAuthors = () => {
   const { loading, error, data } = useQuery(ALL_AUTHORS_BY_BOOKS_COUNT)
 
-  const authors = data?.author || []
+  const authors = data?.author
 
   return (
     <>
       {!!loading && <Loader />}
       {!!error && <Error message={error?.message} />}
-      {!!data && (
+      {!!authors && (
         <div className={s.wrapper}>
           <div className={s.innerWrapper}>
             <CardListAuthors data={authors} />
