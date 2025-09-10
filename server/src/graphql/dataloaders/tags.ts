@@ -1,3 +1,4 @@
+import mongoose from 'mongoose'
 import DataLoader from 'dataloader'
 import { BooksModel, BookTagRelationsModel } from '#models/index.js'
 import { toObjectMapping } from '#utils/mappers.js'
@@ -21,7 +22,7 @@ export const TagsDL = {
   booksInTagByAuthor: new DataLoader(async (tagIDs: readonly string[]) => {
     const booksInTagObjDocs = await BookTagRelationsModel.find({ tagID: { $in: tagIDs } })
     const booksInTagObj = toObjectMapping<BookTagRelations>(booksInTagObjDocs)
-    const booksInTagIds = booksInTagObj.map((item) => item.bookID)
+    const booksInTagIds = booksInTagObj.map((item) => new mongoose.Types.ObjectId(item.bookID))
     const books = await BooksModel.aggregate([
       {
         $match: { _id: { $in: booksInTagIds } },
@@ -39,12 +40,21 @@ export const TagsDL = {
       {
         $sort: { authorSurname: 1, title: 1 },
       },
-      { $project: { authorSurname: 0, authorData: 0 } },
+      { $addFields: { id: '$_id' } },
+      {
+        $project: {
+          _id: 0,
+          authorSurname: 0,
+          authorData: 0,
+        },
+      },
     ])
 
     return tagIDs.map((id) =>
       books.filter((book) =>
-        booksInTagObj.find((item) => item.bookID === book.id && item.tagID === id.toString()),
+        booksInTagObj.find(
+          (item) => item.bookID === book.id.toString() && item.tagID === id.toString(),
+        ),
       ),
     )
   }),

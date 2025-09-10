@@ -1,3 +1,5 @@
+import mongoose from 'mongoose'
+
 import DataLoader from 'dataloader'
 import {
   ReadDateModel,
@@ -61,25 +63,44 @@ export const BookDL = {
   }),
 
   additionalMedia: new DataLoader(async (bookIDs: readonly string[]) => {
+    const ids = bookIDs.map((id) => new mongoose.Types.ObjectId(id))
+
     const groupedMedia = await AdditionalMediaModel.aggregate([
-      { $match: { bookID: { $in: bookIDs } } },
+      { $match: { bookID: { $in: ids } } },
       {
         $group: {
           _id: { bookID: '$bookID', type: '$type' }, // Группируем по полю type
           media: { $push: '$$ROOT' }, // Собираем все документы в массив media
         },
       },
+      {
+        $project: {
+          _id: 0,
+          id: '$_id',
+          media: {
+            $map: {
+              input: '$media',
+              as: 'm',
+              in: {
+                id: '$$m._id',
+                bookID: '$$m.bookID',
+                type: '$$m.type',
+                url: '$$m.url',
+              },
+            },
+          },
+        },
+      },
     ])
-
-    console.log(groupedMedia, 'groupedMedia')
 
     return bookIDs.map((id) => {
       const mediaForBook = groupedMedia.filter(
-        (item) => item._id.bookID.toString() === id.toString(),
+        (item) => item.id.bookID.toString() === id.toString(),
       )
+
       return {
-        image: mediaForBook.find((item) => item._id.type === MediaType.Image)?.media || [],
-        video: mediaForBook.find((item) => item._id.type === MediaType.Video)?.media || [],
+        image: mediaForBook.find((item) => item.id.type === MediaType.Image).media || [],
+        video: mediaForBook.find((item) => item.id.type === MediaType.Video).media || [],
       }
     })
   }),
