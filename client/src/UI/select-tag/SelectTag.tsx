@@ -5,11 +5,12 @@ import { useQuery, useMutation } from '@apollo/client/react'
 import { ALL_TAGS, CREATE_LINK_TAG_WITH_BOOK } from '__graphql'
 import { useNavigate } from 'react-router-dom'
 import { Error } from 'UI'
-import { type Tags as ITag } from '__graphql/__generated__/graphql'
+import { type GetOneBookByIdQuery } from '__graphql/__generated__/graphql'
 import s from './SelectTag.module.scss'
 
 type TagRender = SelectProps['tagRender']
 
+type ITag = NonNullable<GetOneBookByIdQuery['book']>['tags'][number]
 interface SelectTagProps {
   tags: ITag[]
   bookID?: string

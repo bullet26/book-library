@@ -1,4 +1,11 @@
-import { type Author, type Book, type Series, type Search as ISearch } from 'types'
+import type {
+  Book,
+  Series,
+  Author,
+  SearchInBooksAndAuthorsQuery,
+} from '__graphql/__generated__/graphql'
+
+type ISearch = NonNullable<SearchInBooksAndAuthorsQuery['search']>[number]
 
 export const checkTypesTitle = (item: ISearch) => {
   if (Object.hasOwn(item, 'name')) {

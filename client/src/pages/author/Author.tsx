@@ -1,4 +1,3 @@
-import { useMemo } from 'react'
 import { useQuery } from '@apollo/client/react'
 import { Image } from 'antd'
 import { useNavigate, useParams } from 'react-router-dom'
