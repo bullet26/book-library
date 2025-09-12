@@ -8,16 +8,9 @@ import {
   AdditionalMediaModel,
   AuthorModel,
   SeriesModel,
-} from '#models/index.js'
-import { toObjectMapping } from '#utils/mappers.js'
-import {
-  Author,
-  BookTagRelations,
-  MediaType,
-  ReadDate,
-  Series,
-  Tags,
-} from '#graphql/generated/types.js'
+} from '../../models/index.js'
+import { toObjectMapping } from '../../utils/mappers.js'
+import { Author, BookTagRelations, MediaType, ReadDate, Series, Tags } from '../generated/types.js'
 
 export const BookDL = {
   author: new DataLoader(async (authorIDs: readonly string[]) => {

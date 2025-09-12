@@ -1,6 +1,6 @@
-import { type Author, type MutationResolvers } from '#graphql/generated/types.js'
-import { AuthorModel } from '#models/index.js'
-import { toObjectMappingSingle } from '#utils/mappers.js'
+import { type Author, type MutationResolvers } from '../../generated/types.js'
+import { AuthorModel } from '../../../models/index.js'
+import { toObjectMappingSingle } from '../../../utils/mappers.js'
 
 export const AuthorMutation: MutationResolvers = {
   createAuthor: async (_, { input }) => {

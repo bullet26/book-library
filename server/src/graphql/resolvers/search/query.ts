@@ -1,11 +1,6 @@
-import { AuthorModel, BooksModel, SeriesModel } from '#models/index.js'
-import {
-  type Book,
-  type Author,
-  type QueryResolvers,
-  type Series,
-} from '#graphql/generated/types.js'
-import { toObjectMapping } from '#utils/mappers.js'
+import { AuthorModel, BooksModel, SeriesModel } from '../../../models/index.js'
+import { type Book, type Author, type QueryResolvers, type Series } from '../../generated/types.js'
+import { toObjectMapping } from '../../../utils/mappers.js'
 
 export const SearchQuery: QueryResolvers = {
   search: async (_, args) => {

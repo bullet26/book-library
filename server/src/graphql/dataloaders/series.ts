@@ -1,7 +1,7 @@
 import DataLoader from 'dataloader'
-import { BooksModel } from '#models/index.js'
-import { toObjectMapping } from '#utils/mappers.js'
-import { Book } from '#graphql/generated/types.js'
+import { BooksModel } from '../../models/index.js'
+import { toObjectMapping } from '../../utils/mappers.js'
+import { Book } from '../generated/types.js'
 
 export const SeriesDL = {
   booksInSeries: new DataLoader(async (seriesIDs: readonly string[]) => {

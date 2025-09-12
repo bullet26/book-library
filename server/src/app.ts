@@ -7,12 +7,12 @@ import cors from 'cors'
 import bodyParser from 'body-parser'
 import mongoose from 'mongoose'
 
-import { typeDefs } from '#graphql/schema/index.js'
-import { resolvers } from '#graphql/resolvers/index.js'
-import { router } from '#api/router.js'
-import { createContext, DataLoadersType } from '#graphql/dataloaders/index.js'
-import { APP_MODE, CLIENT_URL } from '#config/index.js'
-import { HttpError } from '#utils/http-error.js'
+import { typeDefs } from './graphql/schema/index.js'
+import { resolvers } from './graphql/resolvers/index.js'
+import { router } from './api/router.js'
+import { createContext, DataLoadersType } from './graphql/dataloaders/index.js'
+import { APP_MODE, CLIENT_URL } from './config/index.js'
+import { HttpError } from './utils/http-error.js'
 
 interface MyContext {
   token?: string

@@ -1,4 +1,4 @@
-import { type TagsResolvers } from '#graphql/generated/types.js'
+import { type TagsResolvers } from '../../generated/types.js'
 
 export const TagsResolver: TagsResolvers = {
   booksInTag: async (tag, args, { dataloaders }) => {

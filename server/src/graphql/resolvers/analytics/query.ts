@@ -1,5 +1,5 @@
-import { type QueryResolvers } from '#graphql/generated/types.js'
-import { BooksModel, ReadDateModel } from '#models/index.js'
+import { type QueryResolvers } from '../../generated/types.js'
+import { BooksModel, ReadDateModel } from '../../../models/index.js'
 import {
   booksAggregation,
   authorsAggregation,

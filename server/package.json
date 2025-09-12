@@ -11,6 +11,7 @@
     "dev": "tsx --watch src/server.ts",
     "start": "node src/server.ts",
     "build": "tsc && copyfiles -u 1 \"src/graphql/schema/*.graphql\" dist",
+    "vercel build": "npm run build",
     "type-check": "tsc --noEmit",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
@@ -18,9 +19,6 @@
     "format:check": "prettier --check .",
     "generate": "graphql-codegen",
     "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "imports": {
-    "#*": "./src/*"
   },
   "devDependencies": {
     "@eslint/js": "^9.34.0",

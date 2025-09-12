@@ -1,7 +1,7 @@
-import { ReadDateModel } from '#models/index.js'
-import { type ReadDate, type QueryResolvers } from '#graphql/generated/types.js'
-import { toObjectMapping } from '#utils/mappers.js'
-import { HttpError } from '#utils/http-error.js'
+import { ReadDateModel } from '../../../models/index.js'
+import { type ReadDate, type QueryResolvers } from '../../generated/types.js'
+import { toObjectMapping } from '../../../utils/mappers.js'
+import { HttpError } from '../../../utils/http-error.js'
 
 export const ReadDateQuery: QueryResolvers = {
   getAllBooksByDate: async (_, args) => {

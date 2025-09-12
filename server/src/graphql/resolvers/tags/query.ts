@@ -1,7 +1,7 @@
-import { TagModel } from '#models/index.js'
-import { type Tags, type QueryResolvers } from '#graphql/generated/types.js'
-import { HttpError } from '#utils/http-error.js'
-import { toObjectMapping, toObjectMappingSingle } from '#utils/mappers.js'
+import { TagModel } from '../../../models/index.js'
+import { type Tags, type QueryResolvers } from '../../generated/types.js'
+import { HttpError } from '../../../utils/http-error.js'
+import { toObjectMapping, toObjectMappingSingle } from '../../../utils/mappers.js'
 
 export const TagsQuery: QueryResolvers = {
   getTagById: async (_, args) => {

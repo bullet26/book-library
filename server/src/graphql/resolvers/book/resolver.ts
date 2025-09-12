@@ -1,4 +1,4 @@
-import { type BookResolvers } from '#graphql/generated/types.js'
+import { type BookResolvers } from '../../generated/types.js'
 
 export const BookResolver: BookResolvers = {
   author: (book, _, { dataloaders }) => dataloaders.book.author.load(book.authorID),

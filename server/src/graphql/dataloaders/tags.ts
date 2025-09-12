@@ -1,8 +1,8 @@
 import mongoose from 'mongoose'
 import DataLoader from 'dataloader'
-import { BooksModel, BookTagRelationsModel } from '#models/index.js'
-import { toObjectMapping } from '#utils/mappers.js'
-import { BookTagRelations, Book } from '#graphql/generated/types.js'
+import { BooksModel, BookTagRelationsModel } from '../../models/index.js'
+import { toObjectMapping } from '../../utils/mappers.js'
+import { BookTagRelations, Book } from '../generated/types.js'
 
 export const TagsDL = {
   booksInTag: new DataLoader(async (tagIDs: readonly string[]) => {

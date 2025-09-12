@@ -1,7 +1,7 @@
-import { BooksModel } from '#models/index.js'
-import { type Book, type QueryResolvers } from '#graphql/generated/types.js'
-import { toObjectMapping, toObjectMappingSingle } from '#utils/mappers.js'
-import { HttpError } from '#utils/http-error.js'
+import { BooksModel } from '../../../models/index.js'
+import { type Book, type QueryResolvers } from '../../generated/types.js'
+import { toObjectMapping, toObjectMappingSingle } from '../../../utils/mappers.js'
+import { HttpError } from '../../../utils/http-error.js'
 
 export const BookQuery: QueryResolvers = {
   getAllBooksByName: async (_, args) => {

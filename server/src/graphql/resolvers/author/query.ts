@@ -1,11 +1,7 @@
-import {
-  type AuthorMostReadResponse,
-  type Author,
-  type QueryResolvers,
-} from '#graphql/generated/types.js'
-import { AuthorModel, BooksModel } from '#models/index.js'
-import { HttpError } from '#utils/http-error.js'
-import { toObjectMapping, toObjectMappingSingle } from '#utils/mappers.js'
+import { type Author, type QueryResolvers } from '../../generated/types.js'
+import { AuthorModel, BooksModel } from '../../../models/index.js'
+import { HttpError } from '../../../utils/http-error.js'
+import { toObjectMapping, toObjectMappingSingle } from '../../../utils/mappers.js'
 import { authorsAggregation } from './aggregation.js'
 
 export const AuthorQuery: QueryResolvers = {

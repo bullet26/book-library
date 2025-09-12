@@ -1,4 +1,4 @@
-import { type SearchResultResolvers } from '#graphql/generated/types.js'
+import { type SearchResultResolvers } from '../../generated/types.js'
 
 const SearchResult = {
   __resolveType(obj: any) {

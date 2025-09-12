@@ -1,4 +1,4 @@
-import { MediaType } from '#graphql/generated/types.js'
+import { MediaType } from '../graphql/generated/types.js'
 import mongoose from 'mongoose'
 
 const AdditionalMedia = new mongoose.Schema(

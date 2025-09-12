@@ -10,7 +10,7 @@ import {
   type ReadDate,
   type Series,
   type Tags,
-} from '#graphql/generated/types.js'
+} from '../generated/types.js'
 
 type DataLoaderItemMany<T> = DataLoader<string, T[]>
 type DataLoaderItemOne<T> = DataLoader<string, T | undefined>
