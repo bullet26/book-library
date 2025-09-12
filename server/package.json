@@ -10,8 +10,7 @@
   "scripts": {
     "dev": "tsx --watch src/server.ts",
     "start": "node dist/server.js",
-    "build": "tsc",
-    "postbuild": "cp -r src/graphql/schema dist/graphql/schema",
+    "build": "tsc && cp -r src/graphql/schema dist/graphql/schema",
     "type-check": "tsc --noEmit",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",

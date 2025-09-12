@@ -9,7 +9,7 @@ export const DescriptionPlotQuery: QueryResolvers = {
     if (!bookID) throw new HttpError('Book ID is required', 400)
 
     const [bookDoc] = await DescriptionPlotModel.find({ bookID })
-    if (!bookDoc) throw new HttpError('Book plot wasn`t found', 404)
+    if (!bookDoc) return null
 
     return toObjectMappingSingle<DescriptionPlot>(bookDoc)
   },

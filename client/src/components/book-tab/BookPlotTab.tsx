@@ -19,7 +19,7 @@ export const BookPlotTab = () => {
     <>
       {!!loading && <div>Loading..</div>}
       {!!error && <Error message={error?.message} />}
-      {plot && ( // eslint-disable-next-line react/no-danger
+      {!!plot && ( // eslint-disable-next-line react/no-danger
         <div className={s.text} dangerouslySetInnerHTML={{ __html: plot as TrustedHTML }} />
       )}
       {!loading && !plot && (
