@@ -11,8 +11,9 @@ import { typeDefs } from './graphql/schema/index.js'
 import { resolvers } from './graphql/resolvers/index.js'
 import { router } from './api/router.js'
 import { createContext, DataLoadersType } from './graphql/dataloaders/index.js'
-import { APP_MODE, CLIENT_URL } from './config/index.js'
+import { APP_MODE, CLIENT_URL, DB_URL, PORT } from './config/index.js'
 import { HttpError } from './utils/http-error.js'
+import { consoleInfo } from './common/index.js'
 
 interface MyContext {
   token?: string
@@ -36,7 +37,7 @@ const server = new ApolloServer<MyContext>({
   resolvers,
   csrfPrevention: true,
   introspection: true,
-  plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+  ...(APP_MODE !== 'vercel' && { plugins: [ApolloServerPluginDrainHttpServer({ httpServer })] }),
   formatError: (formattedError, error: any) => {
     const original = error.originalError
 
@@ -75,3 +76,23 @@ app.use('/api', router)
 app.get('/', (req, res) => {
   res.status(200).send('Server is running')
 })
+
+const start = async () => {
+  try {
+    await mongoose.connect(DB_URL)
+    consoleInfo('Connected to DB')
+
+    if (APP_MODE === 'vercel') {
+      app.listen(PORT, () => {
+        console.log(`REST API  + GRAPHQL Server listening on port VERCEL: ${PORT}`)
+      })
+    } else {
+      await new Promise<void>((resolve) => httpServer.listen({ port: PORT }, resolve))
+    }
+    consoleInfo(`REST API  + GRAPHQL Server listening on port http://localhost:${PORT}`)
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+start()
