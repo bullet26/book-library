@@ -72,3 +72,7 @@ app.use(
 )
 
 app.use('/api', router)
+
+app.use('/', (req, res) => {
+  res.status(200).send('Server is running')
+})
