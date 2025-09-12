@@ -1,8 +1,8 @@
 import { ApolloServer } from '@apollo/server'
-import { expressMiddleware } from '@as-integrations/express5'
-import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer'
 import express from 'express'
-import http from 'http'
+import { expressMiddleware } from '@as-integrations/express5'
+// import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer'
+// import http from 'http'
 import cors from 'cors'
 import bodyParser from 'body-parser'
 import mongoose from 'mongoose'
@@ -29,14 +29,14 @@ app.use(
 )
 app.use(express.json())
 
-export const httpServer = http.createServer(app)
+// const httpServer = http.createServer(app)
 
 const server = new ApolloServer<MyContext>({
   typeDefs,
   resolvers,
   csrfPrevention: true,
   introspection: true,
-  // plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+  // ...(APP_MODE !== 'vercel' && { plugins: [ApolloServerPluginDrainHttpServer({ httpServer })] }),
   formatError: (formattedError, error: any) => {
     const original = error.originalError
 
@@ -72,6 +72,8 @@ app.use(
 
 app.use('/api', router)
 
-app.use('/', (req, res) => {
+app.get('/', (req, res) => {
   res.status(200).send('Server is running')
 })
+
+export default app
