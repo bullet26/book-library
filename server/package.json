@@ -10,7 +10,7 @@
   "scripts": {
     "dev": "tsx --watch src/server.ts",
     "start": "node dist/server.js",
-    "build": "tsc && cp -r src/graphql/schema dist/graphql/schema",
+    "build": "tsc && copyfiles -u 1 \"src/graphql/schema/*.graphql\" dist",
     "vercel build": "npm run build",
     "type-check": "tsc --noEmit",
     "lint": "eslint .",
@@ -34,6 +34,7 @@
     "@types/multer": "^2.0.0",
     "@types/node": "^24.3.0",
     "chalk": "^5.6.0",
+    "copyfiles": "^2.4.1",
     "eslint": "^9.34.0",
     "eslint-plugin-perfectionist": "^4.15.0",
     "nodemon": "^3.1.10",
