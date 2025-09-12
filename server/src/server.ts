@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
 import { consoleInfo } from './common/index.js'
 import { DB_URL, PORT } from './config/index.js'
-import { httpServer } from './app.js'
+import { httpServer } from './expressApp.js'
 
 const start = async () => {
   try {

@@ -9,7 +9,7 @@
   "type": "module",
   "scripts": {
     "dev": "tsx --watch src/server.ts",
-    "start": "node src/server.ts",
+    "start": "node dist/server.js",
     "build": "tsc && copyfiles -u 1 \"src/graphql/schema/*.graphql\" dist",
     "vercel build": "npm run build",
     "type-check": "tsc --noEmit",
