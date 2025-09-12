@@ -61,6 +61,7 @@ mongoose.set('debug', APP_MODE === 'development')
 
 app.use(
   '/graphql',
+  cors<cors.CorsRequest>({ origin: CLIENT_URL }),
   bodyParser.json({ limit: '10mb' }),
   expressMiddleware(server, {
     context: async ({ req }) => {
