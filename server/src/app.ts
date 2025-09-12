@@ -36,7 +36,7 @@ const server = new ApolloServer<MyContext>({
   resolvers,
   csrfPrevention: true,
   introspection: true,
-  plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+  // plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
   formatError: (formattedError, error: any) => {
     const original = error.originalError
 
@@ -61,7 +61,6 @@ mongoose.set('debug', APP_MODE === 'development')
 
 app.use(
   '/graphql',
-  cors<cors.CorsRequest>({ origin: CLIENT_URL }),
   bodyParser.json({ limit: '10mb' }),
   expressMiddleware(server, {
     context: async ({ req }) => {
