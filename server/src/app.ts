@@ -11,7 +11,7 @@ import { typeDefs } from '#graphql/schema/index.js'
 import { resolvers } from '#graphql/resolvers/index.js'
 import { router } from '#api/router.js'
 import { createContext, DataLoadersType } from '#graphql/dataloaders/index.js'
-import { APP_MODE } from '#config/index.js'
+import { APP_MODE, CLIENT_URL } from '#config/index.js'
 import { HttpError } from '#utils/http-error.js'
 
 interface MyContext {
@@ -21,7 +21,12 @@ interface MyContext {
 }
 
 const app = express()
-app.use(cors())
+app.use(
+  cors({
+    origin: CLIENT_URL,
+    credentials: true,
+  }),
+)
 app.use(express.json())
 
 export const httpServer = http.createServer(app)
