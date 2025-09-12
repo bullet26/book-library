@@ -11,6 +11,7 @@
     "dev": "tsx --watch src/server.ts",
     "start": "node dist/server.js",
     "build": "tsc && cp -r src/graphql/schema dist/graphql/schema",
+    "vercel build": "npm run build",
     "type-check": "tsc --noEmit",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
