@@ -10,7 +10,7 @@ const start = async () => {
 
     if (APP_MODE === 'vercel') {
       app.listen(PORT, () => {
-        console.log(`REST API  + GRAPHQL Server listening on port VERCEL: ${PORT}`)
+        consoleInfo(`REST API  + GRAPHQL Server listening on port VERCEL: ${PORT}`)
       })
     } else {
       await new Promise<void>((resolve) => httpServer.listen({ port: PORT }, resolve))
