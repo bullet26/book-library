@@ -2,7 +2,7 @@
   "name": "book_lib",
   "version": "1.0.0",
   "description": "",
-  "main": "server.ts",
+  "main": "dist/server.js",
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -10,7 +10,8 @@
   "scripts": {
     "dev": "tsx --watch src/server.ts",
     "start": "node dist/server.js",
-    "build": "tsc && copyfiles -u 1 \"src/graphql/schema/*.graphql\" dist && copyfiles vercel.json dist",
+    "build": "tsc && copyfiles -u 1 \"src/graphql/schema/*.graphql\" dist",
+    "vercel-build": "npm run build && copyfiles vercel.json dist && copyfiles package.json dist",
     "type-check": "tsc --noEmit",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
