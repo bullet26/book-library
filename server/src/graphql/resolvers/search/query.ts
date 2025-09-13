@@ -1,6 +1,6 @@
 import { AuthorModel, BooksModel, SeriesModel } from '../../../models/index.js'
-import { type Book, type Author, type QueryResolvers, type Series } from '../../generated/types.js'
 import { toObjectMapping } from '../../../utils/mappers.js'
+import { type Author, type Book, type QueryResolvers, type Series } from '../../generated/types.js'
 
 export const SearchQuery: QueryResolvers = {
   search: async (_, args) => {
@@ -29,19 +29,19 @@ export const SearchQuery: QueryResolvers = {
     return toObjectMapping<Author>(authorsDocs)
   },
 
-  searchInSeries: async (_, args) => {
-    const { searchString } = args
-    const regexp = new RegExp(searchString, 'i')
-
-    const seriesDocs = await SeriesModel.find({ title: regexp }).limit(15)
-    return toObjectMapping<Series>(seriesDocs)
-  },
-
   searchInBooks: async (_, args) => {
     const { searchString } = args
     const regexp = new RegExp(searchString, 'i')
 
     const booksDocs = await BooksModel.find({ title: regexp }).limit(15)
     return toObjectMapping<Book>(booksDocs)
+  },
+
+  searchInSeries: async (_, args) => {
+    const { searchString } = args
+    const regexp = new RegExp(searchString, 'i')
+
+    const seriesDocs = await SeriesModel.find({ title: regexp }).limit(15)
+    return toObjectMapping<Series>(seriesDocs)
   },
 }

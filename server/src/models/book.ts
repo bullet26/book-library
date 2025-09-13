@@ -2,16 +2,16 @@ import mongoose from 'mongoose'
 
 const Books = new mongoose.Schema(
   {
-    authorID: { type: mongoose.Types.ObjectId, ref: 'AuthorModel' },
-    title: { type: String, required: true },
-    rating: Number,
-    seriesID: { type: mongoose.Types.ObjectId, default: null, ref: 'SeriesModel' },
-    seriesNumber: Number,
-    pages: Number,
-    notes: String,
-    description: String,
+    authorID: { ref: 'AuthorModel', type: mongoose.Types.ObjectId },
     bookCover: String,
     bookCoverThumbnail: String,
+    description: String,
+    notes: String,
+    pages: Number,
+    rating: Number,
+    seriesID: { default: null, ref: 'SeriesModel', type: mongoose.Types.ObjectId },
+    seriesNumber: Number,
+    title: { required: true, type: String },
   },
   {
     toObject: {

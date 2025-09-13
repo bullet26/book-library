@@ -1,6 +1,6 @@
 import { v2 as cloudinary } from 'cloudinary';
-import multer from 'multer';
 import { Request, Response } from 'express';
+import multer from 'multer';
 
 interface MulterRequest extends Request {
     file?: Express.Multer.File;
@@ -23,14 +23,14 @@ export const uploadImgCloudinary = async (req: MulterRequest, res: Response) => 
     try {
         if (req.file) {
             const b64 = Buffer.from(req.file.buffer).toString('base64');
-            let dataURI = 'data:' + req.file.mimetype + ';base64,' + b64;
+            const dataURI = 'data:' + req.file.mimetype + ';base64,' + b64;
 
             const image = await cloudinaryUpload(dataURI);
             return res.status(200).json({
-                message: 'image has been uploaded successfully to cloudinary',
                 data: {
                     image,
                 },
+                message: 'image has been uploaded successfully to cloudinary',
             });
         } else {
             res.status(404).json('couldn`t get image');

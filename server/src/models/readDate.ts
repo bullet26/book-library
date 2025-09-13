@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 
 const ReadDate = new mongoose.Schema(
   {
-    bookID: { type: mongoose.Types.ObjectId, ref: 'BooksModel' },
+    bookID: { ref: 'BooksModel', type: mongoose.Types.ObjectId },
     readEnd: Date,
   },
   {

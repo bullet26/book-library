@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 
 const Tag = new mongoose.Schema(
   {
-    tag: { type: String, required: true },
+    tag: { required: true, type: String },
   },
   {
     toObject: {
@@ -16,8 +16,8 @@ const Tag = new mongoose.Schema(
 
 const BookTagRelations = new mongoose.Schema(
   {
-    bookID: { type: mongoose.Types.ObjectId, ref: 'BooksModel' },
-    tagID: { type: mongoose.Types.ObjectId, ref: 'TagModel' },
+    bookID: { ref: 'BooksModel', type: mongoose.Types.ObjectId },
+    tagID: { ref: 'TagModel', type: mongoose.Types.ObjectId },
   },
   {
     toObject: {

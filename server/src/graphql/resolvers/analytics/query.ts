@@ -1,21 +1,21 @@
-import { type QueryResolvers } from '../../generated/types.js'
 import { BooksModel, ReadDateModel } from '../../../models/index.js'
+import { type QueryResolvers } from '../../generated/types.js'
 import {
-  booksAggregation,
   authorsAggregation,
-  yearsStatisticAggregate,
+  booksAggregation,
   yearsAggregate,
+  yearsStatisticAggregate,
 } from './aggregation.js'
 
 export const AnalyticsQuery: QueryResolvers = {
-  getMostReadBooks: async () => {
-    const booksStat = await ReadDateModel.aggregate(booksAggregation)
-    return booksStat
-  },
-
   getMostReadAuthors: async () => {
     const authorsStat = await BooksModel.aggregate(authorsAggregation)
     return authorsStat
+  },
+
+  getMostReadBooks: async () => {
+    const booksStat = await ReadDateModel.aggregate(booksAggregation)
+    return booksStat
   },
 
   getReadStatistic: async (_, args) => {

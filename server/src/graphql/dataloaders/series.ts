@@ -1,4 +1,5 @@
 import DataLoader from 'dataloader'
+
 import { BooksModel } from '../../models/index.js'
 import { toObjectMapping } from '../../utils/mappers.js'
 import { Book } from '../generated/types.js'

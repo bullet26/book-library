@@ -1,11 +1,11 @@
 import { BooksModel } from '../../../models/index.js'
-import { type Book, type QueryResolvers } from '../../generated/types.js'
-import { toObjectMapping, toObjectMappingSingle } from '../../../utils/mappers.js'
 import { HttpError } from '../../../utils/http-error.js'
+import { toObjectMapping, toObjectMappingSingle } from '../../../utils/mappers.js'
+import { type Book, type QueryResolvers } from '../../generated/types.js'
 
 export const BookQuery: QueryResolvers = {
   getAllBooksByName: async (_, args) => {
-    const { page, limit } = args
+    const { limit, page } = args
 
     const totalCount = await BooksModel.countDocuments({})
     const booksDocs = await BooksModel.find({})
@@ -14,7 +14,7 @@ export const BookQuery: QueryResolvers = {
       .limit(limit)
     const books = toObjectMapping<Book>(booksDocs)
 
-    return { totalCount, books }
+    return { books, totalCount }
   },
 
   getOneBook: async (_, args) => {

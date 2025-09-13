@@ -22,10 +22,10 @@ export const authorsAggregation: PipelineStage[] = [
     },
     {
         $lookup: {
+            as: 'authorData',
+            foreignField: '_id',
             from: 'authors',
             localField: 'authorSearchID',
-            foreignField: '_id',
-            as: 'authorData',
         },
     },
     {
@@ -34,16 +34,16 @@ export const authorsAggregation: PipelineStage[] = [
     {
         $addFields: {
             id: '$authorData._id',
-            surname: '$authorData.surname',
             name: '$authorData.name',
             portraitThumbnail: '$authorData.portraitThumbnail',
+            surname: '$authorData.surname',
         },
     },
     {
         $project: {
             _id: 0,
-            authorSearchID: 0,
             authorData: 0,
+            authorSearchID: 0,
         },
     },
 ];

@@ -1,7 +1,7 @@
-import { BookTagRelationsModel, BooksModel } from '../../../models/index.js'
-import { Book, type MutationResolvers } from '../../generated/types.js'
-import { toObjectMappingSingle } from '../../../utils/mappers.js'
+import { BooksModel, BookTagRelationsModel } from '../../../models/index.js'
 import { HttpError } from '../../../utils/http-error.js'
+import { toObjectMappingSingle } from '../../../utils/mappers.js'
+import { Book, type MutationResolvers } from '../../generated/types.js'
 
 export const TagsMutation: MutationResolvers = {
   linkBookWithTag: async (_, { input }) => {

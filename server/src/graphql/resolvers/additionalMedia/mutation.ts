@@ -1,7 +1,7 @@
-import { type Book, type MutationResolvers } from '../../generated/types.js'
 import { AdditionalMediaModel, BooksModel } from '../../../models/index.js'
 import { HttpError } from '../../../utils/http-error.js'
 import { toObjectMappingSingle } from '../../../utils/mappers.js'
+import { type Book, type MutationResolvers } from '../../generated/types.js'
 
 export const AdditionalMediaMutation: MutationResolvers = {
   addAdditionalMedia: async (_, { input }) => {

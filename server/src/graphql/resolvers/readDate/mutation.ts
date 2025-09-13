@@ -1,5 +1,5 @@
+import { type MutationResolvers, type ReadDate } from '../../../graphql/generated/types.js'
 import { ReadDateModel } from '../../../models/index.js'
-import { type ReadDate, type MutationResolvers } from '../../../graphql/generated/types.js'
 import { toObjectMappingSingle } from '../../../utils/mappers.js'
 
 export const ReadDateMutation: MutationResolvers = {

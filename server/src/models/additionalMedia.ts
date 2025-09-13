@@ -1,15 +1,16 @@
-import { MediaType } from '../graphql/generated/types.js'
 import mongoose from 'mongoose'
+
+import { MediaType } from '../graphql/generated/types.js'
 
 const AdditionalMedia = new mongoose.Schema(
   {
-    bookID: { type: mongoose.Types.ObjectId, ref: 'BooksModel' },
-    url: { type: String, required: true },
+    bookID: { ref: 'BooksModel', type: mongoose.Types.ObjectId },
     type: {
-      type: String,
       enum: [...Object.values(MediaType)],
       required: true,
+      type: String,
     },
+    url: { required: true, type: String },
   },
   {
     toObject: {

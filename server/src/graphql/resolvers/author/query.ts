@@ -1,12 +1,12 @@
-import { type Author, type QueryResolvers } from '../../generated/types.js'
 import { AuthorModel, BooksModel } from '../../../models/index.js'
 import { HttpError } from '../../../utils/http-error.js'
 import { toObjectMapping, toObjectMappingSingle } from '../../../utils/mappers.js'
+import { type Author, type QueryResolvers } from '../../generated/types.js'
 import { authorsAggregation } from './aggregation.js'
 
 export const AuthorQuery: QueryResolvers = {
   getAllAuthors: async (_, args) => {
-    const { page, limit } = args
+    const { limit, page } = args
 
     const totalCount = await AuthorModel.countDocuments({})
     const authorsDocs = await AuthorModel.find({})

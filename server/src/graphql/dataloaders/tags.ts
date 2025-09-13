@@ -1,8 +1,9 @@
-import mongoose from 'mongoose'
 import DataLoader from 'dataloader'
+import mongoose from 'mongoose'
+
 import { BooksModel, BookTagRelationsModel } from '../../models/index.js'
 import { toObjectMapping } from '../../utils/mappers.js'
-import { BookTagRelations, Book } from '../generated/types.js'
+import { Book, BookTagRelations } from '../generated/types.js'
 
 export const TagsDL = {
   booksInTag: new DataLoader(async (tagIDs: readonly string[]) => {
@@ -29,10 +30,10 @@ export const TagsDL = {
       },
       {
         $lookup: {
+          as: 'authorData',
+          foreignField: '_id',
           from: 'authors',
           localField: 'authorID',
-          foreignField: '_id',
-          as: 'authorData',
         },
       },
       { $unwind: '$authorData' },
@@ -44,8 +45,8 @@ export const TagsDL = {
       {
         $project: {
           _id: 0,
-          authorSurname: 0,
           authorData: 0,
+          authorSurname: 0,
         },
       },
     ])

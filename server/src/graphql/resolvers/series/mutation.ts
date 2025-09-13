@@ -1,6 +1,6 @@
 import { SeriesModel } from '../../../models/index.js'
-import { type Series, type MutationResolvers } from '../../generated/types.js'
 import { toObjectMappingSingle } from '../../../utils/mappers.js'
+import { type MutationResolvers, type Series } from '../../generated/types.js'
 
 export const SeriesMutation: MutationResolvers = {
   createSerie: async (_, { input }) => {

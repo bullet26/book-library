@@ -1,5 +1,5 @@
-import { DescriptionPlotModel } from '../../../models/index.js'
 import { type DescriptionPlot, type QueryResolvers } from '../../../graphql/generated/types.js'
+import { DescriptionPlotModel } from '../../../models/index.js'
 import { HttpError } from '../../../utils/http-error.js'
 import { toObjectMappingSingle } from '../../../utils/mappers.js'
 

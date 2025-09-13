@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 
 const DescriptionPlot = new mongoose.Schema(
   {
-    bookID: { type: mongoose.Types.ObjectId, ref: 'BooksModel' },
+    bookID: { ref: 'BooksModel', type: mongoose.Types.ObjectId },
     plot: String,
   },
   {

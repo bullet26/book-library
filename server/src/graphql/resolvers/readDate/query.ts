@@ -1,11 +1,11 @@
 import { ReadDateModel } from '../../../models/index.js'
-import { type ReadDate, type QueryResolvers } from '../../generated/types.js'
-import { toObjectMapping } from '../../../utils/mappers.js'
 import { HttpError } from '../../../utils/http-error.js'
+import { toObjectMapping } from '../../../utils/mappers.js'
+import { type QueryResolvers, type ReadDate } from '../../generated/types.js'
 
 export const ReadDateQuery: QueryResolvers = {
   getAllBooksByDate: async (_, args) => {
-    const { page, limit } = args
+    const { limit, page } = args
 
     const totalCount = await ReadDateModel.countDocuments({})
     const booksDocs = await ReadDateModel.find({})
@@ -14,7 +14,7 @@ export const ReadDateQuery: QueryResolvers = {
       .limit(limit)
     const books = toObjectMapping<ReadDate>(booksDocs)
 
-    return { totalCount, readDate: books }
+    return { readDate: books, totalCount }
   },
 
   getAllBooksBySpecificDate: async (_, args) => {

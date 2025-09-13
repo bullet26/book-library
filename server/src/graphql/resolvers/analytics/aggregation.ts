@@ -21,10 +21,10 @@ export const booksAggregation: PipelineStage[] = [
   },
   {
     $lookup: {
+      as: 'bookData',
+      foreignField: '_id',
       from: 'books',
       localField: 'bookSearchID',
-      foreignField: '_id',
-      as: 'bookData',
     },
   },
   {
@@ -32,16 +32,16 @@ export const booksAggregation: PipelineStage[] = [
   },
   {
     $addFields: {
-      bookTitle: '$bookData.title',
       authorID: '$bookData.authorID',
+      bookTitle: '$bookData.title',
     },
   },
   {
     $lookup: {
+      as: 'authorData',
+      foreignField: '_id',
       from: 'authors',
       localField: 'authorID',
-      foreignField: '_id',
-      as: 'authorData',
     },
   },
   {
@@ -55,10 +55,10 @@ export const booksAggregation: PipelineStage[] = [
   {
     $project: {
       _id: 0,
-      bookSearchID: 0,
+      authorData: 0,
       authorID: 0,
       bookData: 0,
-      authorData: 0,
+      bookSearchID: 0,
     },
   },
 ]
@@ -83,10 +83,10 @@ export const authorsAggregation: PipelineStage[] = [
   },
   {
     $lookup: {
+      as: 'authorData',
+      foreignField: '_id',
       from: 'authors',
       localField: 'authorSearchID',
-      foreignField: '_id',
-      as: 'authorData',
     },
   },
   {
@@ -94,15 +94,15 @@ export const authorsAggregation: PipelineStage[] = [
   },
   {
     $addFields: {
-      surname: '$authorData.surname',
       name: '$authorData.name',
+      surname: '$authorData.surname',
     },
   },
   {
     $project: {
       _id: 0,
-      authorSearchID: 0,
       authorData: 0,
+      authorSearchID: 0,
     },
   },
 ]
@@ -125,8 +125,8 @@ export const yearsStatisticAggregate: PipelineStage[] = [
   {
     $project: {
       _id: 0,
-      period: '$_id',
       count: '$count',
+      period: '$_id',
     },
   },
 ]
@@ -149,8 +149,8 @@ export const yearsAggregate = (year: number): PipelineStage[] => [
   {
     $project: {
       _id: 0,
-      period: '$_id',
       count: 1,
+      period: '$_id',
     },
   },
   {

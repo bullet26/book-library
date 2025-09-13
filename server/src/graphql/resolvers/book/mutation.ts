@@ -1,6 +1,6 @@
-import { BooksModel, ReadDateModel, DescriptionPlotModel } from '../../../models/index.js'
-import { type Book, type MutationResolvers } from '../../generated/types.js'
+import { BooksModel, DescriptionPlotModel, ReadDateModel } from '../../../models/index.js'
 import { toObjectMappingSingle } from '../../../utils/mappers.js'
+import { type Book, type MutationResolvers } from '../../generated/types.js'
 
 export const BookMutation: MutationResolvers = {
   addBook: async (_, { input }) => {

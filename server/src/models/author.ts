@@ -2,10 +2,10 @@ import mongoose from 'mongoose'
 
 const Authors = new mongoose.Schema(
   {
-    name: { type: String, required: true },
-    surname: String,
+    name: { required: true, type: String },
     portrait: String,
     portraitThumbnail: String,
+    surname: String,
     transcriptionName: String,
   },
   {

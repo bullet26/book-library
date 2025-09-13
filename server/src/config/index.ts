@@ -1,20 +1,20 @@
-import dotenv from 'dotenv'
 import { v2 as cloudinary } from 'cloudinary'
+import dotenv from 'dotenv'
 
 dotenv.config()
 
 export const {
-  DB_URL = '',
-  PORT = 3000,
-  CLOUDINARY_NAME,
-  CLOUDINARY_KEY,
-  CLOUDINARY_SECRET,
   APP_MODE = 'production',
   CLIENT_URL,
+  CLOUDINARY_KEY,
+  CLOUDINARY_NAME,
+  CLOUDINARY_SECRET,
+  DB_URL = '',
+  PORT = 3000,
 } = process.env
 
 cloudinary.config({
-  cloud_name: CLOUDINARY_NAME,
   api_key: CLOUDINARY_KEY,
   api_secret: CLOUDINARY_SECRET,
+  cloud_name: CLOUDINARY_NAME,
 })
