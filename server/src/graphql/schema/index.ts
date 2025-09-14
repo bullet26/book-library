@@ -8,7 +8,7 @@ import { fileURLToPath } from 'url'
 import { GraphQLFileLoader } from '@graphql-tools/graphql-file-loader'
 import { consoleInfo } from '../../common/index.js'
 
-// const __dirname = path.dirname(fileURLToPath(import.meta.url))
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 // const typesArray = await loadFiles(path.join(__dirname, '*.graphql'), {
 //   ignoreIndex: true,
@@ -18,6 +18,8 @@ import { consoleInfo } from '../../common/index.js'
 
 // export const typeDefs = mergeTypeDefs(typesArray)
 
-export const typeDefs = await loadSchema('../**/*.graphql', { loaders: [new GraphQLFileLoader()] })
+export const typeDefs = await loadSchema(path.join(__dirname, '*.graphql'), {
+  loaders: [new GraphQLFileLoader()],
+})
 
 consoleInfo(`${__dirname} __dirname`)
