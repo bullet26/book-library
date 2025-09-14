@@ -3,12 +3,8 @@ import { loadSchema } from '@graphql-tools/load'
 
 import { mergeTypeDefs } from '@graphql-tools/merge'
 import path from 'path'
-import fs from 'fs'
-import { fileURLToPath } from 'url'
-import { GraphQLFileLoader } from '@graphql-tools/graphql-file-loader'
-import { consoleInfo } from '../../common/index.js'
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url))
+import { GraphQLFileLoader } from '@graphql-tools/graphql-file-loader'
 
 // const typesArray = await loadFiles(path.join(__dirname, '*.graphql'), {
 //   ignoreIndex: true,
@@ -18,8 +14,6 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 // export const typeDefs = mergeTypeDefs(typesArray)
 
-export const typeDefs = await loadSchema(path.join(__dirname, '*.graphql'), {
+export const typeDefs = await loadSchema(path.join(process.cwd(), 'graphql/schema/**/*.graphql'), {
   loaders: [new GraphQLFileLoader()],
 })
-
-consoleInfo(`${__dirname} __dirname`)
