@@ -50,8 +50,8 @@ export const BookDL = {
       )
 
       return {
-        image: mediaForBook.find((item) => item.id.type === MediaType.Image).media || [],
-        video: mediaForBook.find((item) => item.id.type === MediaType.Video).media || [],
+        image: mediaForBook.find((item) => item.id.type === MediaType.Image)?.media || [],
+        video: mediaForBook.find((item) => item.id.type === MediaType.Video)?.media || [],
       }
     })
   }),
