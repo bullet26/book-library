@@ -10,8 +10,8 @@
   "scripts": {
     "dev": "tsx --watch src/server.ts",
     "start": "node dist/server.js",
-    "build": "tsc && copyfiles -u 1 \"src/graphql/schema/*.graphql\" dist",
-    "deploy-build": "tsc && copyfiles -u 1 \"src/graphql/schema/*.graphql\" dist && copyfiles vercel.json dist && copyfiles package.json dist",
+    "build": "tsc && copyfiles -u 1 \"src/**/*.graphql\" dist",
+    "deploy-build": "tsc && copyfiles -u 1 \"src/**/*.graphql\" dist && copyfiles vercel.json dist && copyfiles package.json dist && ls -R dist/graphql",
     "type-check": "tsc --noEmit",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",

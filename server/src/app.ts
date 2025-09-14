@@ -33,7 +33,7 @@ app.use(express.json())
 
 const httpServer = http.createServer(app)
 
-consoleInfo(print(typeDefs))
+consoleInfo(print(typeDefs)) // TODO remove
 
 const server = new ApolloServer<MyContext>({
   csrfPrevention: true,
