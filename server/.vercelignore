@@ -8,6 +8,8 @@ yarn-error.log
 # Typescript
 src
 *.tsbuildinfo
+codegen.ts
+eslint.config.js
 
 # Env
 .env

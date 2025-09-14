@@ -1,16 +1,9 @@
-import { type SearchResultResolvers } from '../../generated/types.js'
+import { mergeResolvers } from '@graphql-tools/merge'
 
-const SearchResult = {
-  __resolveType(obj: any) {
-    if (obj.surname || obj.name) {
-      return 'Author'
-    }
+import { SearchQuery } from './query.js'
+import { SearchResolver } from './resolver-union-type.js'
 
-    if (obj.title) {
-      return 'Book'
-    }
-    return null // GraphQLError is thrown
-  },
-}
-
-export const SearchResolver: SearchResultResolvers = { ...SearchResult }
+export const searchResolvers = mergeResolvers([
+  { Query: SearchQuery },
+  { SearchResult: SearchResolver },
+])

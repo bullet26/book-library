@@ -1,5 +1,11 @@
-import { type ReadDateResolvers } from '../../generated/types.js'
+import { mergeResolvers } from '@graphql-tools/merge'
 
-export const ReadDateResolver: ReadDateResolvers = {
-  books: (readDate, _, { dataloaders }) => dataloaders.readDate.books.load(readDate.bookID),
-}
+import { ReadDateMutation } from './mutation.js'
+import { ReadDateQuery } from './query.js'
+import { ReadDateResolver } from './resolver-from-data_loader.js'
+
+export const readDateResolvers = mergeResolvers([
+  { Query: ReadDateQuery },
+  { Mutation: ReadDateMutation },
+  { ReadDate: ReadDateResolver },
+])

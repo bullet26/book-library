@@ -1,8 +1,11 @@
-import { type AuthorResolvers } from '../../generated/types.js'
+import { mergeResolvers } from '@graphql-tools/merge'
 
-export const AuthorResolver: AuthorResolvers = {
-  books: (author, _, { dataloaders }) => dataloaders.author.books.load(author.id),
-  booksWithoutSeries: (author, _, { dataloaders }) =>
-    dataloaders.author.booksWithoutSeries.load(author.id),
-  series: (author, _, { dataloaders }) => dataloaders.author.series.load(author.id),
-}
+import { AuthorMutation } from './mutation.js'
+import { AuthorQuery } from './query.js'
+import { AuthorResolver } from './resolver-from-data_loader.js'
+
+export const authorResolvers = mergeResolvers([
+  { Query: AuthorQuery },
+  { Mutation: AuthorMutation },
+  { Author: AuthorResolver },
+])

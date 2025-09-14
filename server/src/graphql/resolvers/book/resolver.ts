@@ -1,12 +1,11 @@
-import { type BookResolvers } from '../../generated/types.js'
+import { mergeResolvers } from '@graphql-tools/merge'
 
-export const BookResolver: BookResolvers = {
-  additionalMedia: (book, _, { dataloaders }) => dataloaders.book.additionalMedia.load(book.id),
-  author: (book, _, { dataloaders }) => dataloaders.book.author.load(book.authorID),
-  isAdditionalMediaExist: (book, _, { dataloaders }) =>
-    dataloaders.book.isAdditionalMediaExist.load(book.id),
-  readDate: (book, _, { dataloaders }) => dataloaders.book.readDate.load(book.id),
-  series: (book, _, { dataloaders }) =>
-    book.seriesID ? dataloaders.book.series.load(book.seriesID) : null,
-  tags: (book, _, { dataloaders }) => dataloaders.book.tags.load(book.id),
-}
+import { BookMutation } from './mutation.js'
+import { BookQuery } from './query.js'
+import { BookResolver } from './resolver-from-data_loader.js'
+
+export const bookResolvers = mergeResolvers([
+  { Query: BookQuery },
+  { Mutation: BookMutation },
+  { Book: BookResolver },
+])

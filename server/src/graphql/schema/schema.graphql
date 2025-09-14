@@ -2,10 +2,6 @@ scalar Date
 
 union SearchResult = Book | Author
 
-type Query {
-  _empty: String
-}
+type Query
 
-type Mutation {
-  _empty: String
-}
+type Mutation

@@ -1,5 +1,9 @@
-import { type SeriesResolvers } from '../../generated/types.js'
+import { mergeResolvers } from '@graphql-tools/merge'
 
-export const SeriesResolver: SeriesResolvers = {
-  booksInSeries: (series, _, { dataloaders }) => dataloaders.series.booksInSeries.load(series.id),
-}
+import { SeriesMutation } from './mutation.js'
+import { SeriesResolver } from './resolver-from-data_loader.js'
+
+export const seriesResolvers = mergeResolvers([
+  { Mutation: SeriesMutation },
+  { Series: SeriesResolver },
+])

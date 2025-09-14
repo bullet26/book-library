@@ -1,16 +1,11 @@
-import { type TagsResolvers } from '../../generated/types.js'
+import { mergeResolvers } from '@graphql-tools/merge'
 
-export const TagsResolver: TagsResolvers = {
-  booksInTag: async (tag, args, { dataloaders }) => {
-    const { sortBy = 'title' } = args
+import { TagsMutation } from './mutation.js'
+import { TagsQuery } from './query.js'
+import { TagsResolver } from './resolver-from-data_loader.js'
 
-    if (sortBy === 'title') {
-      const books = await dataloaders.tags.booksInTag.load(tag.id)
-      return books
-    }
-    if (sortBy === 'author') {
-      const books = await dataloaders.tags.booksInTagByAuthor.load(tag.id)
-      return books
-    }
-  },
-}
+export const tagResolvers = mergeResolvers([
+  { Query: TagsQuery },
+  { Mutation: TagsMutation },
+  { Tags: TagsResolver },
+])
