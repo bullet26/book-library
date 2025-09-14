@@ -7,11 +7,6 @@ import { fileURLToPath } from 'url'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
-import fs from 'fs'
-
-console.log('CWD', process.cwd())
-console.log('FILES', fs.readdirSync(path.join(process.cwd(), 'graphql/schema')))
-
 const schemaPath =
   APP_MODE === 'vercel'
     ? path.join(process.cwd(), '**/*.graphql')
