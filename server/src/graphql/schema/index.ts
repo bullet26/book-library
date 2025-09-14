@@ -9,10 +9,8 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 const schemaPath =
   APP_MODE === 'vercel'
-    ? path.join(process.cwd(), 'graphql/schema/*.graphql')
+    ? path.join(process.cwd(), '**/*.graphql')
     : path.join(__dirname, '*.graphql')
-
-console.log(schemaPath)
 
 export const typeDefs = await loadSchema(schemaPath, {
   loaders: [new GraphQLFileLoader()],
