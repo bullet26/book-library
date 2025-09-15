@@ -5,7 +5,6 @@ export const useDebounce = (value: string, delay = 800) => {
 
   useEffect(() => {
     const debounce = setTimeout(() => {
-      // можно проверку добавить if (!value) {...}
       setDebouncedValue(value)
     }, delay)
 
