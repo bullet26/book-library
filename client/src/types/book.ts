@@ -5,4 +5,4 @@ import type {
 
 export type ReadDateBook = NonNullable<GetAllBooksBySpecificDateQuery['bookInYear']>[number]
 
-export type SerieBooks = NonNullable<GetOneAuthorByIdQuery['author']>['series'][0]
+export type SerieBooks = NonNullable<GetOneAuthorByIdQuery['author']>['series'][number]

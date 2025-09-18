@@ -5,7 +5,7 @@ import type { AuthorMostReadResponse, GetAllAuthorsQuery } from '__graphql/__gen
 import s from './CardList.module.scss'
 
 type Authors = NonNullable<GetAllAuthorsQuery['getAllAuthors']>['authors']
-type Author = Authors[0]
+type Author = Authors[number]
 interface CardListAuthorsProps {
   data: Authors | AuthorMostReadResponse[]
 }
