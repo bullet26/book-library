@@ -1,9 +1,9 @@
 import { type CSSProperties } from 'react'
-import { StarTwoTone } from '@ant-design/icons'
+import { StarTwoTone, HeartOutlined, StarFilled } from '@ant-design/icons'
 import { Tick } from 'assets'
 import { colorRate } from 'utils'
-import { makeArray } from './utils'
 import s from './Rating.module.scss'
+import { Rate } from 'antd'
 
 interface RatingProps {
   rating: number
@@ -19,11 +19,14 @@ export const Rating = (props: RatingProps) => {
       {type === 'star' && (
         <div className={s.wrapper} style={style}>
           <div className={s.ratingStar}>
-            {makeArray(rating).map((_, i) => {
-              return (
-                <StarTwoTone twoToneColor={colorRate(rating)} style={{ fontSize: 40 }} key={i} />
-              )
-            })}
+            <Rate
+              disabled
+              defaultValue={rating}
+              style={{ fontSize: 40, color: colorRate(rating) }}
+              character={<StarFilled />}
+              allowHalf
+              count={5}
+            />
           </div>
           <div className={s.ratingCircle} style={{ backgroundColor: colorRate(rating) }}>
             {rating || <Tick fill="white" height="15px" />}
