@@ -1,5 +1,5 @@
 import { type CSSProperties } from 'react'
-import { StarTwoTone, HeartOutlined, StarFilled } from '@ant-design/icons'
+import { HeartFilled, StarFilled } from '@ant-design/icons'
 import { Tick } from 'assets'
 import { colorRate } from 'utils'
 import s from './Rating.module.scss'
@@ -23,7 +23,7 @@ export const Rating = (props: RatingProps) => {
               disabled
               defaultValue={rating}
               style={{ fontSize: 40, color: colorRate(rating) }}
-              character={<StarFilled />}
+              character={rating >= 4 ? <HeartFilled /> : <StarFilled />}
               allowHalf
               count={5}
             />
