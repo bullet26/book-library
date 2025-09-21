@@ -1,41 +1,41 @@
-import { v2 as cloudinary } from 'cloudinary';
-import { Request, Response } from 'express';
-import multer from 'multer';
+import { v2 as cloudinary } from 'cloudinary'
+import { Request, Response } from 'express'
+import multer from 'multer'
 
 interface MulterRequest extends Request {
-    file?: Express.Multer.File;
+  file?: Express.Multer.File
 }
 
-const storage = multer.memoryStorage();
-export const multerMiddleware = multer({ storage }).single('file');
+const storage = multer.memoryStorage()
+export const multerMiddleware = multer({ storage }).single('file')
 
 async function cloudinaryUpload(file: string) {
-    const res = await cloudinary.uploader.upload(file, {
-        folder: 'books',
-        resource_type: 'auto',
-    });
+  const res = await cloudinary.uploader.upload(file, {
+    folder: 'books',
+    resource_type: 'auto',
+  })
 
-    const { url } = res;
-    return url;
+  const { url } = res
+  return url
 }
 
 export const uploadImgCloudinary = async (req: MulterRequest, res: Response) => {
-    try {
-        if (req.file) {
-            const b64 = Buffer.from(req.file.buffer).toString('base64');
-            const dataURI = 'data:' + req.file.mimetype + ';base64,' + b64;
+  try {
+    if (req.file) {
+      const b64 = Buffer.from(req.file.buffer).toString('base64')
+      const dataURI = 'data:' + req.file.mimetype + ';base64,' + b64
 
-            const image = await cloudinaryUpload(dataURI);
-            return res.status(200).json({
-                data: {
-                    image,
-                },
-                message: 'image has been uploaded successfully to cloudinary',
-            });
-        } else {
-            res.status(404).json('couldn`t get image');
-        }
-    } catch (error: any) {
-        res.status(500).json(error?.message || 'couldn`t upload image to cloudinary');
+      const image = await cloudinaryUpload(dataURI)
+      return res.status(200).json({
+        data: {
+          image,
+        },
+        message: 'image has been uploaded successfully to cloudinary',
+      })
+    } else {
+      res.status(404).json('couldn`t get image')
     }
-};
+  } catch (error: any) {
+    res.status(500).json(error?.message || 'couldn`t upload image to cloudinary')
+  }
+}

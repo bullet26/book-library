@@ -72,7 +72,7 @@ export const DropZone = (props: DropZoneProps) => {
 
     try {
       const baseURL = import.meta.env.VITE_REST_API_BASE_URL
-      const response: { data: { image: string }; messge: string } = await ky
+      const response: { data: { image: string }; message: string } = await ky
         .post(`${baseURL}/upload`, { body: formData })
         .json()
 
@@ -104,7 +104,7 @@ export const DropZone = (props: DropZoneProps) => {
         <>
           <label htmlFor="bookCover">
             <div
-              className={s.dropZonewrapper}
+              className={s.dropZoneWrapper}
               ref={dropzoneRef}
               onDragOver={(e) => handleDragOver(e)}
               onDrop={(e) => handleDrop(e)}>
