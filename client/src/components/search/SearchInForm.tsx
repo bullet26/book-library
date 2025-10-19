@@ -25,7 +25,7 @@ export const SearchInForm = (props: SearchInForProps) => {
   const [inputValue, setInputValue] = useState('')
   const debouncedValue = useDebounce(inputValue, 500)
 
-  const [elementChosenStatus, setElementChosenStatus] = useState(false)
+  const [allowSearch, setAllowSearchStatus] = useState(false)
   const [showSearchList, setShowSearchListStatus] = useState(false)
 
   const handleSearch = (searchString: string) => {
@@ -40,21 +40,19 @@ export const SearchInForm = (props: SearchInForProps) => {
   }
 
   useEffect(() => {
-    if (!elementChosenStatus && debouncedValue) {
+    if (debouncedValue && allowSearch) {
       handleSearch(inputValue)
+    } else if (!debouncedValue) {
+      setShowSearchListStatus(false)
     }
-  }, [debouncedValue, elementChosenStatus])
+  }, [debouncedValue])
 
   const handleInputChange = (value: string) => {
     setInputValue(value)
-    setElementChosenStatus(false)
-    if (!value) {
-      setShowSearchListStatus(false)
-    }
+    setAllowSearchStatus(true)
   }
 
   const handleSearchResultClick = (id: string, value: string) => {
-    setShowSearchListStatus(false)
     if (type === 'authors') {
       setFieldValue('authorID', id)
     } else if (type === 'series') {
@@ -63,7 +61,8 @@ export const SearchInForm = (props: SearchInForProps) => {
       setFieldValue('bookID', id)
     }
 
-    setElementChosenStatus(true)
+    setShowSearchListStatus(false)
+    setAllowSearchStatus(false)
     setInputValue(value)
   }
 

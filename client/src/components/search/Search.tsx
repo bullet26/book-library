@@ -23,6 +23,8 @@ export const Search = () => {
   useEffect(() => {
     if (debouncedValue) {
       handleSearch(debouncedValue)
+    } else {
+      setShowSearchListStatus(false)
     }
   }, [debouncedValue])
 
