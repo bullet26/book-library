@@ -11,6 +11,8 @@ export const DiagramPie = (props: DiagramPieProps) => {
   const [radius, setRadius] = useState({ inner: 85, outer: 100 })
   const width = window.innerWidth
 
+  console.log(chartData)
+
   useEffect(() => {
     setRadius(handleResponsive())
   }, [])
@@ -33,7 +35,13 @@ export const DiagramPie = (props: DiagramPieProps) => {
           contentStyle={{ borderRadius: '15px', backgroundColor: '#222222' }}
           itemStyle={{ color: 'white' }}
         />
-        <Legend layout={width > 600 ? 'vertical' : 'horizontal'} align="left" verticalAlign="top" />
+        <Legend
+          layout={width > 600 ? 'vertical' : 'horizontal'}
+          align="left"
+          verticalAlign="top"
+          iconType="star"
+          itemSorter={(item) => Number(item.value) * -1}
+        />
       </PieChart>
     </ResponsiveContainer>
   )
