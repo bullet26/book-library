@@ -19,11 +19,11 @@ export const AddSerieForm = (props: AddSerieFormProps) => {
   const [createSerieApollo, { data, error }] = useMutation(CREATE_SERIE)
 
   const onSubmit = (values: ValueType, { resetForm }: FormikHelpers<ValueType>) => {
-    const { author, authorID, ...filteredValues } = values
+    const { authorID, title } = values
 
     if (!authorID) return
 
-    createSerieApollo({ variables: { input: { authorID, ...filteredValues } } })
+    createSerieApollo({ variables: { input: { authorID, title: title.trim() } } })
     resetForm()
     handleHideForm()
   }

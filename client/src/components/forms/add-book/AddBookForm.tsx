@@ -36,7 +36,8 @@ export const AddBookForm = (props: AddBookFormProps) => {
   const [rating, setRating] = useState(0)
 
   const onSubmit = (values: ValuesAddBookType, { resetForm }: FormikHelpers<ValuesAddBookType>) => {
-    const { author, series, plot, description, readEnd, authorID, ...filteredValues } = values
+    const { author, series, plot, description, readEnd, authorID, title, ...filteredValues } =
+      values
 
     if (!authorID) return
 
@@ -47,6 +48,7 @@ export const AddBookForm = (props: AddBookFormProps) => {
       variables: {
         input: {
           ...filteredValues,
+          title: title.trim(),
           authorID,
           rating,
           plot,

@@ -1,3 +1,5 @@
+import DOMPurify from 'dompurify'
+
 export const colorRate = (rating: number) => {
   const iconColor = {
     good: '#64c80a',
@@ -16,4 +18,8 @@ export const colorRate = (rating: number) => {
     return iconColor.mid
   }
   return iconColor.unknown
+}
+
+export const sanitize = (dirtyText: string): TrustedHTML | string => {
+  return DOMPurify.sanitize(dirtyText, { USE_PROFILES: { html: true } })
 }

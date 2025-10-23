@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import type { GetOneBookByIdQuery } from '__graphql/__generated__/graphql'
+import { sanitize } from 'utils'
 import s from './BookInfo.module.scss'
 
 interface BookInfoProps {
@@ -21,6 +22,8 @@ export const BookInfo = (props: BookInfoProps) => {
       navigate(`/date/${year}`)
     }
   }
+
+  const annotation = sanitize(data?.book?.description || '')
 
   return (
     !!data?.book && (
@@ -48,11 +51,7 @@ export const BookInfo = (props: BookInfoProps) => {
           })}
         </div>
         <div className={s.key}>description</div>
-        <div
-          className={s.value}
-          // eslint-disable-next-line react/no-danger
-          dangerouslySetInnerHTML={{ __html: data?.book.description as TrustedHTML }}
-        />
+        <div className={s.value} dangerouslySetInnerHTML={{ __html: annotation }} />
       </div>
     )
   )

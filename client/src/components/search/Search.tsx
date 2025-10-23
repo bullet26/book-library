@@ -16,7 +16,9 @@ export const Search = () => {
   const debouncedValue = useDebounce(inputValue, 500)
 
   const handleSearch = (searchString: string) => {
-    makeSearch({ variables: { searchString } })
+    const trimmedSearchString = searchString.trim()
+
+    makeSearch({ variables: { searchString: trimmedSearchString } })
     setShowSearchListStatus(true)
   }
 

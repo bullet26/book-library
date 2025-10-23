@@ -28,7 +28,17 @@ export const AddAuthorForm = (props: AddAuthorFormProps) => {
     const portraitThumbnail =
       portrait?.replace(/\/upload\//, '/upload/c_thumb,w_218,h_323,g_face/') || null
 
-    createAuthorApollo({ variables: { input: { ...values, portraitThumbnail, portrait } } })
+    createAuthorApollo({
+      variables: {
+        input: {
+          ...values,
+          name: values.name.trim(),
+          surname: values.surname.trim(),
+          portraitThumbnail,
+          portrait,
+        },
+      },
+    })
 
     resetForm()
     handleHideForm()

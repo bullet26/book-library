@@ -29,12 +29,14 @@ export const SearchInForm = (props: SearchInForProps) => {
   const [showSearchList, setShowSearchListStatus] = useState(false)
 
   const handleSearch = (searchString: string) => {
+    const trimmedSearchString = searchString.trim()
+
     if (type === 'authors') {
-      makeSearchAuthors({ variables: { searchString } })
+      makeSearchAuthors({ variables: { searchString: trimmedSearchString } })
     } else if (type === 'series') {
-      makeSearchSeries({ variables: { searchString } })
+      makeSearchSeries({ variables: { searchString: trimmedSearchString } })
     } else if (type === 'books') {
-      makeSearchBooks({ variables: { searchString } })
+      makeSearchBooks({ variables: { searchString: trimmedSearchString } })
     }
     setShowSearchListStatus(true)
   }

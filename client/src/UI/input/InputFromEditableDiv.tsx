@@ -2,6 +2,7 @@ import { type RefObject } from 'react'
 import { useField } from 'formik'
 import ContentEditable, { type ContentEditableEvent } from 'react-contenteditable'
 import s from './Input.module.scss'
+import { sanitize } from 'utils'
 
 interface InputProps {
   name: string
@@ -17,7 +18,8 @@ export const InputFromEditableDiv = (props: InputProps) => {
 
   const onChange = (e: ContentEditableEvent) => {
     const { value } = e.target
-    helpers.setValue(value, true)
+    const sanitizedValue = sanitize(value)
+    helpers.setValue(sanitizedValue, true)
   }
 
   return (
