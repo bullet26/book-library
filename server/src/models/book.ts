@@ -18,7 +18,7 @@ const Books = new mongoose.Schema(
       transform: function (_, ret: any) {
         ret.id = ret._id.toString()
         ret.authorID = ret.authorID.toString()
-        ret.seriesID = ret.seriesID?.toString() || null
+        ret.seriesID = ret.seriesID?.toString() ?? null
         delete ret._id
       },
     },

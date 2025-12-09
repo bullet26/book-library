@@ -4,16 +4,18 @@ import { type Book, type MutationResolvers } from '../../generated/types.js'
 
 export const BookMutation: MutationResolvers = {
   addBook: async (_, { input }) => {
-    const bookDoc = await BooksModel.create(input)
+    const { seriesID, ...data } = input
+
+    const bookDoc = await BooksModel.create({ ...data, seriesID: seriesID ?? undefined })
     const book = toObjectMappingSingle<Book>(bookDoc)
 
-    if (input.hasOwnProperty('readEnd') && !!input.readEnd) {
+    if (Object.hasOwn(input, 'readEnd') && !!input.readEnd) {
       await ReadDateModel.create({
         bookID: book.id,
         readEnd: input.readEnd,
       })
     }
-    if (input.hasOwnProperty('plot') && !!input.plot) {
+    if (Object.hasOwn(input, 'plot') && !!input.plot) {
       await DescriptionPlotModel.create({
         bookID: book.id,
         plot: input.plot,

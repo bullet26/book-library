@@ -9,7 +9,7 @@ export const DiagramBar = (props: DiagramBarProps) => {
   const { chartData } = props
   const navigate = useNavigate()
 
-  const handleClickDate = (year?: string) => {
+  const handleClickDate = (year?: string | number) => {
     if (year) {
       navigate(`/date/${year}`)
     }
