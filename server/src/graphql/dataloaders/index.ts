@@ -21,7 +21,7 @@ export interface DataLoadersType {
       series: DataLoaderItemMany<Series>
     }
     book: {
-      additionalMedia: DataLoaderItemOne<{}>
+      additionalMedia: DataLoaderItemOne<Book['additionalMedia']>
       author: DataLoaderItemOne<Author>
       isAdditionalMediaExist: DataLoaderItemOne<Book['isAdditionalMediaExist']>
       readDate: DataLoaderItemMany<ReadDate>

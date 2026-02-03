@@ -9,11 +9,14 @@ const Authors = new mongoose.Schema(
     transcriptionName: String,
   },
   {
-    toObject: {
+    toJSON: {
       transform: function (_, ret: any) {
-        ret.id = ret._id.toString()
         delete ret._id
+        delete ret.__v
+
+        return ret
       },
+      virtuals: true,
     },
   },
 )

@@ -13,12 +13,16 @@ const AdditionalMedia = new mongoose.Schema(
     url: { required: true, type: String },
   },
   {
-    toObject: {
+    toJSON: {
       transform: function (_, ret: any) {
-        ret.id = ret._id.toString()
         ret.bookID = ret.bookID.toString()
+
         delete ret._id
+        delete ret.__v
+
+        return ret
       },
+      virtuals: true,
     },
   },
 )

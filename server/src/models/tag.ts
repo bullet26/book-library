@@ -5,11 +5,13 @@ const Tag = new mongoose.Schema(
     tag: { required: true, type: String },
   },
   {
-    toObject: {
+    toJSON: {
       transform: function (_, ret: any) {
-        ret.id = ret._id.toString()
         delete ret._id
+        delete ret.__v
+        return ret
       },
+      virtuals: true,
     },
   },
 )
@@ -20,13 +22,15 @@ const BookTagRelations = new mongoose.Schema(
     tagID: { ref: 'TagModel', type: mongoose.Types.ObjectId },
   },
   {
-    toObject: {
+    toJSON: {
       transform: function (_, ret: any) {
-        ret.id = ret._id.toString()
         ret.bookID = ret.bookID.toString()
         ret.tagID = ret.tagID.toString()
         delete ret._id
+        delete ret.__v
+        return ret
       },
+      virtuals: true,
     },
   },
 )

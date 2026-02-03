@@ -13,7 +13,7 @@ export const AdditionalMediaMutation: MutationResolvers = {
     const book = await BooksModel.findById(bookID)
     if (!book) throw new HttpError('Book wasn`t found', 404)
 
-    context.dataloaders.book.additionalMedia.clear(bookID) // clear DataLoader cache for tags of this book
+    context.dataloaders.book.additionalMedia.clear(bookID) // clear DataLoader cache for additionalMedia of this book
 
     return toObjectMappingSingle<Book>(book)
   },

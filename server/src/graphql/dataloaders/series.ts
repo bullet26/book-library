@@ -11,6 +11,6 @@ export const SeriesDL = {
     })
     const books = toObjectMapping<Book>(booksDocs)
 
-    return seriesIDs.map((id) => books.filter((item) => item.seriesID === id.toString()))
+    return seriesIDs.map((id) => books.filter((item) => item.seriesID === id))
   }),
 }

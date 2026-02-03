@@ -45,13 +45,11 @@ export const BookDL = {
     ])
 
     return bookIDs.map((id) => {
-      const mediaForBook = groupedMedia.filter(
-        (item) => item.id.bookID.toString() === id.toString(),
-      )
+      const mediaForBook = groupedMedia.filter((item) => item.id.bookID.toString() === id)
 
       return {
-        image: mediaForBook.find((item) => item.id.type === MediaType.Image)?.media || [],
-        video: mediaForBook.find((item) => item.id.type === MediaType.Video)?.media || [],
+        image: mediaForBook.find((item) => item.id.type === MediaType.Image)?.media ?? [],
+        video: mediaForBook.find((item) => item.id.type === MediaType.Video)?.media ?? [],
       }
     })
   }),
@@ -60,12 +58,12 @@ export const BookDL = {
     const authorsDocs = await AuthorModel.find({ _id: { $in: authorIDs } })
     const authors = toObjectMapping<Author>(authorsDocs)
 
-    return authorIDs.map((id) => authors.find((item) => item.id === id.toString()))
+    return authorIDs.map((id) => authors.find((item) => item.id === id))
   }),
 
   isAdditionalMediaExist: new DataLoader(async (bookIDs: readonly string[]) => {
     const media = await AdditionalMediaModel.find({ bookID: { $in: bookIDs } }).distinct('bookID')
-    return bookIDs.map((id) => media.some((item) => item?.toString() === id.toString()))
+    return bookIDs.map((id) => media.some((item) => item.toString() === id))
   }),
 
   readDate: new DataLoader(async (bookIDs: readonly string[]) => {
@@ -74,14 +72,14 @@ export const BookDL = {
     })
     const readDates = toObjectMapping<ReadDate>(readDatesDocs)
 
-    return bookIDs.map((id) => readDates.filter((item) => item.bookID === id.toString()))
+    return bookIDs.map((id) => readDates.filter((item) => item.bookID === id))
   }),
 
   series: new DataLoader(async (seriesIDs: readonly string[]) => {
     const seriesDocs = await SeriesModel.find({ _id: { $in: seriesIDs } })
     const series = toObjectMapping<Series>(seriesDocs)
 
-    return seriesIDs.map((id) => series.find((item) => item.id === id.toString()))
+    return seriesIDs.map((id) => series.find((item) => item.id === id))
   }),
 
   tags: new DataLoader(async (bookIDs: readonly string[]) => {
@@ -93,7 +91,7 @@ export const BookDL = {
 
     return bookIDs.map((id) =>
       tags.filter((tag) =>
-        tagsForBookObj.find((item) => item.bookID === id.toString() && item.tagID === tag.id),
+        tagsForBookObj.find((item) => item.bookID === id && item.tagID === tag.id),
       ),
     )
   }),

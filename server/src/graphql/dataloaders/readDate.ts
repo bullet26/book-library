@@ -9,6 +9,6 @@ export const ReadDateDL = {
     const booksDocs = await BooksModel.find({ _id: { $in: bookIDs } })
     const books = toObjectMapping<Book>(booksDocs)
 
-    return bookIDs.map((id) => books.find((item) => item.id === id.toString()))
+    return bookIDs.map((id) => books.find((item) => item.id === id))
   }),
 }

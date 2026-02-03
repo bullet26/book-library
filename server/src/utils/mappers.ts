@@ -1,5 +1,5 @@
 import { Document } from 'mongoose'
 
-export const toObjectMapping = <T>(docs: Document[]): T[] => docs.map((item) => item.toObject())
+export const toObjectMapping = <T>(docs: Document[]): T[] => docs.map((item) => item.toJSON())
 
-export const toObjectMappingSingle = <T>(doc: Document): T => doc.toObject()
+export const toObjectMappingSingle = <T = object>(doc: Document): T => doc.toJSON()

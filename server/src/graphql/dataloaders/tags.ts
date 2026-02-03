@@ -15,7 +15,7 @@ export const TagsDL = {
 
     return tagIDs.map((id) =>
       books.filter((book) =>
-        booksInTagObj.find((item) => item.bookID === book.id && item.tagID === id.toString()),
+        booksInTagObj.find((item) => item.bookID === book.id && item.tagID === id),
       ),
     )
   }),
@@ -53,9 +53,7 @@ export const TagsDL = {
 
     return tagIDs.map((id) =>
       books.filter((book) =>
-        booksInTagObj.find(
-          (item) => item.bookID === book.id.toString() && item.tagID === id.toString(),
-        ),
+        booksInTagObj.find((item) => item.bookID === book.id.toString() && item.tagID === id),
       ),
     )
   }),

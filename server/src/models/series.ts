@@ -6,12 +6,14 @@ const Series = new mongoose.Schema(
     title: { required: true, type: String },
   },
   {
-    toObject: {
+    toJSON: {
       transform: function (_, ret: any) {
-        ret.id = ret._id.toString()
         ret.authorID = ret.authorID.toString()
         delete ret._id
+        delete ret.__v
+        return ret
       },
+      virtuals: true,
     },
   },
 )

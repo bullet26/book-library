@@ -9,7 +9,7 @@ export const AuthorDL = {
     const booksDocs = await BooksModel.find({ authorID: { $in: authorIDs } }).sort({ title: 1 })
     const books = toObjectMapping<Book>(booksDocs)
 
-    return authorIDs.map((id) => books.filter((item) => item.authorID === id.toString()))
+    return authorIDs.map((id) => books.filter((item) => item.authorID === id))
   }),
 
   booksWithoutSeries: new DataLoader(async (authorIDs: readonly string[]) => {
@@ -18,13 +18,13 @@ export const AuthorDL = {
     }).sort({ title: 1 })
     const books = toObjectMapping<Book>(booksDocs)
 
-    return authorIDs.map((id) => books.filter((item) => item.authorID === id.toString()))
+    return authorIDs.map((id) => books.filter((item) => item.authorID === id))
   }),
 
   series: new DataLoader(async (authorIDs: readonly string[]) => {
     const seriesDocs = await SeriesModel.find({ authorID: { $in: authorIDs } }).sort({ title: 1 })
     const series = toObjectMapping<Series>(seriesDocs)
 
-    return authorIDs.map((id) => series.filter((item) => item.authorID === id.toString()))
+    return authorIDs.map((id) => series.filter((item) => item.authorID === id))
   }),
 }
