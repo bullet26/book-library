@@ -52,9 +52,11 @@ export const TagsDL = {
     ])
 
     return tagIDs.map((id) =>
-      books.filter((book) =>
-        booksInTagObj.find((item) => item.bookID === book.id.toString() && item.tagID === id),
-      ),
+      books
+        .map((item) => ({ ...item, authorID: item.authorID.toString(), id: item.id.toString() }))
+        .filter((book) =>
+          booksInTagObj.find((item) => item.bookID === book.id && item.tagID === id),
+        ),
     )
   }),
 }
