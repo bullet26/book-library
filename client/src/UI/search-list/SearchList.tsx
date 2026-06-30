@@ -14,7 +14,8 @@ interface SearchListProps {
 export const SearchList = (props: SearchListProps) => {
   const { data = [], onClick, handleWrapperClick, style } = props
   const listRef = useRef(null)
-  const hasScrollbar = document.body.offsetHeight > window.innerHeight
+  const windowWidth = window.innerWidth
+  const hasScrollbar = document.body.offsetHeight > windowWidth
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent | Event) => {
@@ -23,7 +24,7 @@ export const SearchList = (props: SearchListProps) => {
       }
     }
     window.addEventListener('click', handleClickOutside)
-    window.addEventListener('scroll', handleClickOutside)
+    if (windowWidth < 650) window.addEventListener('scroll', handleClickOutside)
     return () => window.removeEventListener('click', handleClickOutside)
   }, [handleWrapperClick])
 

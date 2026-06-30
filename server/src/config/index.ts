@@ -10,7 +10,7 @@ export const {
   CLOUDINARY_NAME,
   CLOUDINARY_SECRET,
   DB_URL = '',
-  PORT = 3000,
+  PORT = '3000',
 } = process.env
 
 cloudinary.config({

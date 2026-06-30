@@ -41,9 +41,9 @@ export const Search = () => {
   }
 
   const handleSearchResultClick = (id: string, parent: string) => {
-    !!id && navigate(`/${parent}/${id}`)
+    if (!!id) navigate(`/${parent}/${id}`)
 
-    windowWidth < 650 && setShowInputStatus(false)
+    if (windowWidth < 650) setShowInputStatus(false)
     setShowSearchListStatus(false)
     setInputValue('')
   }

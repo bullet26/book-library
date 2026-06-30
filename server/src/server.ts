@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+
 import { app, httpServer } from './app.js'
 import { consoleInfo } from './common/index.js'
 import { APP_MODE, DB_URL, PORT } from './config/index.js'

@@ -11,8 +11,6 @@ export const DiagramPie = (props: DiagramPieProps) => {
   const [radius, setRadius] = useState({ inner: 85, outer: 100 })
   const width = window.innerWidth
 
-  console.log(chartData)
-
   useEffect(() => {
     setRadius(handleResponsive())
   }, [])

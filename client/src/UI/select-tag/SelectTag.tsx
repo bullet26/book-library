@@ -23,7 +23,7 @@ const tagRender: TagRender = (props) => {
     event.stopPropagation()
   }
   return (
-    <Tag bordered={false} color="magenta" onMouseDown={onPreventMouseDown}>
+    <Tag variant="filled" color="magenta" onMouseDown={onPreventMouseDown}>
       {label}
     </Tag>
   )
@@ -84,7 +84,7 @@ export const SelectTag = (props: SelectTagProps) => {
       <div className={s.tagWrapper}>
         {tags.map((item) => (
           <Tag
-            bordered={false}
+            variant="filled"
             key={item.id}
             color="magenta"
             onClick={() => handleClickTag(item.id)}>

@@ -1,14 +1,17 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { useState, useRef, type RefObject } from 'react'
-import Slider from 'react-slick'
+import SlickSlider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
-import { Slider as InputRange } from 'antd'
+import { Slider as AntdSlider } from 'antd'
 import { useNavigate } from 'react-router-dom'
 import { Card } from 'UI'
 import { settings, GetSlidesToShow } from './utils'
 import type { SerieBooks } from 'types'
 import s from './Carousel.module.scss'
+
+// @ts-ignore
+const SliderComponent = SlickSlider.default || SlickSlider
 
 export const Carousel = (props: SerieBooks) => {
   const { booksInSeries, title } = props
@@ -16,7 +19,7 @@ export const Carousel = (props: SerieBooks) => {
   const slidesToShow = GetSlidesToShow()
 
   const navigate = useNavigate()
-  const sliderRef: RefObject<Slider | null> = useRef(null)
+  const sliderRef: RefObject<SlickSlider | null> = useRef(null)
 
   const handleClick = (id?: string) => {
     const path = window.location.pathname.split('/').at(1)
@@ -27,9 +30,9 @@ export const Carousel = (props: SerieBooks) => {
     <div className={s.wrapper}>
       <div className={s.title}>{title}</div>
 
-      <Slider
+      <SliderComponent
         {...settings}
-        beforeChange={(_, next) => setSlideIndex(next)}
+        beforeChange={(_oldIndex: number, newIndex: number) => setSlideIndex(newIndex)}
         className={s.carouselContainer}
         ref={sliderRef}>
         {booksInSeries.map((item) => {
@@ -45,9 +48,9 @@ export const Carousel = (props: SerieBooks) => {
             />
           )
         })}
-      </Slider>
+      </SliderComponent>
       {booksInSeries.length > slidesToShow && (
-        <InputRange
+        <AntdSlider
           defaultValue={0}
           value={slideIndex}
           min={0}

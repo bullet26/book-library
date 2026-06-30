@@ -30,7 +30,7 @@ export const BooksByTag = () => {
             </div>
             <div className={s.title}>
               <span>Books by tag:</span>&nbsp;
-              <Tag bordered={false} color="magenta">
+              <Tag variant="filled" color="magenta">
                 #{data?.tagData?.tag}
               </Tag>
             </div>

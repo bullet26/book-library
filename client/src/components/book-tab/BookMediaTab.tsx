@@ -1,7 +1,7 @@
 import { Image } from 'antd'
 import { useParams } from 'react-router-dom'
 import { useQuery } from '@apollo/client/react'
-import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry'
+import { Masonry } from 'antd'
 import { ALL_MEDIA_FOR_BOOK } from '__graphql'
 import { Error, VideoEmbed } from 'UI'
 import s from './BookTab.module.scss'
@@ -16,8 +16,6 @@ export const BookMediaTab = () => {
 
   const media = data?.book?.media
 
-  const msProps = { columnsCount: 5, itemStyle: { maxWidth: '206px', maxHeight: '137px' } }
-
   return (
     <>
       {!!loading && <div>Loading..</div>}
@@ -29,14 +27,17 @@ export const BookMediaTab = () => {
       )}
       {!!media?.image?.length && (
         <Image.PreviewGroup>
-          <ResponsiveMasonry columnsCountBreakPoints={{ 350: 1, 560: 2, 900: 3, 1300: 5 }}>
-            <Masonry {...msProps}>
-              {media?.image.map(
-                (item) =>
-                  item?.url && <Image key={item.id} src={item.url} alt="additional-book-media" />,
-              )}
-            </Masonry>
-          </ResponsiveMasonry>
+          <Masonry
+            columns={{ xs: 1, sm: 2, md: 3, lg: 4, xl: 5 }}
+            gutter={10}
+            items={media?.image.map((img) => ({
+              key: `masonry-item-${img.id}`,
+              data: img,
+            }))}
+            itemRender={({ data }) => (
+              <Image key={data.id} src={data.url} alt="additional-book-media" />
+            )}
+          />
         </Image.PreviewGroup>
       )}
       {!loading && !media && <span>You can add media on settings page</span>}
