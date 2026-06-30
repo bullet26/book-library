@@ -1,19 +1,23 @@
 import { type RefObject } from 'react'
 import { useField } from 'formik'
 import ContentEditable, { type ContentEditableEvent } from 'react-contenteditable'
-import s from './Input.module.scss'
 import { sanitize } from 'utils'
+import { EditBlock, type EditButtonsProps } from './EditButtons'
+import s from './TextEditor.module.scss'
 
-interface InputProps {
+interface TextEditorProps {
   name: string
   style?: object
   placeholder?: string
   disabled?: boolean
   innerRef?: RefObject<HTMLElement>
+  editOptions?: EditButtonsProps
 }
 
-export const InputFromEditableDiv = (props: InputProps) => {
-  const { style, name, placeholder, innerRef, disabled } = props
+const ContentEditableComponent = (ContentEditable as any).default || ContentEditable
+
+export const TextEditor = (props: TextEditorProps) => {
+  const { style, name, placeholder, innerRef, disabled, editOptions } = props
   const [field, meta, helpers] = useField(name)
 
   const onChange = (e: ContentEditableEvent) => {
@@ -23,8 +27,9 @@ export const InputFromEditableDiv = (props: InputProps) => {
   }
 
   return (
-    <div className={s.inputDivWrapper}>
-      <ContentEditable
+    <div className={s.editorWrapper}>
+      {editOptions && <EditBlock {...editOptions} />}
+      <ContentEditableComponent
         tagName="div"
         html={field.value || ''}
         className={s.inputDiv}

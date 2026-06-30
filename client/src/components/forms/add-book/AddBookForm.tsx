@@ -4,7 +4,7 @@ import { Button, Rate } from 'antd'
 import { useMutation } from '@apollo/client/react'
 import { CREATE_BOOK } from '__graphql'
 import { SearchInForm } from 'components'
-import { DatepickerInput, Input, InputFromEditableDiv, Modal, Error } from 'UI'
+import { DatepickerInput, Input, TextEditor, Modal, Error } from 'UI'
 import { initialValuesAddBook, validationSchemaAddBook } from '../utils'
 import s from '../Form.module.scss'
 
@@ -118,8 +118,12 @@ export const AddBookForm = (props: AddBookFormProps) => {
             <Input placeholder="Book pages" name="pages" htmlType="number" />
             <Input placeholder="Book notes" name="notes" />
           </div>
-          <InputFromEditableDiv placeholder="Book annotation" name="description" />
-          <InputFromEditableDiv placeholder="Book plot description" name="plot" />
+          <TextEditor placeholder="Book annotation" name="description" />
+          <TextEditor
+            placeholder="Book plot description"
+            name="plot"
+            editOptions={{ color: true, bold: true }}
+          />
 
           {windowWidth < 582 && (
             <div className={s.innerWrapper}>
