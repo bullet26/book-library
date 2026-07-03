@@ -1,6 +1,8 @@
 import { useParams } from 'react-router-dom'
 import { useQuery } from '@apollo/client/react'
 import { Image } from 'antd'
+import { TegakiRenderer } from 'tegaki'
+import caveat from 'tegaki/fonts/caveat'
 import { BookTab, ReactHelmetMetadata } from 'components'
 import { Loader, Rating, ScrollArrow, Error, SelectTag } from 'UI'
 import { Book as BookImg } from 'assets'
@@ -38,7 +40,9 @@ export const Book = () => {
                   <SelectTag tags={data?.book?.tags || []} bookID={id} />
                 </div>
                 <div className={s.contentWrapper}>
-                  <div className={s.title}>{data?.book?.title}</div>
+                  <TegakiRenderer font={caveat} className={s.title}>
+                    {data?.book?.title}
+                  </TegakiRenderer>
                   <BookTab />
                 </div>
               </div>

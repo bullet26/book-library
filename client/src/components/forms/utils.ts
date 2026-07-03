@@ -1,7 +1,7 @@
 import * as Yup from 'yup'
 // eslint-disable-next-line import/no-extraneous-dependencies
 import dayjs from 'dayjs'
-import { MediaType } from '__graphql/__generated__/graphql'
+import { MediaType } from '__graphql/__generated__/enums'
 
 export const initialValuesAddBook = {
   author: '',
@@ -77,4 +77,8 @@ export const initialValuesMedia = {
 
 export const validationSchemaMedia = Yup.object({
   title: Yup.string().required('Required field!'),
+})
+
+export const validationSchemaUpdatePlot = Yup.object({
+  plot: Yup.string().min(100, 'Minimum 100 letters to fill').nullable(),
 })

@@ -1,6 +1,5 @@
-import { loadSchema } from '@graphql-tools/load'
 import { GraphQLFileLoader } from '@graphql-tools/graphql-file-loader'
-
+import { loadSchema } from '@graphql-tools/load'
 import path from 'path'
 import { fileURLToPath } from 'url'
 

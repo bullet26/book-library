@@ -31,7 +31,7 @@ export const AddBookForm = (props: AddBookFormProps) => {
 
   const dateFormat = 'YYYY-MM-DD'
 
-  const [createBookApollo, { data, error }] = useMutation(CREATE_BOOK)
+  const [createBookApollo, { data, error, loading }] = useMutation(CREATE_BOOK)
 
   const [rating, setRating] = useState(0)
 
@@ -122,7 +122,7 @@ export const AddBookForm = (props: AddBookFormProps) => {
           <TextEditor
             placeholder="Book plot description"
             name="plot"
-            editOptions={{ color: true, bold: true }}
+            editOptions={{ color: true, bold: true, italic: true }}
           />
 
           {windowWidth < 582 && (
@@ -137,7 +137,12 @@ export const AddBookForm = (props: AddBookFormProps) => {
           )}
           <input type="hidden" name="bookCover" />
           <input type="hidden" name="bookCoverThumbnail" />
-          <Button className={s.submitBtn} type="primary" size="large" htmlType="submit">
+          <Button
+            className={s.submitBtn}
+            type="primary"
+            size="large"
+            htmlType="submit"
+            disabled={loading}>
             ADD BOOK
           </Button>
         </Form>

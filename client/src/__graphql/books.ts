@@ -58,6 +58,7 @@ export const ONE_BOOK_BY_ID = graphql(`
 export const ONE_BOOK_PLOT = graphql(`
   query GetOneBookPlot($bookID: ID) {
     book: getOneBookPlot(bookID: $bookID) {
+      id
       plot
     }
   }
@@ -119,6 +120,15 @@ export const CREATE_READ_DATE = graphql(`
       books {
         title
       }
+    }
+  }
+`)
+
+export const UPDATE_BOOK_PLOT = graphql(`
+  mutation UpdateBookPlot($input: UpdateBookPlotInput!) {
+    bookInfo: updateBookPlot(input: $input) {
+      id
+      plot
     }
   }
 `)

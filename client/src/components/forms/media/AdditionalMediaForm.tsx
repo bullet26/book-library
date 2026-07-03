@@ -4,7 +4,8 @@ import { Button } from 'antd'
 import { SearchInForm } from 'components'
 import { initialValuesMedia, validationSchemaMedia } from '../utils'
 import { UploadMediaBlock } from './elements'
-import { MediaType, type AdditionalMediaInput } from '__graphql/__generated__/graphql'
+import { MediaType } from '__graphql/__generated__/enums'
+import type { AdditionalMediaInput } from '__graphql/__generated__/graphql'
 import s from '../Form.module.scss'
 
 interface AdditionalMediaFormProps {

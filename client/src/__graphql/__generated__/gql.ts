@@ -23,11 +23,12 @@ type Documents = {
     "\n  query GetAllAuthorsByBooksCount {\n    author: getAllAuthorsByBooksCount {\n      name\n      surname\n      id\n      portraitThumbnail\n      count\n    }\n  }\n": typeof types.GetAllAuthorsByBooksCountDocument,
     "\n  query GetAllBooksByDate($page: Int, $limit: Int) {\n    getAllBooksByDate(page: $page, limit: $limit) {\n      readDate {\n        id\n        books {\n          id\n          title\n          rating\n          bookCoverThumbnail\n          author {\n            surname\n            name\n          }\n        }\n      }\n      totalCount\n    }\n  }\n": typeof types.GetAllBooksByDateDocument,
     "\n  query GetOneBookById($id: ID) {\n    book: getOneBook(id: $id) {\n      id\n      author {\n        surname\n        name\n        id\n      }\n      title\n      rating\n      series {\n        title\n        booksInSeries {\n          id\n          title\n          rating\n          bookCoverThumbnail\n        }\n      }\n      description\n      readDate {\n        readEnd\n      }\n      tags {\n        id\n        tag\n      }\n      bookCover\n      isAdditionalMediaExist\n    }\n  }\n": typeof types.GetOneBookByIdDocument,
-    "\n  query GetOneBookPlot($bookID: ID) {\n    book: getOneBookPlot(bookID: $bookID) {\n      plot\n    }\n  }\n": typeof types.GetOneBookPlotDocument,
+    "\n  query GetOneBookPlot($bookID: ID) {\n    book: getOneBookPlot(bookID: $bookID) {\n      id\n      plot\n    }\n  }\n": typeof types.GetOneBookPlotDocument,
     "\n  query GetAllBooksBySpecificDate($year: Int!) {\n    bookInYear: getAllBooksBySpecificDate(year: $year) {\n      books {\n        id\n        title\n        bookCoverThumbnail\n        rating\n        author {\n          surname\n          name\n        }\n      }\n      readEnd\n      id\n    }\n  }\n": typeof types.GetAllBooksBySpecificDateDocument,
     "\n  query GetBooksByTag($id: ID, $sortBy: String) {\n    tagData: getTagById(id: $id) {\n      tag\n      booksInTag(sortBy: $sortBy) {\n        id\n        title\n        bookCoverThumbnail\n        rating\n        author {\n          surname\n          name\n        }\n      }\n    }\n  }\n": typeof types.GetBooksByTagDocument,
     "\n  mutation CreteBook($input: BookInput!) {\n    bookInfo: addBook(input: $input) {\n      title\n      author {\n        name\n        surname\n      }\n    }\n  }\n": typeof types.CreteBookDocument,
     "\n  mutation CreateReadDate($input: ReadDateInput!) {\n    bookInfo: addReadDate(input: $input) {\n      readEnd\n      books {\n        title\n      }\n    }\n  }\n": typeof types.CreateReadDateDocument,
+    "\n  mutation UpdateBookPlot($input: UpdateBookPlotInput!) {\n    bookInfo: updateBookPlot(input: $input) {\n      id\n      plot\n    }\n  }\n": typeof types.UpdateBookPlotDocument,
     "\n  query GetMediaForBook($id: ID) {\n    book: getOneBook(id: $id) {\n      id\n      title\n      media: additionalMedia {\n        video {\n          id\n          type\n          url\n        }\n        image {\n          id\n          url\n          type\n        }\n      }\n    }\n  }\n": typeof types.GetMediaForBookDocument,
     "\n  mutation AddAdditionalMedia($input: [AdditionalMediaInput]!) {\n    bookInfo: addAdditionalMedia(input: $input) {\n      title\n      isAdditionalMediaExist\n    }\n  }\n": typeof types.AddAdditionalMediaDocument,
     "\n  query SearchInBooksAndAuthors($searchString: String!) {\n    search(searchString: $searchString) {\n      __typename\n      ... on Book {\n        id\n        title\n      }\n      ... on Author {\n        id\n        name\n        surname\n      }\n    }\n  }\n": typeof types.SearchInBooksAndAuthorsDocument,
@@ -48,11 +49,12 @@ const documents: Documents = {
     "\n  query GetAllAuthorsByBooksCount {\n    author: getAllAuthorsByBooksCount {\n      name\n      surname\n      id\n      portraitThumbnail\n      count\n    }\n  }\n": types.GetAllAuthorsByBooksCountDocument,
     "\n  query GetAllBooksByDate($page: Int, $limit: Int) {\n    getAllBooksByDate(page: $page, limit: $limit) {\n      readDate {\n        id\n        books {\n          id\n          title\n          rating\n          bookCoverThumbnail\n          author {\n            surname\n            name\n          }\n        }\n      }\n      totalCount\n    }\n  }\n": types.GetAllBooksByDateDocument,
     "\n  query GetOneBookById($id: ID) {\n    book: getOneBook(id: $id) {\n      id\n      author {\n        surname\n        name\n        id\n      }\n      title\n      rating\n      series {\n        title\n        booksInSeries {\n          id\n          title\n          rating\n          bookCoverThumbnail\n        }\n      }\n      description\n      readDate {\n        readEnd\n      }\n      tags {\n        id\n        tag\n      }\n      bookCover\n      isAdditionalMediaExist\n    }\n  }\n": types.GetOneBookByIdDocument,
-    "\n  query GetOneBookPlot($bookID: ID) {\n    book: getOneBookPlot(bookID: $bookID) {\n      plot\n    }\n  }\n": types.GetOneBookPlotDocument,
+    "\n  query GetOneBookPlot($bookID: ID) {\n    book: getOneBookPlot(bookID: $bookID) {\n      id\n      plot\n    }\n  }\n": types.GetOneBookPlotDocument,
     "\n  query GetAllBooksBySpecificDate($year: Int!) {\n    bookInYear: getAllBooksBySpecificDate(year: $year) {\n      books {\n        id\n        title\n        bookCoverThumbnail\n        rating\n        author {\n          surname\n          name\n        }\n      }\n      readEnd\n      id\n    }\n  }\n": types.GetAllBooksBySpecificDateDocument,
     "\n  query GetBooksByTag($id: ID, $sortBy: String) {\n    tagData: getTagById(id: $id) {\n      tag\n      booksInTag(sortBy: $sortBy) {\n        id\n        title\n        bookCoverThumbnail\n        rating\n        author {\n          surname\n          name\n        }\n      }\n    }\n  }\n": types.GetBooksByTagDocument,
     "\n  mutation CreteBook($input: BookInput!) {\n    bookInfo: addBook(input: $input) {\n      title\n      author {\n        name\n        surname\n      }\n    }\n  }\n": types.CreteBookDocument,
     "\n  mutation CreateReadDate($input: ReadDateInput!) {\n    bookInfo: addReadDate(input: $input) {\n      readEnd\n      books {\n        title\n      }\n    }\n  }\n": types.CreateReadDateDocument,
+    "\n  mutation UpdateBookPlot($input: UpdateBookPlotInput!) {\n    bookInfo: updateBookPlot(input: $input) {\n      id\n      plot\n    }\n  }\n": types.UpdateBookPlotDocument,
     "\n  query GetMediaForBook($id: ID) {\n    book: getOneBook(id: $id) {\n      id\n      title\n      media: additionalMedia {\n        video {\n          id\n          type\n          url\n        }\n        image {\n          id\n          url\n          type\n        }\n      }\n    }\n  }\n": types.GetMediaForBookDocument,
     "\n  mutation AddAdditionalMedia($input: [AdditionalMediaInput]!) {\n    bookInfo: addAdditionalMedia(input: $input) {\n      title\n      isAdditionalMediaExist\n    }\n  }\n": types.AddAdditionalMediaDocument,
     "\n  query SearchInBooksAndAuthors($searchString: String!) {\n    search(searchString: $searchString) {\n      __typename\n      ... on Book {\n        id\n        title\n      }\n      ... on Author {\n        id\n        name\n        surname\n      }\n    }\n  }\n": types.SearchInBooksAndAuthorsDocument,
@@ -117,7 +119,7 @@ export function graphql(source: "\n  query GetOneBookById($id: ID) {\n    book: 
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  query GetOneBookPlot($bookID: ID) {\n    book: getOneBookPlot(bookID: $bookID) {\n      plot\n    }\n  }\n"): (typeof documents)["\n  query GetOneBookPlot($bookID: ID) {\n    book: getOneBookPlot(bookID: $bookID) {\n      plot\n    }\n  }\n"];
+export function graphql(source: "\n  query GetOneBookPlot($bookID: ID) {\n    book: getOneBookPlot(bookID: $bookID) {\n      id\n      plot\n    }\n  }\n"): (typeof documents)["\n  query GetOneBookPlot($bookID: ID) {\n    book: getOneBookPlot(bookID: $bookID) {\n      id\n      plot\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -134,6 +136,10 @@ export function graphql(source: "\n  mutation CreteBook($input: BookInput!) {\n 
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  mutation CreateReadDate($input: ReadDateInput!) {\n    bookInfo: addReadDate(input: $input) {\n      readEnd\n      books {\n        title\n      }\n    }\n  }\n"): (typeof documents)["\n  mutation CreateReadDate($input: ReadDateInput!) {\n    bookInfo: addReadDate(input: $input) {\n      readEnd\n      books {\n        title\n      }\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation UpdateBookPlot($input: UpdateBookPlotInput!) {\n    bookInfo: updateBookPlot(input: $input) {\n      id\n      plot\n    }\n  }\n"): (typeof documents)["\n  mutation UpdateBookPlot($input: UpdateBookPlotInput!) {\n    bookInfo: updateBookPlot(input: $input) {\n      id\n      plot\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

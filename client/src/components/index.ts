@@ -13,5 +13,6 @@ export {
   ReReadBookForm,
   AdditionalMediaForm,
   AddSerieForm,
+  UpdateBookPlotForm,
 } from './forms'
 export { ReactHelmetMetadata } from './react-helmet-metadata'

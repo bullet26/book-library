@@ -1,6 +1,8 @@
 import { useQuery } from '@apollo/client/react'
 import { Image } from 'antd'
 import { useNavigate, useParams } from 'react-router-dom'
+import { TegakiRenderer } from 'tegaki'
+import caveat from 'tegaki/fonts/caveat'
 import { Book as BookImg, unknownAuthor1, unknownAuthor2 } from 'assets'
 import { BookSection, ReactHelmetMetadata } from 'components'
 import { Loader, ScrollArrow, Error } from 'UI'
@@ -54,7 +56,9 @@ export const Author = () => {
                   ) : (
                     <BookImg width="100%" />
                   )}
-                  <div className={s.title}>{`${data?.author.name} ${data?.author.surname}`}</div>
+                  <TegakiRenderer font={caveat} className={s.title}>
+                    {`${data?.author.name} ${data?.author.surname}`}
+                  </TegakiRenderer>
                   <div className={s.statistic}>Total number of books read:&nbsp;{booksQuant}</div>
                   <div className={s.statistic}>
                     Average rating:&nbsp;

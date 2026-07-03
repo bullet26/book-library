@@ -144,6 +144,7 @@ type Mutation {
   createAuthor(input: AuthorInput!): Author!
   createSerie(input: SerieInput!): Series!
   linkBookWithTag(input: BookTagRelationsInput!): Book!
+  updateBookPlot(input: UpdateBookPlotInput!): DescriptionPlot!
 }
 
 type Query {
@@ -206,4 +207,10 @@ type Tags {
   booksInTag(sortBy: String): [Book!]!
   id: ID!
   tag: String!
+}
+
+input UpdateBookPlotInput {
+  bookID: ID!
+  id: ID!
+  plot: String!
 }

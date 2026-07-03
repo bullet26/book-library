@@ -10,6 +10,12 @@ input BookPlotInput {
   plot: String!
 }
 
+input UpdateBookPlotInput {
+  id: ID!
+  bookID: ID!
+  plot: String!
+}
+
 extend type Query {
   # Get one book plot by id
   getOneBookPlot(bookID: ID): DescriptionPlot
@@ -18,4 +24,6 @@ extend type Query {
 extend type Mutation {
   # Add book plot
   addBookPlot(input: BookPlotInput!): DescriptionPlot!
+  # Update book plot
+  updateBookPlot(input: UpdateBookPlotInput!): DescriptionPlot!
 }

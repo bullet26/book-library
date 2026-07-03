@@ -1,45 +1,34 @@
-import { type MouseEvent, useRef } from 'react'
+import { type MouseEvent, useRef, useState } from 'react'
 import { Button, ColorPicker, type ColorPickerProps, type GetProp } from 'antd'
 import s from './TextEditor.module.scss'
+import { EditFilled } from '@ant-design/icons'
 
 export interface EditButtonsProps {
   color?: boolean
   bold?: boolean
+  italic?: boolean
 }
 
 type Color = Extract<GetProp<ColorPickerProps, 'value'>, string | { cleared: any }>
 
 export const EditBlock = (props: EditButtonsProps) => {
-  const { color, bold } = props
-  const savedRangeRef = useRef<Range | null>(null)
+  const { color: isShowColor, bold, italic } = props
+
+  const [color, setColor] = useState('purple')
 
   const execCommand = (command: string, value?: any) => document.execCommand(command, false, value)
 
-  const saveSelection = (e?: MouseEvent) => {
-    if (e) e.preventDefault()
-
-    const selection = window.getSelection()
-    if (selection && selection.rangeCount > 0) {
-      savedRangeRef.current = selection.getRangeAt(0).cloneRange()
-    }
-  }
-
-  const restoreSelection = () => {
-    const selection = window.getSelection()
-    if (selection && savedRangeRef.current) {
-      selection.removeAllRanges()
-      selection.addRange(savedRangeRef.current)
-    }
-  }
-
   const changeColor = (color: Color) => {
     const colorHEX = typeof color === 'string' ? color : color!.toHexString()
-    restoreSelection()
-
+    setColor(colorHEX)
     execCommand('styleWithCSS', true) // true modifies/generates style attributes in markup, false generates presentational elements.
     execCommand('foreColor', colorHEX)
+  }
 
-    // saveSelection() // TODO need fix, because after changing color, the selection is lost and the next color change will not work correctly.
+  const applyColor = (e: MouseEvent) => {
+    e.preventDefault()
+    execCommand('styleWithCSS', true)
+    execCommand('foreColor', color)
   }
 
   const toggleBold = (e: MouseEvent) => {
@@ -47,18 +36,40 @@ export const EditBlock = (props: EditButtonsProps) => {
     execCommand('bold')
   }
 
+  const toggleItalic = (e: MouseEvent) => {
+    e.preventDefault()
+    execCommand('italic')
+  }
+
   return (
     <div className={s.editOptionsWrapper}>
-      {color && (
-        <ColorPicker defaultValue="purple" onChange={changeColor}>
-          <Button type="default" onMouseDown={saveSelection}>
-            Color
-          </Button>
-        </ColorPicker>
+      {isShowColor && (
+        <>
+          <ColorPicker value={color} onChange={changeColor} />
+          <Button
+            variant="solid"
+            size="middle"
+            icon={<EditFilled />}
+            style={{ backgroundColor: color, maxHeight: '26px' }}
+            onMouseDown={applyColor}></Button>
+        </>
       )}
       {bold && (
-        <Button type="default" size="middle" onMouseDown={toggleBold}>
+        <Button
+          type="default"
+          size="middle"
+          onMouseDown={toggleBold}
+          style={{ fontWeight: 'bold' }}>
           Bold
+        </Button>
+      )}
+      {italic && (
+        <Button
+          type="default"
+          size="middle"
+          onMouseDown={toggleItalic}
+          style={{ fontStyle: 'italic' }}>
+          Italic
         </Button>
       )}
     </div>

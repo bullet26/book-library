@@ -3,7 +3,7 @@ import { UploadOutlined } from '@ant-design/icons'
 import { type UploadProps } from 'antd/es/upload'
 import { useField } from 'formik'
 import { Input } from 'UI'
-import { MediaType } from '__graphql/__generated__/graphql'
+import { MediaType } from '__graphql/__generated__/enums'
 import { beforeUpload } from './utils'
 
 interface DropZoneProps {

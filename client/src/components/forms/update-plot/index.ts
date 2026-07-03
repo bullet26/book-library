@@ -1,0 +1,1 @@
+export { UpdateBookPlotForm } from './UpdateBookPlotForm'

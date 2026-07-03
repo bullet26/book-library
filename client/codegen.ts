@@ -11,6 +11,13 @@ const config: CodegenConfig = {
         useTypeImports: true,
       },
     },
+    './src/__graphql/__generated__/enums.ts': {
+      plugins: ['typescript'],
+      config: {
+        enumsAsTypes: false,
+        onlyEnums: true,
+      },
+    },
     './src/__graphql/__generated__/schema.graphql': {
       plugins: ['schema-ast'],
       config: {

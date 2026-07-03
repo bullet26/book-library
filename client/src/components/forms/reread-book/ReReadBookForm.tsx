@@ -7,13 +7,14 @@ import { initialValuesReReadBook, validationSchemaReReadBook } from '../utils'
 import s from '../Form.module.scss'
 
 interface ReReadBookFormProps {
+  disabled?: boolean
   onSubmitRequest: (values: ReadDateInput) => void
 }
 
 type ValueType = typeof initialValuesReReadBook
 
 export const ReReadBookForm = (props: ReReadBookFormProps) => {
-  const { onSubmitRequest } = props
+  const { onSubmitRequest, disabled } = props
   const dateFormat = 'YYYY-MM-DD'
 
   const onSubmit = (values: ValueType, { resetForm }: FormikHelpers<ValueType>) => {
@@ -33,7 +34,12 @@ export const ReReadBookForm = (props: ReReadBookFormProps) => {
       <Form className={s.formReread}>
         <SearchInForm type="books" />
         <DatepickerInput name="readEnd" />
-        <Button className={s.submitBtn} type="primary" size="large" htmlType="submit">
+        <Button
+          className={s.submitBtn}
+          type="primary"
+          size="large"
+          htmlType="submit"
+          disabled={disabled}>
           ADD REREADING DATE
         </Button>
       </Form>

@@ -16,7 +16,7 @@ type ValueType = typeof initialValuesAddSerie & { authorID: string | null }
 export const AddSerieForm = (props: AddSerieFormProps) => {
   const { handleHideForm } = props
 
-  const [createSerieApollo, { data, error }] = useMutation(CREATE_SERIE)
+  const [createSerieApollo, { data, error, loading }] = useMutation(CREATE_SERIE)
 
   const onSubmit = (values: ValueType, { resetForm }: FormikHelpers<ValueType>) => {
     const { authorID, title } = values
@@ -41,7 +41,12 @@ export const AddSerieForm = (props: AddSerieFormProps) => {
           <div className={s.flexGrowItem}>
             <SearchInForm type="authors" />
           </div>
-          <Button className={s.submitBtn} type="primary" size="large" htmlType="submit">
+          <Button
+            className={s.submitBtn}
+            type="primary"
+            size="large"
+            htmlType="submit"
+            disabled={loading}>
             ADD
           </Button>
         </Form>

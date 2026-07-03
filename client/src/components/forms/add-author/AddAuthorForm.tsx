@@ -16,7 +16,7 @@ type ValueType = typeof initialValuesAddAuthor
 export const AddAuthorForm = (props: AddAuthorFormProps) => {
   const { handleHideForm } = props
 
-  const [createAuthorApollo, { data, error }] = useMutation(CREATE_AUTHOR)
+  const [createAuthorApollo, { data, error, loading }] = useMutation(CREATE_AUTHOR)
 
   const [portrait, setFieldValue] = useState<string | null>(null)
 
@@ -58,7 +58,12 @@ export const AddAuthorForm = (props: AddAuthorFormProps) => {
           <Input placeholder="Author transcription name" name="transcriptionName" />
           <input type="hidden" name="portrait" />
           <input type="hidden" name="portraitThumbnail" />
-          <Button className={s.submitBtn} type="primary" size="large" htmlType="submit">
+          <Button
+            className={s.submitBtn}
+            type="primary"
+            size="large"
+            htmlType="submit"
+            disabled={loading}>
             ADD AUTHOR
           </Button>
         </Form>
