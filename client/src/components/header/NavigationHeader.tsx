@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import s from './NavigationHeader.module.scss'
+import s from './Header.module.scss'
 
 export const NavigationHeader = () => {
   const selectedKey = window.location.pathname.split('/').at(1)
@@ -13,7 +13,7 @@ export const NavigationHeader = () => {
   }, [])
 
   return (
-    <div className={s.wrapper}>
+    <div className={s.navHederWrapper}>
       <Link to="/home" style={{ textDecoration: 'none' }}>
         <div className={`${s.button} ${selectedKey === 'home' && s.active}`}>Home</div>
       </Link>

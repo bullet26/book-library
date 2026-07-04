@@ -26,7 +26,8 @@ app.use(
     origin: CLIENT_URL,
   }),
 )
-app.use(express.json())
+
+app.use(express.json({ limit: '10mb' }))
 
 const httpServer = http.createServer(app)
 
@@ -48,7 +49,7 @@ const server = new ApolloServer<MyContext>({
     }
 
     return {
-      code: formattedError.extensions?.code || 'INTERNAL_SERVER_ERROR',
+      code: formattedError.extensions?.code ?? 'INTERNAL_SERVER_ERROR',
       message: formattedError.message || 'Internal server error',
     }
   },

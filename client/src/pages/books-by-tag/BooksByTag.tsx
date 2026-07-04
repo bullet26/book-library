@@ -35,7 +35,7 @@ export const BooksByTag = () => {
               </Tag>
             </div>
           </div>
-          <CardListBooks data={data?.tagData?.booksInTag || []} typeData="tag" />
+          <CardListBooks data={data?.tagData?.booksInTag || []} />
         </>
       )}
     </>

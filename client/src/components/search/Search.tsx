@@ -1,25 +1,68 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useLazyQuery } from '@apollo/client/react'
 import { SEARCH_IN_BOOKS_AND_AUTHORS } from '__graphql/search'
-import { SearchInput, SearchList, Error } from 'UI'
-import { useDebounce } from 'hooks/useDebounce'
+import { useDebounce } from 'hooks'
+import { Error } from 'UI'
+import { SearchInput, SearchList } from 'components/search/elements'
+import s from './Search.module.scss'
 
-export const Search = () => {
+interface DOMRectCoords {
+  top: number
+  left: number
+  width: number
+}
+
+interface SearchProps {
+  showMobileSearch: boolean
+  handleMobileSearchClick: () => void
+}
+
+export const Search = (props: SearchProps) => {
+  const { showMobileSearch, handleMobileSearchClick } = props
+
   const [makeSearch, { error, data }] = useLazyQuery(SEARCH_IN_BOOKS_AND_AUTHORS)
-  const windowWidth = window.innerWidth
   const navigate = useNavigate()
+  const inputRef = useRef<HTMLDivElement>(null)
 
   const [showSearchList, setShowSearchListStatus] = useState(false)
-  const [showInputStatus, setShowInputStatus] = useState(windowWidth > 650)
   const [inputValue, setInputValue] = useState('')
+  const [coords, setCoords] = useState<DOMRectCoords>({ top: 0, left: 0, width: 0 })
+
   const debouncedValue = useDebounce(inputValue, 500)
+
+  const updatePosition = (): void => {
+    if (inputRef.current) {
+      const rect = inputRef.current.getBoundingClientRect()
+      setCoords({
+        top: rect.bottom,
+        left: rect.left,
+        width: rect.width,
+      })
+    }
+  }
 
   const handleSearch = (searchString: string) => {
     const trimmedSearchString = searchString.trim()
 
     makeSearch({ variables: { searchString: trimmedSearchString } })
     setShowSearchListStatus(true)
+  }
+
+  const handleInputChange = (value: string) => {
+    setInputValue(value)
+  }
+
+  const handleSearchResultClick = (id: string, parent: string) => {
+    if (!!id) navigate(`/${parent}/${id}`)
+
+    setShowSearchListStatus(false)
+    setInputValue('')
+  }
+
+  const hideSearchResultList = () => {
+    setInputValue('')
+    setShowSearchListStatus(false)
   }
 
   useEffect(() => {
@@ -30,42 +73,33 @@ export const Search = () => {
     }
   }, [debouncedValue])
 
-  const handleIconClick = () => {
-    setShowInputStatus((prevState) => !prevState)
-    setInputValue('')
-    setShowSearchListStatus(false)
-  }
+  useEffect(() => {
+    if (showSearchList) {
+      updatePosition()
+      window.addEventListener('resize', updatePosition)
+    }
 
-  const handleInputChange = (value: string) => {
-    setInputValue(value)
-  }
-
-  const handleSearchResultClick = (id: string, parent: string) => {
-    if (!!id) navigate(`/${parent}/${id}`)
-
-    if (windowWidth < 650) setShowInputStatus(false)
-    setShowSearchListStatus(false)
-    setInputValue('')
-  }
-
-  const hideSearchResultList = () => {
-    setInputValue('')
-    setShowSearchListStatus(false)
-  }
+    return () => {
+      window.removeEventListener('resize', updatePosition)
+    }
+  }, [showSearchList])
 
   return (
-    <div>
-      <SearchInput
-        inputValue={inputValue}
-        showInputStatus={showInputStatus}
-        onIconClick={handleIconClick}
-        onChange={handleInputChange}
-      />
-      {!!data && showSearchList && (
+    <div className={s.searchWrapper} style={{ ...(showMobileSearch && { width: '100%' }) }}>
+      <div ref={inputRef}>
+        <SearchInput
+          inputValue={inputValue}
+          onChange={handleInputChange}
+          showMobileSearch={showMobileSearch}
+          handleMobileSearchClick={handleMobileSearchClick}
+        />
+      </div>
+      {showSearchList && (
         <SearchList
-          data={data.search}
+          data={data?.search || []}
           onClick={handleSearchResultClick}
-          handleWrapperClick={hideSearchResultList}
+          handleClickOutside={hideSearchResultList}
+          style={{ top: coords.top + 5, left: coords.left, width: coords.width }}
         />
       )}
       {!!error && <Error message={error?.message} />}

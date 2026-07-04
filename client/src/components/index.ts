@@ -1,5 +1,5 @@
 export { CardListBooks, CardListAuthors } from './card-list'
-export { NavigationHeader } from './navigation-heder'
+export { Header } from './header'
 export { BookInfo } from './book-info'
 export { Carousel } from './carousel'
 export { BookInfoTab, BookTab, BookPlotTab, BookMediaTab } from './book-tab'

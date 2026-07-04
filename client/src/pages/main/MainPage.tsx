@@ -1,11 +1,8 @@
 import { Outlet } from 'react-router-dom'
-import { NavigationHeader, ReactHelmetMetadata, Search } from 'components'
-import { Button } from 'UI'
+import { Header, ReactHelmetMetadata } from 'components'
 import s from './MainPage.module.scss'
 
 export const MainPage = () => {
-  const windowWidth = window.innerWidth
-
   return (
     <ReactHelmetMetadata
       title="Books"
@@ -14,15 +11,11 @@ export const MainPage = () => {
       description="Library for Tracking Read Books"
       children={
         <>
-          <div className={s.wrapper}>
-            <div className={s.innerWrapper}>
-              <NavigationHeader />
-              {windowWidth >= 729 && <Button />}
-            </div>
-            <Search />
-          </div>
+          <Header />
 
-          <Outlet />
+          <div className={s.contentWrapper}>
+            <Outlet />
+          </div>
         </>
       }
     />

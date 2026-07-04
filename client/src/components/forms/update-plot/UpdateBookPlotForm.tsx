@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom'
 import { Button } from 'antd'
-import { Formik, Form, type FormikHelpers } from 'formik'
+import { Formik, Form } from 'formik'
 import { useMutation } from '@apollo/client/react'
 import { UPDATE_BOOK_PLOT } from '__graphql'
 import { TextEditor, Modal, Error } from 'UI'
@@ -9,7 +9,7 @@ import s from '../Form.module.scss'
 
 interface UpdateBookPlotProps {
   id: string
-  plot: string
+  plot: string | TrustedHTML
 }
 
 interface ValuesUpdatePlotType extends UpdateBookPlotProps {
@@ -34,7 +34,7 @@ export const UpdateBookPlotForm = (props: UpdateBookPlotProps) => {
 
     updatePlotApollo({
       variables: {
-        input: values,
+        input: { ...values, plot: values.plot.toString() },
       },
     })
   }

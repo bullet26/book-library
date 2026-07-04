@@ -1,0 +1,35 @@
+.inputButtonWrapper {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.inputMobileWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 10px;
+  width: 100%;
+}
+
+.icon {
+  color: $white;
+  font-size: 25px;
+}
+
+.searchIcon {
+  padding: 3px;
+  align-self: flex-start;
+}
+
+.inputForm {
+  position: relative;
+  width: 100%;
+}
+.error {
+  position: absolute;
+  bottom: -15px;
+  left: 12px;
+  text-align: left;
+  font-size: 11px;
+  color: $error;
+}

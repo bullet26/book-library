@@ -20,6 +20,27 @@
   &:focus-visible {
     border-color: $additional;
   }
+
+  /* width */
+  &::-webkit-scrollbar {
+    width: 15px;
+  }
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+    background-color: $dark-grey;
+  }
+
+  /* button */
+  &::-webkit-scrollbar-thumb {
+    background-color: $black;
+    outline: 1px solid $light;
+    border-radius: 10px;
+    &:hover {
+      background: $additional;
+      outline: 1px solid $black;
+    }
+  }
 }
 
 [contentEditable='true']:empty:not(:focus):before {

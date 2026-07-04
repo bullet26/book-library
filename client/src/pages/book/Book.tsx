@@ -29,7 +29,7 @@ export const Book = () => {
           description={description?.replace(/<[^>]*>/g, '') || data?.book?.title}
           children={
             <div className={s.wrapper}>
-              <ScrollArrow />
+              {window.innerWidth > 630 && <ScrollArrow />}
               <div className={s.wrapperContent}>
                 <div className={`${s.title} ${s.mobile}`}>{data?.book?.title}</div>
                 <div className={s.imgWrapperTagWrapper}>

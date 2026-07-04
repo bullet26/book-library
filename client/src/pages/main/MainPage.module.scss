@@ -1,17 +1,6 @@
-.wrapper {
-  display: flex;
-  justify-content: space-between;
-  background-color: #222222;
-  position: sticky;
-  position: -webkit-sticky;
-  top: 0;
-  z-index: 3;
-  padding: 15px 0;
-}
-
-.innerWrapper {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  column-gap: 25px;
+.contentWrapper {
+  padding: 15px 35px;
+  @media (max-width: 568px) {
+    padding: 15px 25px;
+  }
 }

@@ -1,19 +1,20 @@
 import { useNavigate } from 'react-router-dom'
 import { Card } from 'UI'
 import { unknownAuthor1, unknownAuthor2 } from 'assets'
-import type { AuthorMostReadResponse, GetAllAuthorsQuery } from '__graphql/__generated__/graphql'
+import type {
+  GetAllAuthorsByBooksCountQuery,
+  GetAllAuthorsQuery,
+} from '__graphql/__generated__/graphql'
 import s from './CardList.module.scss'
 
-type Authors = NonNullable<GetAllAuthorsQuery['getAllAuthors']>['authors']
-type Author = Authors[number]
-interface CardListAuthorsProps {
-  data: Authors | AuthorMostReadResponse[]
-}
+type Author = NonNullable<NonNullable<GetAllAuthorsQuery['getAllAuthors']>['authors']>[number]
+type MostReadAuthor = NonNullable<GetAllAuthorsByBooksCountQuery['author']>[number]
 
-const isMostRededAuthorResponse = (
-  item: Author | AuthorMostReadResponse,
-): item is AuthorMostReadResponse => {
-  return (item as AuthorMostReadResponse).count !== undefined
+interface CardListAuthorsProps {
+  data: Author[] | MostReadAuthor[]
+}
+const isMostReadAuthor = (item: Author | MostReadAuthor): item is MostReadAuthor => {
+  return 'count' in item
 }
 
 export const CardListAuthors = (props: CardListAuthorsProps) => {
@@ -41,7 +42,7 @@ export const CardListAuthors = (props: CardListAuthorsProps) => {
           img={item.portraitThumbnail || getRandomImage()}
           title={item?.surname || ''}
           subtitle={item.name}
-          count={isMostRededAuthorResponse(item) ? item.count : 0}
+          count={isMostReadAuthor(item) ? item.count : 0}
           onClick={handleClick}
           type="author"
         />

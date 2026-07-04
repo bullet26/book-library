@@ -1,4 +1,4 @@
-import type { CodegenConfig } from '@graphql-codegen/cli'
+import { CodegenConfig } from '@graphql-codegen/cli'
 
 const config: CodegenConfig = {
   schema: 'src/graphql/schema/*.graphql',
@@ -6,6 +6,9 @@ const config: CodegenConfig = {
     'src/graphql/generated/types.ts': {
       config: {
         useIndexSignature: true,
+        scalars: {
+          Date: 'Date',
+        },
       },
       plugins: ['typescript', 'typescript-resolvers'],
     },

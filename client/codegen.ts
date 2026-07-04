@@ -9,6 +9,12 @@ const config: CodegenConfig = {
       preset: 'client',
       config: {
         useTypeImports: true,
+        scalars: {
+          Date: {
+            input: 'string',
+            output: '{ day: number; month: string; year: number }',
+          },
+        },
       },
     },
     './src/__graphql/__generated__/enums.ts': {

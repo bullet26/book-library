@@ -9,14 +9,14 @@ export const BookMutation: MutationResolvers = {
     const bookDoc = await BooksModel.create({ ...data, seriesID: seriesID ?? undefined })
     const book = toObjectMappingSingle<Book>(bookDoc)
 
-    if (Object.hasOwn(input, 'readEnd') && !!input.readEnd) {
+    if ('readEnd' in input && !!input.readEnd) {
       await ReadDateModel.create({
         bookID: book.id,
         readEnd: input.readEnd,
       })
     }
 
-    if (Object.hasOwn(input, 'plot') && !!input.plot) {
+    if ('plot' in input && !!input.plot) {
       await DescriptionPlotModel.create({
         bookID: book.id,
         plot: input.plot,

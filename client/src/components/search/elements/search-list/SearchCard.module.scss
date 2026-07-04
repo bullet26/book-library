@@ -1,28 +1,24 @@
-.wrapper {
+.searchListMask {
   position: fixed;
   top: 0;
   left: 0;
   z-index: 10;
   width: 100vw;
   height: 100vh;
+  background-color: rgba(0, 0, 0, 0.45);
 }
 
-.cardList {
+.searchListWrapper {
   background-color: $bgc;
   position: absolute;
-  top: 65px;
-  right: 72px;
+  z-index: 1000;
   display: flex;
   flex-direction: column;
-  width: 304px;
   border-radius: 6px;
-  z-index: 15;
   max-height: 88vh;
   overflow: hidden;
-  @media (max-width: 568px) {
-    margin-right: 5px;
-    width: 75vw;
-  }
+  border: 1px solid #303030;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
 }
 
 .formCardList {
@@ -36,12 +32,6 @@
 
 .formCardListFullWidth {
   width: 100%;
-}
-
-.withScrollbar {
-  @media (min-width: 568px) {
-    right: 78px;
-  }
 }
 
 .card {

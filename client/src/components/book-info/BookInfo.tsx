@@ -17,7 +17,7 @@ export const BookInfo = (props: BookInfoProps) => {
     }
   }
 
-  const handleClickDate = (year?: string) => {
+  const handleClickDate = (year?: string | number) => {
     if (year) {
       navigate(`/date/${year}`)
     }

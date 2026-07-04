@@ -13,9 +13,9 @@ export const DescriptionPlotMutation: MutationResolvers = {
     const { bookID, id, plot } = input
 
     const descriptionDoc = await DescriptionPlotModel.findOneAndUpdate(
-      { bookID, id },
+      { _id: id, bookID },
       { plot },
-      { new: true },
+      { returnDocument: 'after' },
     )
 
     if (!descriptionDoc) {

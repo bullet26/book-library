@@ -2,9 +2,10 @@ import { type CSSProperties, useEffect, useState } from 'react'
 import { useLazyQuery } from '@apollo/client/react'
 import { SEARCH_IN_AUTHORS, SEARCH_IN_SERIES, SEARCH_IN_BOOKS } from '__graphql'
 import { useFormikContext } from 'formik'
-import { SearchInputForm, SearchListForm, Error } from 'UI'
+import { useDebounce } from 'hooks'
+import { Error } from 'UI'
+import { SearchInputForm, SearchListForm } from 'components/search/elements'
 import s from './Search.module.scss'
-import { useDebounce } from 'hooks/useDebounce'
 
 interface SearchInForProps {
   type: 'authors' | 'series' | 'books'
@@ -71,7 +72,7 @@ export const SearchInForm = (props: SearchInForProps) => {
   return (
     <>
       {type === 'authors' && (
-        <div className={s.inputWrapper} style={style}>
+        <div className={s.searchFormInputWrapper} style={style}>
           <SearchInputForm
             placeholder="Author"
             name="author"
@@ -86,7 +87,7 @@ export const SearchInForm = (props: SearchInForProps) => {
       )}
 
       {type === 'series' && (
-        <div className={s.inputWrapper} style={style}>
+        <div className={s.searchFormInputWrapper} style={style}>
           <SearchInputForm
             placeholder="Book series"
             name="series"
@@ -101,7 +102,7 @@ export const SearchInForm = (props: SearchInForProps) => {
       )}
 
       {type === 'books' && (
-        <div className={s.inputWrapperBooks} style={style}>
+        <div className={s.searchFormInputWrapperBooks} style={style}>
           <SearchInputForm
             placeholder="Book title"
             name="title"

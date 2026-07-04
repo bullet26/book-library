@@ -1,17 +1,15 @@
-import { SearchCard } from 'UI'
 import type {
   SearchInAuthorsQuery,
   SearchInBooksQuery,
   SearchInSeriesQuery,
 } from '__graphql/__generated__/graphql'
+import { SearchCard } from './SearchCard'
 import { checkTypesFormTitle } from './utils'
 import s from './SearchCard.module.scss'
 
 interface SearchListProps {
   data:
-    | SearchInAuthorsQuery['authors']
-    | SearchInSeriesQuery['series']
-    | SearchInBooksQuery['books']
+    SearchInAuthorsQuery['authors'] | SearchInSeriesQuery['series'] | SearchInBooksQuery['books']
   fullWidth?: boolean
   onClick: (id: string, value: string) => void
 }

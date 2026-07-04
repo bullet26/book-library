@@ -1,4 +1,4 @@
-import { type MouseEvent, useRef, useState } from 'react'
+import { type MouseEvent, useState } from 'react'
 import { Button, ColorPicker, type ColorPickerProps, type GetProp } from 'antd'
 import s from './TextEditor.module.scss'
 import { EditFilled } from '@ant-design/icons'

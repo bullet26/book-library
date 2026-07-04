@@ -27,7 +27,7 @@ export type BookInput = {
   pages?: number | null | undefined;
   plot?: string | null | undefined;
   rating?: number | null | undefined;
-  readEnd: unknown;
+  readEnd: string;
   seriesID?: string | number | null | undefined;
   seriesNumber?: number | null | undefined;
   title: string;
@@ -44,7 +44,7 @@ export type MediaType =
 
 export type ReadDateInput = {
   bookID: string | number;
-  readEnd: unknown;
+  readEnd: string;
 };
 
 export type SerieInput = {
@@ -116,7 +116,7 @@ export type GetOneBookByIdQueryVariables = Exact<{
 }>;
 
 
-export type GetOneBookByIdQuery = { book: { id: string, title: string, rating: number | null, description: string, bookCover: string | null, isAdditionalMediaExist: boolean, author: { surname: string | null, name: string, id: string }, series: { title: string, booksInSeries: Array<{ id: string, title: string, rating: number | null, bookCoverThumbnail: string | null }> } | null, readDate: Array<{ readEnd: unknown }>, tags: Array<{ id: string, tag: string }> } | null };
+export type GetOneBookByIdQuery = { book: { id: string, title: string, rating: number | null, description: string, bookCover: string | null, isAdditionalMediaExist: boolean, author: { surname: string | null, name: string, id: string }, series: { title: string, booksInSeries: Array<{ id: string, title: string, rating: number | null, bookCoverThumbnail: string | null }> } | null, readDate: Array<{ readEnd: { day: number; month: string; year: number } }>, tags: Array<{ id: string, tag: string }> } | null };
 
 export type GetOneBookPlotQueryVariables = Exact<{
   bookID?: string | number | null | undefined;
@@ -130,7 +130,7 @@ export type GetAllBooksBySpecificDateQueryVariables = Exact<{
 }>;
 
 
-export type GetAllBooksBySpecificDateQuery = { bookInYear: Array<{ readEnd: unknown, id: string, books: { id: string, title: string, bookCoverThumbnail: string | null, rating: number | null, author: { surname: string | null, name: string } } }> };
+export type GetAllBooksBySpecificDateQuery = { bookInYear: Array<{ readEnd: { day: number; month: string; year: number }, id: string, books: { id: string, title: string, bookCoverThumbnail: string | null, rating: number | null, author: { surname: string | null, name: string } } }> };
 
 export type GetBooksByTagQueryVariables = Exact<{
   id?: string | number | null | undefined;
@@ -152,7 +152,7 @@ export type CreateReadDateMutationVariables = Exact<{
 }>;
 
 
-export type CreateReadDateMutation = { bookInfo: { readEnd: unknown, books: { title: string } } };
+export type CreateReadDateMutation = { bookInfo: { readEnd: { day: number; month: string; year: number }, books: { title: string } } };
 
 export type UpdateBookPlotMutationVariables = Exact<{
   input: UpdateBookPlotInput;
@@ -223,7 +223,7 @@ export type CreteLinkedTagMutationVariables = Exact<{
 }>;
 
 
-export type CreteLinkedTagMutation = { book: { id: string, title: string, rating: number | null, description: string, bookCover: string | null, author: { surname: string | null, name: string, id: string }, series: { title: string, booksInSeries: Array<{ id: string, title: string, bookCoverThumbnail: string | null }> } | null, readDate: Array<{ readEnd: unknown }>, tags: Array<{ id: string, tag: string }> } };
+export type CreteLinkedTagMutation = { book: { id: string, title: string, rating: number | null, description: string, bookCover: string | null, author: { surname: string | null, name: string, id: string }, series: { title: string, booksInSeries: Array<{ id: string, title: string, bookCoverThumbnail: string | null }> } | null, readDate: Array<{ readEnd: { day: number; month: string; year: number } }>, tags: Array<{ id: string, tag: string }> } };
 
 
 export const GetMostReadBooksDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetMostReadBooks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"books"},"name":{"kind":"Name","value":"getMostReadBooks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"bookTitle"}},{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","name":{"kind":"Name","value":"author"}}]}}]}}]} as unknown as DocumentNode<GetMostReadBooksQuery, GetMostReadBooksQueryVariables>;

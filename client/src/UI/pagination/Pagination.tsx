@@ -30,7 +30,8 @@ export const Pagination = (props: IPaginationProps) => {
       defaultPageSize={50}
       pageSizeOptions={perPageRange}
       defaultCurrent={1}
-      size={windowWidth >= 430 ? 'medium' : 'small'}
+      size={windowWidth >= 800 ? 'medium' : 'small'}
+      simple={windowWidth < 600}
     />
   )
 }

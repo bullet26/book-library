@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client/react'
 import { useSearchParams } from 'react-router-dom'
 import { CardListBooks, YearSelect, TagSelect } from 'components'
-import { Loader, Pagination, Error, Button } from 'UI'
+import { Loader, Pagination, Error, AddBookButton } from 'UI'
 import { type ReadDateBook } from 'types'
 import { ALL_BOOKS_BY_DATE } from '__graphql'
 import s from './Books.module.scss'
@@ -35,20 +35,23 @@ export const Books = () => {
       {!!data && (
         <div className={s.wrapper}>
           <div className={s.paginationTagWrapper}>
-            <Pagination
-              current={Number(searchParams.get('page'))}
-              pageSize={Number(searchParams.get('perpage'))}
-              total={totalCount || 0}
-              perPageRange={[20, 50, 100, 200]}
-              handleSubmit={handleSubmit}
-            />
+            <div className={s.innerWrapper}>
+              <Pagination
+                current={Number(searchParams.get('page'))}
+                pageSize={Number(searchParams.get('perpage'))}
+                total={totalCount || 0}
+                perPageRange={[20, 50, 100, 200]}
+                handleSubmit={handleSubmit}
+              />
+              {windowWidth < 729 && <AddBookButton />}
+            </div>
+
             <div className={s.innerWrapper}>
               <YearSelect />
               <TagSelect tagID={null} sortBy={null} />
-              {windowWidth < 729 && <Button />}
             </div>
           </div>
-          <CardListBooks data={books || []} typeData="readDate" />
+          <CardListBooks data={books || []} />
           <Pagination
             current={Number(searchParams.get('page'))}
             pageSize={Number(searchParams.get('perpage'))}
