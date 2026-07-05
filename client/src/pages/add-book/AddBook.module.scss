@@ -6,15 +6,15 @@
 
 .formWrapper {
   margin-top: 25px;
-  display: grid;
-  grid-template-columns: 60vw 30vw;
-  column-gap: 5vw;
-  @media (max-width: 800px) {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    row-gap: 25px;
-  }
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
+
+.formInnerWrapper {
+  display: flex;
+  flex-direction: row;
+  row-gap: 10px;
 }
 
 .formWrapperReread {

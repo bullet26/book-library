@@ -4,6 +4,7 @@ import { useQuery } from '@apollo/client/react'
 import { Button } from 'antd'
 import { EditFilled } from '@ant-design/icons'
 import { ONE_BOOK_PLOT } from '__graphql'
+import { useReactContext } from 'providers'
 import { UpdateBookPlotForm } from 'components'
 import { Error } from 'UI'
 import { emptyPlotImg } from 'assets'
@@ -12,6 +13,7 @@ import s from './BookTab.module.scss'
 
 export const BookPlotTab = () => {
   const { id } = useParams()
+  const { isEditMode } = useReactContext()
 
   const [isViewMode, setViewModeStatus] = useState(true)
 
@@ -30,7 +32,7 @@ export const BookPlotTab = () => {
     <>
       {!!loading && <div>Loading..</div>}
       {!!error && <Error message={error?.message} />}
-      {!!plot && (
+      {!!plot && isEditMode && (
         <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '10px' }}>
           <Button icon={<EditFilled />} onClick={handleEditClick} />
         </div>

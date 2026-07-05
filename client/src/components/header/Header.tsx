@@ -1,5 +1,5 @@
 import { Search } from 'components'
-import { AddBookButton } from 'UI'
+import { ActivateEditMode } from 'UI'
 import { NavigationHeader } from './NavigationHeader'
 import s from './Header.module.scss'
 import { useState } from 'react'
@@ -18,7 +18,7 @@ export const Header = () => {
     <div className={s.headerWrapper}>
       <div className={s.innerWrapper}>
         {(windowWidth > MOBILE_WIDTH_THRESHOLD || !showMobileSearch) && <NavigationHeader />}
-        {windowWidth >= 729 && <AddBookButton />}
+        {windowWidth >= 729 && <ActivateEditMode />}
       </div>
       <Search
         showMobileSearch={showMobileSearch}

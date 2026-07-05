@@ -1,56 +1,79 @@
 import { useMutation } from '@apollo/client/react'
-import { Formik, Form, type FormikHelpers } from 'formik'
-import { Button } from 'antd'
+import { useForm, Controller } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { Button, Input } from 'antd'
 import { CREATE_SERIE } from '__graphql'
 import { SearchInForm } from 'components'
-import { Input, Modal, Error } from 'UI'
-import { initialValuesAddSerie, validationSchemaAddSerie } from '../utils'
+import { Modal, Error } from 'UI'
+import { AddSerieInitialValues, AddSerieValidationSchema, type AddSerieFormType } from '../utils'
 import s from '../Form.module.scss'
 
 interface AddSerieFormProps {
   handleHideForm: () => void
 }
 
-type ValueType = typeof initialValuesAddSerie & { authorID: string | null }
-
 export const AddSerieForm = (props: AddSerieFormProps) => {
   const { handleHideForm } = props
 
   const [createSerieApollo, { data, error, loading }] = useMutation(CREATE_SERIE)
 
-  const onSubmit = (values: ValueType, { resetForm }: FormikHelpers<ValueType>) => {
+  const {
+    control,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<AddSerieFormType>({
+    defaultValues: AddSerieInitialValues,
+    resolver: yupResolver(AddSerieValidationSchema),
+  })
+
+  const onSubmit = (values: AddSerieFormType) => {
     const { authorID, title } = values
 
-    if (!authorID) return
-
     createSerieApollo({ variables: { input: { authorID, title: title.trim() } } })
-    resetForm()
+    reset()
     handleHideForm()
   }
 
   return (
     <>
-      <Formik
-        initialValues={initialValuesAddSerie}
-        validationSchema={validationSchemaAddSerie}
-        onSubmit={onSubmit}>
-        <Form className={s.formSeries}>
-          <div className={s.flexGrowItem}>
-            <Input placeholder="Serie title" name="title" />
-          </div>
-          <div className={s.flexGrowItem}>
-            <SearchInForm type="authors" />
-          </div>
-          <Button
-            className={s.submitBtn}
-            type="primary"
-            size="large"
-            htmlType="submit"
-            disabled={loading}>
-            ADD
-          </Button>
-        </Form>
-      </Formik>
+      <form className={s.formSeries} onSubmit={handleSubmit(onSubmit)}>
+        <div className={s.flexGrowItem}>
+          <Controller
+            name="title"
+            control={control}
+            render={({ field, fieldState }) => (
+              <Input
+                {...field}
+                placeholder="Serie title"
+                type="text"
+                style={{ ...(fieldState.error && { border: '1px solid red' }) }}
+              />
+            )}
+          />
+          {errors.title && <div className={s.error}>{errors.title.message}</div>}
+        </div>
+
+        <div className={s.flexGrowItem}>
+          <Controller
+            name="authorID"
+            control={control}
+            render={({ field, fieldState }) => (
+              <SearchInForm {...field} status={fieldState.error && 'error'} />
+            )}
+          />
+          {errors.authorID && <div className={s.error}>{errors.authorID.message}</div>}
+        </div>
+
+        <Button
+          className={s.submitBtn}
+          type="primary"
+          size="large"
+          htmlType="submit"
+          disabled={loading}>
+          ADD
+        </Button>
+      </form>
       {!!data && <Modal content={`serie ${data.serieInfo.title} was created`} />}
       {!!error && <Error />}
     </>

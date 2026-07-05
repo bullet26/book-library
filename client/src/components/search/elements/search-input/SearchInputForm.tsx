@@ -1,44 +1,31 @@
-/* eslint-disable import/no-extraneous-dependencies */
-import { useEffect } from 'react'
 import { Input as AntInput } from 'antd'
-import { useField } from 'formik'
 import s from './SearchInput.module.scss'
+import type { CSSProperties } from 'react'
 
 interface InputProps {
-  name: string
   placeholder: string
   inputValue: string
   handleChange: (value: string) => void
+  style?: CSSProperties
 }
 
 export const SearchInputForm = (props: InputProps) => {
   const { Search } = AntInput
 
-  const { name, placeholder, inputValue, handleChange } = props
-  const [field, meta, helpers] = useField(name)
-
-  useEffect(() => {
-    if (!field.value) {
-      handleChange('')
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [field.value])
+  const { placeholder, inputValue, handleChange, style } = props
 
   return (
     <span className={s.inputForm}>
       <Search
         allowClear
         placeholder={placeholder}
-        id={name}
-        name={name}
-        value={inputValue || field.value}
+        value={inputValue}
         onSearch={handleChange}
+        style={style}
         onChange={(e) => {
           handleChange(e?.target.value)
-          helpers.setValue(e?.target.value, true)
         }}
       />
-      {meta.touched && meta.error && <div className={s.error}>{meta.error}</div>}
     </span>
   )
 }

@@ -2,7 +2,7 @@ import { Fragment, useEffect, useState } from 'react'
 import { useQuery } from '@apollo/client/react'
 import { useParams } from 'react-router-dom'
 import { CardListBooks, YearSelect } from 'components'
-import { Loader, Error, DateDivider, AddBookButton } from 'UI'
+import { Loader, Error, DateDivider, ActivateEditMode } from 'UI'
 import { ALL_BOOKS_BY_SPECIFIC_DATE } from '__graphql'
 import type { ReadDateBook } from 'types'
 import s from './BooksByDate.module.scss'
@@ -52,7 +52,7 @@ export const BooksByDate = () => {
         <div className={s.wrapper}>
           <div className={s.innerWrapper}>
             <YearSelect year={year} />
-            {windowWidth < 729 && <AddBookButton />}
+            {windowWidth < 729 && <ActivateEditMode />}
           </div>
           <DateDivider message={String(year)} type="main" />
           {formattedBooks?.map((item) => {

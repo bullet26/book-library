@@ -1,44 +1,39 @@
 import { type CSSProperties, useEffect, useState } from 'react'
 import { useLazyQuery } from '@apollo/client/react'
 import { SEARCH_IN_AUTHORS, SEARCH_IN_SERIES, SEARCH_IN_BOOKS } from '__graphql'
-import { useFormikContext } from 'formik'
 import { useDebounce } from 'hooks'
 import { Error } from 'UI'
 import { SearchInputForm, SearchListForm } from 'components/search/elements'
 import s from './Search.module.scss'
 
 interface SearchInForProps {
-  type: 'authors' | 'series' | 'books'
   style?: CSSProperties
+  name: 'authorID' | 'seriesID' | 'bookID'
+  value?: string
+  onChange: (v: string) => void
+  status?: 'error'
 }
 
+const SEARCH_CONFIG = {
+  authorID: { query: SEARCH_IN_AUTHORS, dataKey: 'authors', placeholder: 'Author' },
+  seriesID: { query: SEARCH_IN_SERIES, dataKey: 'series', placeholder: 'Book series' },
+  bookID: { query: SEARCH_IN_BOOKS, dataKey: 'books', placeholder: 'Book title' },
+} as const
+
 export const SearchInForm = (props: SearchInForProps) => {
-  const { type, style } = props
+  const { style, name, value, onChange, status } = props
+  const config = SEARCH_CONFIG[name]
 
-  const [makeSearchAuthors, { error: authorError, data: authorsData }] =
-    useLazyQuery(SEARCH_IN_AUTHORS)
-  const [makeSearchSeries, { error: seriesError, data: seriesData }] =
-    useLazyQuery(SEARCH_IN_SERIES)
-  const [makeSearchBooks, { error: booksError, data: booksData }] = useLazyQuery(SEARCH_IN_BOOKS)
-
-  const { setFieldValue } = useFormikContext()
+  const [makeSearch, { error, data }] = useLazyQuery(config.query)
 
   const [inputValue, setInputValue] = useState('')
-  const debouncedValue = useDebounce(inputValue, 500)
-
   const [allowSearch, setAllowSearchStatus] = useState(false)
   const [showSearchList, setShowSearchListStatus] = useState(false)
 
-  const handleSearch = (searchString: string) => {
-    const trimmedSearchString = searchString.trim()
+  const debouncedValue = useDebounce(inputValue, 500)
 
-    if (type === 'authors') {
-      makeSearchAuthors({ variables: { searchString: trimmedSearchString } })
-    } else if (type === 'series') {
-      makeSearchSeries({ variables: { searchString: trimmedSearchString } })
-    } else if (type === 'books') {
-      makeSearchBooks({ variables: { searchString: trimmedSearchString } })
-    }
+  const handleSearch = (searchString: string) => {
+    makeSearch({ variables: { searchString: searchString.trim() } })
     setShowSearchListStatus(true)
   }
 
@@ -50,80 +45,46 @@ export const SearchInForm = (props: SearchInForProps) => {
     }
   }, [debouncedValue])
 
+  useEffect(() => {
+    if (!value) {
+      setInputValue('')
+      setAllowSearchStatus(false)
+      setShowSearchListStatus(false)
+    }
+  }, [value])
+
   const handleInputChange = (value: string) => {
     setInputValue(value)
     setAllowSearchStatus(true)
   }
 
   const handleSearchResultClick = (id: string, value: string) => {
-    if (type === 'authors') {
-      setFieldValue('authorID', id)
-    } else if (type === 'series') {
-      setFieldValue('seriesID', id)
-    } else if (type === 'books') {
-      setFieldValue('bookID', id)
-    }
+    onChange(id)
 
     setShowSearchListStatus(false)
     setAllowSearchStatus(false)
     setInputValue(value)
   }
 
+  const listData = data ? (data as Record<typeof config.dataKey, any>)[config.dataKey] : null
+
   return (
     <>
-      {type === 'authors' && (
-        <div className={s.searchFormInputWrapper} style={style}>
+      <div className={s.searchFormInputWrapper} style={style}>
+        <div>
           <SearchInputForm
-            placeholder="Author"
-            name="author"
+            placeholder={config.placeholder}
             inputValue={inputValue}
             handleChange={handleInputChange}
+            style={{ ...(status === 'error' && { border: '1px solid red' }) }}
           />
-          <input type="hidden" name="authorID" />
-          {!!authorsData && showSearchList && (
-            <SearchListForm data={authorsData.authors} onClick={handleSearchResultClick} />
-          )}
         </div>
-      )}
 
-      {type === 'series' && (
-        <div className={s.searchFormInputWrapper} style={style}>
-          <SearchInputForm
-            placeholder="Book series"
-            name="series"
-            inputValue={inputValue}
-            handleChange={handleInputChange}
-          />
-          <input type="hidden" name="seriesID" />
-          {!!seriesData && showSearchList && (
-            <SearchListForm data={seriesData.series} onClick={handleSearchResultClick} />
-          )}
-        </div>
-      )}
-
-      {type === 'books' && (
-        <div className={s.searchFormInputWrapperBooks} style={style}>
-          <SearchInputForm
-            placeholder="Book title"
-            name="title"
-            inputValue={inputValue}
-            handleChange={handleInputChange}
-          />
-          <input type="hidden" name="bookID" />
-          {!!booksData && showSearchList && (
-            <SearchListForm
-              data={booksData.books}
-              onClick={handleSearchResultClick}
-              // eslint-disable-next-line react/jsx-boolean-value
-              fullWidth={true}
-            />
-          )}
-        </div>
-      )}
-
-      {type === 'authors' && !!authorError && <Error message={authorError?.message} />}
-      {type === 'series' && !!seriesError && <Error message={seriesError?.message} />}
-      {type === 'books' && !!booksError && <Error message={booksError?.message} />}
+        {!!listData && showSearchList && (
+          <SearchListForm data={listData} onClick={handleSearchResultClick} />
+        )}
+      </div>
+      {!!error && <Error message={error?.message} />}
     </>
   )
 }

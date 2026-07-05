@@ -1,7 +1,42 @@
-.addFormWrapper {
-  display: flex;
-  flex-direction: column;
-  row-gap: 25px;
+.addBookFormWrapper {
+  margin-top: 45px;
+  display: grid;
+  grid-template-columns: 60vw 30vw;
+  column-gap: 5vw;
+  @media (max-width: 800px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    row-gap: 25px;
+  }
+
+  .submitBtn {
+    width: 100%;
+    margin: 25px 0 15px 0;
+  }
+}
+
+.addBookFormWrapperOneColumn {
+  margin-top: 45px;
+  width: 60vw;
+  margin-right: 5vw;
+  @media (max-width: 800px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    row-gap: 25px;
+  }
+
+  .submitBtn {
+    width: 100%;
+    margin: 25px 0 15px 0;
+  }
+}
+
+.addAuthorFormWrapper {
+  flex: 1;
+  align-self: center;
+  justify-self: center;
 }
 
 .form {
@@ -12,6 +47,7 @@
   justify-content: center;
 
   .submitBtn {
+    width: 100%;
     margin-top: 25px;
   }
 }
@@ -29,7 +65,7 @@
   }
 
   .submitBtn {
-    margin: 0;
+    height: 35px;
   }
 }
 
@@ -41,6 +77,7 @@
   justify-content: center;
 
   .submitBtn {
+    width: 100%;
     align-self: center;
   }
 }
@@ -56,7 +93,6 @@
 }
 
 .flexItem {
-  position: relative;
   @media (max-width: 582px) {
     flex: 0.5;
   }
@@ -68,7 +104,6 @@
 
 .flexGrowItem {
   flex: 1;
-  position: relative;
 }
 
 .title {
@@ -78,7 +113,6 @@
 }
 
 .ratingWrapper {
-  width: 150%;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -94,4 +128,11 @@
   @media (max-width: 582px) {
     width: 90px;
   }
+}
+
+.error {
+  width: 100%;
+  text-align: left;
+  font-size: 11px;
+  color: $error;
 }

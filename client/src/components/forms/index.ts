@@ -1,6 +1,6 @@
 export { AddBookForm } from './add-book'
 export { AddAuthorForm } from './add-author'
-export { ReReadBookForm } from './reread-book'
+export { ReReadBookForm } from './re-read-book'
 export { AdditionalMediaForm } from './media'
 export { AddSerieForm } from './add-serie'
 export { UpdateBookPlotForm } from './update-plot'

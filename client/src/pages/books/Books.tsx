@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client/react'
 import { useSearchParams } from 'react-router-dom'
 import { CardListBooks, YearSelect, TagSelect } from 'components'
-import { Loader, Pagination, Error, AddBookButton } from 'UI'
+import { Loader, Pagination, Error, ActivateEditMode } from 'UI'
 import { type ReadDateBook } from 'types'
 import { ALL_BOOKS_BY_DATE } from '__graphql'
 import s from './Books.module.scss'
@@ -43,7 +43,7 @@ export const Books = () => {
                 perPageRange={[20, 50, 100, 200]}
                 handleSubmit={handleSubmit}
               />
-              {windowWidth < 729 && <AddBookButton />}
+              {windowWidth < 729 && <ActivateEditMode />}
             </div>
 
             <div className={s.innerWrapper}>

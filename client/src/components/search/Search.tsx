@@ -7,7 +7,7 @@ import { Error } from 'UI'
 import { SearchInput, SearchList } from 'components/search/elements'
 import s from './Search.module.scss'
 
-interface DOMRectCoords {
+export interface DOMRectCoords {
   top: number
   left: number
   width: number
@@ -94,7 +94,7 @@ export const Search = (props: SearchProps) => {
           handleMobileSearchClick={handleMobileSearchClick}
         />
       </div>
-      {showSearchList && (
+      {showSearchList && data && (
         <SearchList
           data={data?.search || []}
           onClick={handleSearchResultClick}

@@ -6,21 +6,20 @@ import type {
 import { SearchCard } from './SearchCard'
 import { checkTypesFormTitle } from './utils'
 import s from './SearchCard.module.scss'
+import type { CSSProperties } from 'react'
 
 interface SearchListProps {
   data:
     SearchInAuthorsQuery['authors'] | SearchInSeriesQuery['series'] | SearchInBooksQuery['books']
-  fullWidth?: boolean
+  style?: CSSProperties
   onClick: (id: string, value: string) => void
 }
 
 export const SearchListForm = (props: SearchListProps) => {
-  const { data = [], onClick, fullWidth = false } = props
-
-  const className = fullWidth ? [s.formCardList, s.formCardListFullWidth].join(' ') : s.formCardList
+  const { data = [], onClick, style } = props
 
   return (
-    <div className={className}>
+    <div className={s.formCardList} style={style}>
       {data.map((item) => (
         <SearchCard
           key={item.id}

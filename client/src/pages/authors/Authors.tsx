@@ -2,7 +2,7 @@ import { useQuery } from '@apollo/client/react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { Button as AntButton } from 'antd'
 import { CardListAuthors } from 'components'
-import { Loader, Pagination, Error, AddBookButton } from 'UI'
+import { Loader, Pagination, Error, ActivateEditMode } from 'UI'
 import { ALL_AUTHORS } from '__graphql'
 import s from './Authors.module.scss'
 
@@ -43,7 +43,7 @@ export const Authors = () => {
                 <AntButton shape="round">Show most reded authors</AntButton>
               </Link>
             )}
-            {windowWidth < 729 && <AddBookButton />}
+            {windowWidth < 729 && <ActivateEditMode />}
           </div>
           {windowWidth < 729 && (
             <Link to="/most_reded_authors" style={{}}>

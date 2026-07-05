@@ -36,6 +36,6 @@ export const uploadImgCloudinary = async (req: MulterRequest, res: Response) => 
       res.status(404).json('couldn`t get image')
     }
   } catch (error: any) {
-    res.status(500).json(error?.message || 'couldn`t upload image to cloudinary')
+    res.status(500).json(error?.message ?? 'couldn`t upload image to cloudinary')
   }
 }

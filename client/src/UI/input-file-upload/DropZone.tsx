@@ -7,11 +7,11 @@ import s from './DropZone.module.scss'
 interface DropZoneProps {
   size?: 'small' | 'medium'
   status?: boolean
-  addLinkToForm: (link: string) => void
+  onChange: (link: string) => void
 }
 
 export const DropZone = (props: DropZoneProps) => {
-  const { size = 'medium', status = true, addLinkToForm } = props
+  const { size = 'medium', status = true, onChange } = props
 
   const [fileURL, setFileURL] = useState('')
   const [file, setFile] = useState<Blob | string>('')
@@ -76,7 +76,7 @@ export const DropZone = (props: DropZoneProps) => {
         .post(`${baseURL}/upload`, { body: formData })
         .json()
 
-      addLinkToForm(response.data.image)
+      onChange(response.data.image)
 
       if (dropzoneRef.current) {
         dropzoneRef.current.style.border = '3px solid green'
@@ -87,7 +87,7 @@ export const DropZone = (props: DropZoneProps) => {
   }
 
   const onPasteLink = (link: string) => {
-    addLinkToForm(link)
+    onChange(link)
     setFileURL(link)
   }
 
