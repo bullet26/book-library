@@ -1,12 +1,12 @@
 import { useMutation } from '@apollo/client/react'
-import { useForm, Controller } from 'react-hook-form'
+import { useForm, FormProvider } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { Button, Input } from 'antd'
+import { Button } from 'antd'
 import { CREATE_SERIE } from '__graphql'
-import { SearchInForm } from 'components'
 import { Modal, Error } from 'UI'
 import { AddSerieInitialValues, AddSerieValidationSchema, type AddSerieFormType } from '../utils'
 import s from '../Form.module.scss'
+import { SearchDropdownControlled, TextInputControlled } from '../elements'
 
 interface AddSerieFormProps {
   handleHideForm: () => void
@@ -17,12 +17,7 @@ export const AddSerieForm = (props: AddSerieFormProps) => {
 
   const [createSerieApollo, { data, error, loading }] = useMutation(CREATE_SERIE)
 
-  const {
-    control,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<AddSerieFormType>({
+  const methods = useForm<AddSerieFormType>({
     defaultValues: AddSerieInitialValues,
     resolver: yupResolver(AddSerieValidationSchema),
   })
@@ -31,49 +26,32 @@ export const AddSerieForm = (props: AddSerieFormProps) => {
     const { authorID, title } = values
 
     createSerieApollo({ variables: { input: { authorID, title: title.trim() } } })
-    reset()
+    methods.reset()
     handleHideForm()
   }
 
   return (
     <>
-      <form className={s.formSeries} onSubmit={handleSubmit(onSubmit)}>
-        <div className={s.flexGrowItem}>
-          <Controller
-            name="title"
-            control={control}
-            render={({ field, fieldState }) => (
-              <Input
-                {...field}
-                placeholder="Serie title"
-                type="text"
-                style={{ ...(fieldState.error && { border: '1px solid red' }) }}
-              />
-            )}
-          />
-          {errors.title && <div className={s.error}>{errors.title.message}</div>}
-        </div>
+      <FormProvider {...methods}>
+        <form className={s.formSeries} onSubmit={methods.handleSubmit(onSubmit)}>
+          <div className={s.flexGrowItem}>
+            <TextInputControlled name="title" placeholder="Serie title" />
+          </div>
+          <div className={s.flexGrowItem}>
+            <SearchDropdownControlled name="authorID" />
+          </div>
 
-        <div className={s.flexGrowItem}>
-          <Controller
-            name="authorID"
-            control={control}
-            render={({ field, fieldState }) => (
-              <SearchInForm {...field} status={fieldState.error && 'error'} />
-            )}
-          />
-          {errors.authorID && <div className={s.error}>{errors.authorID.message}</div>}
-        </div>
+          <Button
+            className={s.submitBtn}
+            type="primary"
+            size="large"
+            htmlType="submit"
+            disabled={loading}>
+            ADD
+          </Button>
+        </form>
+      </FormProvider>
 
-        <Button
-          className={s.submitBtn}
-          type="primary"
-          size="large"
-          htmlType="submit"
-          disabled={loading}>
-          ADD
-        </Button>
-      </form>
       {!!data && <Modal content={`serie ${data.serieInfo.title} was created`} />}
       {!!error && <Error />}
     </>

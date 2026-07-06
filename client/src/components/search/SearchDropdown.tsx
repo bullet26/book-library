@@ -6,7 +6,7 @@ import { Error } from 'UI'
 import { SearchInputForm, SearchListForm } from 'components/search/elements'
 import s from './Search.module.scss'
 
-interface SearchInForProps {
+export interface SearchDropdownProps {
   style?: CSSProperties
   name: 'authorID' | 'seriesID' | 'bookID'
   value?: string
@@ -20,7 +20,7 @@ const SEARCH_CONFIG = {
   bookID: { query: SEARCH_IN_BOOKS, dataKey: 'books', placeholder: 'Book title' },
 } as const
 
-export const SearchInForm = (props: SearchInForProps) => {
+export const SearchDropdown = (props: SearchDropdownProps) => {
   const { style, name, value, onChange, status } = props
   const config = SEARCH_CONFIG[name]
 

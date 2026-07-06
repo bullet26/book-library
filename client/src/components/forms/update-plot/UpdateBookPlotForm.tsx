@@ -1,12 +1,13 @@
 import { useParams } from 'react-router-dom'
 import { Button } from 'antd'
-import { useForm, Controller } from 'react-hook-form'
+import { useForm, FormProvider } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation } from '@apollo/client/react'
 import { UPDATE_BOOK_PLOT } from '__graphql'
-import { TextEditor, Modal, Error } from 'UI'
+import { Modal, Error } from 'UI'
 import { UpdatePlotValidationSchema, type UpdatePlotFormType } from '../utils'
 import s from '../Form.module.scss'
+import { TextEditorControlled } from '../elements'
 
 interface UpdateBookPlotProps {
   id: string
@@ -18,11 +19,7 @@ export const UpdateBookPlotForm = (props: UpdateBookPlotProps) => {
 
   const { id: bookID = '' } = useParams()
 
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<UpdatePlotFormType>({
+  const methods = useForm<UpdatePlotFormType>({
     defaultValues: {
       id,
       bookID,
@@ -43,35 +40,28 @@ export const UpdateBookPlotForm = (props: UpdateBookPlotProps) => {
 
   return (
     <div className={s.addFormWrapper}>
-      <form onSubmit={handleSubmit(onSubmit)} className={s.form}>
-        <Controller
-          name="plot"
-          control={control}
-          render={({ field, fieldState }) => (
-            <TextEditor
-              {...field}
-              placeholder="Book plot description"
-              editOptions={{ color: true, bold: true, italic: true }}
-              style={{
-                minHeight: '200px',
-                maxHeight: '50vh',
-                overflowY: 'auto',
-                ...(fieldState.error && { border: '1px solid red' }),
-              }}
-            />
-          )}
-        />
-        {errors.plot && <div className={s.error}>{errors.plot.message}</div>}
-
-        <Button
-          className={s.submitBtn}
-          type="primary"
-          size="large"
-          htmlType="submit"
-          disabled={loading}>
-          UPDATE
-        </Button>
-      </form>
+      <FormProvider {...methods}>
+        <form onSubmit={methods.handleSubmit(onSubmit)} className={s.form}>
+          <TextEditorControlled
+            name="plot"
+            placeholder="Book plot description"
+            editOptions
+            style={{
+              minHeight: '200px',
+              maxHeight: '50vh',
+              overflowY: 'auto',
+            }}
+          />
+          <Button
+            className={s.submitBtn}
+            type="primary"
+            size="large"
+            htmlType="submit"
+            disabled={loading}>
+            UPDATE
+          </Button>
+        </form>
+      </FormProvider>
       {!!data && <Modal content={'Book PLOT was UPDATED'} />}
       {!!error && <Error />}
     </div>

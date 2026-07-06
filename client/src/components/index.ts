@@ -4,7 +4,7 @@ export { BookInfo } from './book-info'
 export { Carousel } from './carousel'
 export { BookInfoTab, BookTab, BookPlotTab, BookMediaTab } from './book-tab'
 export { BookSection } from './book-section'
-export { Search, SearchInForm } from './search'
+export { Search, SearchDropdown } from './search'
 export { DiagramPie, ChartAuthor, ChartBook, DiagramBar, ChartYears } from './charts'
 export { YearSelect, TagSelect, SortTypeSelect } from './filters'
 export {

@@ -1,2 +1,2 @@
 export { Search } from './Search'
-export { SearchInForm } from './SearchInForm'
+export { SearchDropdown } from './SearchDropdown'

@@ -4,14 +4,13 @@ import ky from 'ky'
 import { Error } from 'UI'
 import s from './DropZone.module.scss'
 
-interface DropZoneProps {
+export interface DropZoneProps {
   size?: 'small' | 'medium'
-  status?: boolean
   onChange: (link: string) => void
 }
 
 export const DropZone = (props: DropZoneProps) => {
-  const { size = 'medium', status = true, onChange } = props
+  const { size = 'medium', onChange } = props
 
   const [fileURL, setFileURL] = useState('')
   const [file, setFile] = useState<Blob | string>('')
@@ -92,7 +91,7 @@ export const DropZone = (props: DropZoneProps) => {
   }
 
   return (
-    <div className={`${s.wrapper} ${size === 'small' && s.wrapperSmall} ${!status && s.hide}`}>
+    <div className={`${s.wrapper} ${size === 'small' && s.wrapperSmall}`}>
       <Radio.Group
         onChange={(e) => setSource(e.target.value)}
         value={source}
