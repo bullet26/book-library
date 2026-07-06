@@ -15,9 +15,9 @@ export const SearchDropdownControlled = (props: SearchDropdownControlledProps) =
   const { field, fieldState } = useController({ name })
 
   return (
-    <>
+    <div style={{ width: '100%' }}>
       <SearchDropdown {...field} status={fieldState.error && 'error'} style={style} />
       {fieldState.error && <div className={s.error}>{fieldState.error?.message}</div>}
-    </>
+    </div>
   )
 }

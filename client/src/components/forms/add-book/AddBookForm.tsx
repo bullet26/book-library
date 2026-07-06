@@ -56,14 +56,12 @@ export const AddBookForm = (props: AddBookFormProps) => {
   }
 
   return (
-    <div>
-      <div className={s.title}>Add read book</div>
-
+    <>
       <FormProvider {...methods}>
-        <form
-          className={isShowAuthorForm ? s.addBookFormWrapperOneColumn : s.addBookFormWrapper}
-          onSubmit={methods.handleSubmit(onSubmit)}>
+        <form onSubmit={methods.handleSubmit(onSubmit)} className={s.addBookFormGrid}>
           <div className={s.form}>
+            <div className={s.title}>Add read book</div>
+
             <TextInputControlled name="title" placeholder="Book title" />
 
             <div className={s.formRow}>
@@ -82,12 +80,12 @@ export const AddBookForm = (props: AddBookFormProps) => {
             </div>
 
             <div className={s.formRow}>
-              <SearchDropdownControlled name="seriesID" style={{ width: '200%' }} />
+              <SearchDropdownControlled name="seriesID" />
               <NumberInputControlled
                 name="seriesNumber"
                 placeholder="Book series number"
                 style={{
-                  width: '100%',
+                  width: '50%',
                 }}
               />
               <div className={s.desktopOnlyBtn}>
@@ -130,7 +128,11 @@ export const AddBookForm = (props: AddBookFormProps) => {
             </Button>
           </div>
 
-          {!isShowAuthorForm && <DropZoneControlled name="bookCover" />}
+          {!isShowAuthorForm && (
+            <div className={s.dropzoneRightColumn}>
+              <DropZoneControlled name="bookCover" />
+            </div>
+          )}
         </form>
       </FormProvider>
 
@@ -140,6 +142,6 @@ export const AddBookForm = (props: AddBookFormProps) => {
         />
       )}
       {!!error && <Error />}
-    </div>
+    </>
   )
 }

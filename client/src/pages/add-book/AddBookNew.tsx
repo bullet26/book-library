@@ -21,16 +21,20 @@ export const AddBookNew = () => {
   const handleHideSerieForm = () => setTimeout(() => setStatusShowSerieForm(false), 5000)
 
   return (
-    <div className={s.formWrapper}>
+    <div className={s.formWrapperAddNewBook}>
       {isShowSerieForm && <AddSerieForm handleHideForm={handleHideSerieForm} />}
-      <div className={isShowAuthorForm ? s.formInnerWrapper : ''}>
+      <div className={s.formBookAuthorWrapper}>
         <AddBookForm
           handleClickAuthorBtn={handleClickAuthorBtn}
           isShowAuthorForm={isShowAuthorForm}
           isShowSerieForm={isShowSerieForm}
           handleClickSerieBtn={handleClickSerieBtn}
         />
-        {isShowAuthorForm && <AddAuthorForm handleHideForm={handleHideAuthorForm} />}
+        {isShowAuthorForm && (
+          <div className={s.authorColumn}>
+            <AddAuthorForm handleHideForm={handleHideAuthorForm} />
+          </div>
+        )}
       </div>
     </div>
   )

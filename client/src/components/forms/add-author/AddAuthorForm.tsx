@@ -42,7 +42,7 @@ export const AddAuthorForm = (props: AddAuthorFormProps) => {
   }
 
   return (
-    <div className={s.addAuthorFormWrapper}>
+    <div className={s.addAuthorForm}>
       <div className={s.title}>Add author</div>
       <FormProvider {...methods}>
         <form className={s.form} onSubmit={methods.handleSubmit(onSubmit)}>

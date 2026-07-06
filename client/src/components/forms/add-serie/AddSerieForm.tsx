@@ -33,7 +33,7 @@ export const AddSerieForm = (props: AddSerieFormProps) => {
   return (
     <>
       <FormProvider {...methods}>
-        <form className={s.formSeries} onSubmit={methods.handleSubmit(onSubmit)}>
+        <form className={s.seriesForm} onSubmit={methods.handleSubmit(onSubmit)}>
           <TextInputControlled name="title" placeholder="Serie title" />
           <SearchDropdownControlled name="authorID" />
 

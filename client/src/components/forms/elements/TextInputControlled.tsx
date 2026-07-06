@@ -13,7 +13,7 @@ export const TextInputControlled = (props: TextInputControlledProps) => {
   const { field, fieldState } = useController({ name })
 
   return (
-    <>
+    <div style={{ width: '100%' }}>
       <Input
         {...field}
         placeholder={placeholder}
@@ -21,6 +21,6 @@ export const TextInputControlled = (props: TextInputControlledProps) => {
         style={{ ...(fieldState.error && { border: '1px solid red' }) }}
       />
       {fieldState.error && <div className={s.error}>{fieldState.error?.message}</div>}
-    </>
+    </div>
   )
 }
