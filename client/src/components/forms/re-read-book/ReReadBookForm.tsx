@@ -38,7 +38,7 @@ export const ReReadBookForm = (props: ReReadBookFormProps) => {
 
   return (
     <FormProvider {...methods}>
-      <form className={s.formReread} onSubmit={methods.handleSubmit(onSubmit)}>
+      <form className={s.form} onSubmit={methods.handleSubmit(onSubmit)}>
         <SearchDropdownControlled name="bookID" />
         <DatePickerControlled name="readEnd" />
 

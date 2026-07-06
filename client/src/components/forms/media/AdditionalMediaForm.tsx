@@ -38,7 +38,7 @@ export const AdditionalMediaForm = (props: AdditionalMediaFormProps) => {
 
   return (
     <FormProvider {...methods}>
-      <form className={s.formReread} onSubmit={methods.handleSubmit(onSubmit)}>
+      <form className={s.form} onSubmit={methods.handleSubmit(onSubmit)}>
         <SearchDropdownControlled name="bookID" />
         <RadioGroupControlled name="type" />
         <UploadMediaControlled name="url" />

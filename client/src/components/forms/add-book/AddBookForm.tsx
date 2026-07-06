@@ -27,9 +27,6 @@ interface AddBookFormProps {
 export const AddBookForm = (props: AddBookFormProps) => {
   const { handleClickAuthorBtn, isShowAuthorForm, isShowSerieForm, handleClickSerieBtn } = props
 
-  const windowWidth = window.innerWidth
-  const MOBILE_WIDTH_THRESHOLD = 582
-
   const dateFormat = 'YYYY-MM-DD'
 
   const [createBookApollo, { data, error, loading }] = useMutation(CREATE_BOOK)
@@ -69,81 +66,59 @@ export const AddBookForm = (props: AddBookFormProps) => {
           <div className={s.form}>
             <TextInputControlled name="title" placeholder="Book title" />
 
-            <div className={s.innerWrapper}>
-              <div className={s.flexGrowItem}>
-                <SearchDropdownControlled name="authorID" />
-              </div>
+            <div className={s.formRow}>
+              <SearchDropdownControlled name="authorID" />
 
-              {windowWidth > MOBILE_WIDTH_THRESHOLD && (
-                <div className={s.flexItem}>
-                  <Button type="default" size="middle" onClick={handleClickAuthorBtn}>
-                    {isShowAuthorForm ? 'Hide author form' : 'Add new author'}
-                  </Button>
-                </div>
-              )}
+              <div className={s.desktopOnlyBtn}>
+                <Button type="default" size="middle" onClick={handleClickAuthorBtn}>
+                  {isShowAuthorForm ? 'Hide author form' : 'Add new author'}
+                </Button>
+              </div>
             </div>
 
-            <div className={s.innerWrapper}>
+            <div className={s.formRow}>
               <RateControlled name="rating" />
+              <DatePickerControlled name="readEnd" style={{ width: '100%' }} />
+            </div>
 
-              <div className={s.flexGrowItem}>
-                <DatePickerControlled name="readEnd" style={{ width: '100%' }} />
+            <div className={s.formRow}>
+              <SearchDropdownControlled name="seriesID" style={{ width: '200%' }} />
+              <NumberInputControlled
+                name="seriesNumber"
+                placeholder="Book series number"
+                style={{
+                  width: '100%',
+                }}
+              />
+              <div className={s.desktopOnlyBtn}>
+                <Button type="default" size="middle" onClick={handleClickSerieBtn}>
+                  {isShowSerieForm ? 'Hide serie form' : 'Add new serie'}
+                </Button>
               </div>
             </div>
 
-            <div className={s.innerWrapper}>
-              <div className={s.flexGrowItem}>
-                <SearchDropdownControlled name="seriesID" />
-              </div>
-
-              <div className={s.flexItem}>
-                <NumberInputControlled
-                  name="seriesNumber"
-                  placeholder="Book series number"
-                  style={{
-                    width: '100%',
-                  }}
-                />
-              </div>
-
-              {windowWidth > MOBILE_WIDTH_THRESHOLD && (
-                <div className={s.flexItem}>
-                  <Button type="default" size="middle" onClick={handleClickSerieBtn}>
-                    {isShowSerieForm ? 'Hide serie form' : 'Add new serie'}
-                  </Button>
-                </div>
-              )}
-            </div>
-
-            <div className={s.innerWrapper}>
-              <div className={s.flexGrowItem}>
-                <NumberInputControlled
-                  name="pages"
-                  placeholder="Book pages"
-                  style={{
-                    width: '100%',
-                  }}
-                />
-              </div>
-
-              <div className={s.flexGrowItem}>
-                <TextInputControlled name="notes" placeholder="Book notes" />
-              </div>
+            <div className={s.formRow}>
+              <NumberInputControlled
+                name="pages"
+                placeholder="Book pages"
+                style={{
+                  width: '100%',
+                }}
+              />
+              <TextInputControlled name="notes" placeholder="Book notes" />
             </div>
 
             <TextEditorControlled name="description" placeholder="Book annotation" />
             <TextEditorControlled name="plot" editOptions placeholder="Book plot description" />
 
-            {windowWidth < MOBILE_WIDTH_THRESHOLD && (
-              <div className={s.innerWrapper}>
-                <Button type="default" size="middle" onClick={handleClickSerieBtn}>
-                  {isShowSerieForm ? 'Hide serie form' : 'Add new serie'}
-                </Button>
-                <Button type="default" size="middle" onClick={handleClickAuthorBtn}>
-                  {isShowAuthorForm ? 'Hide author form' : 'Add new author'}
-                </Button>
-              </div>
-            )}
+            <div className={s.mobileOnlyBtns}>
+              <Button type="default" size="middle" onClick={handleClickSerieBtn}>
+                {isShowSerieForm ? 'Hide serie form' : 'Add new serie'}
+              </Button>
+              <Button type="default" size="middle" onClick={handleClickAuthorBtn}>
+                {isShowAuthorForm ? 'Hide author form' : 'Add new author'}
+              </Button>
+            </div>
 
             <Button
               className={s.submitBtn}

@@ -34,12 +34,8 @@ export const AddSerieForm = (props: AddSerieFormProps) => {
     <>
       <FormProvider {...methods}>
         <form className={s.formSeries} onSubmit={methods.handleSubmit(onSubmit)}>
-          <div className={s.flexGrowItem}>
-            <TextInputControlled name="title" placeholder="Serie title" />
-          </div>
-          <div className={s.flexGrowItem}>
-            <SearchDropdownControlled name="authorID" />
-          </div>
+          <TextInputControlled name="title" placeholder="Serie title" />
+          <SearchDropdownControlled name="authorID" />
 
           <Button
             className={s.submitBtn}

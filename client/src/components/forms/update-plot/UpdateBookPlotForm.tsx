@@ -39,7 +39,7 @@ export const UpdateBookPlotForm = (props: UpdateBookPlotProps) => {
   }
 
   return (
-    <div className={s.addFormWrapper}>
+    <>
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)} className={s.form}>
           <TextEditorControlled
@@ -64,6 +64,6 @@ export const UpdateBookPlotForm = (props: UpdateBookPlotProps) => {
       </FormProvider>
       {!!data && <Modal content={'Book PLOT was UPDATED'} />}
       {!!error && <Error />}
-    </div>
+    </>
   )
 }

@@ -43,12 +43,11 @@
   row-gap: 20px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
 
   .submitBtn {
     width: 100%;
-    margin-top: 25px;
   }
 }
 
@@ -69,20 +68,7 @@
   }
 }
 
-.formReread {
-  row-gap: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-
-  .submitBtn {
-    width: 100%;
-    align-self: center;
-  }
-}
-
-.innerWrapper {
+.formRow {
   position: relative;
   width: 100%;
   display: flex;
@@ -90,20 +76,6 @@
   column-gap: 20px;
   justify-content: space-between;
   align-items: flex-start;
-}
-
-.flexItem {
-  @media (max-width: 582px) {
-    flex: 0.5;
-  }
-
-  button {
-    width: 135px;
-  }
-}
-
-.flexGrowItem {
-  flex: 1;
 }
 
 .title {
@@ -127,6 +99,31 @@
   width: 130px;
   @media (max-width: 582px) {
     width: 90px;
+  }
+}
+
+$mobile-threshold: 582px;
+
+.desktopOnlyBtn {
+  display: block;
+
+  @media (max-width: $mobile-threshold) {
+    display: none;
+  }
+}
+
+.mobileOnlyBtns {
+  display: none;
+
+  @media (max-width: $mobile-threshold) {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    width: 100%;
+
+    button {
+      flex: 1;
+    }
   }
 }
 
