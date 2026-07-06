@@ -1,10 +1,10 @@
-import { useForm, Controller, FormProvider } from 'react-hook-form'
+import { useForm, FormProvider } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Button } from 'antd'
 import dayjs from 'dayjs'
 import { useMutation } from '@apollo/client/react'
 import { CREATE_BOOK } from '__graphql'
-import { TextEditor, Modal, Error } from 'UI'
+import { Modal, Error } from 'UI'
 import {
   DatePickerControlled,
   DropZoneControlled,
