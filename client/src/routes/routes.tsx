@@ -23,7 +23,7 @@ export const AppRoutes = () => {
         <Route path="home" element={<Home />} />
         <Route path="books" element={<Books />} />
         <Route path="books/:id" element={<Book />} />
-        {isEditMode && <Route path="add_book" element={<AddBook />} />}
+        {isEditMode && <Route path="add" element={<AddBook />} />}
         <Route path="date/:year" element={<BooksByDate />} />
         <Route path="tag" element={<BooksByTag />} />
         <Route path="most_reded_authors" element={<MostRededAuthors />} />
