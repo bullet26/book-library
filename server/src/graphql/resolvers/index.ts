@@ -1,5 +1,4 @@
 import { mergeResolvers } from '@graphql-tools/merge'
-import { type IResolvers } from '@graphql-tools/utils'
 
 import { Resolvers } from '../generated/types.js'
 import { dateScalar } from '../scalar/Date.js'
@@ -13,7 +12,7 @@ import { searchResolvers } from './search/resolver.js'
 import { seriesResolvers } from './series/resolver.js'
 import { tagResolvers } from './tags/resolver.js'
 
-const allResolvers: IResolvers[] = [
+const allResolvers: Resolvers[] = [
   { Date: dateScalar },
   analyticsResolvers,
   additionalMediaResolvers,
