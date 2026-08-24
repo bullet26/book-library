@@ -42,34 +42,20 @@
     "@apollo/server": "^5.5.1",
     "@as-integrations/express5": "^1.1.2",
     "@graphql-tools/load-files": "^7.0.1",
-    "@graphql-tools/merge": "^9.1.10",
+    "@graphql-tools/merge": "^9.2.3",
     "body-parser": "^2.3.0",
-    "cloudinary": "^2.10.0",
+    "cloudinary": "^2.10.1",
     "cors": "^2.8.6",
     "dataloader": "^2.2.3",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "graphql": "^16.14.2",
-    "mongoose": "^9.7.3",
+    "mongoose": "^9.9.3",
     "multer": "^2.2.0"
   },
   "overrides": {
     "@graphql-codegen/cli": {
-      "shell-quote": "1.8.4"
-    },
-    "express": {
-      "path-to-regexp": "8.4.2"
-    },
-    "eslint": {
-      "flatted": "3.4.2",
-      "minimatch": "3.1.5",
-      "@eslint/config-array": {
-        "minimatch": "3.1.5"
-      },
-      "@eslint/eslintrc": {
-        "minimatch": "3.1.5"
-      }
-    },
-    "picomatch": "^4.0.4"
+      "shell-quote": "^1.8.5"
+    }
   }
 }

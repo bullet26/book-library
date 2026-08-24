@@ -13,25 +13,24 @@
   },
   "dependencies": {
     "@ant-design/icons": "^6.3.2",
-    "@apollo/client": "^4.2.3",
-    "@hookform/resolvers": "^5.4.0",
-    "antd": "^6.5.0",
-    "dayjs": "^1.11.21",
-    "dompurify": "^3.4.11",
-    "formik": "^2.4.9",
+    "@apollo/client": "^4.2.12",
+    "@hookform/resolvers": "^5.9.1",
+    "antd": "^6.6.1",
+    "dayjs": "^1.11.23",
+    "dompurify": "^3.4.14",
     "graphql": "^16.14.2",
     "ky": "^2.0.2",
-    "react": "^19.2.7",
+    "react": "^19.2.8",
     "react-contenteditable": "^3.3.7",
-    "react-dom": "^19.2.7",
+    "react-dom": "^19.2.8",
     "react-helmet-async": "^3.0.0",
-    "react-hook-form": "^7.80.0",
+    "react-hook-form": "^7.86.0",
     "react-player": "^3.4.0",
-    "react-router-dom": "^7.18.1",
+    "react-router-dom": "^7.18.2",
     "react-slick": "^0.31.0",
-    "recharts": "^3.9.0",
+    "recharts": "^3.10.1",
     "slick-carousel": "^1.8.1",
-    "tegaki": "^0.20.0",
+    "tegaki": "^0.22.1",
     "vite-plugin-svgr": "^5.2.0",
     "yup": "^1.7.1"
   },
@@ -59,16 +58,7 @@
   },
   "overrides": {
     "@graphql-codegen/cli": {
-      "shell-quote": "1.8.4"
-    },
-    "formik": {
-      "lodash": "4.18.1",
-      "lodash-es": "4.18.1"
-    },
-    "eslint": {
-      "flatted": "3.4.2"
-    },
-    "picomatch": "4.0.4",
-    "rollup": "4.62.2"
+      "shell-quote": "^1.8.5"
+    }
   }
 }
