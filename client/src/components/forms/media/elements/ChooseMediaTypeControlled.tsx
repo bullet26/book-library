@@ -1,7 +1,7 @@
 import { useController } from 'react-hook-form'
 import { Radio } from 'antd'
 import { MediaType } from '__graphql/__generated__/enums'
-import s from '../Form.module.scss'
+import s from '../../Form.module.scss'
 
 interface RadioGroupControlledProps {
   name: string

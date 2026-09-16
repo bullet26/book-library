@@ -3,7 +3,7 @@ import { Button, Input, Upload, type UploadProps } from 'antd'
 import { UploadOutlined } from '@ant-design/icons'
 import { useController, useWatch } from 'react-hook-form'
 import { beforeUpload } from '../utils'
-import s from '../Form.module.scss'
+import s from '../../Form.module.scss'
 
 interface UploadMediaControlledProps {
   name: string
