@@ -7,7 +7,7 @@ interface RadioGroupControlledProps {
   name: string
 }
 
-export const RadioGroupControlled = (props: RadioGroupControlledProps) => {
+export const ChooseMediaTypeControlled = (props: RadioGroupControlledProps) => {
   const { name } = props
 
   const {

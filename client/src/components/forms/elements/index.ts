@@ -1,8 +1,6 @@
 export { TextEditorControlled } from './TextEditorControlled'
 export { SearchDropdownControlled } from './SearchDropdownControlled'
 export { DatePickerControlled } from './DatePickerControlled'
-export { RadioGroupControlled } from './RadioGroupControlled'
-export { UploadMediaControlled } from './UploadMediaControlled'
 export { DropZoneControlled } from './DropZoneControlled'
 export { TextInputControlled } from './TextInputControlled'
 export { RateControlled } from './RateControlled'
