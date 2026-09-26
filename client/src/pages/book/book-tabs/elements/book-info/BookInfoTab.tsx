@@ -1,6 +1,6 @@
-import { BookInfo, Carousel } from 'components'
 import type { GetOneBookByIdQuery } from '__graphql/__generated__/graphql'
-import s from './BookTab.module.scss'
+import { Carousel, BookInfo } from './elements'
+import s from '../BookTab.module.scss'
 
 interface BookInfoTabProps {
   data?: GetOneBookByIdQuery

@@ -4,9 +4,10 @@ import type { SelectProps } from 'antd'
 import { useQuery, useMutation } from '@apollo/client/react'
 import { ALL_TAGS, CREATE_LINK_TAG_WITH_BOOK } from '__graphql'
 import { useNavigate } from 'react-router-dom'
+import { useReactContext } from 'providers'
 import { Error } from 'UI'
 import { type GetOneBookByIdQuery } from '__graphql/__generated__/graphql'
-import s from './SelectTag.module.scss'
+import s from './Tags.module.scss'
 
 type TagRender = SelectProps['tagRender']
 
@@ -18,6 +19,7 @@ interface SelectTagProps {
 
 const tagRender: TagRender = (props) => {
   const { label } = props
+
   const onPreventMouseDown = (event: React.MouseEvent<HTMLSpanElement>) => {
     event.preventDefault()
     event.stopPropagation()
@@ -29,9 +31,10 @@ const tagRender: TagRender = (props) => {
   )
 }
 
-export const SelectTag = (props: SelectTagProps) => {
+export const Tags = (props: SelectTagProps) => {
   const { tags, bookID } = props
   const navigate = useNavigate()
+  const { isEditMode } = useReactContext()
 
   const { data, error } = useQuery(ALL_TAGS, {})
 
@@ -92,17 +95,21 @@ export const SelectTag = (props: SelectTagProps) => {
           </Tag>
         ))}
       </div>
-      <Select
-        mode="multiple"
-        tagRender={tagRender}
-        defaultValue={tags.map((item) => item.id)}
-        style={{ width: '100%' }}
-        options={allTagLabels}
-        onChange={onChange}
-      />
-      <Button type="dashed" onClick={onSubmit} disabled={loading}>
-        OK
-      </Button>
+      {isEditMode && (
+        <>
+          <Select
+            mode="multiple"
+            tagRender={tagRender}
+            defaultValue={tags.map((item) => item.id)}
+            style={{ width: '100%' }}
+            options={allTagLabels}
+            onChange={onChange}
+          />
+          <Button type="dashed" onClick={onSubmit} disabled={loading}>
+            OK
+          </Button>
+        </>
+      )}
     </>
   )
 }

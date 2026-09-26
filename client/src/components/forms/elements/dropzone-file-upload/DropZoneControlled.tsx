@@ -1,7 +1,7 @@
 import { useController } from 'react-hook-form'
-import { DropZone } from 'UI'
-import s from '../Form.module.scss'
-import type { DropZoneProps } from 'UI/input-file-upload/DropZone'
+import type { DropZoneProps } from './DropZone'
+import { DropZone } from './DropZone'
+import s from '../../Form.module.scss'
 
 interface DropZoneControlledProps {
   name: string

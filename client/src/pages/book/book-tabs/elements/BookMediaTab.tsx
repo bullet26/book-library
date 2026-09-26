@@ -2,8 +2,9 @@ import { Image } from 'antd'
 import { useParams } from 'react-router-dom'
 import { useQuery } from '@apollo/client/react'
 import { Masonry } from 'antd'
+import ReactPlayer from 'react-player'
 import { ALL_MEDIA_FOR_BOOK } from '__graphql'
-import { Error, VideoEmbed } from 'UI'
+import { Error } from 'UI'
 import s from './BookTab.module.scss'
 
 export const BookMediaTab = () => {
@@ -22,7 +23,12 @@ export const BookMediaTab = () => {
       {!!error && <Error message={error?.message} />}
       {!!media?.video?.length && (
         <div className={s.videoWrapper}>
-          {media?.video.map((item) => item?.url && <VideoEmbed key={item.id} url={item.url} />)}
+          {media?.video.map(
+            (item) =>
+              item?.url && (
+                <ReactPlayer key={item.id} src={item.url} height="210px" width="390px" controls />
+              ),
+          )}
         </div>
       )}
       {!!media?.image?.length && (

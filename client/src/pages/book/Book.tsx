@@ -3,10 +3,12 @@ import { useQuery } from '@apollo/client/react'
 import { Image } from 'antd'
 import { TegakiRenderer } from 'tegaki'
 import caveat from 'tegaki/fonts/caveat'
-import { BookTab, ReactHelmetMetadata } from 'components'
-import { Loader, Rating, ScrollArrow, Error, SelectTag } from 'UI'
+import { ReactHelmetMetadata } from 'components'
+import { Loader, Rating, ScrollArrow, Error } from 'UI'
 import { Book as BookImg } from 'assets'
 import { ONE_BOOK_BY_ID } from '__graphql'
+import { BookTab } from './book-tabs'
+import { Tags } from './tags'
 import s from './Book.module.scss'
 
 export const Book = () => {
@@ -37,7 +39,7 @@ export const Book = () => {
                     {bookCover ? <Image width="100%" src={bookCover} /> : <BookImg width="100%" />}
                     <Rating rating={data?.book?.rating || 0} type="star" />
                   </div>
-                  <SelectTag tags={data?.book?.tags || []} bookID={id} />
+                  <Tags tags={data?.book?.tags || []} bookID={id} />
                 </div>
                 <div className={s.contentWrapper}>
                   <TegakiRenderer font={caveat} className={s.title}>

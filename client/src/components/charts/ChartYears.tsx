@@ -3,8 +3,9 @@ import { READ_STATISTIC } from '__graphql'
 import { useLazyQuery } from '@apollo/client/react'
 import type { RadioChangeEvent } from 'antd'
 import { DiagramBar } from 'components'
-import { Error, RadioGroup } from 'UI'
+import { Error } from 'UI'
 import { checkEmptyPeriod } from './utils'
+import { XAxisYearLabels } from './elements'
 import s from './Chart.module.scss'
 
 export const ChartYears = () => {
@@ -60,7 +61,7 @@ export const ChartYears = () => {
       {!!error && <Error message={error?.message} />}
       {!!data?.statistic?.length && (
         <>
-          <RadioGroup onChange={handleChange} data={allYears} value={year} />
+          <XAxisYearLabels onChange={handleChange} data={allYears} value={year} />
           <DiagramBar chartData={preparedData} />
         </>
       )}

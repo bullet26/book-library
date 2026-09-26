@@ -2,7 +2,7 @@ import { Tabs } from 'antd'
 import { useParams } from 'react-router-dom'
 import { useQuery } from '@apollo/client/react'
 import { ONE_BOOK_BY_ID } from '__graphql'
-import { BookInfoTab, BookPlotTab, BookMediaTab } from 'components'
+import { BookInfoTab, BookPlotTab, BookMediaTab } from './elements'
 
 export const BookTab = () => {
   const { id } = useParams()

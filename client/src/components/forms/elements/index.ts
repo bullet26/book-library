@@ -1,7 +1,7 @@
 export { TextEditorControlled } from './TextEditorControlled'
 export { SearchDropdownControlled } from './SearchDropdownControlled'
 export { DatePickerControlled } from './DatePickerControlled'
-export { DropZoneControlled } from './DropZoneControlled'
+export { DropZoneControlled } from './dropzone-file-upload'
 export { TextInputControlled } from './TextInputControlled'
 export { RateControlled } from './RateControlled'
 export { NumberInputControlled } from './NumberInputControlled'

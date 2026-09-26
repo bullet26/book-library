@@ -2,9 +2,10 @@ import { Fragment, useEffect, useState } from 'react'
 import { useQuery } from '@apollo/client/react'
 import { useParams } from 'react-router-dom'
 import { CardListBooks, YearSelect } from 'components'
-import { Loader, Error, DateDivider, ActivateEditMode } from 'UI'
+import { Loader, Error, ActivateEditMode } from 'UI'
 import { ALL_BOOKS_BY_SPECIFIC_DATE } from '__graphql'
 import type { ReadDateBook } from 'types'
+import { DateDivider } from './elements'
 import s from './BooksByDate.module.scss'
 
 type FormattedBook = { [x: string]: ReadDateBook[] }[]

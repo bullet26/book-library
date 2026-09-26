@@ -1,6 +1,6 @@
 import type { CSSProperties } from 'react'
 import { useController } from 'react-hook-form'
-import { TextEditor } from 'UI'
+import { TextEditor } from 'components'
 import s from '../Form.module.scss'
 
 interface TextEditorControlledProps {

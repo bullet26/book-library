@@ -2,7 +2,7 @@ import { useState, type ChangeEvent } from 'react'
 import { CheckOutlined } from '@ant-design/icons'
 import { Button, Input } from 'antd'
 import { useReactActions, useReactContext } from 'providers'
-import { AddBookButton } from 'UI'
+import { AddBookButton } from './AddBookButton'
 import s from './ActivateEditMode.module.scss'
 
 const { Password } = Input

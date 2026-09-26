@@ -7,7 +7,7 @@ interface IPaginationProps {
   onChange: (e: RadioChangeEvent) => void
 }
 
-export const RadioGroup = (props: IPaginationProps) => {
+export const XAxisYearLabels = (props: IPaginationProps) => {
   const { value, data, onChange } = props
 
   return (
