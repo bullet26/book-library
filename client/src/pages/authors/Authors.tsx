@@ -1,13 +1,15 @@
 import { useQuery } from '@apollo/client/react'
-import { Link, useSearchParams } from 'react-router-dom'
+import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { Button as AntButton } from 'antd'
-import { CardListAuthors } from 'components'
-import { Loader, Pagination, Error, ActivateEditMode } from 'UI'
+import { Loader, Pagination, Error, ActivateEditMode, Card } from 'UI'
 import { ALL_AUTHORS } from '__graphql'
+import { getRandomImage } from 'utils'
 import s from './Authors.module.scss'
 
 export const Authors = () => {
   const [searchParams, setSearchParams] = useSearchParams()
+
+  const navigate = useNavigate()
 
   const { loading, error, data } = useQuery(ALL_AUTHORS, {
     variables: {
@@ -15,6 +17,12 @@ export const Authors = () => {
       limit: Number(searchParams.get('perpage')) || 50,
     },
   })
+
+  const handleClick = (id?: string) => {
+    if (id) {
+      navigate(`/authors/${id}`)
+    }
+  }
 
   const authors = data?.getAllAuthors.authors || []
   const totalCount = data?.getAllAuthors.totalCount
@@ -24,36 +32,44 @@ export const Authors = () => {
     setSearchParams({ page: String(current), perpage: String(pageSize) })
   }
 
+  const MostRededAuthors = () => (
+    <Link to="/most_reded_authors" style={{}}>
+      <AntButton shape="round">Show most reded authors</AntButton>
+    </Link>
+  )
+
   return (
     <>
       {!!loading && <Loader />}
       {!!error && <Error message={error?.message} />}
       {!!data && (
         <div className={s.wrapper}>
-          <div className={s.innerWrapper}>
+          <div className={s.subHeaderWrapper}>
             <Pagination
               total={totalCount || 0}
-              perPageRange={[20, 50, 100, 200]}
               current={Number(searchParams.get('page'))}
               pageSize={Number(searchParams.get('perpage'))}
               handleSubmit={handleSubmit}
             />
-            {windowWidth > 729 && (
-              <Link to="/most_reded_authors" style={{}}>
-                <AntButton shape="round">Show most reded authors</AntButton>
-              </Link>
-            )}
+            {windowWidth > 729 && <MostRededAuthors />}
             {windowWidth < 729 && <ActivateEditMode />}
           </div>
-          {windowWidth < 729 && (
-            <Link to="/most_reded_authors" style={{}}>
-              <AntButton shape="round">Show most reded authors</AntButton>
-            </Link>
-          )}
-          <CardListAuthors data={authors} />
+          {windowWidth < 729 && <MostRededAuthors />}
+          <div className={s.cardWrapper}>
+            {authors?.map((item) => (
+              <Card
+                key={item.id}
+                id={item.id}
+                img={item.portraitThumbnail || getRandomImage()}
+                title={item?.surname || ''}
+                subtitle={item.name}
+                onClick={handleClick}
+                type="author"
+              />
+            ))}
+          </div>
           <Pagination
             total={totalCount || 0}
-            perPageRange={[20, 50, 100, 200]}
             current={Number(searchParams.get('page'))}
             pageSize={Number(searchParams.get('perpage'))}
             handleSubmit={handleSubmit}

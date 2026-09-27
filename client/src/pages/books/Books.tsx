@@ -1,24 +1,26 @@
 import { useQuery } from '@apollo/client/react'
-import { useSearchParams } from 'react-router-dom'
-import { CardListBooks, YearSelect, TagSelect } from 'components'
-import { Loader, Pagination, Error, ActivateEditMode } from 'UI'
-import { type ReadDateBook } from 'types'
+import { useNavigate, useSearchParams } from 'react-router-dom'
+import { YearSelect, TagSelect } from 'components'
+import { Loader, Pagination, Error, ActivateEditMode, Card } from 'UI'
 import { ALL_BOOKS_BY_DATE } from '__graphql'
 import s from './Books.module.scss'
 
-interface BooksQuery {
-  getAllBooksByDate: { readDate: ReadDateBook[]; totalCount: number }
-}
-
 export const Books = () => {
   const [searchParams, setSearchParams] = useSearchParams()
+  const navigate = useNavigate()
 
-  const { loading, error, data } = useQuery<BooksQuery>(ALL_BOOKS_BY_DATE, {
+  const { loading, error, data } = useQuery(ALL_BOOKS_BY_DATE, {
     variables: {
       page: Number(searchParams.get('page')) || 1,
       limit: Number(searchParams.get('perpage')) || 50,
     },
   })
+
+  const handleClick = (id?: string) => {
+    if (id) {
+      navigate(`/books/${id}`)
+    }
+  }
 
   const books = data?.getAllBooksByDate.readDate
   const totalCount = data?.getAllBooksByDate.totalCount
@@ -40,7 +42,6 @@ export const Books = () => {
                 current={Number(searchParams.get('page'))}
                 pageSize={Number(searchParams.get('perpage'))}
                 total={totalCount || 0}
-                perPageRange={[20, 50, 100, 200]}
                 handleSubmit={handleSubmit}
               />
               {windowWidth < 729 && <ActivateEditMode />}
@@ -51,12 +52,26 @@ export const Books = () => {
               <TagSelect tagID={null} sortBy={null} />
             </div>
           </div>
-          <CardListBooks data={books || []} />
+
+          <div className={s.cardWrapper}>
+            {books &&
+              books.map((item) => (
+                <Card
+                  id={item.books.id}
+                  img={item.books.bookCoverThumbnail}
+                  title={item.books.title}
+                  subtitle={`${item.books.author.name} ${item.books.author.surname}`}
+                  rating={item.books.rating}
+                  onClick={handleClick}
+                  type="book"
+                />
+              ))}
+          </div>
+
           <Pagination
             current={Number(searchParams.get('page'))}
             pageSize={Number(searchParams.get('perpage'))}
             total={totalCount || 0}
-            perPageRange={[20, 50, 100, 200]}
             handleSubmit={handleSubmit}
           />
         </div>

@@ -5,7 +5,7 @@ interface IPaginationProps {
   total: number
   current: number
   pageSize: number
-  perPageRange: number[]
+  perPageRange?: number[]
   handleSubmit: (current: number, pageSize: number) => void
 }
 
@@ -28,7 +28,7 @@ export const Pagination = (props: IPaginationProps) => {
       showSizeChanger
       onChange={onChange}
       defaultPageSize={50}
-      pageSizeOptions={perPageRange}
+      pageSizeOptions={perPageRange || [20, 50, 100, 200]}
       defaultCurrent={1}
       size={windowWidth >= 800 ? 'medium' : 'small'}
       simple={windowWidth < 600}

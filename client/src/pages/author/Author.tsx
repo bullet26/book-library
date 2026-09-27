@@ -8,9 +8,9 @@ import { ReactHelmetMetadata } from 'components'
 import { Loader, ScrollArrow, Error } from 'UI'
 import { ONE_AUTHOR_BY_ID } from '__graphql'
 import { colorRate } from 'utils'
-import s from './Author.module.scss'
 import { calcRating } from './utils'
 import { BookSection } from './elements'
+import s from './Author.module.scss'
 
 function getRandomImage() {
   const images = [unknownAuthor1, unknownAuthor2]

@@ -1,6 +1,9 @@
 .contentWrapper {
   padding: 15px 35px;
   @media (max-width: 568px) {
-    padding: 15px 25px;
+    padding: 15px 20px;
+  }
+  @media (max-width: 350px) {
+    padding: 10px 10px;
   }
 }

@@ -1,4 +1,3 @@
-export { CardListBooks, CardListAuthors } from './card-list'
 export { Header } from './header'
 export { Search, SearchDropdown } from './search'
 export { DiagramPie, ChartAuthor, ChartBook, DiagramBar, ChartYears } from './charts'

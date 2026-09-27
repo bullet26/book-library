@@ -1,4 +1,5 @@
 import DOMPurify from 'dompurify'
+import { unknownAuthor1, unknownAuthor2 } from 'assets'
 
 export const colorRate = (rating: number) => {
   const iconColor = {
@@ -22,4 +23,10 @@ export const colorRate = (rating: number) => {
 
 export const sanitize = (dirtyText: string): TrustedHTML | string => {
   return DOMPurify.sanitize(dirtyText, { USE_PROFILES: { html: true } })
+}
+
+export const getRandomImage = () => {
+  const images = [unknownAuthor1, unknownAuthor2]
+  const randomIndex = Math.floor(Math.random() * images.length)
+  return images[randomIndex]
 }

@@ -5,11 +5,21 @@
   row-gap: 25px;
 }
 
-.innerWrapper {
+.subHeaderWrapper {
   display: flex;
   justify-content: space-between;
   align-items: center;
   @media (max-width: 729px) {
     column-gap: 25px;
+  }
+}
+
+.cardWrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
+  column-gap: 20px;
+  row-gap: 40px;
+  @media (max-width: 568px) {
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
   }
 }

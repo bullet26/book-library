@@ -51,6 +51,7 @@ export const ONE_BOOK_BY_ID = graphql(`
       }
       bookCover
       isAdditionalMediaExist
+      notes
     }
   }
 `)

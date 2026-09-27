@@ -1,16 +1,9 @@
-.wrapper {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  row-gap: 25px;
-  margin-top: 15px;
-}
-
-.innerWrapper {
-  @media (max-width: 729px) {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    column-gap: 25px;
+.cardWrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
+  column-gap: 20px;
+  row-gap: 40px;
+  @media (max-width: 568px) {
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
   }
 }
