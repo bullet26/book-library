@@ -15,6 +15,10 @@ export const Pagination = (props: IPaginationProps) => {
 
   const onChange: PaginationProps['onChange'] = (current, pageSize) => {
     handleSubmit(current, pageSize)
+
+    if (window.scrollY > 300) {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
   }
 
   return (
