@@ -3,7 +3,7 @@ import mongoose from 'mongoose'
 const ReadDate = new mongoose.Schema(
   {
     bookID: { ref: 'BooksModel', type: mongoose.Types.ObjectId },
-    readEnd: Date,
+    readEnd: { required: true, type: Date },
   },
   {
     toJSON: {

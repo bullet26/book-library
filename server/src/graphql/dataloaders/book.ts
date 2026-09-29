@@ -9,7 +9,7 @@ import {
   SeriesModel,
   TagModel,
 } from '../../models/index.js'
-import { toObjectMapping } from '../../utils/mappers.js'
+import { mapOneToMany, mapOneToOne, toObjectMapping } from '../../utils/mappers.js'
 import { Author, BookTagRelations, MediaType, ReadDate, Series, Tags } from '../generated/types.js'
 
 export const BookDL = {
@@ -57,13 +57,13 @@ export const BookDL = {
   author: new DataLoader(async (authorIDs: readonly string[]) => {
     const authorsDocs = await AuthorModel.find({ _id: { $in: authorIDs } })
     const authors = toObjectMapping<Author>(authorsDocs)
-
-    return authorIDs.map((id) => authors.find((item) => item.id === id))
+    return mapOneToOne(authors, authorIDs)
   }),
 
   isAdditionalMediaExist: new DataLoader(async (bookIDs: readonly string[]) => {
     const media = await AdditionalMediaModel.find({ bookID: { $in: bookIDs } }).distinct('bookID')
-    return bookIDs.map((id) => media.some((item) => item.toString() === id))
+    const mediaSet = new Set(media.map((id) => id.toString()))
+    return bookIDs.map((id) => mediaSet.has(id))
   }),
 
   readDate: new DataLoader(async (bookIDs: readonly string[]) => {
@@ -71,15 +71,13 @@ export const BookDL = {
       readEnd: -1,
     })
     const readDates = toObjectMapping<ReadDate>(readDatesDocs)
-
-    return bookIDs.map((id) => readDates.filter((item) => item.bookID === id))
+    return mapOneToMany(readDates, bookIDs, (item) => item.bookID.toString())
   }),
 
   series: new DataLoader(async (seriesIDs: readonly string[]) => {
     const seriesDocs = await SeriesModel.find({ _id: { $in: seriesIDs } })
     const series = toObjectMapping<Series>(seriesDocs)
-
-    return seriesIDs.map((id) => series.find((item) => item.id === id))
+    return mapOneToOne(series, seriesIDs)
   }),
 
   tags: new DataLoader(async (bookIDs: readonly string[]) => {
@@ -89,10 +87,21 @@ export const BookDL = {
     const tagsDocs = await TagModel.find({ _id: { $in: tagsForBookIds } }).sort({ tag: 1 })
     const tags = toObjectMapping<Tags>(tagsDocs)
 
-    return bookIDs.map((id) =>
-      tags.filter((tag) =>
-        tagsForBookObj.find((item) => item.bookID === id && item.tagID === tag.id),
-      ),
-    )
+    const tagMap = new Map(tags.map((tag) => [tag.id, tag]))
+
+    const bookToTagsMap = new Map<string, Tags[]>()
+
+    for (const relation of tagsForBookObj) {
+      const tag = tagMap.get(relation.tagID)
+      if (!tag) continue
+
+      const bookIdStr = relation.bookID.toString()
+      if (!bookToTagsMap.has(bookIdStr)) {
+        bookToTagsMap.set(bookIdStr, [])
+      }
+      bookToTagsMap.get(bookIdStr)!.push(tag)
+    }
+
+    return bookIDs.map((id) => bookToTagsMap.get(id) || [])
   }),
 }

@@ -24,7 +24,7 @@ export const TagsDL = {
     const booksInTagObjDocs = await BookTagRelationsModel.find({ tagID: { $in: tagIDs } })
     const booksInTagObj = toObjectMapping<BookTagRelations>(booksInTagObjDocs)
     const booksInTagIds = booksInTagObj.map((item) => new mongoose.Types.ObjectId(item.bookID))
-    const books = await BooksModel.aggregate([
+    const booksDocs = await BooksModel.aggregate([
       {
         $match: { _id: { $in: booksInTagIds } },
       },
@@ -51,12 +51,27 @@ export const TagsDL = {
       },
     ])
 
-    return tagIDs.map((id) =>
-      books
-        .map((item) => ({ ...item, authorID: item.authorID.toString(), id: item.id.toString() }))
-        .filter((book) =>
-          booksInTagObj.find((item) => item.bookID === book.id && item.tagID === id),
-        ),
-    )
+    const books = booksDocs.map((item) => ({
+      ...item,
+      authorID: item.authorID.toString(),
+      id: item.id.toString(),
+    }))
+
+    const bookMap = new Map(books.map((book) => [book.id, book]))
+
+    const tagToBooksMap = new Map<string, typeof books>()
+
+    for (const relation of booksInTagObj) {
+      const book = bookMap.get(relation.bookID)
+      if (!book) continue
+
+      const tagIdStr = relation.tagID.toString()
+      if (!tagToBooksMap.has(tagIdStr)) {
+        tagToBooksMap.set(tagIdStr, [])
+      }
+      tagToBooksMap.get(tagIdStr)!.push(book)
+    }
+
+    return tagIDs.map((id) => tagToBooksMap.get(id) || [])
   }),
 }

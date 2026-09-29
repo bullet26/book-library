@@ -9,7 +9,7 @@ export const ReadDateQuery: QueryResolvers = {
 
     const totalCount = await ReadDateModel.countDocuments({})
     const booksDocs = await ReadDateModel.find({})
-      .sort({ readEnd: -1 })
+      .sort({ readEnd: -1, _id: -1 })
       .skip((page - 1) * limit)
       .limit(limit)
     const books = toObjectMapping<ReadDate>(booksDocs)
@@ -23,8 +23,8 @@ export const ReadDateQuery: QueryResolvers = {
 
     const booksDocs = await ReadDateModel.find({
       readEnd: {
-        $gte: new Date(`${year}-01-01`),
-        $lt: new Date(`${year + 1}-01-01`),
+        $gte: new Date(`${year.toString()}-01-01`),
+        $lt: new Date(`${(year + 1).toString()}-01-01`),
       },
     }).sort({ readEnd: 1 })
 

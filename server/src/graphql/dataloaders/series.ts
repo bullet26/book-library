@@ -1,7 +1,7 @@
 import DataLoader from 'dataloader'
 
 import { BooksModel } from '../../models/index.js'
-import { toObjectMapping } from '../../utils/mappers.js'
+import { mapOneToMany, toObjectMapping } from '../../utils/mappers.js'
 import { Book } from '../generated/types.js'
 
 export const SeriesDL = {
@@ -10,7 +10,6 @@ export const SeriesDL = {
       seriesNumber: 1,
     })
     const books = toObjectMapping<Book>(booksDocs)
-
-    return seriesIDs.map((id) => books.filter((item) => item.seriesID === id))
+    return mapOneToMany(books, seriesIDs, (item) => item.seriesID!.toString())
   }),
 }

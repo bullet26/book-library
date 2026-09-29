@@ -1,7 +1,7 @@
 import DataLoader from 'dataloader'
 
 import { BooksModel } from '../../models/index.js'
-import { toObjectMapping } from '../../utils/mappers.js'
+import { mapOneToOne, toObjectMapping } from '../../utils/mappers.js'
 import { Book } from '../generated/types.js'
 
 export const ReadDateDL = {
@@ -9,6 +9,6 @@ export const ReadDateDL = {
     const booksDocs = await BooksModel.find({ _id: { $in: bookIDs } })
     const books = toObjectMapping<Book>(booksDocs)
 
-    return bookIDs.map((id) => books.find((item) => item.id === id))
+    return mapOneToOne(books, bookIDs)
   }),
 }
