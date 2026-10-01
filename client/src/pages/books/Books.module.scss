@@ -36,3 +36,13 @@
     grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
   }
 }
+
+.toolbarMobileOnly {
+  display: none;
+}
+
+@media (max-width: 729px) {
+  .toolbarMobileOnly {
+    display: block;
+  }
+}

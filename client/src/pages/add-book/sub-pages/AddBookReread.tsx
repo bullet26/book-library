@@ -3,7 +3,7 @@ import { useMutation } from '@apollo/client/react'
 import { CREATE_READ_DATE } from '__graphql'
 import { type ReadDateInput } from '__graphql/__generated__/graphql'
 import { Error, Modal } from 'UI'
-import s from './AddBook.module.scss'
+import s from '../AddBook.module.scss'
 
 export const AddBookReread = () => {
   const [createRereadBookDateApollo, { data: newReadDate, error: errorReadDate, loading }] =

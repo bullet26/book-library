@@ -19,13 +19,30 @@ type Book {
   additionalMedia: AllMediaForItem
 }
 
+input BookFilterInput {
+  tagId: ID
+  rating: Float
+  year: Int
+}
+
+enum BookSortBy {
+  TITLE_ASC
+  TITLE_DESC
+  RATING_ASC
+  RATING_DESC
+  DATE_ASC
+  DATE_DESC
+  AUTHOR_ASC
+  AUTHOR_DESC
+}
+
 # Book data + total count type
 type BooksResponse {
   totalCount: Int!
   books: [Book!]!
 }
 
-# input data for add book
+# input data for adding book
 input BookInput {
   authorID: ID!
   title: String!
@@ -42,8 +59,13 @@ input BookInput {
 }
 
 extend type Query {
-  # Get a list of books (unique values), that were sorted by title
-  getAllBooksByName(limit: Int = 50, page: Int = 1): BooksResponse!
+  # Get a list of books
+  getBooks(
+    filter: BookFilterInput
+    sort: BookSortBy = DATE_DESC
+    page: Int = 1
+    limit: Int = 50
+  ): BooksResponse!
 
   # Get one book by id
   getOneBook(id: ID): Book

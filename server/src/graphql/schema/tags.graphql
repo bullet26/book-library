@@ -2,7 +2,6 @@
 type Tags {
   id: ID!
   tag: String!
-  booksInTag(sortBy: String): [Book!]!
 }
 
 # BookTagRelations data type
@@ -19,9 +18,6 @@ input BookTagRelationsInput {
 }
 
 extend type Query {
-  # Get tag info by id
-  getTagById(id: ID): Tags!
-
   # Get all tags
   getAllTags: [Tags!]!
 }

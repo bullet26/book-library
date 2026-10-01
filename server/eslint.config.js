@@ -27,6 +27,7 @@ export default defineConfig(
       '@typescript-eslint/no-unsafe-return': 'off',
       '@typescript-eslint/no-non-null-assertion': 'off',
       '@typescript-eslint/prefer-nullish-coalescing': 'off',
+      '@typescript-eslint/no-unnecessary-type-conversion': 'off',
     },
   },
 )

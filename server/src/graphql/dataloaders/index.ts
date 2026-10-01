@@ -11,7 +11,6 @@ import { AuthorDL } from './author.js'
 import { BookDL } from './book.js'
 import { ReadDateDL } from './readDate.js'
 import { SeriesDL } from './series.js'
-import { TagsDL } from './tags.js'
 
 export interface DataLoadersType {
   dataloaders: {
@@ -30,7 +29,6 @@ export interface DataLoadersType {
     }
     readDate: { books: DataLoaderItemOne<Book> }
     series: { booksInSeries: DataLoaderItemMany<Book> }
-    tags: { booksInTag: DataLoaderItemMany<Book>; booksInTagByAuthor: DataLoaderItemMany<Book> }
   }
 }
 type DataLoaderItemMany<T> = DataLoader<string, T[]>
@@ -43,6 +41,5 @@ export const createContext = async (): Promise<DataLoadersType> => ({
     book: BookDL,
     readDate: ReadDateDL,
     series: SeriesDL,
-    tags: TagsDL,
   },
 })

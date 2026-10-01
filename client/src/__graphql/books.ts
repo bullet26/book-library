@@ -1,26 +1,5 @@
 import { graphql } from './__generated__'
 
-export const ALL_BOOKS_BY_DATE = graphql(`
-  query GetAllBooksByDate($page: Int, $limit: Int) {
-    getAllBooksByDate(page: $page, limit: $limit) {
-      readDate {
-        id
-        books {
-          id
-          title
-          rating
-          bookCoverThumbnail
-          author {
-            surname
-            name
-          }
-        }
-      }
-      totalCount
-    }
-  }
-`)
-
 export const ONE_BOOK_BY_ID = graphql(`
   query GetOneBookById($id: ID) {
     book: getOneBook(id: $id) {
@@ -64,40 +43,23 @@ export const ONE_BOOK_PLOT = graphql(`
     }
   }
 `)
-
-export const ALL_BOOKS_BY_SPECIFIC_DATE = graphql(`
-  query GetAllBooksBySpecificDate($year: Int!) {
-    bookInYear: getAllBooksBySpecificDate(year: $year) {
+export const ALL_BOOKS = graphql(`
+  query GetBooks($page: Int, $limit: Int, $filter: BookFilterInput, $sort: BookSortBy) {
+    getBooks(page: $page, limit: $limit, filter: $filter, sort: $sort) {
       books {
         id
         title
-        bookCoverThumbnail
         rating
+        bookCoverThumbnail
+        readDate {
+          readEnd
+        }
         author {
           surname
           name
         }
       }
-      readEnd
-      id
-    }
-  }
-`)
-
-export const ALL_BOOKS_BY_TAG = graphql(`
-  query GetBooksByTag($id: ID, $sortBy: String) {
-    tagData: getTagById(id: $id) {
-      tag
-      booksInTag(sortBy: $sortBy) {
-        id
-        title
-        bookCoverThumbnail
-        rating
-        author {
-          surname
-          name
-        }
-      }
+      totalCount
     }
   }
 `)

@@ -85,6 +85,12 @@ type Book {
   title: String!
 }
 
+input BookFilterInput {
+  rating: Float
+  tagId: ID
+  year: Int
+}
+
 input BookInput {
   authorID: ID!
   bookCover: String
@@ -103,6 +109,17 @@ input BookInput {
 input BookPlotInput {
   bookID: ID!
   plot: String!
+}
+
+enum BookSortBy {
+  AUTHOR_ASC
+  AUTHOR_DESC
+  DATE_ASC
+  DATE_DESC
+  RATING_ASC
+  RATING_DESC
+  TITLE_ASC
+  TITLE_DESC
 }
 
 type BookTagRelations {
@@ -155,17 +172,14 @@ type Mutation {
 type Query {
   getAllAuthors(limit: Int = 50, page: Int = 1): AuthorResponse!
   getAllAuthorsByBooksCount(limit: Int = 50, page: Int = 1): AuthorMostReadResponse!
-  getAllBooksByDate(limit: Int = 100, page: Int = 1): ReadBooksResponse!
-  getAllBooksByName(limit: Int = 50, page: Int = 1): BooksResponse!
-  getAllBooksBySpecificDate(year: Int): [ReadDate!]!
   getAllTags: [Tags!]!
+  getBooks(filter: BookFilterInput, limit: Int = 50, page: Int = 1, sort: BookSortBy = DATE_DESC): BooksResponse!
   getMostReadAuthors: [AuthorsStatisticResponse!]!
   getMostReadBooks: [BooksStatisticResponse!]!
   getOneAuthor(id: ID): Author
   getOneBook(id: ID): Book
   getOneBookPlot(bookID: ID): DescriptionPlot
   getReadStatistic(label: String!, year: Int): [Statistic!]!
-  getTagById(id: ID): Tags!
   search(searchString: String!): [SearchResult!]!
   searchInAuthors(searchString: String!): [Author!]!
   searchInBooks(searchString: String!): [Book!]!
@@ -209,7 +223,6 @@ type Statistic {
 }
 
 type Tags {
-  booksInTag(sortBy: String): [Book!]!
   id: ID!
   tag: String!
 }

@@ -17,7 +17,7 @@ type AuthorResponse {
   authors: [Author!]!
 }
 
-# Author data without pagination
+# Author data with books count
 type AuthorMostRead {
   id: ID!
   count: Int!

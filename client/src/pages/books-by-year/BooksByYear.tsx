@@ -1,0 +1,54 @@
+import { Fragment } from 'react'
+import { YearSelect } from 'components'
+import { Loader, Error, ActivateEditMode, Card } from 'UI'
+import { DateDivider } from './elements'
+import { useBooksByYear } from './hook/useBooksByYear'
+import s from './BooksByYear.module.scss'
+
+export const BooksByYear = () => {
+  const {
+    books,
+    year,
+    loading,
+    error,
+
+    handleClickCard,
+  } = useBooksByYear()
+
+  if (loading) return <Loader />
+  if (error) return <Error message={error} />
+
+  return (
+    <div className={s.wrapper}>
+      <div className={s.innerWrapper}>
+        <YearSelect year={year} />
+        <div className={s.toolbarMobileOnly}>
+          <ActivateEditMode />
+        </div>
+      </div>
+
+      <DateDivider message={String(year)} type="main" />
+      {books?.map(({ month, books }) => {
+        return (
+          <Fragment key={month}>
+            <DateDivider message={month} />
+            <div className={s.cardWrapper}>
+              {books &&
+                books.map((item) => (
+                  <Card
+                    id={item.id}
+                    img={item.bookCoverThumbnail}
+                    title={item.title}
+                    subtitle={`${item.author.name} ${item.author.surname}`}
+                    rating={item.rating}
+                    onClick={handleClickCard}
+                    type="book"
+                  />
+                ))}
+            </div>
+          </Fragment>
+        )
+      })}
+    </div>
+  )
+}

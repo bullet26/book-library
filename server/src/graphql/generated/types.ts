@@ -102,6 +102,12 @@ export type Book = {
   title: Scalars['String']['output'];
 };
 
+export type BookFilterInput = {
+  rating?: InputMaybe<Scalars['Float']['input']>;
+  tagId?: InputMaybe<Scalars['ID']['input']>;
+  year?: InputMaybe<Scalars['Int']['input']>;
+};
+
 export type BookInput = {
   authorID: Scalars['ID']['input'];
   bookCover?: InputMaybe<Scalars['String']['input']>;
@@ -121,6 +127,17 @@ export type BookPlotInput = {
   bookID: Scalars['ID']['input'];
   plot: Scalars['String']['input'];
 };
+
+export enum BookSortBy {
+  AuthorAsc = 'AUTHOR_ASC',
+  AuthorDesc = 'AUTHOR_DESC',
+  DateAsc = 'DATE_ASC',
+  DateDesc = 'DATE_DESC',
+  RatingAsc = 'RATING_ASC',
+  RatingDesc = 'RATING_DESC',
+  TitleAsc = 'TITLE_ASC',
+  TitleDesc = 'TITLE_DESC'
+}
 
 export type BookTagRelations = {
   __typename?: 'BookTagRelations';
@@ -215,17 +232,14 @@ export type Query = {
   __typename?: 'Query';
   getAllAuthors: AuthorResponse;
   getAllAuthorsByBooksCount: AuthorMostReadResponse;
-  getAllBooksByDate: ReadBooksResponse;
-  getAllBooksByName: BooksResponse;
-  getAllBooksBySpecificDate: Array<ReadDate>;
   getAllTags: Array<Tags>;
+  getBooks: BooksResponse;
   getMostReadAuthors: Array<AuthorsStatisticResponse>;
   getMostReadBooks: Array<BooksStatisticResponse>;
   getOneAuthor?: Maybe<Author>;
   getOneBook?: Maybe<Book>;
   getOneBookPlot?: Maybe<DescriptionPlot>;
   getReadStatistic: Array<Statistic>;
-  getTagById: Tags;
   search: Array<SearchResult>;
   searchInAuthors: Array<Author>;
   searchInBooks: Array<Book>;
@@ -245,20 +259,11 @@ export type QueryGetAllAuthorsByBooksCountArgs = {
 };
 
 
-export type QueryGetAllBooksByDateArgs = {
+export type QueryGetBooksArgs = {
+  filter?: InputMaybe<BookFilterInput>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   page?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type QueryGetAllBooksByNameArgs = {
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  page?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type QueryGetAllBooksBySpecificDateArgs = {
-  year?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<BookSortBy>;
 };
 
 
@@ -280,11 +285,6 @@ export type QueryGetOneBookPlotArgs = {
 export type QueryGetReadStatisticArgs = {
   label: Scalars['String']['input'];
   year?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type QueryGetTagByIdArgs = {
-  id?: InputMaybe<Scalars['ID']['input']>;
 };
 
 
@@ -349,14 +349,8 @@ export type Statistic = {
 
 export type Tags = {
   __typename?: 'Tags';
-  booksInTag: Array<Book>;
   id: Scalars['ID']['output'];
   tag: Scalars['String']['output'];
-};
-
-
-export type TagsBooksInTagArgs = {
-  sortBy?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type UpdateBookPlotInput = {
@@ -456,8 +450,10 @@ export type ResolversTypes = ResolversObject<{
   AuthorResponse: ResolverTypeWrapper<AuthorResponse>;
   AuthorsStatisticResponse: ResolverTypeWrapper<AuthorsStatisticResponse>;
   Book: ResolverTypeWrapper<Book>;
+  BookFilterInput: BookFilterInput;
   BookInput: BookInput;
   BookPlotInput: BookPlotInput;
+  BookSortBy: BookSortBy;
   BookTagRelations: ResolverTypeWrapper<BookTagRelations>;
   BookTagRelationsInput: BookTagRelationsInput;
   BooksResponse: ResolverTypeWrapper<BooksResponse>;
@@ -495,6 +491,7 @@ export type ResolversParentTypes = ResolversObject<{
   AuthorResponse: AuthorResponse;
   AuthorsStatisticResponse: AuthorsStatisticResponse;
   Book: Book;
+  BookFilterInput: BookFilterInput;
   BookInput: BookInput;
   BookPlotInput: BookPlotInput;
   BookTagRelations: BookTagRelations;
@@ -632,17 +629,14 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
   getAllAuthors?: Resolver<ResolversTypes['AuthorResponse'], ParentType, ContextType, RequireFields<QueryGetAllAuthorsArgs, 'limit' | 'page'>>;
   getAllAuthorsByBooksCount?: Resolver<ResolversTypes['AuthorMostReadResponse'], ParentType, ContextType, RequireFields<QueryGetAllAuthorsByBooksCountArgs, 'limit' | 'page'>>;
-  getAllBooksByDate?: Resolver<ResolversTypes['ReadBooksResponse'], ParentType, ContextType, RequireFields<QueryGetAllBooksByDateArgs, 'limit' | 'page'>>;
-  getAllBooksByName?: Resolver<ResolversTypes['BooksResponse'], ParentType, ContextType, RequireFields<QueryGetAllBooksByNameArgs, 'limit' | 'page'>>;
-  getAllBooksBySpecificDate?: Resolver<Array<ResolversTypes['ReadDate']>, ParentType, ContextType, Partial<QueryGetAllBooksBySpecificDateArgs>>;
   getAllTags?: Resolver<Array<ResolversTypes['Tags']>, ParentType, ContextType>;
+  getBooks?: Resolver<ResolversTypes['BooksResponse'], ParentType, ContextType, RequireFields<QueryGetBooksArgs, 'limit' | 'page' | 'sort'>>;
   getMostReadAuthors?: Resolver<Array<ResolversTypes['AuthorsStatisticResponse']>, ParentType, ContextType>;
   getMostReadBooks?: Resolver<Array<ResolversTypes['BooksStatisticResponse']>, ParentType, ContextType>;
   getOneAuthor?: Resolver<Maybe<ResolversTypes['Author']>, ParentType, ContextType, Partial<QueryGetOneAuthorArgs>>;
   getOneBook?: Resolver<Maybe<ResolversTypes['Book']>, ParentType, ContextType, Partial<QueryGetOneBookArgs>>;
   getOneBookPlot?: Resolver<Maybe<ResolversTypes['DescriptionPlot']>, ParentType, ContextType, Partial<QueryGetOneBookPlotArgs>>;
   getReadStatistic?: Resolver<Array<ResolversTypes['Statistic']>, ParentType, ContextType, RequireFields<QueryGetReadStatisticArgs, 'label'>>;
-  getTagById?: Resolver<ResolversTypes['Tags'], ParentType, ContextType, Partial<QueryGetTagByIdArgs>>;
   search?: Resolver<Array<ResolversTypes['SearchResult']>, ParentType, ContextType, RequireFields<QuerySearchArgs, 'searchString'>>;
   searchInAuthors?: Resolver<Array<ResolversTypes['Author']>, ParentType, ContextType, RequireFields<QuerySearchInAuthorsArgs, 'searchString'>>;
   searchInBooks?: Resolver<Array<ResolversTypes['Book']>, ParentType, ContextType, RequireFields<QuerySearchInBooksArgs, 'searchString'>>;
@@ -678,7 +672,6 @@ export type StatisticResolvers<ContextType = any, ParentType extends ResolversPa
 }>;
 
 export type TagsResolvers<ContextType = any, ParentType extends ResolversParentTypes['Tags'] = ResolversParentTypes['Tags']> = ResolversObject<{
-  booksInTag?: Resolver<Array<ResolversTypes['Book']>, ParentType, ContextType, Partial<TagsBooksInTagArgs>>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   tag?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
 }>;

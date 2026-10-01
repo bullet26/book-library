@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { AddBookForm, AddAuthorForm, AddSerieForm } from 'components'
-import s from './AddBook.module.scss'
+import s from '../AddBook.module.scss'
 
 export const AddBookNew = () => {
   const [isShowAuthorForm, setStatusShowAuthorForm] = useState(false)

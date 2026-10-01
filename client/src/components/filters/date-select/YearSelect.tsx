@@ -27,8 +27,8 @@ export const YearSelect = (props: YearSelectProps) => {
     }
   }, [data])
 
-  const handleChange = (value: string) => {
-    navigate(`/date/${value}`)
+  const handleChange = (year: string) => {
+    navigate(`/books/date/${year}`)
   }
 
   return (

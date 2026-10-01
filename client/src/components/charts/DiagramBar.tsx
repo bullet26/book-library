@@ -11,7 +11,7 @@ export const DiagramBar = (props: DiagramBarProps) => {
 
   const handleClickDate = (year?: string | number) => {
     if (year) {
-      navigate(`/date/${year}`)
+      navigate(`/books/date/${year}`)
     }
   }
 

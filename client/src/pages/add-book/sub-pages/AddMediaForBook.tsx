@@ -3,7 +3,7 @@ import { useMutation } from '@apollo/client/react'
 import { ADD_MEDIA } from '__graphql'
 import { type AdditionalMediaInput } from '__graphql/__generated__/graphql'
 import { Error, Modal } from 'UI'
-import s from './AddBook.module.scss'
+import s from '../AddBook.module.scss'
 
 export const AddMediaForBook = () => {
   const [addMediaApollo, { data, error: errorReadDate, loading }] = useMutation(ADD_MEDIA)

@@ -1,1 +1,1 @@
-export type { BooksBySpecificDate as ReadDateBook, SerieBooks } from './book'
+export type { AllBooks, SerieBooks } from './book'

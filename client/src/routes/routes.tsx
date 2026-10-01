@@ -1,16 +1,5 @@
 import { Route, Routes } from 'react-router-dom'
-import {
-  MainPage,
-  Books,
-  Authors,
-  Book,
-  Home,
-  Author,
-  Page404,
-  BooksByDate,
-  AddBook,
-  BooksByTag,
-} from 'pages'
+import { MainPage, Books, Authors, Book, Home, Author, Page404, BooksByYear, AddBook } from 'pages'
 import { useReactContext } from 'providers'
 
 export const AppRoutes = () => {
@@ -20,11 +9,10 @@ export const AppRoutes = () => {
     <Routes>
       <Route path="/" element={<MainPage />}>
         <Route path="home" element={<Home />} />
+        {isEditMode && <Route path="add" element={<AddBook />} />}
         <Route path="books" element={<Books />} />
         <Route path="books/:id" element={<Book />} />
-        {isEditMode && <Route path="add" element={<AddBook />} />}
-        <Route path="date/:year" element={<BooksByDate />} />
-        <Route path="tag" element={<BooksByTag />} />
+        <Route path="books/date/:year" element={<BooksByYear />} />
         <Route path="authors" element={<Authors />} />
         <Route path="authors/:id" element={<Author />} />
       </Route>
