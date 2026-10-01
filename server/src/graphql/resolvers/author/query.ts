@@ -2,7 +2,7 @@ import { AuthorModel, BooksModel } from '../../../models/index.js'
 import { HttpError } from '../../../utils/http-error.js'
 import { toObjectMapping, toObjectMappingSingle } from '../../../utils/mappers.js'
 import { type Author, type QueryResolvers } from '../../generated/types.js'
-import { authorsAggregation } from './aggregation.js'
+import { getAuthorsByBooksCountPipeline } from './aggregation.js'
 
 export const AuthorQuery: QueryResolvers = {
   getAllAuthors: async (_, args) => {
@@ -17,9 +17,19 @@ export const AuthorQuery: QueryResolvers = {
     return { authors, totalCount }
   },
 
-  getAllAuthorsByBooksCount: async () => {
-    const authors = await BooksModel.aggregate(authorsAggregation)
-    return authors
+  getAllAuthorsByBooksCount: async (_, args) => {
+    const { limit, page } = args
+
+    const pipeline = getAuthorsByBooksCountPipeline(page, limit)
+    const [result] = await BooksModel.aggregate(pipeline)
+
+    const authors = result.authors
+    const totalCount = result.totalCount[0]?.count || 0
+
+    return {
+      authors,
+      totalCount,
+    }
   },
 
   getOneAuthor: async (_, args) => {

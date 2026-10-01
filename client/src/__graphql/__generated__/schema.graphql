@@ -41,12 +41,17 @@ input AuthorInput {
   transcriptionName: String
 }
 
-type AuthorMostReadResponse {
+type AuthorMostRead {
   count: Int!
   id: ID!
   name: String!
   portraitThumbnail: String
   surname: String
+}
+
+type AuthorMostReadResponse {
+  authors: [AuthorMostRead!]!
+  totalCount: Int!
 }
 
 type AuthorResponse {
@@ -149,7 +154,7 @@ type Mutation {
 
 type Query {
   getAllAuthors(limit: Int = 50, page: Int = 1): AuthorResponse!
-  getAllAuthorsByBooksCount: [AuthorMostReadResponse!]!
+  getAllAuthorsByBooksCount(limit: Int = 50, page: Int = 1): AuthorMostReadResponse!
   getAllBooksByDate(limit: Int = 100, page: Int = 1): ReadBooksResponse!
   getAllBooksByName(limit: Int = 50, page: Int = 1): BooksResponse!
   getAllBooksBySpecificDate(year: Int): [ReadDate!]!

@@ -49,13 +49,16 @@ export const CREATE_AUTHOR = graphql(`
 `)
 
 export const ALL_AUTHORS_BY_BOOKS_COUNT = graphql(`
-  query GetAllAuthorsByBooksCount {
-    author: getAllAuthorsByBooksCount {
-      name
-      surname
-      id
-      portraitThumbnail
-      count
+  query GetAllAuthorsByBooksCount($page: Int, $limit: Int) {
+    getAllAuthorsByBooksCount(page: $page, limit: $limit) {
+      authors {
+        name
+        surname
+        id
+        portraitThumbnail
+        count
+      }
+      totalCount
     }
   }
 `)

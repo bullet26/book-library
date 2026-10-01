@@ -8,7 +8,7 @@ export const DescriptionPlotQuery: QueryResolvers = {
     const { bookID } = args
     if (!bookID) throw new HttpError('Book ID is required', 400)
 
-    const [bookDoc] = await DescriptionPlotModel.find({ bookID })
+    const bookDoc = await DescriptionPlotModel.findOne({ bookID })
     if (!bookDoc) return null
 
     return toObjectMappingSingle<DescriptionPlot>(bookDoc)

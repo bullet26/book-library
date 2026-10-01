@@ -1,1 +1,0 @@
-export { MostRededAuthors } from './MostRededAuthors'

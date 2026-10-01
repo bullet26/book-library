@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Radio } from 'antd'
-import { AddBookNew, AddBookReread, AddMediaForBook } from 'pages'
+import { AddBookNew, AddBookReread, AddMediaForBook } from './sub-pages'
 
 export const AddBook = () => {
   const [page, setPage] = useState('new-book')

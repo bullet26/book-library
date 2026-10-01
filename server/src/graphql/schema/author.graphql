@@ -18,12 +18,17 @@ type AuthorResponse {
 }
 
 # Author data without pagination
-type AuthorMostReadResponse {
+type AuthorMostRead {
   id: ID!
   count: Int!
   name: String!
   surname: String
   portraitThumbnail: String
+}
+
+type AuthorMostReadResponse {
+  totalCount: Int!
+  authors: [AuthorMostRead!]!
 }
 
 # input data for add author
@@ -39,8 +44,8 @@ extend type Query {
   # Get a list of authors
   getAllAuthors(limit: Int = 50, page: Int = 1): AuthorResponse!
 
-  # Get a list of authors sorted by count reded books
-  getAllAuthorsByBooksCount: [AuthorMostReadResponse!]!
+  # Get a list of authors sorted by books count
+  getAllAuthorsByBooksCount(limit: Int = 50, page: Int = 1): AuthorMostReadResponse!
 
   # Get one author by id
   getOneAuthor(id: ID): Author

@@ -2,7 +2,7 @@ import DataLoader from 'dataloader'
 import mongoose from 'mongoose'
 
 import { BooksModel, BookTagRelationsModel } from '../../models/index.js'
-import { toObjectMapping } from '../../utils/mappers.js'
+import { mapOneToMany, toObjectMapping } from '../../utils/mappers.js'
 import { Book, BookTagRelations } from '../generated/types.js'
 
 export const TagsDL = {
@@ -21,57 +21,64 @@ export const TagsDL = {
   }),
 
   booksInTagByAuthor: new DataLoader(async (tagIDs: readonly string[]) => {
-    const booksInTagObjDocs = await BookTagRelationsModel.find({ tagID: { $in: tagIDs } })
-    const booksInTagObj = toObjectMapping<BookTagRelations>(booksInTagObjDocs)
-    const booksInTagIds = booksInTagObj.map((item) => new mongoose.Types.ObjectId(item.bookID))
-    const booksDocs = await BooksModel.aggregate([
+    const tagObjectIds = tagIDs.map((id) => new mongoose.Types.ObjectId(id))
+
+    const aggregatedResults = await BookTagRelationsModel.aggregate([
       {
-        $match: { _id: { $in: booksInTagIds } },
+        $match: {
+          tagID: { $in: tagObjectIds },
+        },
       },
       {
         $lookup: {
-          as: 'authorData',
+          from: 'books',
+          localField: 'bookID',
           foreignField: '_id',
-          from: 'authors',
-          localField: 'authorID',
+          as: 'book',
         },
       },
-      { $unwind: '$authorData' },
-      { $addFields: { authorSurname: '$authorData.surname' } },
+      { $unwind: '$book' },
       {
-        $sort: { authorSurname: 1, title: 1 },
+        $lookup: {
+          from: 'authors',
+          localField: 'book.authorID',
+          foreignField: '_id',
+          as: 'author',
+        },
       },
-      { $addFields: { id: '$_id' } },
+      { $unwind: '$author' },
+      {
+        $sort: {
+          'author.surname': 1,
+          'book.title': 1,
+        },
+      },
       {
         $project: {
-          _id: 0,
-          authorData: 0,
-          authorSurname: 0,
+          tagID: { $toString: '$tagID' },
+          book: {
+            $mergeObjects: [
+              '$book',
+              {
+                id: { $toString: '$book._id' },
+                authorID: { $toString: '$book.authorID' },
+                seriesID: {
+                  $cond: {
+                    if: { $ifNull: ['$book.seriesID', false] },
+                    then: { $toString: '$book.seriesID' },
+                    else: '$$REMOVE',
+                  },
+                },
+                _id: '$$REMOVE',
+              },
+            ],
+          },
         },
       },
     ])
 
-    const books = booksDocs.map((item) => ({
-      ...item,
-      authorID: item.authorID.toString(),
-      id: item.id.toString(),
-    }))
-
-    const bookMap = new Map(books.map((book) => [book.id, book]))
-
-    const tagToBooksMap = new Map<string, typeof books>()
-
-    for (const relation of booksInTagObj) {
-      const book = bookMap.get(relation.bookID)
-      if (!book) continue
-
-      const tagIdStr = relation.tagID.toString()
-      if (!tagToBooksMap.has(tagIdStr)) {
-        tagToBooksMap.set(tagIdStr, [])
-      }
-      tagToBooksMap.get(tagIdStr)!.push(book)
-    }
-
-    return tagIDs.map((id) => tagToBooksMap.get(id) || [])
+    return mapOneToMany(aggregatedResults, tagIDs, (row) => row.tagID).map((group) =>
+      group.map((row) => row.book),
+    )
   }),
 }

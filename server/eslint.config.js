@@ -3,7 +3,6 @@
 import eslint from '@eslint/js'
 import tseslint from 'typescript-eslint'
 import { defineConfig } from 'eslint/config'
-import perfectionist from 'eslint-plugin-perfectionist'
 
 export default defineConfig(
   {
@@ -26,8 +25,8 @@ export default defineConfig(
       '@typescript-eslint/no-unsafe-assignment': 'off',
       '@typescript-eslint/no-unsafe-member-access': 'off',
       '@typescript-eslint/no-unsafe-return': 'off',
-      'perfectionist/sort-union-types': ['warn', { type: 'natural', order: 'asc' }],
+      '@typescript-eslint/no-non-null-assertion': 'off',
+      '@typescript-eslint/prefer-nullish-coalescing': 'off',
     },
   },
-  perfectionist.configs['recommended-natural'],
 )

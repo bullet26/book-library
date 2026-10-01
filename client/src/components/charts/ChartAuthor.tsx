@@ -29,7 +29,7 @@ export const ChartAuthor = () => {
       <div className={s.wrapper}>
         <div className={s.titleBtnWrapper}>
           <div className={s.title}>MOST READ AUTHORS</div>
-          <Link to="/most_reded_authors">
+          <Link to="/authors?sortBy=bookCount">
             <Button
               shape="round"
               style={{

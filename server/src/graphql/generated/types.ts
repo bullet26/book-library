@@ -53,13 +53,19 @@ export type AuthorInput = {
   transcriptionName?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type AuthorMostReadResponse = {
-  __typename?: 'AuthorMostReadResponse';
+export type AuthorMostRead = {
+  __typename?: 'AuthorMostRead';
   count: Scalars['Int']['output'];
   id: Scalars['ID']['output'];
   name: Scalars['String']['output'];
   portraitThumbnail?: Maybe<Scalars['String']['output']>;
   surname?: Maybe<Scalars['String']['output']>;
+};
+
+export type AuthorMostReadResponse = {
+  __typename?: 'AuthorMostReadResponse';
+  authors: Array<AuthorMostRead>;
+  totalCount: Scalars['Int']['output'];
 };
 
 export type AuthorResponse = {
@@ -208,7 +214,7 @@ export type MutationUpdateBookPlotArgs = {
 export type Query = {
   __typename?: 'Query';
   getAllAuthors: AuthorResponse;
-  getAllAuthorsByBooksCount: Array<AuthorMostReadResponse>;
+  getAllAuthorsByBooksCount: AuthorMostReadResponse;
   getAllBooksByDate: ReadBooksResponse;
   getAllBooksByName: BooksResponse;
   getAllBooksBySpecificDate: Array<ReadDate>;
@@ -228,6 +234,12 @@ export type Query = {
 
 
 export type QueryGetAllAuthorsArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  page?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type QueryGetAllAuthorsByBooksCountArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   page?: InputMaybe<Scalars['Int']['input']>;
 };
@@ -439,6 +451,7 @@ export type ResolversTypes = ResolversObject<{
   AllMediaForItem: ResolverTypeWrapper<AllMediaForItem>;
   Author: ResolverTypeWrapper<Author>;
   AuthorInput: AuthorInput;
+  AuthorMostRead: ResolverTypeWrapper<AuthorMostRead>;
   AuthorMostReadResponse: ResolverTypeWrapper<AuthorMostReadResponse>;
   AuthorResponse: ResolverTypeWrapper<AuthorResponse>;
   AuthorsStatisticResponse: ResolverTypeWrapper<AuthorsStatisticResponse>;
@@ -477,6 +490,7 @@ export type ResolversParentTypes = ResolversObject<{
   AllMediaForItem: AllMediaForItem;
   Author: Author;
   AuthorInput: AuthorInput;
+  AuthorMostRead: AuthorMostRead;
   AuthorMostReadResponse: AuthorMostReadResponse;
   AuthorResponse: AuthorResponse;
   AuthorsStatisticResponse: AuthorsStatisticResponse;
@@ -532,12 +546,17 @@ export type AuthorResolvers<ContextType = any, ParentType extends ResolversParen
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type AuthorMostReadResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['AuthorMostReadResponse'] = ResolversParentTypes['AuthorMostReadResponse']> = ResolversObject<{
+export type AuthorMostReadResolvers<ContextType = any, ParentType extends ResolversParentTypes['AuthorMostRead'] = ResolversParentTypes['AuthorMostRead']> = ResolversObject<{
   count?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   portraitThumbnail?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   surname?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+}>;
+
+export type AuthorMostReadResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['AuthorMostReadResponse'] = ResolversParentTypes['AuthorMostReadResponse']> = ResolversObject<{
+  authors?: Resolver<Array<ResolversTypes['AuthorMostRead']>, ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
 }>;
 
 export type AuthorResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['AuthorResponse'] = ResolversParentTypes['AuthorResponse']> = ResolversObject<{
@@ -612,7 +631,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
   getAllAuthors?: Resolver<ResolversTypes['AuthorResponse'], ParentType, ContextType, RequireFields<QueryGetAllAuthorsArgs, 'limit' | 'page'>>;
-  getAllAuthorsByBooksCount?: Resolver<Array<ResolversTypes['AuthorMostReadResponse']>, ParentType, ContextType>;
+  getAllAuthorsByBooksCount?: Resolver<ResolversTypes['AuthorMostReadResponse'], ParentType, ContextType, RequireFields<QueryGetAllAuthorsByBooksCountArgs, 'limit' | 'page'>>;
   getAllBooksByDate?: Resolver<ResolversTypes['ReadBooksResponse'], ParentType, ContextType, RequireFields<QueryGetAllBooksByDateArgs, 'limit' | 'page'>>;
   getAllBooksByName?: Resolver<ResolversTypes['BooksResponse'], ParentType, ContextType, RequireFields<QueryGetAllBooksByNameArgs, 'limit' | 'page'>>;
   getAllBooksBySpecificDate?: Resolver<Array<ResolversTypes['ReadDate']>, ParentType, ContextType, Partial<QueryGetAllBooksBySpecificDateArgs>>;
@@ -668,6 +687,7 @@ export type Resolvers<ContextType = any> = ResolversObject<{
   AdditionalMedia?: AdditionalMediaResolvers<ContextType>;
   AllMediaForItem?: AllMediaForItemResolvers<ContextType>;
   Author?: AuthorResolvers<ContextType>;
+  AuthorMostRead?: AuthorMostReadResolvers<ContextType>;
   AuthorMostReadResponse?: AuthorMostReadResponseResolvers<ContextType>;
   AuthorResponse?: AuthorResponseResolvers<ContextType>;
   AuthorsStatisticResponse?: AuthorsStatisticResponseResolvers<ContextType>;
