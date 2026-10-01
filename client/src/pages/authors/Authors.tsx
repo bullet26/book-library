@@ -1,8 +1,9 @@
-import { Select } from 'antd'
+import { Dropdown, Space } from 'antd'
 import { Loader, Pagination, Error, ActivateEditMode, Card } from 'UI'
 import { getRandomImage } from 'utils'
-import { useAuthors, ALL_SORT_OPTIONS } from './hook/useAuthors'
+import { useAuthors, sortItems } from './hook/useAuthors'
 import s from './Authors.module.scss'
+import { DownOutlined } from '@ant-design/icons'
 
 export const Authors = () => {
   const {
@@ -22,12 +23,20 @@ export const Authors = () => {
   if (error) return <Error message={error} />
 
   const sortSelectJSX = (
-    <Select
-      value={sortBy}
-      style={{ width: 170 }}
-      options={ALL_SORT_OPTIONS}
-      onChange={handleSortChange}
-    />
+    <Dropdown
+      menu={{
+        items: sortItems,
+        selectedKeys: [sortBy],
+        onClick: (e) => handleSortChange(e.key),
+      }}
+      trigger={['click']}>
+      <a onClick={(e) => e.preventDefault()}>
+        <Space>
+          Sort by
+          <DownOutlined />
+        </Space>
+      </a>
+    </Dropdown>
   )
 
   return (
