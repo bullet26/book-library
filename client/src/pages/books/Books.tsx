@@ -2,9 +2,9 @@ import { Flex } from 'antd'
 import { Loader, Pagination, Error, Card } from 'UI'
 import { useBooks } from './hooks/useBooks'
 import { EmptyBooks } from './filters'
-import s from './Books.module.scss'
 import { FiltersBlock } from './FiltersBlock'
 import { useFilters } from './hooks/useFilters'
+import s from './Books.module.scss'
 
 export const Books = () => {
   const { books, totalCount, loading, error, page, limit, handlePagination, handleClickCard } =
@@ -39,7 +39,7 @@ export const Books = () => {
               handleSubmit={handlePagination}
             />
           )}
-          <FiltersBlock isDesktop={isDesktop} />
+          <FiltersBlock />
         </Flex>
       )}
       <div className={s.cardWrapper}>

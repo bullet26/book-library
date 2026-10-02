@@ -1,5 +1,5 @@
 import { Flex, Select } from 'antd'
-import { Loader, Pagination, Error, ActivateEditMode, Card } from 'UI'
+import { Loader, Pagination, Error, Card } from 'UI'
 import { getRandomImage } from 'utils'
 import { useAuthors, ALL_SORT_OPTIONS } from './hook/useAuthors'
 import s from './Authors.module.scss'
