@@ -1,12 +1,4 @@
-.wrapper {
-  display: flex;
-  justify-content: flex-end;
-  position: relative;
-}
-
 .wrapperContent {
-  display: flex;
-  justify-content: space-between;
   column-gap: 55px;
   width: 85vw;
   @media (max-width: 568px) {

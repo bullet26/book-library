@@ -1,9 +1,10 @@
 import { Fragment } from 'react'
-import { YearSelect } from 'components'
+import { YearNavigator as YearSelect } from 'components'
 import { Loader, Error, ActivateEditMode, Card } from 'UI'
 import { DateDivider } from './elements'
 import { useBooksByYear } from './hook/useBooksByYear'
 import s from './BooksByYear.module.scss'
+import { Flex } from 'antd'
 
 export const BooksByYear = () => {
   const {
@@ -19,13 +20,13 @@ export const BooksByYear = () => {
   if (error) return <Error message={error} />
 
   return (
-    <div className={s.wrapper}>
-      <div className={s.innerWrapper}>
+    <Flex vertical justify="flex-start" gap="large">
+      <Flex justify="space-between" align="flex-start" gap="large">
         <YearSelect year={year} />
         <div className={s.toolbarMobileOnly}>
           <ActivateEditMode />
         </div>
-      </div>
+      </Flex>
 
       <DateDivider message={String(year)} type="main" />
       {books?.map(({ month, books }) => {
@@ -49,6 +50,6 @@ export const BooksByYear = () => {
           </Fragment>
         )
       })}
-    </div>
+    </Flex>
   )
 }

@@ -1,5 +1,5 @@
 import type { GetOneBookByIdQuery } from '__graphql/__generated__/graphql'
-import { Tooltip } from 'antd'
+import { Flex, Tooltip } from 'antd'
 import { useNavigate } from 'react-router-dom'
 import { sanitize } from 'utils'
 import { Carousel } from './carousel'
@@ -31,7 +31,7 @@ export const BookInfoTab = (props: BookInfoTabProps) => {
   const series = data?.book?.series
 
   return (
-    <div className={s.contentWrapper}>
+    <Flex vertical gap="large">
       {!!data?.book && (
         <div className={s.bookInfo}>
           <div className={s.key}>author</div>
@@ -60,6 +60,6 @@ export const BookInfoTab = (props: BookInfoTabProps) => {
           title={`All books in the series: ${series.title}`}
         />
       )}
-    </div>
+    </Flex>
   )
 }

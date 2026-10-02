@@ -1,3 +1,4 @@
+import { Flex } from 'antd'
 import { ReReadBookForm } from 'components'
 import { useMutation } from '@apollo/client/react'
 import { CREATE_READ_DATE } from '__graphql'
@@ -15,16 +16,18 @@ export const AddBookReread = () => {
     })
   }
 
+  if (errorReadDate) return <Error />
+  if (!!newReadDate?.bookInfo.books && !!newReadDate.bookInfo.readEnd)
+    return (
+      <Modal
+        content={`book ${newReadDate.bookInfo.books.title} was read: ${newReadDate.bookInfo.readEnd.day}-${newReadDate.bookInfo.readEnd.month}-${newReadDate.bookInfo.readEnd.year} `}
+      />
+    )
+
   return (
-    <div className={s.formWrapperReread}>
+    <Flex vertical gap="large" className={s.wrapper}>
       <div className={s.title}>Add new reding date</div>
       <ReReadBookForm onSubmitRequest={handleOnSubmitReReadBookForm} disabled={loading} />
-      {!!newReadDate?.bookInfo.books && !!newReadDate.bookInfo.readEnd && (
-        <Modal
-          content={`book ${newReadDate.bookInfo.books.title} was read: ${newReadDate.bookInfo.readEnd.day}-${newReadDate.bookInfo.readEnd.month}-${newReadDate.bookInfo.readEnd.year} `}
-        />
-      )}
-      {!!errorReadDate && <Error />}
-    </div>
+    </Flex>
   )
 }

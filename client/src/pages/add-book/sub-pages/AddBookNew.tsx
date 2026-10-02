@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { AddBookForm, AddAuthorForm, AddSerieForm } from 'components'
 import s from '../AddBook.module.scss'
+import { Flex } from 'antd'
 
 export const AddBookNew = () => {
   const [isShowAuthorForm, setStatusShowAuthorForm] = useState(false)
@@ -21,7 +22,7 @@ export const AddBookNew = () => {
   const handleHideSerieForm = () => setTimeout(() => setStatusShowSerieForm(false), 5000)
 
   return (
-    <div className={s.formWrapperAddNewBook}>
+    <Flex vertical gap="large" className={s.wrapper}>
       {isShowSerieForm && <AddSerieForm handleHideForm={handleHideSerieForm} />}
       <div className={s.formBookAuthorWrapper}>
         <AddBookForm
@@ -36,6 +37,6 @@ export const AddBookNew = () => {
           </div>
         )}
       </div>
-    </div>
+    </Flex>
   )
 }

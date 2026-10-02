@@ -4,6 +4,7 @@ import { ADD_MEDIA } from '__graphql'
 import { type AdditionalMediaInput } from '__graphql/__generated__/graphql'
 import { Error, Modal } from 'UI'
 import s from '../AddBook.module.scss'
+import { Flex } from 'antd'
 
 export const AddMediaForBook = () => {
   const [addMediaApollo, { data, error: errorReadDate, loading }] = useMutation(ADD_MEDIA)
@@ -14,14 +15,14 @@ export const AddMediaForBook = () => {
     })
   }
 
+  if (errorReadDate) return <Error />
+  if (!!data?.bookInfo?.isAdditionalMediaExist)
+    return <Modal content={`Book ${data.bookInfo.title} media was updated`} />
+
   return (
-    <div className={s.formWrapperReread}>
+    <Flex vertical gap="large" className={s.wrapper}>
       <div className={s.title}>Add new media for book</div>
       <AdditionalMediaForm onSubmitRequest={handleOnSubmit} disabled={loading} />
-      {!!data?.bookInfo?.isAdditionalMediaExist && (
-        <Modal content={`Book ${data.bookInfo.title} media was updated`} />
-      )}
-      {!!errorReadDate && <Error />}
-    </div>
+    </Flex>
   )
 }

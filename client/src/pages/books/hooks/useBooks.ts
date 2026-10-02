@@ -9,26 +9,27 @@ export const useBooks = () => {
 
   const page = Number(searchParams.get('page')) || 1
   const limit = Number(searchParams.get('perpage')) || 50
-  const sortBy = searchParams.get('sortBy') || BookSortBy.DateDesc
+  const sortBy = (searchParams.get('sortBy') as BookSortBy) || BookSortBy.DateDesc
+
+  const tagId = searchParams.get('tagId')
+  const rating = searchParams.get('rating')
+  const year = searchParams.get('year')
 
   const { loading, error, data } = useQuery(ALL_BOOKS, {
     variables: {
-      page: Number(searchParams.get('page')) || 1,
-      limit: Number(searchParams.get('perpage')) || 50,
+      page,
+      limit,
+      filter: {
+        ...(tagId && { tagId }),
+        ...(rating && { rating: Number(rating) }),
+        ...(year && { year: Number(year) }),
+      },
+      sort: sortBy,
     },
   })
 
   const books = data?.getBooks?.books || []
   const totalCount = data?.getBooks?.totalCount || 0
-
-  const handleSortChange = (newSortBy: string) => {
-    setSearchParams((prev) => {
-      const next = new URLSearchParams(prev)
-      next.set('sortBy', newSortBy)
-      next.set('page', '1')
-      return next
-    })
-  }
 
   const handlePagination = (current: number, pageSize: number) => {
     setSearchParams((prev) => {
@@ -52,9 +53,7 @@ export const useBooks = () => {
     error: error?.message,
     page,
     limit,
-    sortBy,
-    handleSortChange,
-    handlePagination,
     handleClickCard,
+    handlePagination,
   }
 }

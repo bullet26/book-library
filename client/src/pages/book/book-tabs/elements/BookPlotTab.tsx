@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useQuery } from '@apollo/client/react'
-import { Button } from 'antd'
+import { Button, Flex } from 'antd'
 import { EditFilled } from '@ant-design/icons'
 import { ONE_BOOK_PLOT } from '__graphql'
 import { useReactContext } from 'providers'
@@ -13,7 +13,7 @@ import s from './BookTab.module.scss'
 
 export const BookPlotTab = () => {
   const { id } = useParams()
-  const { isEditMode } = useReactContext()
+  const { isEditMode: isEditAllow } = useReactContext()
 
   const [isViewMode, setViewModeStatus] = useState(true)
 
@@ -28,25 +28,29 @@ export const BookPlotTab = () => {
     setViewModeStatus((prev) => !prev)
   }
 
+  if (loading) return <div>Loading..</div>
+  if (error) return <Error message={error?.message} />
+
+  if (!loading && !plot)
+    return (
+      <div className={s.emptyPlot}>
+        <img src={emptyPlotImg} alt="empty-plot" />
+      </div>
+    )
+
   return (
     <>
-      {!!loading && <div>Loading..</div>}
-      {!!error && <Error message={error?.message} />}
-      {!!plot && isEditMode && (
-        <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '10px' }}>
+      {!!plot && isEditAllow && (
+        <Flex justify="flex-end" style={{ marginBottom: '10px' }}>
           <Button icon={<EditFilled />} onClick={handleEditClick} />
-        </div>
+        </Flex>
       )}
+
       {!!plot && (
         <>
           {isViewMode && <div className={s.text} dangerouslySetInnerHTML={{ __html: plot }} />}
           {!isViewMode && <UpdateBookPlotForm id={data?.book?.id || ''} plot={plot} />}
         </>
-      )}
-      {!loading && !plot && (
-        <div className={s.emptyPlot}>
-          <img src={emptyPlotImg} alt="empty-plot" />
-        </div>
       )}
     </>
   )

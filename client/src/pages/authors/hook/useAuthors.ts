@@ -2,12 +2,16 @@ import { useSearchParams } from 'react-router-dom'
 import { useQuery } from '@apollo/client/react'
 import { useNavigate } from 'react-router-dom'
 import { ALL_AUTHORS, ALL_AUTHORS_BY_BOOKS_COUNT } from '__graphql'
-import type { MenuProps } from 'antd'
 
 export enum SortOptions {
   bookCount = 'bookCount',
   surname = 'surname',
 }
+
+export const ALL_SORT_OPTIONS = [
+  { value: SortOptions.bookCount, label: 'By book count' },
+  { value: SortOptions.surname, label: 'By last name' },
+]
 
 export const useAuthors = () => {
   const navigate = useNavigate()
@@ -84,24 +88,3 @@ export const useAuthors = () => {
     handleClickCard,
   }
 }
-
-export const sortItems: MenuProps['items'] = [
-  {
-    key: '1',
-    label: 'Sort by',
-    disabled: true,
-  },
-  {
-    type: 'divider',
-  },
-  {
-    key: SortOptions.bookCount,
-    label: 'By book count',
-    extra: '⌘B',
-  },
-  {
-    key: SortOptions.surname,
-    label: 'By last name',
-    extra: '⌘P',
-  },
-]

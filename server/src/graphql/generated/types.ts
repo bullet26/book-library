@@ -103,7 +103,7 @@ export type Book = {
 };
 
 export type BookFilterInput = {
-  rating?: InputMaybe<Scalars['Float']['input']>;
+  rating?: InputMaybe<Scalars['Int']['input']>;
   tagId?: InputMaybe<Scalars['ID']['input']>;
   year?: InputMaybe<Scalars['Int']['input']>;
 };

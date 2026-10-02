@@ -48,7 +48,7 @@ export const ReReadBookForm = (props: ReReadBookFormProps) => {
           size="large"
           htmlType="submit"
           disabled={disabled}>
-          ADD REREADING DATE
+          ADD new reding date
         </Button>
       </form>
     </FormProvider>

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Button } from 'antd'
+import { Button, Flex } from 'antd'
 import { MOST_READ_AUTHORS } from '__graphql'
 import { useQuery } from '@apollo/client/react'
 import { DiagramPie } from 'components'
@@ -24,26 +24,25 @@ export const ChartAuthor = () => {
     }
   }, [data])
 
+  if (loading) return <div className={s.loading}>Loading..</div>
+  if (error) return <Error message={error?.message} />
+
   return (
-    <div className={s.buttonWrapper}>
-      <div className={s.wrapper}>
-        <div className={s.titleBtnWrapper}>
-          <div className={s.title}>MOST READ AUTHORS</div>
-          <Link to="/authors?sortBy=bookCount">
-            <Button
-              shape="round"
-              style={{
-                width: '200px',
-                height: '38px',
-              }}>
-              Show more
-            </Button>
-          </Link>
-        </div>
-        {!!loading && <div className={s.loading}>Loading..</div>}
-        {!!error && <Error message={error?.message} />}
-        {!!chartData.length && <DiagramPie chartData={chartData} />}
-      </div>
-    </div>
+    <Flex vertical>
+      <Flex align="center" justify="space-between" className={s.header}>
+        <div className={s.title}>MOST READ AUTHORS</div>
+        <Link to="/authors?sortBy=bookCount">
+          <Button
+            shape="round"
+            style={{
+              width: '200px',
+              height: '38px',
+            }}>
+            Show more
+          </Button>
+        </Link>
+      </Flex>
+      {!!chartData.length && <DiagramPie chartData={chartData} />}
+    </Flex>
   )
 }

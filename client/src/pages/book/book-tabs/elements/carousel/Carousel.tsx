@@ -1,9 +1,8 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import { useState, useRef, type RefObject } from 'react'
 import SlickSlider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
-import { Slider as AntdSlider } from 'antd'
+import { Slider as AntdSlider, Flex } from 'antd'
 import { useNavigate } from 'react-router-dom'
 import { Card } from 'UI'
 import { settings, GetSlidesToShow } from './utils'
@@ -27,7 +26,7 @@ export const Carousel = (props: SerieBooks) => {
   }
 
   return (
-    <div className={s.wrapper}>
+    <Flex vertical gap="medium">
       <div className={s.title}>{title}</div>
 
       <SliderComponent
@@ -59,6 +58,6 @@ export const Carousel = (props: SerieBooks) => {
           onChange={(value) => sliderRef?.current?.slickGoTo(value)}
         />
       )}
-    </div>
+    </Flex>
   )
 }

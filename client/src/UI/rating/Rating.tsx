@@ -1,9 +1,9 @@
 import { type CSSProperties } from 'react'
+import { Flex, Rate } from 'antd'
 import { HeartFilled, StarFilled } from '@ant-design/icons'
 import { Tick } from 'assets'
 import { colorRate } from 'utils'
 import s from './Rating.module.scss'
-import { Rate } from 'antd'
 
 interface RatingProps {
   rating: number
@@ -17,7 +17,7 @@ export const Rating = (props: RatingProps) => {
   return (
     <>
       {type === 'star' && (
-        <div className={s.wrapper} style={style}>
+        <Flex justify="space-around" style={style}>
           <div className={s.ratingStar}>
             <Rate
               disabled
@@ -31,7 +31,7 @@ export const Rating = (props: RatingProps) => {
           <div className={s.ratingCircle} style={{ backgroundColor: colorRate(rating) }}>
             {rating || <Tick fill="white" height="15px" />}
           </div>
-        </div>
+        </Flex>
       )}
       {type === 'circle-only' && (
         <div className={s.wrapperCircleOnly} style={style}>

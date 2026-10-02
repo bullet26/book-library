@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom'
 import { useQuery } from '@apollo/client/react'
-import { Image } from 'antd'
+import { Flex, Image } from 'antd'
 import { TegakiRenderer } from 'tegaki'
 import caveat from 'tegaki/fonts/caveat'
 import { ReactHelmetMetadata } from 'components'
@@ -19,39 +19,40 @@ export const Book = () => {
   const bookCover = data?.book?.bookCover || ''
   const description = data?.book?.description
 
+  if (loading) return <Loader />
+  if (error) return <Error message={error.message} />
+
   return (
-    <>
-      {!!loading && <Loader />}
-      {!!error && <Error message={error?.message} />}
-      {!!data && (
-        <ReactHelmetMetadata
-          title={data?.book?.title}
-          pageURL={window.location.href}
-          imageURL={bookCover}
-          description={description?.replace(/<[^>]*>/g, '') || data?.book?.title}
-          children={
-            <div className={s.wrapper}>
-              {window.innerWidth > 630 && <ScrollArrow />}
-              <div className={s.wrapperContent}>
-                <div className={`${s.title} ${s.mobile}`}>{data?.book?.title}</div>
-                <div className={s.imgWrapperTagWrapper}>
-                  <div className={s.imgWrapper}>
-                    {bookCover ? <Image width="100%" src={bookCover} /> : <BookImg width="100%" />}
-                    <Rating rating={data?.book?.rating || 0} type="star" />
-                  </div>
-                  <Tags tags={data?.book?.tags || []} bookID={id} />
-                </div>
-                <div className={s.contentWrapper}>
-                  <TegakiRenderer font={caveat} className={s.title}>
-                    {data?.book?.title}
-                  </TegakiRenderer>
-                  <BookTab />
-                </div>
+    !!data && (
+      <ReactHelmetMetadata
+        title={data?.book?.title}
+        pageURL={window.location.href}
+        imageURL={bookCover}
+        description={description?.replace(/<[^>]*>/g, '') || data?.book?.title}
+        children={
+          <Flex justify="flex-end" gap="large">
+            {window.innerWidth > 630 && <ScrollArrow />}
+
+            <Flex justify="space-between" align="flex-start" className={s.wrapper}>
+              <div className={`${s.title} ${s.mobile}`}>{data?.book?.title}</div>
+              <Flex vertical gap="large">
+                <Flex vertical gap="medium" justify="space-between" className={s.imgWrapper}>
+                  {bookCover ? <Image width="100%" src={bookCover} /> : <BookImg width="100%" />}
+                  <Rating rating={data?.book?.rating || 0} type="star" />
+                </Flex>
+                <Tags tags={data?.book?.tags || []} bookID={id} />
+              </Flex>
+
+              <div className={s.contentWrapper}>
+                <TegakiRenderer font={caveat} className={s.title}>
+                  {data?.book?.title}
+                </TegakiRenderer>
+                <BookTab />
               </div>
-            </div>
-          }
-        />
-      )}
-    </>
+            </Flex>
+          </Flex>
+        }
+      />
+    )
   )
 }

@@ -1,11 +1,10 @@
-import { Image } from 'antd'
+import { Flex, Image } from 'antd'
 import { useParams } from 'react-router-dom'
 import { useQuery } from '@apollo/client/react'
 import { Masonry } from 'antd'
 import ReactPlayer from 'react-player'
 import { ALL_MEDIA_FOR_BOOK } from '__graphql'
 import { Error } from 'UI'
-import s from './BookTab.module.scss'
 
 export const BookMediaTab = () => {
   const { id } = useParams()
@@ -17,19 +16,21 @@ export const BookMediaTab = () => {
 
   const media = data?.book?.media
 
+  if (loading) return <div>Loading..</div>
+  if (error) return <Error message={error?.message} />
+  if (!loading && !media) return <span>You can add media on settings page</span>
+
   return (
-    <>
-      {!!loading && <div>Loading..</div>}
-      {!!error && <Error message={error?.message} />}
+    <Flex vertical gap="large">
       {!!media?.video?.length && (
-        <div className={s.videoWrapper}>
+        <Flex wrap align="center" justify="space-around" gap="medium">
           {media?.video.map(
             (item) =>
               item?.url && (
                 <ReactPlayer key={item.id} src={item.url} height="210px" width="390px" controls />
               ),
           )}
-        </div>
+        </Flex>
       )}
       {!!media?.image?.length && (
         <Image.PreviewGroup>
@@ -46,7 +47,6 @@ export const BookMediaTab = () => {
           />
         </Image.PreviewGroup>
       )}
-      {!loading && !media && <span>You can add media on settings page</span>}
-    </>
+    </Flex>
   )
 }

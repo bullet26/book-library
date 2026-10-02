@@ -86,7 +86,7 @@ type Book {
 }
 
 input BookFilterInput {
-  rating: Float
+  rating: Int
   tagId: ID
   year: Int
 }

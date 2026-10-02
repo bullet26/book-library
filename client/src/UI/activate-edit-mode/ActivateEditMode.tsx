@@ -1,9 +1,8 @@
 import { useState, type ChangeEvent } from 'react'
 import { CheckOutlined } from '@ant-design/icons'
-import { Button, Input } from 'antd'
+import { Button, Flex, Input } from 'antd'
 import { useReactActions, useReactContext } from 'providers'
 import { AddBookButton } from './AddBookButton'
-import s from './ActivateEditMode.module.scss'
 
 const { Password } = Input
 
@@ -27,10 +26,10 @@ export const ActivateEditMode = () => {
       {isEditMode ? (
         <AddBookButton />
       ) : (
-        <div className={s.editBlock}>
+        <Flex gap="small">
           <Password size="medium" name="password-fn" value={userPass} onChange={onChange} />
           <Button icon={<CheckOutlined />} onClick={onSubmit} />
-        </div>
+        </Flex>
       )}
     </>
   )

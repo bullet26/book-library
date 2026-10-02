@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Button, Select, Tag } from 'antd'
+import { Button, Flex, Select, Tag } from 'antd'
 import type { SelectProps } from 'antd'
 import { useQuery, useMutation } from '@apollo/client/react'
 import { ALL_TAGS, CREATE_LINK_TAG_WITH_BOOK } from '__graphql'
@@ -68,7 +68,7 @@ export const Tags = (props: SelectTagProps) => {
 
   const handleClickTag = (tagId: string) => {
     if (tagId) {
-      navigate(`/tag?tagID=${encodeURIComponent(tagId)}`)
+      navigate(`/books?tagId=${encodeURIComponent(tagId)}`)
     }
   }
 
@@ -81,10 +81,11 @@ export const Tags = (props: SelectTagProps) => {
     updateLinkTagWithBook({ variables: { input: { bookID, tagID: selectedTag } } })
   }
 
+  if (!!error || !!errorTag) return <Error message={error?.message || errorTag?.message} />
+
   return (
     <>
-      {(!!error || !!errorTag) && <Error message={error?.message || errorTag?.message} />}
-      <div className={s.tagWrapper}>
+      <Flex wrap justify="space-around" align="center" gap="medium" className={s.cursorPointer}>
         {tags.map((item) => (
           <Tag
             variant="filled"
@@ -94,7 +95,8 @@ export const Tags = (props: SelectTagProps) => {
             {item.tag}
           </Tag>
         ))}
-      </div>
+      </Flex>
+
       {isEditMode && (
         <>
           <Select

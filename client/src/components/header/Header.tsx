@@ -1,8 +1,9 @@
+import { useState } from 'react'
+import { Flex } from 'antd'
 import { Search } from 'components'
 import { ActivateEditMode } from 'UI'
 import { NavigationHeader } from './NavigationHeader'
 import s from './Header.module.scss'
-import { useState } from 'react'
 
 export const MOBILE_WIDTH_THRESHOLD = 630
 
@@ -15,15 +16,15 @@ export const Header = () => {
   }
 
   return (
-    <div className={s.headerWrapper}>
-      <div className={s.innerWrapper}>
+    <Flex justify="space-between" gap="large" className={s.headerWrapper}>
+      <Flex justify="space-between" align="center" gap="large">
         {(windowWidth > MOBILE_WIDTH_THRESHOLD || !showMobileSearch) && <NavigationHeader />}
         {windowWidth >= 729 && <ActivateEditMode />}
-      </div>
+      </Flex>
       <Search
         showMobileSearch={showMobileSearch}
         handleMobileSearchClick={handleMobileSearchClick}
       />
-    </div>
+    </Flex>
   )
 }

@@ -59,7 +59,7 @@ export const generateFilterPipeline = (
   const pipeline: any[] = []
 
   if (rating) {
-    pipeline.push({ $match: { rating } })
+    pipeline.push({ $match: { rating: { $gte: rating, $lt: rating + 1 } } })
   }
 
   const isDateSort = sort === BookSortBy.DateDesc || sort === BookSortBy.DateAsc

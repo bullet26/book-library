@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import s from './Header.module.scss'
+import { Flex } from 'antd'
 
 export const NavigationHeader = () => {
   const selectedKey = window.location.pathname.split('/').at(1)
@@ -13,7 +14,7 @@ export const NavigationHeader = () => {
   }, [])
 
   return (
-    <div className={s.navHederWrapper}>
+    <Flex>
       <Link to="/home" style={{ textDecoration: 'none' }}>
         <div className={`${s.button} ${selectedKey === 'home' && s.active}`}>Home</div>
       </Link>
@@ -23,6 +24,6 @@ export const NavigationHeader = () => {
       <Link to="/authors" style={{ textDecoration: 'none' }}>
         <div className={`${s.button} ${selectedKey === 'authors' && s.active}`}>Authors</div>
       </Link>
-    </div>
+    </Flex>
   )
 }

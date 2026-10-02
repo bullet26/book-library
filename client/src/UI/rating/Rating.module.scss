@@ -8,15 +8,11 @@
   justify-content: center;
   align-items: center;
 }
+
 .ratingStar {
   display: flex;
   flex-direction: row;
   column-gap: 5px;
-}
-.wrapper {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
 }
 
 .wrapperCircleOnly {

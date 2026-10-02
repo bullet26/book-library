@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { READ_STATISTIC } from '__graphql'
 import { useLazyQuery } from '@apollo/client/react'
-import type { RadioChangeEvent } from 'antd'
+import { Flex, type RadioChangeEvent } from 'antd'
 import { DiagramBar } from 'components'
 import { Error } from 'UI'
 import { checkEmptyPeriod } from './utils'
@@ -54,17 +54,18 @@ export const ChartYears = () => {
     setYear(year)
   }
 
+  if (loading) return <div className={s.loading}>Loading..</div>
+  if (error) return <Error message={error?.message} />
+
   return (
-    <div className={s.barWrapper}>
+    <Flex vertical gap="large" className={s.barWrapper}>
       <div className={s.title}>Reading dynamics</div>
-      {!!loading && <div className={s.loading}>Loading..</div>}
-      {!!error && <Error message={error?.message} />}
       {!!data?.statistic?.length && (
         <>
           <XAxisYearLabels onChange={handleChange} data={allYears} value={year} />
           <DiagramBar chartData={preparedData} />
         </>
       )}
-    </div>
+    </Flex>
   )
 }
