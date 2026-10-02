@@ -21,16 +21,6 @@ export const Authors = () => {
   if (loading) return <Loader />
   if (error) return <Error message={error} />
 
-  const sortSelectJSX = (
-    <Select
-      placeholder="Sort by..."
-      value={sortBy}
-      style={{ width: 170 }}
-      options={ALL_SORT_OPTIONS}
-      onChange={handleSortChange}
-    />
-  )
-
   return (
     <Flex vertical justify="flex-start" gap="large">
       <Flex justify="space-between" align="center" gap="large">
@@ -40,13 +30,14 @@ export const Authors = () => {
           pageSize={limit}
           handleSubmit={handlePagination}
         />
-        <div className={s.toolbarDesktopOnly}>{sortSelectJSX}</div>
-        <div className={s.toolbarMobileOnly}>
-          <ActivateEditMode />
-        </div>
+        <Select
+          placeholder="Sort by..."
+          value={sortBy}
+          style={{ width: 170 }}
+          options={ALL_SORT_OPTIONS}
+          onChange={handleSortChange}
+        />
       </Flex>
-
-      <div className={s.toolbarMobileOnly}>{sortSelectJSX}</div>
 
       <div className={s.cardWrapper}>
         {authors.map((item) => (

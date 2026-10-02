@@ -3,6 +3,8 @@ import { useSearchParams } from 'react-router-dom'
 import { ALL_TAGS, READ_STATISTIC } from '__graphql'
 import type { BookFilterInput } from '__graphql/__generated__/graphql'
 import { BookSortBy } from '__graphql/__generated__/enums'
+import { Grid } from 'antd'
+import { useCallback, useEffect, useState } from 'react'
 
 export const bookSortByLabels: { [key in BookSortBy]: string } = {
   [BookSortBy.AuthorAsc]: 'Author (A-Z)',
@@ -15,12 +17,36 @@ export const bookSortByLabels: { [key in BookSortBy]: string } = {
   [BookSortBy.TitleDesc]: 'Title (Z-A)',
 }
 
+const { useBreakpoint } = Grid
+
 export const useFilters = () => {
+  const screens = useBreakpoint()
+  const isDesktop = !!screens.md
+
   const [searchParams, setSearchParams] = useSearchParams()
+
   const selectedTag = searchParams.get('tagId')
   const selectedRating = searchParams.get('rating')
   const selectedYear = searchParams.get('year')
   const sortBy = (searchParams.get('sortBy') as BookSortBy) || BookSortBy.DateDesc
+
+  const [draftMobileFilters, setDraftMobileFilters] = useState({
+    tagId: selectedTag ?? null,
+    rating: selectedRating ?? null,
+    year: selectedYear ?? null,
+    sortBy: sortBy,
+  })
+
+  useEffect(() => {
+    if (!isDesktop) {
+      setDraftMobileFilters({
+        tagId: selectedTag,
+        rating: selectedRating,
+        year: selectedYear,
+        sortBy: sortBy,
+      })
+    }
+  }, [selectedTag, selectedRating, selectedYear, sortBy, isDesktop])
 
   const { data: tags, error: tagError } = useQuery(ALL_TAGS, {})
 
@@ -30,52 +56,61 @@ export const useFilters = () => {
     },
   })
 
-  const handleFilterChange = (filter: keyof BookFilterInput, value: string | null) => {
+  const updateSearchParams = (paramsToUpdate: Record<string, string | null>) => {
     setSearchParams((prev) => {
       const next = new URLSearchParams(prev)
 
-      if (value) {
-        next.set(filter, value)
+      Object.entries(paramsToUpdate).forEach(([key, val]) => {
+        if (val) {
+          next.set(key, val)
+        } else {
+          next.delete(key)
+        }
+      })
+
+      next.set('page', '1')
+      return next
+    })
+  }
+
+  const handleFilterChange = useCallback(
+    (filter: keyof BookFilterInput | 'sortBy', value: string | null) => {
+      if (isDesktop) {
+        updateSearchParams({ [filter]: value })
       } else {
-        next.delete(filter)
+        setDraftMobileFilters((prev) => ({ ...prev, [filter]: value }))
       }
-
-      next.set('page', '1')
-      return next
-    })
-  }
-
-  const handleSortChange = (newSortBy: string) => {
-    setSearchParams((prev) => {
-      const next = new URLSearchParams(prev)
-      next.set('sortBy', newSortBy)
-      next.set('page', '1')
-      return next
-    })
-  }
+    },
+    [isDesktop],
+  )
 
   const resetFilters = () => {
-    setSearchParams((prev) => {
-      const next = new URLSearchParams(prev)
-      next.delete('tagId')
-      next.delete('rating')
-      next.delete('year')
-      next.set('sortBy', BookSortBy.DateDesc)
-      next.set('page', '1')
-      return next
-    })
+    const defaultFilters = {
+      tagId: null,
+      rating: null,
+      year: null,
+      sortBy: BookSortBy.DateDesc,
+    }
+
+    setDraftMobileFilters(defaultFilters)
+    updateSearchParams(defaultFilters)
+  }
+
+  const applyFilters = () => {
+    updateSearchParams(draftMobileFilters)
   }
 
   return {
     tags: tags?.tags || [],
     years: years?.statistic || [],
-    error: [...(tagError?.message || []), ...(yearsError?.message || [])].join(', '),
-    selectedTag,
-    selectedRating,
-    selectedYear,
-    sortBy,
+    error: [tagError?.message, yearsError?.message].filter(Boolean).join(', '),
+    selectedTag: isDesktop ? selectedTag : draftMobileFilters.tagId,
+    selectedRating: isDesktop ? selectedRating : draftMobileFilters.rating,
+    selectedYear: isDesktop ? selectedYear : draftMobileFilters.year,
+    sortBy: isDesktop ? sortBy : draftMobileFilters.sortBy,
     resetFilters,
     handleFilterChange,
-    handleSortChange,
+    applyFilters,
+    isDesktop,
   }
 }

@@ -1,18 +1,20 @@
 import { Select } from 'antd'
-import { bookSortByLabels, useFilters } from '../hooks/useFilters'
-import { Error } from 'UI'
+import { bookSortByLabels } from '../hooks/useFilters'
 
-export const SortBy = () => {
-  const { error, sortBy, handleSortChange } = useFilters()
+interface SortByProps {
+  value: string | null
+  onChange: (val: string | null) => void
+}
 
-  if (error) return <Error message={error} />
+export const SortBy = (props: SortByProps) => {
+  const { value, onChange } = props
 
   return (
     <Select
-      value={sortBy}
+      value={value}
       style={{ width: 200 }}
       options={Object.entries(bookSortByLabels).map(([value, label]) => ({ value, label }))}
-      onChange={(value) => handleSortChange(value)}
+      onChange={onChange}
     />
   )
 }

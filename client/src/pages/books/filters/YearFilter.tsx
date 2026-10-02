@@ -1,11 +1,16 @@
 import { Select } from 'antd'
-import { Error } from 'UI'
-import { useFilters } from '../hooks/useFilters'
 
-export const YearFilter = () => {
-  const { years, selectedYear, error, handleFilterChange } = useFilters()
+interface YearFilterProps {
+  value: string | null
+  onChange: (val: string | null) => void
+  years: {
+    count: number
+    period: string
+  }[]
+}
 
-  if (error) return <Error message={error} />
+export const YearFilter = (props: YearFilterProps) => {
+  const { value, onChange, years = [] } = props
 
   const selectItems = years.map(({ period }) => ({
     value: period,
@@ -17,9 +22,9 @@ export const YearFilter = () => {
       allowClear
       placeholder="Select a year"
       style={{ width: 120 }}
-      value={selectedYear}
+      value={value}
       options={selectItems}
-      onChange={(value) => handleFilterChange('year', value)}
+      onChange={onChange}
     />
   )
 }
