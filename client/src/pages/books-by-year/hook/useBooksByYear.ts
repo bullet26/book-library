@@ -26,14 +26,16 @@ export const useBooksByYear = () => {
   })
 
   const books = useMemo<MonthGroup[]>(() => {
-    const booksData = data?.getBooks?.books || []
-    if (!booksData?.length) return []
+    const booksData = data?.getBooks?.books
+    if (!booksData || !year) return []
 
     const groupsMap = new Map<string, AllBooks>()
 
     booksData.forEach((item) => {
-      const month = item.readDate?.at(-1)?.readEnd?.month
+      const date = item.readDate.find(({ readEnd }) => readEnd.year.toString() === year.toString())
+      if (!date) return
 
+      const month = date.readEnd?.month
       if (!month) return
 
       const currentList = groupsMap.get(month) ?? []
