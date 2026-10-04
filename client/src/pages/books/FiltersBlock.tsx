@@ -35,10 +35,57 @@ export const FiltersBlock = () => {
 
   if (error) return <Error message={error} />
 
+  if (isDesktop) {
+    return (
+      <Flex gap="medium" align="center" wrap justify="space-between">
+        <SortBy value={sortBy} onChange={(val) => handleFilterChange('sortBy', val)} />
+        <RatingFilter
+          value={selectedRating}
+          onChange={(val) => handleFilterChange('rating', val)}
+        />
+        <TagFilter
+          value={selectedTag}
+          tags={tags}
+          onChange={(val) => handleFilterChange('tagId', val || null)}
+        />
+        <YearFilter
+          value={selectedYear}
+          years={years}
+          onChange={(val) => handleFilterChange('year', val)}
+        />
+        <YearNavigator />
+        {resetButton()}
+      </Flex>
+    )
+  }
+
+  // mobile view -> Drawer
   return (
     <>
-      {isDesktop ? (
-        <Flex gap="medium" align="center" wrap justify="space-between">
+      <Button type="primary" icon={<FilterOutlined />} onClick={() => setIsDrawerOpen(true)}>
+        Filters
+      </Button>
+      <Drawer
+        title="Filters"
+        placement="right"
+        size="85vh"
+        onClose={onCloseDrawer}
+        open={isDrawerOpen}
+        closeIcon={<CloseOutlined />}
+        extra={resetButton()}
+        footer={
+          <Button
+            type="primary"
+            block
+            size="large"
+            onClick={() => {
+              applyFilters()
+              onCloseDrawer()
+            }}>
+            Apply
+          </Button>
+        }>
+        <Flex wrap gap="large" justify="space-between">
           <SortBy value={sortBy} onChange={(val) => handleFilterChange('sortBy', val)} />
           <RatingFilter
             value={selectedRating}
@@ -54,57 +101,11 @@ export const FiltersBlock = () => {
             years={years}
             onChange={(val) => handleFilterChange('year', val)}
           />
+          <Divider />
           <YearNavigator />
-          {resetButton()}
+          <ActivateEditMode />
         </Flex>
-      ) : (
-        <>
-          <Button type="primary" icon={<FilterOutlined />} onClick={() => setIsDrawerOpen(true)}>
-            Filters
-          </Button>
-          <Drawer
-            title="Filters"
-            placement="right"
-            size="85vh"
-            onClose={onCloseDrawer}
-            open={isDrawerOpen}
-            closeIcon={<CloseOutlined />}
-            extra={resetButton()}
-            footer={
-              <Button
-                type="primary"
-                block
-                size="large"
-                onClick={() => {
-                  applyFilters()
-                  onCloseDrawer()
-                }}>
-                Apply
-              </Button>
-            }>
-            <Flex wrap gap="large" justify="space-between">
-              <SortBy value={sortBy} onChange={(val) => handleFilterChange('sortBy', val)} />
-              <RatingFilter
-                value={selectedRating}
-                onChange={(val) => handleFilterChange('rating', val)}
-              />
-              <TagFilter
-                value={selectedTag}
-                tags={tags}
-                onChange={(val) => handleFilterChange('tagId', val || null)}
-              />
-              <YearFilter
-                value={selectedYear}
-                years={years}
-                onChange={(val) => handleFilterChange('year', val)}
-              />
-              <Divider />
-              <YearNavigator />
-              <ActivateEditMode />
-            </Flex>
-          </Drawer>
-        </>
-      )}
+      </Drawer>
     </>
   )
 }

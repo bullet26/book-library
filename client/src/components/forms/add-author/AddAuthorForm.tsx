@@ -41,6 +41,12 @@ export const AddAuthorForm = (props: AddAuthorFormProps) => {
     handleHideForm()
   }
 
+  if (error) return <Error />
+  if (data)
+    return (
+      <Modal content={`author ${data.authorInfo.name} ${data.authorInfo.surname} was creted`} />
+    )
+
   return (
     <div className={s.addAuthorForm}>
       <div className={s.title}>Add author</div>
@@ -61,12 +67,6 @@ export const AddAuthorForm = (props: AddAuthorFormProps) => {
           </Button>
         </form>
       </FormProvider>
-
-      {!!data && (
-        <Modal content={`author ${data.authorInfo.name} ${data.authorInfo.surname} was creted`} />
-      )}
-
-      {!!error && <Error />}
     </div>
   )
 }

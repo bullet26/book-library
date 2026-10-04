@@ -68,6 +68,8 @@ export const SearchDropdown = (props: SearchDropdownProps) => {
 
   const listData = data ? (data as Record<typeof config.dataKey, any>)[config.dataKey] : null
 
+  if (error) return <Error message={error?.message} />
+
   return (
     <>
       <div className={s.searchFormInputWrapper} style={style}>
@@ -84,7 +86,6 @@ export const SearchDropdown = (props: SearchDropdownProps) => {
           <SearchListForm data={listData} onClick={handleSearchResultClick} />
         )}
       </div>
-      {!!error && <Error message={error?.message} />}
     </>
   )
 }

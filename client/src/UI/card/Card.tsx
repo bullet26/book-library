@@ -23,43 +23,46 @@ export const Card = (props: CardProps) => {
 
   const bookCover = img ? <img alt="book cover" src={img} /> : <Book height={215} />
 
-  return (
-    <>
-      {type === 'small' && (
-        <Tooltip placement="rightTop" title={title}>
-          <AntdCard
-            hoverable
-            className={s.smallWrapper}
-            cover={bookCover}
-            onClick={() => onClick(id)}>
-            <Rating rating={rating} type="circle-only" style={{ bottom: '5px', top: 'auto' }} />
-          </AntdCard>
-        </Tooltip>
-      )}
-      {type === 'author' &&
-        (count ? (
-          <Badge count={count} color={getCountColor(count)}>
-            <AntdCard hoverable className={s.wrapper} cover={bookCover} onClick={() => onClick(id)}>
-              <Tooltip placement="rightTop" title={title}>
-                <Meta title={title} description={subtitle} />
-              </Tooltip>
-            </AntdCard>
-          </Badge>
-        ) : (
-          <AntdCard hoverable className={s.wrapper} cover={bookCover} onClick={() => onClick(id)}>
-            <Tooltip placement="rightTop" title={title}>
-              <Meta title={title} description={subtitle} />
-            </Tooltip>
-          </AntdCard>
-        ))}
-      {type === 'book' && (
+  if (type === 'small') {
+    return (
+      <Tooltip placement="rightTop" title={title}>
+        <AntdCard
+          hoverable
+          className={s.smallWrapper}
+          cover={bookCover}
+          onClick={() => onClick(id)}>
+          <Rating rating={rating} type="circle-only" style={{ bottom: '5px', top: 'auto' }} />
+        </AntdCard>
+      </Tooltip>
+    )
+  }
+
+  if (type === 'author') {
+    return count ? (
+      <Badge count={count} color={getCountColor(count)}>
         <AntdCard hoverable className={s.wrapper} cover={bookCover} onClick={() => onClick(id)}>
-          <Rating rating={rating} type="circle-only" />
           <Tooltip placement="rightTop" title={title}>
             <Meta title={title} description={subtitle} />
           </Tooltip>
         </AntdCard>
-      )}
-    </>
-  )
+      </Badge>
+    ) : (
+      <AntdCard hoverable className={s.wrapper} cover={bookCover} onClick={() => onClick(id)}>
+        <Tooltip placement="rightTop" title={title}>
+          <Meta title={title} description={subtitle} />
+        </Tooltip>
+      </AntdCard>
+    )
+  }
+
+  if (type === 'book') {
+    return (
+      <AntdCard hoverable className={s.wrapper} cover={bookCover} onClick={() => onClick(id)}>
+        <Rating rating={rating} type="circle-only" />
+        <Tooltip placement="rightTop" title={title}>
+          <Meta title={title} description={subtitle} />
+        </Tooltip>
+      </AntdCard>
+    )
+  }
 }

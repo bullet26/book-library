@@ -10,18 +10,17 @@ export const ChartBook = () => {
 
   if (loading) return <div className={s.loading}>Loading..</div>
   if (error) return <Error message={error?.message} />
+  if (!data?.books?.length) return null
 
   return (
     <Flex vertical>
       <div className={s.title}>MOST READ BOOKS</div>
-      {!!data?.books?.length && (
-        <DiagramPie
-          chartData={data.books.map(({ bookTitle, author, count }) => ({
-            name: `${bookTitle}, ${author}`,
-            count,
-          }))}
-        />
-      )}
+      <DiagramPie
+        chartData={data.books.map(({ bookTitle, author, count }) => ({
+          name: `${bookTitle}, ${author}`,
+          count,
+        }))}
+      />
     </Flex>
   )
 }

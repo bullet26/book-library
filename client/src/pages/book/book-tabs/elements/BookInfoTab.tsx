@@ -26,34 +26,33 @@ export const BookInfoTab = (props: BookInfoTabProps) => {
     }
   }
 
+  if (!data?.book) return null
+
   const annotation = sanitize(data?.book?.description || '')
 
-  const series = data?.book?.series
+  const { series, notes, author, readDate } = data.book
 
   return (
     <Flex vertical gap="large">
-      {!!data?.book && (
-        <div className={s.bookInfo}>
-          <div className={s.key}>author</div>
-          <Tooltip title={data?.book?.notes || null} placement="leftTop">
-            <div
-              className={`${s.value} ${s.link}`}
-              onClick={() => handleClickAuthor(data?.book?.author.id)}>
-              {data.book.author.name} {data?.book.author.surname}
-            </div>
-          </Tooltip>
-          <div className={s.key}>read date</div>
-          <div className={`${s.value} ${s.link}`}>
-            {data.book.readDate.map((item, i) => (
-              <div key={i} onClick={() => handleClickDate(item?.readEnd.year)}>
-                {item?.readEnd.day} {item?.readEnd.month}, {item?.readEnd.year}
-              </div>
-            ))}
+      <div className={s.bookInfo}>
+        <div className={s.key}>author</div>
+        <Tooltip title={notes || null} placement="leftTop">
+          <div className={`${s.value} ${s.link}`} onClick={() => handleClickAuthor(author.id)}>
+            {author.name} {author.surname}
           </div>
-          <div className={s.key}>description</div>
-          <div className={s.value} dangerouslySetInnerHTML={{ __html: annotation }} />
+        </Tooltip>
+        <div className={s.key}>read date</div>
+        <div className={`${s.value} ${s.link}`}>
+          {readDate.map((item, i) => (
+            <div key={i} onClick={() => handleClickDate(item?.readEnd.year)}>
+              {item?.readEnd.day} {item?.readEnd.month}, {item?.readEnd.year}
+            </div>
+          ))}
         </div>
-      )}
+        <div className={s.key}>description</div>
+        <div className={s.value} dangerouslySetInnerHTML={{ __html: annotation }} />
+      </div>
+
       {!!series?.booksInSeries && (
         <Carousel
           booksInSeries={series.booksInSeries}

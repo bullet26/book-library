@@ -14,32 +14,33 @@ interface RatingProps {
 export const Rating = (props: RatingProps) => {
   const { rating, type, style = {} } = props
 
-  return (
-    <>
-      {type === 'star' && (
-        <Flex justify="space-around" style={style}>
-          <div className={s.ratingStar}>
-            <Rate
-              disabled
-              defaultValue={rating}
-              style={{ fontSize: 40, color: colorRate(rating) }}
-              character={rating >= 4 ? <HeartFilled /> : <StarFilled />}
-              allowHalf
-              count={5}
-            />
-          </div>
-          <div className={s.ratingCircle} style={{ backgroundColor: colorRate(rating) }}>
-            {rating || <Tick fill="white" height="15px" />}
-          </div>
-        </Flex>
-      )}
-      {type === 'circle-only' && (
-        <div className={s.wrapperCircleOnly} style={style}>
-          <div className={s.ratingCircle} style={{ backgroundColor: colorRate(rating) }}>
-            {rating || <Tick fill="white" height="15px" />}
-          </div>
+  if (type === 'star') {
+    return (
+      <Flex justify="space-around" style={style}>
+        <div className={s.ratingStar}>
+          <Rate
+            disabled
+            defaultValue={rating}
+            style={{ fontSize: 40, color: colorRate(rating) }}
+            character={rating >= 4 ? <HeartFilled /> : <StarFilled />}
+            allowHalf
+            count={5}
+          />
         </div>
-      )}
-    </>
-  )
+        <div className={s.ratingCircle} style={{ backgroundColor: colorRate(rating) }}>
+          {rating || <Tick fill="white" height="15px" />}
+        </div>
+      </Flex>
+    )
+  }
+
+  if (type === 'circle-only') {
+    return (
+      <div className={s.wrapperCircleOnly} style={style}>
+        <div className={s.ratingCircle} style={{ backgroundColor: colorRate(rating) }}>
+          {rating || <Tick fill="white" height="15px" />}
+        </div>
+      </div>
+    )
+  }
 }

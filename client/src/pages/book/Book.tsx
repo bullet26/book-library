@@ -16,43 +16,41 @@ export const Book = () => {
 
   const { loading, error, data } = useQuery(ONE_BOOK_BY_ID, { skip: !id, variables: { id } })
 
-  const bookCover = data?.book?.bookCover || ''
-  const description = data?.book?.description
-
   if (loading) return <Loader />
   if (error) return <Error message={error.message} />
+  if (!data?.book) return null
+
+  const { bookCover, description, title, tags, rating } = data.book
 
   return (
-    !!data && (
-      <ReactHelmetMetadata
-        title={data?.book?.title}
-        pageURL={window.location.href}
-        imageURL={bookCover}
-        description={description?.replace(/<[^>]*>/g, '') || data?.book?.title}
-        children={
-          <Flex justify="flex-end" gap="large">
-            {window.innerWidth > 630 && <ScrollArrow />}
+    <ReactHelmetMetadata
+      title={data.book.title}
+      pageURL={window.location.href}
+      imageURL={bookCover || ''}
+      description={(description || title).replace(/<[^>]*>/g, '')}
+      children={
+        <Flex justify="flex-end" gap="large">
+          {window.innerWidth > 630 && <ScrollArrow />}
 
-            <Flex justify="space-between" align="flex-start" className={s.wrapper}>
-              <div className={`${s.title} ${s.mobile}`}>{data?.book?.title}</div>
-              <Flex vertical gap="large">
-                <Flex vertical gap="medium" justify="space-between" className={s.imgWrapper}>
-                  {bookCover ? <Image width="100%" src={bookCover} /> : <BookImg width="100%" />}
-                  <Rating rating={data?.book?.rating || 0} type="star" />
-                </Flex>
-                <Tags tags={data?.book?.tags || []} bookID={id} />
+          <Flex justify="space-between" align="flex-start" className={s.wrapper}>
+            <div className={`${s.title} ${s.mobile}`}>{title}</div>
+            <Flex vertical gap="large">
+              <Flex vertical gap="medium" justify="space-between" className={s.imgWrapper}>
+                {bookCover ? <Image width="100%" src={bookCover} /> : <BookImg width="100%" />}
+                <Rating rating={rating || 0} type="star" />
               </Flex>
-
-              <div className={s.contentWrapper}>
-                <TegakiRenderer font={caveat} className={s.title}>
-                  {data?.book?.title}
-                </TegakiRenderer>
-                <BookTab />
-              </div>
+              <Tags tags={tags || []} bookID={id} />
             </Flex>
+
+            <div className={s.contentWrapper}>
+              <TegakiRenderer font={caveat} className={s.title}>
+                {title}
+              </TegakiRenderer>
+              <BookTab />
+            </div>
           </Flex>
-        }
-      />
-    )
+        </Flex>
+      }
+    />
   )
 }

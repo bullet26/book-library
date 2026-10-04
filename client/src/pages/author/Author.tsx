@@ -32,61 +32,56 @@ export const Author = () => {
     navigate(`/books/${id}`)
   }
 
-  const { booksQuant, booksAverageRating } = calcRating(data)
-  const portrait = data?.author?.portrait || getRandomImage()
-
   if (loading) return <Loader />
   if (error) return <Error message={error?.message} />
+  if (!data?.author) return null
+
+  const { booksQuant, booksAverageRating } = calcRating(data)
+  const portrait = data.author.portrait || getRandomImage()
+  const { name, surname, series = [], booksWithoutSeries } = data.author
 
   return (
-    !!data?.author && (
-      <ReactHelmetMetadata
-        title={`${data.author.surname}, ${data.author.name}`}
-        pageURL={window.location.href}
-        imageURL={portrait}
-        description={`${data?.author.name} ${data?.author.surname}`}
-        children={
-          <Flex justify="flex-end">
-            <ScrollArrow />
-            <Flex justify="space-between" className={s.wrapperContent}>
-              <div
-                className={`${s.title} ${s.mobile}`}>{`${data?.author.name} ${data?.author.surname}`}</div>
-              <div className={s.imgWrapper}>
-                {portrait ? (
-                  <Image width="100%" src={portrait} alt="author" />
-                ) : (
-                  <BookImg width="100%" />
-                )}
-                <TegakiRenderer font={caveat} className={s.title}>
-                  {`${data?.author.name} ${data?.author.surname}`}
-                </TegakiRenderer>
-                <div className={s.statistic}>Total number of books read:&nbsp;{booksQuant}</div>
-                <div className={s.statistic}>
-                  Average rating:&nbsp;
-                  <span style={{ color: colorRate(booksAverageRating) }}>{booksAverageRating}</span>
-                </div>
+    <ReactHelmetMetadata
+      title={`${surname}, ${name}`}
+      pageURL={window.location.href}
+      imageURL={portrait}
+      description={`${name} ${surname}`}
+      children={
+        <Flex justify="flex-end">
+          <ScrollArrow />
+          <Flex justify="space-between" className={s.wrapperContent}>
+            <div className={`${s.title} ${s.mobile}`}>{`${name} ${surname}`}</div>
+            <div className={s.imgWrapper}>
+              <Image width="100%" src={portrait} alt="author" />
+              <TegakiRenderer font={caveat} className={s.title}>
+                {`${name} ${surname}`}
+              </TegakiRenderer>
+              <div className={s.statistic}>Total number of books read:&nbsp;{booksQuant}</div>
+              <div className={s.statistic}>
+                Average rating:&nbsp;
+                <span style={{ color: colorRate(booksAverageRating) }}>{booksAverageRating}</span>
               </div>
-              <div className={s.bookWrapper}>
-                {data.author.series.map(({ title, booksInSeries }) => (
-                  <BookSection
-                    key={title}
-                    title={title}
-                    booksInSeries={booksInSeries}
-                    onClick={handleClick}
-                  />
-                ))}
-                {!!data.author.booksWithoutSeries.length && (
-                  <BookSection
-                    title="Books outside the series"
-                    booksInSeries={data.author.booksWithoutSeries}
-                    onClick={handleClick}
-                  />
-                )}
-              </div>
-            </Flex>
+            </div>
+            <div className={s.bookWrapper}>
+              {series.map(({ title, booksInSeries }) => (
+                <BookSection
+                  key={title}
+                  title={title}
+                  booksInSeries={booksInSeries}
+                  onClick={handleClick}
+                />
+              ))}
+              {booksWithoutSeries.length && (
+                <BookSection
+                  title="Books outside the series"
+                  booksInSeries={booksWithoutSeries}
+                  onClick={handleClick}
+                />
+              )}
+            </div>
           </Flex>
-        }
-      />
-    )
+        </Flex>
+      }
+    />
   )
 }

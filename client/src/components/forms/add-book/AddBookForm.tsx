@@ -55,93 +55,92 @@ export const AddBookForm = (props: AddBookFormProps) => {
     methods.reset()
   }
 
+  if (error) return <Error />
+  if (data)
+    return (
+      <Modal
+        content={`book ${data.bookInfo.title} was created, author - ${data.bookInfo.author.name} ${data.bookInfo.author.surname} `}
+      />
+    )
+
   return (
-    <>
-      <FormProvider {...methods}>
-        <form onSubmit={methods.handleSubmit(onSubmit)} className={s.addBookFormGrid}>
-          <div className={s.form}>
-            <div className={s.title}>Add read book</div>
+    <FormProvider {...methods}>
+      <form onSubmit={methods.handleSubmit(onSubmit)} className={s.addBookFormGrid}>
+        <div className={s.form}>
+          <div className={s.title}>Add read book</div>
 
-            <TextInputControlled name="title" placeholder="Book title" />
+          <TextInputControlled name="title" placeholder="Book title" />
 
-            <div className={s.formRow}>
-              <SearchDropdownControlled name="authorID" />
+          <div className={s.formRow}>
+            <SearchDropdownControlled name="authorID" />
 
-              <div className={s.desktopOnlyBtn}>
-                <Button type="default" size="middle" onClick={handleClickAuthorBtn}>
-                  {isShowAuthorForm ? 'Hide author form' : 'Add new author'}
-                </Button>
-              </div>
-            </div>
-
-            <div className={s.formRow}>
-              <RateControlled name="rating" />
-              <DatePickerControlled name="readEnd" style={{ width: '100%' }} />
-            </div>
-
-            <div className={s.formRow}>
-              <SearchDropdownControlled name="seriesID" />
-              <NumberInputControlled
-                name="seriesNumber"
-                placeholder="Book series number"
-                style={{
-                  width: '50%',
-                }}
-              />
-              <div className={s.desktopOnlyBtn}>
-                <Button type="default" size="middle" onClick={handleClickSerieBtn}>
-                  {isShowSerieForm ? 'Hide serie form' : 'Add new serie'}
-                </Button>
-              </div>
-            </div>
-
-            <div className={s.formRow}>
-              <NumberInputControlled
-                name="pages"
-                placeholder="Book pages"
-                style={{
-                  width: '100%',
-                }}
-              />
-              <TextInputControlled name="notes" placeholder="Book notes" />
-            </div>
-
-            <TextEditorControlled name="description" placeholder="Book annotation" />
-            <TextEditorControlled name="plot" editOptions placeholder="Book plot description" />
-
-            <div className={s.mobileOnlyBtns}>
-              <Button type="default" size="middle" onClick={handleClickSerieBtn}>
-                {isShowSerieForm ? 'Hide serie form' : 'Add new serie'}
-              </Button>
+            <div className={s.desktopOnlyBtn}>
               <Button type="default" size="middle" onClick={handleClickAuthorBtn}>
                 {isShowAuthorForm ? 'Hide author form' : 'Add new author'}
               </Button>
             </div>
+          </div>
 
-            <Button
-              className={s.submitBtn}
-              type="primary"
-              size="large"
-              htmlType="submit"
-              disabled={loading}>
-              ADD BOOK
+          <div className={s.formRow}>
+            <RateControlled name="rating" />
+            <DatePickerControlled name="readEnd" style={{ width: '100%' }} />
+          </div>
+
+          <div className={s.formRow}>
+            <SearchDropdownControlled name="seriesID" />
+            <NumberInputControlled
+              name="seriesNumber"
+              placeholder="Book series number"
+              style={{
+                width: '50%',
+              }}
+            />
+            <div className={s.desktopOnlyBtn}>
+              <Button type="default" size="middle" onClick={handleClickSerieBtn}>
+                {isShowSerieForm ? 'Hide serie form' : 'Add new serie'}
+              </Button>
+            </div>
+          </div>
+
+          <div className={s.formRow}>
+            <NumberInputControlled
+              name="pages"
+              placeholder="Book pages"
+              style={{
+                width: '100%',
+              }}
+            />
+            <TextInputControlled name="notes" placeholder="Book notes" />
+          </div>
+
+          <TextEditorControlled name="description" placeholder="Book annotation" />
+          <TextEditorControlled name="plot" editOptions placeholder="Book plot description" />
+
+          <div className={s.mobileOnlyBtns}>
+            <Button type="default" size="middle" onClick={handleClickSerieBtn}>
+              {isShowSerieForm ? 'Hide serie form' : 'Add new serie'}
+            </Button>
+            <Button type="default" size="middle" onClick={handleClickAuthorBtn}>
+              {isShowAuthorForm ? 'Hide author form' : 'Add new author'}
             </Button>
           </div>
 
-          {!isShowAuthorForm && (
-            <div className={s.dropzoneRightColumn}>
-              <DropZoneControlled name="bookCover" />
-            </div>
-          )}
-        </form>
-      </FormProvider>
+          <Button
+            className={s.submitBtn}
+            type="primary"
+            size="large"
+            htmlType="submit"
+            disabled={loading}>
+            ADD BOOK
+          </Button>
+        </div>
 
-      {!!data && (
-        <Modal
-          content={`book ${data.bookInfo.title} was created, author - ${data.bookInfo.author.name} ${data.bookInfo.author.surname} `}
-        />
-      )}
-      {!!error && <Error />}
-    </>
+        {!isShowAuthorForm && (
+          <div className={s.dropzoneRightColumn}>
+            <DropZoneControlled name="bookCover" />
+          </div>
+        )}
+      </form>
+    </FormProvider>
   )
 }

@@ -18,12 +18,12 @@ export const Error = (props: ErrorProps) => {
     }
   }, [])
 
+  if (show) return null
+
   return (
-    show && (
-      <div className={s.wrapper}>
-        <img src={errorImg} alt="error-img" />
-        <div className={s.text}>{message || 'Something went wrong'}</div>
-      </div>
-    )
+    <div className={s.wrapper}>
+      <img src={errorImg} alt="error-img" />
+      <div className={s.text}>{message || 'Something went wrong'}</div>
+    </div>
   )
 }

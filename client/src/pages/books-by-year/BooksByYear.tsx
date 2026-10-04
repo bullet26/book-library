@@ -29,7 +29,7 @@ export const BooksByYear = () => {
       </Flex>
 
       <DateDivider message={String(year)} type="main" />
-      {books?.map(({ month, books }) => {
+      {books.map(({ month, books }) => {
         return (
           <Fragment key={month}>
             <DateDivider message={month} />

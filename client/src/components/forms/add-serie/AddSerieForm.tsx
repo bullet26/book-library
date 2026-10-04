@@ -30,26 +30,24 @@ export const AddSerieForm = (props: AddSerieFormProps) => {
     handleHideForm()
   }
 
+  if (error) return <Error />
+  if (data) return <Modal content={`serie ${data.serieInfo.title} was created`} />
+
   return (
-    <>
-      <FormProvider {...methods}>
-        <form className={s.seriesForm} onSubmit={methods.handleSubmit(onSubmit)}>
-          <TextInputControlled name="title" placeholder="Serie title" />
-          <SearchDropdownControlled name="authorID" />
+    <FormProvider {...methods}>
+      <form className={s.seriesForm} onSubmit={methods.handleSubmit(onSubmit)}>
+        <TextInputControlled name="title" placeholder="Serie title" />
+        <SearchDropdownControlled name="authorID" />
 
-          <Button
-            className={s.submitBtn}
-            type="primary"
-            size="large"
-            htmlType="submit"
-            disabled={loading}>
-            ADD
-          </Button>
-        </form>
-      </FormProvider>
-
-      {!!data && <Modal content={`serie ${data.serieInfo.title} was created`} />}
-      {!!error && <Error />}
-    </>
+        <Button
+          className={s.submitBtn}
+          type="primary"
+          size="large"
+          htmlType="submit"
+          disabled={loading}>
+          ADD
+        </Button>
+      </form>
+    </FormProvider>
   )
 }

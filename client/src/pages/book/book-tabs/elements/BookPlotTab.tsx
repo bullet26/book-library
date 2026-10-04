@@ -22,8 +22,6 @@ export const BookPlotTab = () => {
     skip: !id,
   })
 
-  const plot = sanitize(data?.book?.plot || '')
-
   const handleEditClick = () => {
     setViewModeStatus((prev) => !prev)
   }
@@ -31,27 +29,38 @@ export const BookPlotTab = () => {
   if (loading) return <div>Loading..</div>
   if (error) return <Error message={error?.message} />
 
-  if (!loading && !plot)
+  const rawPlot = data?.book?.plot
+
+  if (!rawPlot)
     return (
       <div className={s.emptyPlot}>
         <img src={emptyPlotImg} alt="empty-plot" />
       </div>
     )
 
+  const plot = sanitize(rawPlot)
+
+  if (isViewMode) {
+    return (
+      <>
+        {isEditAllow && (
+          <Flex justify="flex-end" style={{ marginBottom: '10px' }}>
+            <Button icon={<EditFilled />} onClick={handleEditClick} />
+          </Flex>
+        )}
+        <div className={s.text} dangerouslySetInnerHTML={{ __html: plot }} />
+      </>
+    )
+  }
+
   return (
     <>
-      {!!plot && isEditAllow && (
+      {isEditAllow && (
         <Flex justify="flex-end" style={{ marginBottom: '10px' }}>
           <Button icon={<EditFilled />} onClick={handleEditClick} />
         </Flex>
       )}
-
-      {!!plot && (
-        <>
-          {isViewMode && <div className={s.text} dangerouslySetInnerHTML={{ __html: plot }} />}
-          {!isViewMode && <UpdateBookPlotForm id={data?.book?.id || ''} plot={plot} />}
-        </>
-      )}
+      <UpdateBookPlotForm id={data.book?.id || ''} plot={plot} />{' '}
     </>
   )
 }

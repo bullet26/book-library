@@ -9,23 +9,10 @@ import s from './Chart.module.scss'
 
 export const ChartAuthor = () => {
   const { loading, error, data } = useQuery(MOST_READ_AUTHORS)
-  const [chartData, setChartData] = useState<{ name: string; count: number }[]>([])
-
-  useEffect(() => {
-    if (data?.authors?.length) {
-      setChartData(
-        data.authors.map(({ count, surname, name }) => {
-          return {
-            name: `${name} ${surname}`,
-            count,
-          }
-        }),
-      )
-    }
-  }, [data])
 
   if (loading) return <div className={s.loading}>Loading..</div>
   if (error) return <Error message={error?.message} />
+  if (!data?.authors?.length) return null
 
   return (
     <Flex vertical>
@@ -42,7 +29,14 @@ export const ChartAuthor = () => {
           </Button>
         </Link>
       </Flex>
-      {!!chartData.length && <DiagramPie chartData={chartData} />}
+      <DiagramPie
+        chartData={data.authors.map(({ count, surname, name }) => {
+          return {
+            name: `${name} ${surname}`,
+            count,
+          }
+        })}
+      />
     </Flex>
   )
 }

@@ -18,7 +18,7 @@ export const BookMediaTab = () => {
 
   if (loading) return <div>Loading..</div>
   if (error) return <Error message={error?.message} />
-  if (!loading && !media) return <span>You can add media on settings page</span>
+  if (!media) return <span>You can add media on settings page</span>
 
   return (
     <Flex vertical gap="large">

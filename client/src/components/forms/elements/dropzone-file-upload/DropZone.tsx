@@ -90,6 +90,8 @@ export const DropZone = (props: DropZoneProps) => {
     setFileURL(link)
   }
 
+  if (error) return <Error />
+
   return (
     <div className={`${s.wrapper} ${size === 'small' && s.wrapperSmall}`}>
       <Radio.Group
@@ -146,7 +148,6 @@ export const DropZone = (props: DropZoneProps) => {
           placeholder="paste link to image"
         />
       )}
-      {!!error && <Error />}
     </div>
   )
 }

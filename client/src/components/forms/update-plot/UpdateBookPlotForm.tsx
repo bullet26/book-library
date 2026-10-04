@@ -38,6 +38,9 @@ export const UpdateBookPlotForm = (props: UpdateBookPlotProps) => {
     })
   }
 
+  if (error) return <Error />
+  if (data) return <Modal content={'Book PLOT was UPDATED'} />
+
   return (
     <>
       <FormProvider {...methods}>
@@ -62,8 +65,6 @@ export const UpdateBookPlotForm = (props: UpdateBookPlotProps) => {
           </Button>
         </form>
       </FormProvider>
-      {!!data && <Modal content={'Book PLOT was UPDATED'} />}
-      {!!error && <Error />}
     </>
   )
 }

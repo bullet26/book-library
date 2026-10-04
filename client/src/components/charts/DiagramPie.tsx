@@ -15,20 +15,22 @@ export const DiagramPie = (props: DiagramPieProps) => {
     setRadius(handleResponsive())
   }, [])
 
+  const formattedData = chartData.map((item, index) => ({
+    ...item,
+    fill: COLORS[index % COLORS.length],
+  }))
+
   return (
     <ResponsiveContainer height="100%" width="100%">
       <PieChart>
         <Pie
-          data={chartData}
+          data={formattedData}
           innerRadius={radius.inner}
           outerRadius={radius.outer}
           paddingAngle={5}
           dataKey="count"
-          cornerRadius={20}>
-          {chartData.map(({ name }, i) => (
-            <Cell key={name} fill={COLORS[i]} />
-          ))}
-        </Pie>
+          cornerRadius={20}
+        />
         <Tooltip
           contentStyle={{ borderRadius: '15px', backgroundColor: '#222222' }}
           itemStyle={{ color: 'white' }}

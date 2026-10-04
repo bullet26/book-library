@@ -56,16 +56,13 @@ export const ChartYears = () => {
 
   if (loading) return <div className={s.loading}>Loading..</div>
   if (error) return <Error message={error?.message} />
+  if (!data?.statistic?.length) return null
 
   return (
     <Flex vertical gap="large" className={s.barWrapper}>
       <div className={s.title}>Reading dynamics</div>
-      {!!data?.statistic?.length && (
-        <>
-          <XAxisYearLabels onChange={handleChange} data={allYears} value={year} />
-          <DiagramBar chartData={preparedData} />
-        </>
-      )}
+      <XAxisYearLabels onChange={handleChange} data={allYears} value={year} />
+      <DiagramBar chartData={preparedData} />
     </Flex>
   )
 }
