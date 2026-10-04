@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Button, Flex } from 'antd'
 import { MOST_READ_AUTHORS } from '__graphql'

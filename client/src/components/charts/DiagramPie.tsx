@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { PieChart, ResponsiveContainer, Pie, Cell, Tooltip, Legend } from 'recharts'
+import { PieChart, ResponsiveContainer, Pie, Tooltip, Legend } from 'recharts'
 import { COLORS, handleResponsive } from './utils'
 
 interface DiagramPieProps {
