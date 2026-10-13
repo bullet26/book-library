@@ -7,6 +7,7 @@ import { Modal, Error } from 'UI'
 import { DropZoneControlled, TextInputControlled } from '../elements'
 import { AddAuthorInitialValues, AddAuthorValidationSchema, type AddAuthorFormType } from '../utils'
 import s from '../Form.module.scss'
+import { useState } from 'react'
 
 interface AddAuthorFormProps {
   handleHideForm: () => void
@@ -16,17 +17,18 @@ export const AddAuthorForm = (props: AddAuthorFormProps) => {
   const { handleHideForm } = props
 
   const [createAuthorApollo, { data, error, loading }] = useMutation(CREATE_AUTHOR)
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   const methods = useForm({
     defaultValues: AddAuthorInitialValues,
     resolver: yupResolver(AddAuthorValidationSchema),
   })
 
-  const onSubmit = (values: AddAuthorFormType) => {
+  const onSubmit = async (values: AddAuthorFormType) => {
     const portraitThumbnail =
       values.portrait?.replace(/\/upload\//, '/upload/c_thumb,w_218,h_323,g_face/') || null
 
-    createAuthorApollo({
+    await createAuthorApollo({
       variables: {
         input: {
           ...values,
@@ -39,34 +41,38 @@ export const AddAuthorForm = (props: AddAuthorFormProps) => {
 
     methods.reset()
     handleHideForm()
+    setIsModalOpen(true)
   }
 
   if (error) return <Error />
-  if (data)
-    return (
-      <Modal content={`author ${data.authorInfo.name} ${data.authorInfo.surname} was creted`} />
-    )
 
   return (
-    <div className={s.addAuthorForm}>
-      <div className={s.title}>Add author</div>
-      <FormProvider {...methods}>
-        <form className={s.form} onSubmit={methods.handleSubmit(onSubmit)}>
-          <DropZoneControlled name="portrait" size="small" />
-          <TextInputControlled name="name" placeholder="Author name" />
-          <TextInputControlled name="surname" placeholder="Author surname" />
-          <TextInputControlled name="transcriptionName" placeholder="Author transcription name" />
+    <>
+      <div className={s.addAuthorForm}>
+        <div className={s.title}>Add author</div>
+        <FormProvider {...methods}>
+          <form className={s.form} onSubmit={methods.handleSubmit(onSubmit)}>
+            <DropZoneControlled name="portrait" size="small" />
+            <TextInputControlled name="name" placeholder="Author name" />
+            <TextInputControlled name="surname" placeholder="Author surname" />
+            <TextInputControlled name="transcriptionName" placeholder="Author transcription name" />
 
-          <Button
-            className={s.submitBtn}
-            type="primary"
-            size="large"
-            htmlType="submit"
-            disabled={loading}>
-            ADD AUTHOR
-          </Button>
-        </form>
-      </FormProvider>
-    </div>
+            <Button
+              className={s.submitBtn}
+              type="primary"
+              size="large"
+              htmlType="submit"
+              disabled={loading}>
+              ADD AUTHOR
+            </Button>
+          </form>
+        </FormProvider>
+      </div>
+      <Modal
+        content={`author ${data?.authorInfo.name} ${data?.authorInfo.surname} was creted`}
+        open={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
+    </>
   )
 }

@@ -1,19 +1,19 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { Modal as AntModal } from 'antd'
 
 interface ModalProps {
   content: string
+  open: boolean
+  onClose: () => void
 }
 
 export const Modal = (props: ModalProps) => {
-  const { content } = props
-
-  const [modalOpenStatus, setModalOpenStatus] = useState(true)
+  const { content, open, onClose } = props
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      setModalOpenStatus(false)
-    }, 3000)
+      onClose()
+    }, 2000)
 
     return () => {
       clearTimeout(timeout)
@@ -21,11 +21,7 @@ export const Modal = (props: ModalProps) => {
   })
 
   return (
-    <AntModal
-      title="Success"
-      centered
-      open={modalOpenStatus}
-      onOk={() => setModalOpenStatus(false)}>
+    <AntModal title="Success" centered open={open} onOk={onClose} onCancel={onClose}>
       {content}
     </AntModal>
   )

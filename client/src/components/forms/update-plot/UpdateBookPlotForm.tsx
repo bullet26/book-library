@@ -8,6 +8,7 @@ import { Modal, Error } from 'UI'
 import { UpdatePlotValidationSchema, type UpdatePlotFormType } from '../utils'
 import s from '../Form.module.scss'
 import { TextEditorControlled } from '../elements'
+import { useState } from 'react'
 
 interface UpdateBookPlotProps {
   id: string
@@ -18,6 +19,7 @@ export const UpdateBookPlotForm = (props: UpdateBookPlotProps) => {
   const { id, plot } = props
 
   const { id: bookID = '' } = useParams()
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   const methods = useForm<UpdatePlotFormType>({
     defaultValues: {
@@ -28,18 +30,19 @@ export const UpdateBookPlotForm = (props: UpdateBookPlotProps) => {
     resolver: yupResolver(UpdatePlotValidationSchema),
   })
 
-  const [updatePlotApollo, { data, error, loading }] = useMutation(UPDATE_BOOK_PLOT)
+  const [updatePlotApollo, { error, loading }] = useMutation(UPDATE_BOOK_PLOT)
 
-  const onSubmit = (values: UpdatePlotFormType) => {
-    updatePlotApollo({
+  const onSubmit = async (values: UpdatePlotFormType) => {
+    await updatePlotApollo({
       variables: {
         input: values,
       },
     })
+
+    setIsModalOpen(true)
   }
 
   if (error) return <Error />
-  if (data) return <Modal content={'Book PLOT was UPDATED'} />
 
   return (
     <>
@@ -65,6 +68,11 @@ export const UpdateBookPlotForm = (props: UpdateBookPlotProps) => {
           </Button>
         </form>
       </FormProvider>
+      <Modal
+        content={`Book sPLOT was UPDATED`}
+        open={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </>
   )
 }
