@@ -54,7 +54,7 @@ export const AddSerieForm = (props: AddSerieFormProps) => {
       </FormProvider>
       <Modal
         content={`serie ${data?.serieInfo.title} was created`}
-        open={isModalOpen}
+        open={isModalOpen && !!data}
         onClose={() => setIsModalOpen(false)}
       />
     </>

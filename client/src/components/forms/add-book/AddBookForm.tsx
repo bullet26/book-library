@@ -142,7 +142,7 @@ export const AddBookForm = (props: AddBookFormProps) => {
       </FormProvider>
       <Modal
         content={`book ${data?.bookInfo.title} was created, author - ${data?.bookInfo.author.name} ${data?.bookInfo.author.surname} `}
-        open={isModalOpen}
+        open={isModalOpen && !!data}
         onClose={() => setIsModalOpen(false)}
       />
     </>

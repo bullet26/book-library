@@ -70,7 +70,7 @@ export const AddAuthorForm = (props: AddAuthorFormProps) => {
       </div>
       <Modal
         content={`author ${data?.authorInfo.name} ${data?.authorInfo.surname} was creted`}
-        open={isModalOpen}
+        open={isModalOpen && !!data}
         onClose={() => setIsModalOpen(false)}
       />
     </>

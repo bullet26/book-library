@@ -69,7 +69,7 @@ export const UpdateBookPlotForm = (props: UpdateBookPlotProps) => {
         </form>
       </FormProvider>
       <Modal
-        content={`Book sPLOT was UPDATED`}
+        content="Book's PLOT was UPDATED"
         open={isModalOpen}
         onClose={() => setIsModalOpen(false)}
       />

@@ -30,7 +30,7 @@ export const AddMediaForBook = () => {
       </Flex>
       <Modal
         content={`Book ${data?.bookInfo.title} media was updated`}
-        open={isModalOpen}
+        open={isModalOpen && !!data}
         onClose={() => setIsModalOpen(false)}
       />
     </>

@@ -8,7 +8,7 @@ import s from '../AddBook.module.scss'
 import { useState } from 'react'
 
 export const AddBookReread = () => {
-  const [createRereadBookDateApollo, { data: newReadDate, error: errorReadDate, loading }] =
+  const [createRereadBookDateApollo, { data, error: errorReadDate, loading }] =
     useMutation(CREATE_READ_DATE)
 
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -30,8 +30,8 @@ export const AddBookReread = () => {
         <ReReadBookForm onSubmitRequest={onSubmit} disabled={loading} />
       </Flex>
       <Modal
-        content={`book ${newReadDate?.bookInfo.books.title} was read: ${newReadDate?.bookInfo.readEnd.day}-${newReadDate?.bookInfo.readEnd.month}-${newReadDate?.bookInfo.readEnd.year} `}
-        open={isModalOpen}
+        content={`book ${data?.bookInfo.books.title} was read: ${data?.bookInfo.readEnd.day}-${data?.bookInfo.readEnd.month}-${data?.bookInfo.readEnd.year} `}
+        open={isModalOpen && !!data}
         onClose={() => setIsModalOpen(false)}
       />
     </>
